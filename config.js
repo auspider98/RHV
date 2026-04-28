@@ -110,12 +110,22 @@ const SITE_CONFIG = {
     "overlayOpacity": 0.5,
     "videoClips": [
       {
-        "mp4": "videos/hero-01.mp4",
+        "mp4": "videos/hero-00.mp4",
         "webm": "",
         "fallback": "",
         "transitionIn": "crossfade",
         "objectPosition": "center center",
         "playbackRate": 1,
+        "startTime": 0,
+        "playDuration": 0
+      },
+      {
+        "mp4": "videos/hero-06.mp4",
+        "webm": "",
+        "fallback": "",
+        "transitionIn": "crossfade",
+        "objectPosition": "center center",
+        "playbackRate": 1.5,
         "startTime": 0,
         "playDuration": 6
       },
@@ -125,16 +135,6 @@ const SITE_CONFIG = {
         "fallback": "",
         "transitionIn": "crossfade",
         "objectPosition": "bottom center",
-        "playbackRate": 1,
-        "startTime": 0,
-        "playDuration": 6
-      },
-      {
-        "mp4": "videos/hero-06.mp4",
-        "webm": "",
-        "fallback": "",
-        "transitionIn": "crossfade",
-        "objectPosition": "center center",
         "playbackRate": 1,
         "startTime": 0,
         "playDuration": 6
@@ -221,7 +221,7 @@ const SITE_CONFIG = {
   "processRequirements": [],
   "ctaLabel": "Report Sighting",
   "pageToggles": {
-    "about": true,
+    "about": false,
     "contact": true
   },
   "homeToggles": {
@@ -829,5 +829,5 @@ const SITE_CONFIG = {
     "cp-5": "public",
     "cp-6": "public"
   },
-  "_savedAt": 1777391353465
+  "_savedAt": 1777405155780
 };
