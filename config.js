@@ -13,8 +13,8 @@
 
 const SITE_CONFIG = {
   "firmName": "Rush Hour Villains",
-  "tagline": "Official Survival Guide",
-  "preloaderTagline": "Official Survival Guide",
+  "tagline": "Ultimate Drivers Survival Guide",
+  "preloaderTagline": "Ultimate Drivers Survival Guide",
   "pageHeaders": {
     "about": {
       "label": "About Us",
@@ -57,7 +57,13 @@ const SITE_CONFIG = {
   "zip": "",
   "hours": [],
   "socialLinks": [],
-  "stats": [],
+  "stats": [
+    {
+      "num": "71",
+      "label": "Villains Identified",
+      "animate": true
+    }
+  ],
   "colors": {
     "navy": "#1c1c1c",
     "navyLight": "#424242",
@@ -139,19 +145,20 @@ const SITE_CONFIG = {
     "videoHoldEnabled": false,
     "videoHold": 4
   },
-  "heroHeadline": "Knowing Your Enemies, Is Half the Battle",
+  "heroHeadline": "Surviving Your Drive, One Villain at a Time",
   "heroSubline": "Welcome to the definitive field manual for surviving the architects of daily gridlock. We unmask the rogues of the road to help you identify the monsters turning your commute into a high-stakes saga. Strap in and master the tactics needed to navigate the asphalt’s most wanted.",
   "heroTrustBullets": [
     "8+ Identified Clans",
     "70+ Known Villains",
-    "10+ Afflictions"
+    "10+ Afflictions",
+    "One Hero"
   ],
   "heroPrimaryLabel": "Report Sighting",
   "heroPrimaryLinkType": "internal",
   "heroPrimaryLinkUrl": "contact",
   "heroSecondaryLabel": "Villain identification",
   "heroSecondaryLinkType": "internal",
-  "heroSecondaryLinkUrl": "home",
+  "heroSecondaryLinkUrl": "identification",
   "whyChooseUs": {
     "heading": "",
     "subtext": "",
@@ -251,7 +258,7 @@ const SITE_CONFIG = {
           "items": [
             {
               "name": "Co-Pet",
-              "tagline": "",
+              "tagline": "We all love our furry friends, but not theirs. The lap companion decreases reaction time and reduces vision.",
               "price": "",
               "period": "",
               "icon": "",
@@ -270,7 +277,7 @@ const SITE_CONFIG = {
             },
             {
               "name": "Doplertitious",
-              "tagline": "",
+              "tagline": "During stormy weather some villains experience a sick lonely feeling prompting them to turn on every flashing light they have to alert others of their location, which in turn blinds and frustrates every living creature around them.",
               "price": "",
               "period": "",
               "icon": "",
@@ -289,7 +296,7 @@ const SITE_CONFIG = {
             },
             {
               "name": "Ear Buddy",
-              "tagline": "",
+              "tagline": "More often found with convertible villains, this affliction is caused by feelings of inferiority. Having the top off isn't enough to feel important, so having your phone constantly connect to your ear like you're needed at all times give them their high. Is it charged or working, probably not. But they are too busy looking like a fool to worry about that.",
               "price": "",
               "period": "",
               "icon": "",
@@ -308,7 +315,7 @@ const SITE_CONFIG = {
             },
             {
               "name": "Emergency Road Block",
-              "tagline": "",
+              "tagline": "With symptoms of hearing loss, and spatial awareness, ERB can make some villains look like they are in a dream like state, while causing a nightmare of a roadblock for emergency vehicles.",
               "price": "",
               "period": "",
               "icon": "",
@@ -327,7 +334,7 @@ const SITE_CONFIG = {
             },
             {
               "name": "Holey Moley",
-              "tagline": "",
+              "tagline": "Nobody loves a good pothole like a villain suffering from decreased pain sensation. Villains suffering from HM often seem to steer their rigs directly at these ruts like they hate their suspensions.",
               "price": "",
               "period": "",
               "icon": "",
@@ -346,7 +353,7 @@ const SITE_CONFIG = {
             },
             {
               "name": "Lane Envy",
-              "tagline": "",
+              "tagline": "The grass is always green in the other lane when a villain contracts this affliction, that causes tunnel vision and reduced depth perception.",
               "price": "",
               "period": "",
               "icon": "",
@@ -365,7 +372,7 @@ const SITE_CONFIG = {
             },
             {
               "name": "Wheeler Dealer",
-              "tagline": "",
+              "tagline": "Vehicle tats, license plate covers, and front license plates displaying their dealerships logos, are often symptoms of a villain suffering from this terribly commercial marketing illness that was actually contracted from the dealership being showcased.",
               "price": "",
               "period": "",
               "icon": "",
@@ -781,10 +788,10 @@ const SITE_CONFIG = {
   ],
   "aboutSections": [],
   "homeSections": [],
-  "footerBio": "Knowing Your Enemies, is Half the Battle",
-  "animateStats": false,
-  "contactSubmitLabel": "",
-  "contactSuccessMsg": "",
+  "footerBio": "Surviving Your Drive, One Villain at a Time",
+  "animateStats": true,
+  "contactSubmitLabel": "Update Villain Database",
+  "contactSuccessMsg": "Thank you for the Update...drive safe!",
   "search": {
     "placeholder": "Search...",
     "noResultsMessage": "No results for '{query}'",
@@ -822,5 +829,5 @@ const SITE_CONFIG = {
     "cp-5": "public",
     "cp-6": "public"
   },
-  "_savedAt": 1777383623545
+  "_savedAt": 1777391353465
 };
