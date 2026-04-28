@@ -4475,9 +4475,10 @@ function buildCpSectionTypeFields(sec, pi, si) {
       return `
         <div class="field-group"><label>Heading</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
         <div class="field-group"><label>Body Text</label><textarea ${p} data-field="body" rows="4">${v('body')}</textarea></div>
-        <div class="form-row-2">
-          <div class="field-group"><label>Image Path / URL</label><input type="text" ${p} data-field="imagePath" value="${v('imagePath')}" placeholder="images/page.jpg"/></div>
-          <div class="field-group"><label>Image Position</label>
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:14px;">
+          <div class="field-group" style="margin:0;"><label>Image Path / URL</label><input type="text" ${p} data-field="imagePath" value="${v('imagePath')}" placeholder="images/page.jpg"/></div>
+          <div class="field-group" style="margin:0;"><label>Max Width (px)</label><input type="number" ${p} data-field="imageMaxWidth" value="${v('imageMaxWidth')}" placeholder="e.g. 480" min="50" max="1200"/></div>
+          <div class="field-group" style="margin:0;"><label>Image Position</label>
             <select ${p} data-field="imagePosition">
               ${['left','right'].map(o=>`<option value="${o}"${sec.imagePosition===o?' selected':''}>${o==='left'?'Image Left':'Image Right'}</option>`).join('')}
             </select>
@@ -4532,8 +4533,8 @@ function buildCpSectionTypeFields(sec, pi, si) {
             <div class="field-group" style="margin:0;"><label>Image Path (optional — replaces number)</label><input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="imagePath" value="${escHtml(it.imagePath||'')}" placeholder="images/card.jpg"/></div>
             <div class="field-group" style="margin:0;"><label>Image Size</label>
               <select data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="imageSize">
-                <option value="thumb"${(it.imageSize||'thumb')==='thumb'?' selected':''}>Thumbnail (48px)</option>
-                <option value="sm"${it.imageSize==='sm'?' selected':''}>Small (80px)</option>
+                <option value="thumb"${(it.imageSize||'thumb')==='thumb'?' selected':''}>Thumbnail (80px)</option>
+                <option value="sm"${it.imageSize==='sm'?' selected':''}>Small (200px)</option>
                 <option value="full"${it.imageSize==='full'?' selected':''}>Full Width</option>
               </select>
             </div>
@@ -4570,6 +4571,13 @@ function buildCpSectionTypeFields(sec, pi, si) {
         </div>`;
       }).join('');
       return `
+        <div class="field-group" style="margin-bottom:10px;"><label>Max Columns</label>
+          <select ${p} data-field="maxCols">
+                <option value="2"${(sec.maxCols||2)===2?' selected':''}>2 Columns</option>
+                <option value="3"${(sec.maxCols||2)===3?' selected':''}>3 Columns</option>
+                <option value="4"${(sec.maxCols||2)===4?' selected':''}>4 Columns</option>
+          </select>
+        </div>
         <div class="field-group"><label>Heading</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
         <div class="field-group"><label>Body / Subtext</label><textarea ${p} data-field="body" rows="2">${v('body')}</textarea></div>
         <div class="form-row-2" style="margin-bottom:16px;">
@@ -4695,6 +4703,13 @@ function buildCpSectionTypeFields(sec, pi, si) {
         </div>`;
       }).join('');
       return `
+        <div class="field-group" style="margin-bottom:10px;"><label>Max Columns</label>
+          <select ${p} data-field="maxCols">
+                <option value="2"${(sec.maxCols||3)===2?' selected':''}>2 Columns</option>
+                <option value="3"${(sec.maxCols||3)===3?' selected':''}>3 Columns</option>
+                <option value="4"${(sec.maxCols||3)===4?' selected':''}>4 Columns</option>
+          </select>
+        </div>
         <div class="field-group"><label>Heading</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
         <div class="field-group"><label>Subtitle</label><input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
         <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${rows}</div>
@@ -5269,6 +5284,13 @@ function buildCpSectionTypeFields(sec, pi, si) {
 
     case 'team':
       return `
+        <div class="field-group" style="margin-bottom:10px;"><label>Max Columns</label>
+          <select ${p} data-field="maxCols">
+                <option value="2"${(sec.maxCols||3)===2?' selected':''}>2 Columns</option>
+                <option value="3"${(sec.maxCols||3)===3?' selected':''}>3 Columns</option>
+                <option value="4"${(sec.maxCols||3)===4?' selected':''}>4 Columns</option>
+          </select>
+        </div>
         <div class="field-group"><label>Heading</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
         <div class="switch-row">
           <span class="switch-label">Use attorneys from About Us section</span>
@@ -5475,6 +5497,13 @@ function buildCpSectionTypeFields(sec, pi, si) {
       }).join('');
 
       return `
+        <div class="field-group" style="margin-bottom:10px;"><label>Max Columns</label>
+          <select ${p} data-field="maxCols">
+                <option value="2"${(sec.maxCols||3)===2?' selected':''}>2 Columns</option>
+                <option value="3"${(sec.maxCols||3)===3?' selected':''}>3 Columns</option>
+                <option value="4"${(sec.maxCols||3)===4?' selected':''}>4 Columns</option>
+          </select>
+        </div>
         <div class="field-group"><label>Heading (optional)</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
         <div class="field-group"><label>Subtitle (optional)</label><input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
         <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${cardRows}</div>
@@ -5620,6 +5649,13 @@ function buildCpSectionTypeFields(sec, pi, si) {
       }).join('');
 
       return `
+        <div class="field-group" style="margin-bottom:10px;"><label>Max Columns</label>
+          <select ${p} data-field="maxCols">
+                <option value="2"${(sec.maxCols||3)===2?' selected':''}>2 Columns</option>
+                <option value="3"${(sec.maxCols||3)===3?' selected':''}>3 Columns</option>
+                <option value="4"${(sec.maxCols||3)===4?' selected':''}>4 Columns</option>
+          </select>
+        </div>
         <div class="field-group"><label>Heading (optional)</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
         <div class="field-group"><label>Subtitle (optional)</label><input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
         <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${flipCardRows}</div>
@@ -6811,6 +6847,7 @@ function collectCpSections(card, pi, existingSections) {
       case 'two-col':
         sec.heading = get('heading'); sec.body = get('body');
         sec.imagePath = get('imagePath'); sec.imagePosition = get('imagePosition');
+        sec.imageMaxWidth = get('imageMaxWidth');
         sec.cta_linkType = get('cta_linkType'); sec.cta_linkUrl = get('cta_linkUrl');
         sec.cta_linkLabel = get('cta_linkLabel'); break;
       case 'stats':
@@ -6821,6 +6858,7 @@ function collectCpSections(card, pi, existingSections) {
         sec.label = get('label'); sec.heading = get('heading'); sec.body = get('body');
         sec.badgeNum = get('badgeNum'); sec.badgeLabel = get('badgeLabel');
         sec.fullWidth = secCard.querySelector('[data-field="fullWidth"]')?.checked || false;
+        sec.maxCols = parseInt(get('maxCols')) || 2;
         sec.items = collectCpSubItems(secCard, pi, si, ['num','title','body','linkLabel','linkType','linkUrl','anchorId','imagePath','imageSize']); break;
       case 'bullets':
         sec.heading = get('heading'); sec.subtitle = get('subtitle');
@@ -6828,6 +6866,7 @@ function collectCpSections(card, pi, existingSections) {
         sec.items = collectCpSubItems(secCard, pi, si, ['icon','title','desc','linkType','linkUrl','anchorId']); break;
       case 'services':
         sec.heading = get('heading'); sec.subtitle = get('subtitle');
+        sec.maxCols = parseInt(get('maxCols')) || 3;
         sec.items = collectCpSubItems(secCard, pi, si, ['icon','title','desc','detail','btnLabel','btnLinkType','btnLinkUrl','btnAnchorId','imagePath','imageSize']); break;
       case 'steps':
         sec.heading = get('heading'); sec.subtitle = get('subtitle');
@@ -6877,7 +6916,7 @@ function collectCpSections(card, pi, existingSections) {
         sec.linkLabel = get('linkLabel'); sec.linkType = get('linkType'); sec.linkUrl = get('linkUrl');
         sec.jur_anchorId = get('jur_anchorId'); break;
       case 'team':
-        sec.heading = get('heading'); sec.useAttorneys = getCheck('useAttorneys'); break;
+        sec.heading = get('heading'); sec.useAttorneys = getCheck('useAttorneys'); sec.maxCols = parseInt(get('maxCols')) || 3; break;
       case 'form':
         sec.heading = get('heading'); sec.intro = get('intro');
         sec.submitLabel = get('submitLabel'); sec.successMsg = get('successMsg');
@@ -6896,7 +6935,7 @@ function collectCpSections(card, pi, existingSections) {
         sec.cta_anchorId  = get('cta_anchorId');
         break;
       case 'pricing':
-        sec.heading   = get('heading'); sec.subtitle = get('subtitle');
+        sec.heading   = get('heading'); sec.subtitle = get('subtitle'); sec.maxCols = parseInt(get('maxCols')) || 3;
         sec.items = Array.from(secCard.querySelectorAll('.cp-sub-item[data-sub-idx]')).map((cardEl, ci) => {
           const cg  = f => cardEl.querySelector('[data-field="' + f + '"]')?.value.trim() || '';
           const cgb = f => cardEl.querySelector('[data-field="' + f + '"]')?.checked || false;
@@ -6919,7 +6958,7 @@ function collectCpSections(card, pi, existingSections) {
         });
         break;
       case 'flip-cards':
-        sec.heading   = get('heading'); sec.subtitle = get('subtitle');
+        sec.heading   = get('heading'); sec.subtitle = get('subtitle'); sec.maxCols = parseInt(get('maxCols')) || 3;
         sec.items = Array.from(secCard.querySelectorAll('.cp-sub-item[data-sub-idx]')).map((cardEl, ci) => {
           const cg  = f => cardEl.querySelector('[data-field="' + f + '"]')?.value.trim() || '';
           const cgb = f => cardEl.querySelector('[data-field="' + f + '"]')?.checked || false;
