@@ -291,21 +291,30 @@ const SITE_CONFIG = {
           "subtitle": "The first step in identifying a villain is to determine which clan your suspect belongs to. There are 8 known clans operating today and we've put together this intuitive chart to help with the clan identification process.",
           "items": [
             {
-              "date": "Description / Traits",
+              "date": "",
               "title": "Older model, parts falling off, re-engineered components, rust",
-              "body": "",
+              "body": "Leave plenty of space to dodge car parts, and oil slicks or splatter from other various  fluids.",
               "linkLabel": "Junkyard Dawgs Clan",
               "linkType": "internal",
               "linkUrl": "junkyard-dawgs",
               "anchorId": ""
             },
             {
-              "date": "Description / Traits",
+              "date": "",
               "title": "Loud terrible music, flashing lights, lots of bling,",
-              "body": "",
+              "body": "Roll up your windows, put on some sun shades, maybe turn up your tunes a little.",
               "linkLabel": "Showtime Clan",
               "linkType": "none",
               "linkUrl": "home",
+              "anchorId": ""
+            },
+            {
+              "date": "",
+              "title": "Excessive acceleration, in a hurry, negotiating traffic terribly, not courteous",
+              "body": "Don't make any sudden decelerations/stops, leave space for diving, check the shoulder before making any turns",
+              "linkLabel": "Grand Pricks Clan",
+              "linkType": "internal",
+              "linkUrl": "grand-pricks",
               "anchorId": ""
             }
           ]
@@ -576,7 +585,7 @@ const SITE_CONFIG = {
       "sections": [
         {
           "type": "two-col",
-          "label": "Villain Clan",
+          "label": "Rough Rough",
           "background": "dark",
           "anchorId": "junkyard-dawgs",
           "heading": "Junkyard Dawgs",
@@ -593,7 +602,7 @@ const SITE_CONFIG = {
           "label": "",
           "background": "dark",
           "anchorId": "junkyard-villains",
-          "heading": "Junkyard Villains",
+          "heading": "The Yard",
           "subtitle": "",
           "maxCols": 2,
           "items": [
@@ -838,7 +847,263 @@ const SITE_CONFIG = {
       "enabled": true,
       "parent": "villains",
       "hiddenFromNav": false,
-      "sections": []
+      "sections": [
+        {
+          "type": "two-col",
+          "label": "Our Rules, Your Problem",
+          "background": "dark",
+          "anchorId": "grand-pricks",
+          "heading": "Grand Pricks",
+          "body": "",
+          "imagePath": "clans/grandpricks.png",
+          "imagePosition": "left",
+          "imageMaxWidth": "300",
+          "cta_linkType": "none",
+          "cta_linkUrl": "home",
+          "cta_linkLabel": ""
+        },
+        {
+          "type": "flip-cards",
+          "label": "",
+          "background": "dark",
+          "anchorId": "the-strip",
+          "heading": "The Strip",
+          "subtitle": "",
+          "maxCols": 2,
+          "items": [
+            {
+              "name": "Red Dragon",
+              "tagline": "Street legal or not, this country villain with flowing locks lives in the past, and usually roams the countryside. Oh, and that choking smoke ain't coming from the tires.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/red-dragon.jpg",
+              "imageSize": "sq",
+              "ribbon": "Junkyard Dawgs",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "This beast can turn an over the hill driver, back into a 16 year with a learners permit who's taken pops dream machine out for a spin without his permission.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Pavement",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Dry Counties",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Engine Smoke",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Tuned out Air Horn",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Cigarette butts",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Larry Towncar",
+              "tagline": "This OG's car doesn't need repair shop, it needs a junkyard",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/larry-towncar.jpg",
+              "imageSize": "sq",
+              "ribbon": "Junkyard Dawgs",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Slowing traffic down with extreme precision using nothing but friction and loose car parts.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Passing Lanes",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Dashed Centerline",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Busted Fuel Line",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Car Parts",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Oil slick",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "ReTuned",
+              "tagline": "You won't find this disastrous glitch in the matrix at any dealership and its debatable whether it will make it to its destination, much less down the street..",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/retuned.jpg",
+              "imageSize": "sq",
+              "ribbon": "Junkyard Dawgs",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Cranking up. Not much of an ability, but this Frankensteined vehicle is proof that backyard engineering is alive, but not well.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Bad re-engineering",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Spare Change",
+              "tagline": "Spare Change is a relentless, chaotic driver piloting a rusted-out rig that has been running on a single, undersized \"donut\" spare tire for months longer than engineering allows.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/spare-change.jpg",
+              "imageSize": "sq",
+              "ribbon": "Junkyard Dawgs",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Driven by a permanent sense of urgent tardiness, he treats the highway like a high-stakes obstacle course, ignoring every safety warning ever printed on a sidewall.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Potholes",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Highways",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Spark Showers",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Lug Nut Shrapnel",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "slug": "heroes",
@@ -902,5 +1167,5 @@ const SITE_CONFIG = {
     "cp-5": "public",
     "cp-6": "public"
   },
-  "_savedAt": 1777410548764
+  "_savedAt": 1777411188597
 };
