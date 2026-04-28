@@ -1384,15 +1384,7 @@ h2.section-title {
   flex-direction: column;
   gap: 0;
 }
-/* Vertical line runs through the CENTER of the circles (left:28px = half of 56px circle) */
-.process-timeline::before {
-  content: '';
-  position: absolute;
-  left: 28px; top: 28px; bottom: 28px; /* start/end at circle centres */
-  width: 1px;
-  background: linear-gradient(to bottom, var(--gold) 0%, rgba(201,168,76,0.15) 100%);
-  z-index: 0;
-}
+/* No global ::before line — each step has its own fading segment */
 .process-step {
   display: flex; gap: 40px;
   padding: 28px 0;
@@ -1413,6 +1405,20 @@ h2.section-title {
 .step-img--thumb { width: 80px; height: 80px; object-fit: cover; border-radius: 50%; flex-shrink: 0; position: relative; z-index: 1; border: 2px solid rgba(201,168,76,0.35); }
 .step-img--sm    { width: 200px; height: 200px; object-fit: cover; border-radius: 50%; flex-shrink: 0; position: relative; z-index: 1; border: 2px solid rgba(201,168,76,0.35); }
 .step-img--full  { width: 100%; height: 180px; object-fit: cover; border-radius: 6px; margin-bottom: 0; display: block; flex-shrink: 0; }
+/* Per-step vertical line — fades out toward the bottom of each step */
+.step-line {
+  position: absolute;
+  left: 28px; top: 84px; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(201,168,76,0.5) 0%, rgba(201,168,76,0.05) 100%);
+  z-index: 0;
+}
+.process-step:last-child .step-line { display: none; }
+/* Mobile: shrink sm image so text has room */
+@media (max-width: 580px) {
+  .step-img--sm { width: 100px; height: 100px; }
+  .step-line { left: 40px; top: 128px; }
+}
 /* Full-width image step: stack vertically */
 .process-step.has-full-img { flex-direction: column; gap: 0; }
 .process-step.has-full-img .step-body { padding-top: 16px; padding-left: 56px; }
@@ -2000,7 +2006,7 @@ footer {
   .stat-cell { width: 50%; min-width: 120px; }
   .footer-grid { grid-template-columns: 1fr; }
   .why-badge-wrap { flex-direction: column; }
-  .process-timeline::before { left: 27px; }
+  .process-timeline::before { display: none; }
 }
 @media (max-width: 480px) {
   .stat-cell { width: 50%; min-width: 0; }
@@ -6007,6 +6013,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         const stepFullImg = s.imagePath && s.imageSize === 'full';
         return `
         <div class="process-step${i===0?' step-active':''}${stepFullImg?' has-full-img':''}" data-step="${i+1}">
+          <div class="step-line"></div>
           ${s.imagePath
             ? `<img class="step-img--${s.imageSize||'thumb'}" src="${s.imagePath}" alt="${escAttr(s.title||'')}" loading="lazy"/>`
             : `<div class="step-num-wrap"><span class="step-num">${i+1}</span></div>`}
