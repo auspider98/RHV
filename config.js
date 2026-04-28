@@ -237,7 +237,80 @@ const SITE_CONFIG = {
       "enabled": true,
       "parent": null,
       "hiddenFromNav": false,
-      "sections": []
+      "sections": [
+        {
+          "type": "fees",
+          "label": "Villain Genealogy",
+          "background": "alt",
+          "anchorId": "identification",
+          "heading": "Clan Identification",
+          "subtitle": "The first step in identifying a villain is to determine which clan your suspect belongs to. There are 8 known clans operating today and we've put together this intuitive chart to help with the clan identification process.",
+          "col1Label": "Traits / Description",
+          "col2Label": "Villain Clan",
+          "col3Label": "Special Precautions",
+          "disclaimer": "Villains can mutate and sometime share common traits. The RHV is not responsible for a false identification by a commuter.",
+          "items": [
+            {
+              "service": "Older model, parts falling off, re-engineered components, rust",
+              "amount": "Junkyard Dawgs",
+              "detail": "Leave plenty of space to dodge car parts, and oil slicks or splatter from other various  fluids.",
+              "note": "",
+              "linkLabel": "Clan Page",
+              "linkType": "internal",
+              "linkUrl": "junkyard-dawgs",
+              "anchorId": ""
+            },
+            {
+              "service": "Loud terrible music, flashing lights, lots of bling,",
+              "amount": "Showtime",
+              "detail": "Roll up your windows, put on some sun shades, maybe turn up your tunes a little.",
+              "note": "",
+              "linkLabel": "Clan Page",
+              "linkType": "none",
+              "linkUrl": "home",
+              "anchorId": ""
+            },
+            {
+              "service": "Excessive acceleration, in a hurry, negotiating traffic terribly, not courteous",
+              "amount": "Grand Pricks",
+              "detail": "Don't make any sudden decelerations/stops, leave space for diving, check the shoulder before making any turns",
+              "note": "",
+              "linkLabel": "Clan Page",
+              "linkType": "internal",
+              "linkUrl": "grand-pricks",
+              "anchorId": ""
+            }
+          ]
+        },
+        {
+          "type": "timeline",
+          "label": "Villain Genealogy",
+          "background": "dark",
+          "anchorId": "clan-identification",
+          "heading": "Clan Identification",
+          "subtitle": "The first step in identifying a villain is to determine which clan your suspect belongs to. There are 8 known clans operating today and we've put together this intuitive chart to help with the clan identification process.",
+          "items": [
+            {
+              "date": "Description / Traits",
+              "title": "Older model, parts falling off, re-engineered components, rust",
+              "body": "",
+              "linkLabel": "Junkyard Dawgs Clan",
+              "linkType": "internal",
+              "linkUrl": "junkyard-dawgs",
+              "anchorId": ""
+            },
+            {
+              "date": "Description / Traits",
+              "title": "Loud terrible music, flashing lights, lots of bling,",
+              "body": "",
+              "linkLabel": "Showtime Clan",
+              "linkType": "none",
+              "linkUrl": "home",
+              "anchorId": ""
+            }
+          ]
+        }
+      ]
     },
     {
       "slug": "afflictions",
@@ -829,5 +902,5 @@ const SITE_CONFIG = {
     "cp-5": "public",
     "cp-6": "public"
   },
-  "_savedAt": 1777405155780
+  "_savedAt": 1777410548764
 };

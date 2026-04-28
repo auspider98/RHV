@@ -3276,6 +3276,24 @@ function onJurisdictionLinkTypeChange(pi, si, sel) {
   if (anchorEl) anchorEl.style.display = val === 'internal' ? '' : 'none';
 }
 
+// Live-update row field labels when column label inputs are typed into
+function updateFeeLabels(pi, si) {
+  // Find the col1 input to locate the right section card
+  const colInput = document.querySelector(`[data-cp="${pi}"][data-sec="${si}"][data-fee-col]`);
+  if (!colInput) return;
+  const secCard = colInput.closest('.cp-section-card');
+  if (!secCard) return;
+
+  const defaults = { '1': 'Name', '2': 'Value', '3': 'Details' };
+  [1, 2, 3].forEach(col => {
+    const inp = secCard.querySelector(`[data-fee-col="${col}"]`);
+    const newLabel = inp ? (inp.value.trim() || defaults[String(col)]) : defaults[String(col)];
+    secCard.querySelectorAll(`[data-fee-label="${col}"]`).forEach(lbl => {
+      lbl.textContent = newLabel;
+    });
+  });
+}
+
 function onFeeLinkTypeChange(pi, si, ii, sel) {
   const val = sel.value;
   const intEl = document.getElementById('cp-fee-internal-' + pi + '-' + si + '-' + ii);
@@ -5183,11 +5201,11 @@ function buildCpSectionTypeFields(sec, pi, si) {
         return `<div class="cp-sub-item" data-sub-idx="${ii}">
           ${cpSubItemHeader(`Row #${ii+1}`, pi, si, 'items', ii)}
           <div class="form-row-2" style="margin-bottom:6px;">
-            <div class="field-group" style="margin-bottom:6px;"><label>Name</label><input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="service" value="${escHtml(it.service||'')}"/></div>
-            <div class="field-group" style="margin-bottom:6px;"><label>Value</label><input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="amount" value="${escHtml(it.amount||'')}" placeholder="$1,500 – $3,000"/></div>
+            <div class="field-group" style="margin-bottom:6px;"><label data-fee-label="1">${escHtml(sec.col1Label||'Name')}</label><input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="service" value="${escHtml(it.service||'')}"/></div>
+            <div class="field-group" style="margin-bottom:6px;"><label data-fee-label="2">${escHtml(sec.col2Label||'Value')}</label><input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="amount" value="${escHtml(it.amount||'')}" placeholder="$1,500 – $3,000"/></div>
           </div>
           <div class="form-row-2" style="margin-bottom:6px;">
-            <div class="field-group" style="margin:0;"><label>Details</label><input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="detail" value="${escHtml(it.detail||'')}"/></div>
+            <div class="field-group" style="margin:0;"><label data-fee-label="3">${escHtml(sec.col3Label||'Details')}</label><input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="detail" value="${escHtml(it.detail||'')}"/></div>
             <div class="field-group" style="margin:0;"><label>Note (small text)</label><input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="note" value="${escHtml(it.note||'')}"/></div>
           </div>
           <div class="form-row-2" style="margin-bottom:4px;">
@@ -5226,9 +5244,9 @@ function buildCpSectionTypeFields(sec, pi, si) {
           <div class="field-group" style="margin:0;"><label>Subtitle</label><input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
         </div>
         <div class="form-row-3" style="margin-bottom:16px;">
-          <div class="field-group" style="margin:0;"><label>Column 1 Label</label><input type="text" ${p} data-field="col1Label" value="${v('col1Label')}" placeholder="Service"/></div>
-          <div class="field-group" style="margin:0;"><label>Column 2 Label</label><input type="text" ${p} data-field="col2Label" value="${v('col2Label')}" placeholder="Value"/></div>
-          <div class="field-group" style="margin:0;"><label>Column 3 Label</label><input type="text" ${p} data-field="col3Label" value="${v('col3Label')}" placeholder="Notes"/></div>
+          <div class="field-group" style="margin:0;"><label>Column 1 Label</label><input type="text" ${p} data-field="col1Label" data-fee-col="1" oninput="updateFeeLabels('${pi}',${si})" value="${v('col1Label')}" placeholder="Service"/></div>
+          <div class="field-group" style="margin:0;"><label>Column 2 Label</label><input type="text" ${p} data-field="col2Label" data-fee-col="2" oninput="updateFeeLabels('${pi}',${si})" value="${v('col2Label')}" placeholder="Value"/></div>
+          <div class="field-group" style="margin:0;"><label>Column 3 Label</label><input type="text" ${p} data-field="col3Label" data-fee-col="3" oninput="updateFeeLabels('${pi}',${si})" value="${v('col3Label')}" placeholder="Notes"/></div>
         </div>
         <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${rows}</div>
         <button class="btn-add" onclick="addCpSubItem(${typeof pi==='string'?("'"+pi+"'"):pi},${si},'items',{service:'',amount:'',detail:'',note:'',linkLabel:'',linkType:'none',linkUrl:''})">+ Add Row</button>
