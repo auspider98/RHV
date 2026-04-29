@@ -248,51 +248,6 @@ const SITE_CONFIG = {
           "items": [
             {
               "date": "",
-              "title": "Older model, Parts falling off, Re-engineered components, Rust",
-              "body": "Leave plenty of space to dodge car parts, and oil slicks or splatter from other various fluids.",
-              "linkLabel": "Junkyard Dawgs Clan",
-              "linkType": "internal",
-              "linkUrl": "junkyard-dawgs",
-              "anchorId": ""
-            },
-            {
-              "date": "",
-              "title": "Loud terrible music, Flashing lights, Lots of bling,",
-              "body": "Roll up your windows, put on some sun shades, maybe turn up your tunes a little.",
-              "linkLabel": "Showtime Clan",
-              "linkType": "internal",
-              "linkUrl": "showtime",
-              "anchorId": ""
-            },
-            {
-              "date": "",
-              "title": "Excessive acceleration, In a hurry, Negotiating traffic terribly, Not courteous",
-              "body": "Don't make any sudden decelerations/stops, leave space for diving, check the shoulder before making any turns",
-              "linkLabel": "Grand Pricks Clan",
-              "linkType": "internal",
-              "linkUrl": "grand-pricks",
-              "anchorId": ""
-            },
-            {
-              "date": "",
-              "title": "Moves slowly, Loves brakes, seems lost, Lane changing issues, Fear",
-              "body": "Early detection is paramount, so that you don't get stuck behind them.",
-              "linkLabel": "Slow Moes Clan",
-              "linkType": "internal",
-              "linkUrl": "slow-moes",
-              "anchorId": ""
-            },
-            {
-              "date": "",
-              "title": "Focuses on anything but driving, No perception of driving concepts, Female",
-              "body": "",
-              "linkLabel": "OMGs Clan",
-              "linkType": "internal",
-              "linkUrl": "omgs",
-              "anchorId": ""
-            },
-            {
-              "date": "",
               "title": "Oblivious of others, Loves social media, One perspective",
               "body": "",
               "linkLabel": "Bubble Brigade Clan",
@@ -311,11 +266,56 @@ const SITE_CONFIG = {
             },
             {
               "date": "",
+              "title": "Older model, Parts falling off, Re-engineered components, Rust",
+              "body": "Leave plenty of space to dodge car parts, and oil slicks or splatter from other various fluids.",
+              "linkLabel": "Junkyard Dawgs Clan",
+              "linkType": "internal",
+              "linkUrl": "junkyard-dawgs",
+              "anchorId": ""
+            },
+            {
+              "date": "",
+              "title": "Excessive acceleration, In a hurry, Negotiating traffic terribly, Not courteous",
+              "body": "Don't make any sudden decelerations/stops, leave space for diving, check the shoulder before making any turns",
+              "linkLabel": "Grand Pricks Clan",
+              "linkType": "internal",
+              "linkUrl": "grand-pricks",
+              "anchorId": ""
+            },
+            {
+              "date": "",
               "title": "Aggressive, Redefines roadway use, Unfazed by Weather",
               "body": "",
               "linkLabel": "KinEvils Clan",
               "linkType": "internal",
               "linkUrl": "kinevils",
+              "anchorId": ""
+            },
+            {
+              "date": "",
+              "title": "Focuses on anything but driving, No perception of driving concepts, Female",
+              "body": "",
+              "linkLabel": "OMGs Clan",
+              "linkType": "internal",
+              "linkUrl": "omgs",
+              "anchorId": ""
+            },
+            {
+              "date": "",
+              "title": "Loud terrible music, Flashing lights, Lots of bling,",
+              "body": "Roll up your windows, put on some sun shades, maybe turn up your tunes a little.",
+              "linkLabel": "Showtime Clan",
+              "linkType": "internal",
+              "linkUrl": "showtime",
+              "anchorId": ""
+            },
+            {
+              "date": "",
+              "title": "Moves slowly, Loves brakes, seems lost, Lane changing issues, Fear",
+              "body": "Early detection is paramount, so that you don't get stuck behind them.",
+              "linkLabel": "Slow Moes Clan",
+              "linkType": "internal",
+              "linkUrl": "slow-moes",
               "anchorId": ""
             }
           ]
@@ -615,6 +615,341 @@ const SITE_CONFIG = {
       ]
     },
     {
+      "slug": "bubble-brigade",
+      "navLabel": "Bubble Brigade",
+      "emoji": "🫧",
+      "enabled": true,
+      "parent": "villains",
+      "hiddenFromNav": false,
+      "sections": [
+        {
+          "type": "two-col",
+          "label": "Oblivious and On My Way",
+          "background": "dark",
+          "anchorId": "bubble-brigade",
+          "heading": "Bubble Brigade",
+          "body": "",
+          "imagePath": "clans/bubblebrigade.png",
+          "imagePosition": "right",
+          "imageMaxWidth": "300",
+          "cta_linkType": "none",
+          "cta_linkUrl": "home",
+          "cta_linkLabel": ""
+        },
+        {
+          "type": "flip-cards",
+          "label": "",
+          "background": "dark",
+          "anchorId": "bubble-villains",
+          "heading": "Bubble Villains",
+          "subtitle": "",
+          "maxCols": 2,
+          "items": [
+            {
+              "name": "Quicksilverette",
+              "tagline": "This villain is hot, but a capable, responsible driver she is not. If her driving were half as good as she is at getting free drinks all night, she'd be a Nascar driving instructor.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/quicksilverette.jpg",
+              "imageSize": "sq",
+              "ribbon": "OMGs",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Can misinterpret all rules of the road, while pretending she knows what she is doing.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Automobiles",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Stop signs",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Traffic signals",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Parking lots",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "One-way streets",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Streets",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Highways",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Merging",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Etc.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Lipstick Mirror",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Visor Mirrors",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "SU-Vera",
+              "tagline": "Wants to be just like her villain man, driving a truck made from indestructible steel.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/su-vera.jpg",
+              "imageSize": "sq",
+              "ribbon": "OMGs",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Lacks fear of breaking laws of the road or your bones.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Losing truck in divorce",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "He Drives",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "2 tons of Steel",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Being Short",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "decepticars",
+      "navLabel": "Decepticars",
+      "emoji": "🚘",
+      "enabled": true,
+      "parent": "villains",
+      "hiddenFromNav": false,
+      "sections": [
+        {
+          "type": "two-col",
+          "label": "What Are You Looking At",
+          "background": "dark",
+          "anchorId": "decepticars",
+          "heading": "Decepticars",
+          "body": "",
+          "imagePath": "clans/decepticars.png",
+          "imagePosition": "right",
+          "imageMaxWidth": "300",
+          "cta_linkType": "none",
+          "cta_linkUrl": "home",
+          "cta_linkLabel": ""
+        },
+        {
+          "type": "flip-cards",
+          "label": "",
+          "background": "dark",
+          "anchorId": "decepticars-villains",
+          "heading": "The Deceptors",
+          "subtitle": "",
+          "maxCols": 2,
+          "items": [
+            {
+              "name": "Handiscammer",
+              "tagline": "This undisabled villain parades around displaying the wheeled emblem, stealing parking spots reserved for villains in true need.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/handiscammer.jpg",
+              "imageSize": "sq",
+              "ribbon": "Decepticars",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Being a fully functioning jackass.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "No available handicap spots",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Vocal Heros",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Portable Disabled Mirror Badge",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Lion Tamer",
+              "tagline": "Am I seeing things in slow motion, or is that monster car really going that slow? This villain has appearance of being a high performance, but the only thing high here is the maintenance. .",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/lion-tamer.jpg",
+              "imageSize": "sq",
+              "ribbon": "Decepticars",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Clogging up traffic with the fear of their own abilities",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Running Late",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "He Drives",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Being Short",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "slug": "junkyard-dawgs",
       "navLabel": "Junkyard Dawgs",
       "emoji": "🦴",
@@ -645,71 +980,6 @@ const SITE_CONFIG = {
           "subtitle": "",
           "maxCols": 2,
           "items": [
-            {
-              "name": "Red Dragon",
-              "tagline": "Street legal or not, this country villain with flowing locks lives in the past, and usually roams the countryside. Oh, and that choking smoke ain't coming from the tires.",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "villains/red-dragon.jpg",
-              "imageSize": "sq",
-              "ribbon": "Junkyard Dawgs",
-              "note": "",
-              "details": "",
-              "cardStyle": "dark",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": [
-                {
-                  "label": "Abilities",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "This beast can turn an over the hill driver, back into a 16 year with a learners permit who's taken pops dream machine out for a spin without his permission.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Pavement",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Dry Counties",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Special Weapons",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Engine Smoke",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Tuned out Air Horn",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Cigarette butts",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            },
             {
               "name": "Larry Towncar",
               "tagline": "This OG's car doesn't need repair shop, it needs a junkyard",
@@ -770,6 +1040,71 @@ const SITE_CONFIG = {
                 },
                 {
                   "label": "Oil slick",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Red Dragon",
+              "tagline": "Street legal or not, this country villain with flowing locks lives in the past, and usually roams the countryside. Oh, and that choking smoke ain't coming from the tires.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/red-dragon.jpg",
+              "imageSize": "sq",
+              "ribbon": "Junkyard Dawgs",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "This beast can turn an over the hill driver, back into a 16 year with a learners permit who's taken pops dream machine out for a spin without his permission.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Pavement",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Dry Counties",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Engine Smoke",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Tuned out Air Horn",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Cigarette butts",
                   "status": "",
                   "isGroup": false
                 }
@@ -1310,6 +1645,486 @@ const SITE_CONFIG = {
       ]
     },
     {
+      "slug": "kinevils",
+      "navLabel": "KinEvils",
+      "emoji": "💀",
+      "enabled": true,
+      "parent": "villains",
+      "hiddenFromNav": false,
+      "sections": [
+        {
+          "type": "two-col",
+          "label": "Our Road, Your Nightmare",
+          "background": "dark",
+          "anchorId": "kinevils",
+          "heading": "KinEvils",
+          "body": "",
+          "imagePath": "clans/kinevils.png",
+          "imagePosition": "right",
+          "imageMaxWidth": "300",
+          "cta_linkType": "none",
+          "cta_linkUrl": "home",
+          "cta_linkLabel": ""
+        },
+        {
+          "type": "flip-cards",
+          "label": "",
+          "background": "dark",
+          "anchorId": "kinevils-villains",
+          "heading": "The Deceptors",
+          "subtitle": "",
+          "maxCols": 2,
+          "items": [
+            {
+              "name": "Handiscammer",
+              "tagline": "This undisabled villain parades around displaying the wheeled emblem, stealing parking spots reserved for villains in true need.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/handiscammer.jpg",
+              "imageSize": "sq",
+              "ribbon": "Decepticars",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Being a fully functioning jackass.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "No available handicap spots",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Vocal Heros",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Portable Disabled Mirror Badge",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Lion Tamer",
+              "tagline": "Am I seeing things in slow motion, or is that monster car really going that slow? This villain has appearance of being a high performance, but the only thing high here is the maintenance. .",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/lion-tamer.jpg",
+              "imageSize": "sq",
+              "ribbon": "Decepticars",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Clogging up traffic with the fear of their own abilities",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Running Late",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "He Drives",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Being Short",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "omgs",
+      "navLabel": "OMGs",
+      "emoji": "👩‍🎤",
+      "enabled": true,
+      "parent": "villains",
+      "hiddenFromNav": false,
+      "sections": [
+        {
+          "type": "two-col",
+          "label": "Too Much Car, Too Little Clue",
+          "background": "dark",
+          "anchorId": "omgs",
+          "heading": "OMGs",
+          "body": "The myth that all women are bad drivers is just a myth, until you encounter this clan of females.",
+          "imagePath": "clans/omgs.png",
+          "imagePosition": "right",
+          "imageMaxWidth": "300",
+          "cta_linkType": "none",
+          "cta_linkUrl": "home",
+          "cta_linkLabel": ""
+        },
+        {
+          "type": "flip-cards",
+          "label": "",
+          "background": "dark",
+          "anchorId": "omgs-villains",
+          "heading": "The Oh-Mys",
+          "subtitle": "",
+          "maxCols": 2,
+          "items": [
+            {
+              "name": "Quicksilverette",
+              "tagline": "This villain is hot, but a capable, responsible driver she is not. If her driving were half as good as she is at getting free drinks all night, she'd be a Nascar driving instructor.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/quicksilverette.jpg",
+              "imageSize": "sq",
+              "ribbon": "OMGs",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Can misinterpret all rules of the road, while pretending she knows what she is doing.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Automobiles",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Stop signs",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Traffic signals",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Parking lots",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "One-way streets",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Streets",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Highways",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Merging",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Etc.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Lipstick Mirror",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Visor Mirrors",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "SU-Vera",
+              "tagline": "Wants to be just like her villain man, driving a truck made from indestructible steel.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/su-vera.jpg",
+              "imageSize": "sq",
+              "ribbon": "OMGs",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Lacks fear of breaking laws of the road or your bones.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Losing truck in divorce",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "He Drives",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "2 tons of Steel",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Being Short",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "showtime",
+      "navLabel": "Showtime",
+      "emoji": "🎬",
+      "enabled": true,
+      "parent": "villains",
+      "hiddenFromNav": false,
+      "sections": [
+        {
+          "type": "two-col",
+          "label": "Making Traffic an Event",
+          "background": "dark",
+          "anchorId": "showtime",
+          "heading": "Showtime",
+          "body": "",
+          "imagePath": "clans/showtime.png",
+          "imagePosition": "right",
+          "imageMaxWidth": "300",
+          "cta_linkType": "none",
+          "cta_linkUrl": "home",
+          "cta_linkLabel": ""
+        },
+        {
+          "type": "flip-cards",
+          "label": "",
+          "background": "dark",
+          "anchorId": "showtime-villains",
+          "heading": "The Deceptors",
+          "subtitle": "",
+          "maxCols": 2,
+          "items": [
+            {
+              "name": "Handiscammer",
+              "tagline": "This undisabled villain parades around displaying the wheeled emblem, stealing parking spots reserved for villains in true need.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/handiscammer.jpg",
+              "imageSize": "sq",
+              "ribbon": "Decepticars",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Being a fully functioning jackass.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "No available handicap spots",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Vocal Heros",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Portable Disabled Mirror Badge",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Lion Tamer",
+              "tagline": "Am I seeing things in slow motion, or is that monster car really going that slow? This villain has appearance of being a high performance, but the only thing high here is the maintenance. .",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/lion-tamer.jpg",
+              "imageSize": "sq",
+              "ribbon": "Decepticars",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Clogging up traffic with the fear of their own abilities",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Running Late",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "He Drives",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Being Short",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "slug": "slow-moes",
       "navLabel": "Slow Moes",
       "emoji": "🦥",
@@ -1575,821 +2390,6 @@ const SITE_CONFIG = {
       ]
     },
     {
-      "slug": "omgs",
-      "navLabel": "OMGs",
-      "emoji": "👩‍🎤",
-      "enabled": true,
-      "parent": "villains",
-      "hiddenFromNav": false,
-      "sections": [
-        {
-          "type": "two-col",
-          "label": "Too Much Car, Too Little Clue",
-          "background": "dark",
-          "anchorId": "omgs",
-          "heading": "OMGs",
-          "body": "The myth that all women are bad drivers is just a myth, until you encounter this clan of females.",
-          "imagePath": "clans/omgs.png",
-          "imagePosition": "right",
-          "imageMaxWidth": "300",
-          "cta_linkType": "none",
-          "cta_linkUrl": "home",
-          "cta_linkLabel": ""
-        },
-        {
-          "type": "flip-cards",
-          "label": "",
-          "background": "dark",
-          "anchorId": "omgs-villains",
-          "heading": "The Oh-Mys",
-          "subtitle": "",
-          "maxCols": 2,
-          "items": [
-            {
-              "name": "Quicksilverette",
-              "tagline": "This villain is hot, but a capable, responsible driver she is not. If her driving were half as good as she is at getting free drinks all night, she'd be a Nascar driving instructor.",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "villains/quicksilverette.jpg",
-              "imageSize": "sq",
-              "ribbon": "OMGs",
-              "note": "",
-              "details": "",
-              "cardStyle": "dark",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": [
-                {
-                  "label": "Abilities",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Can misinterpret all rules of the road, while pretending she knows what she is doing.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Automobiles",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Stop signs",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Traffic signals",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Parking lots",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "One-way streets",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Streets",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Highways",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Merging",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Etc.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Special Weapons",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Lipstick Mirror",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Visor Mirrors",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            },
-            {
-              "name": "SU-Vera",
-              "tagline": "Wants to be just like her villain man, driving a truck made from indestructible steel.",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "villains/su-vera.jpg",
-              "imageSize": "sq",
-              "ribbon": "OMGs",
-              "note": "",
-              "details": "",
-              "cardStyle": "dark",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": [
-                {
-                  "label": "Abilities",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Lacks fear of breaking laws of the road or your bones.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Losing truck in divorce",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "He Drives",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Special Weapons",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "2 tons of Steel",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Being Short",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "bubble-brigade",
-      "navLabel": "Bubble Brigade",
-      "emoji": "🫧",
-      "enabled": true,
-      "parent": "villains",
-      "hiddenFromNav": false,
-      "sections": [
-        {
-          "type": "two-col",
-          "label": "Oblivious and On My Way",
-          "background": "dark",
-          "anchorId": "bubble-brigade",
-          "heading": "Bubble Brigade",
-          "body": "",
-          "imagePath": "clans/bubblebrigade.png",
-          "imagePosition": "right",
-          "imageMaxWidth": "300",
-          "cta_linkType": "none",
-          "cta_linkUrl": "home",
-          "cta_linkLabel": ""
-        },
-        {
-          "type": "flip-cards",
-          "label": "",
-          "background": "dark",
-          "anchorId": "bubble-villains",
-          "heading": "Bubble Villains",
-          "subtitle": "",
-          "maxCols": 2,
-          "items": [
-            {
-              "name": "Quicksilverette",
-              "tagline": "This villain is hot, but a capable, responsible driver she is not. If her driving were half as good as she is at getting free drinks all night, she'd be a Nascar driving instructor.",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "villains/quicksilverette.jpg",
-              "imageSize": "sq",
-              "ribbon": "OMGs",
-              "note": "",
-              "details": "",
-              "cardStyle": "dark",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": [
-                {
-                  "label": "Abilities",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Can misinterpret all rules of the road, while pretending she knows what she is doing.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Automobiles",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Stop signs",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Traffic signals",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Parking lots",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "One-way streets",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Streets",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Highways",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Merging",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Etc.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Special Weapons",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Lipstick Mirror",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Visor Mirrors",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            },
-            {
-              "name": "SU-Vera",
-              "tagline": "Wants to be just like her villain man, driving a truck made from indestructible steel.",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "villains/su-vera.jpg",
-              "imageSize": "sq",
-              "ribbon": "OMGs",
-              "note": "",
-              "details": "",
-              "cardStyle": "dark",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": [
-                {
-                  "label": "Abilities",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Lacks fear of breaking laws of the road or your bones.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Losing truck in divorce",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "He Drives",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Special Weapons",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "2 tons of Steel",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Being Short",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "decepticars",
-      "navLabel": "Decepticars",
-      "emoji": "🚘",
-      "enabled": true,
-      "parent": "villains",
-      "hiddenFromNav": false,
-      "sections": [
-        {
-          "type": "two-col",
-          "label": "What Are You Looking At",
-          "background": "dark",
-          "anchorId": "decepticars",
-          "heading": "Decepticars",
-          "body": "",
-          "imagePath": "clans/decepticars.png",
-          "imagePosition": "right",
-          "imageMaxWidth": "300",
-          "cta_linkType": "none",
-          "cta_linkUrl": "home",
-          "cta_linkLabel": ""
-        },
-        {
-          "type": "flip-cards",
-          "label": "",
-          "background": "dark",
-          "anchorId": "decepticars-villains",
-          "heading": "The Deceptors",
-          "subtitle": "",
-          "maxCols": 2,
-          "items": [
-            {
-              "name": "Handiscammer",
-              "tagline": "This undisabled villain parades around displaying the wheeled emblem, stealing parking spots reserved for villains in true need.",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "villains/handiscammer.jpg",
-              "imageSize": "sq",
-              "ribbon": "Decepticars",
-              "note": "",
-              "details": "",
-              "cardStyle": "dark",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": [
-                {
-                  "label": "Abilities",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Being a fully functioning jackass.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "No available handicap spots",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Vocal Heros",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Special Weapons",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Portable Disabled Mirror Badge",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            },
-            {
-              "name": "Lion Tamer",
-              "tagline": "Am I seeing things in slow motion, or is that monster car really going that slow? This villain has appearance of being a high performance, but the only thing high here is the maintenance. .",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "villains/lion-tamer.jpg",
-              "imageSize": "sq",
-              "ribbon": "Decepticars",
-              "note": "",
-              "details": "",
-              "cardStyle": "dark",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": [
-                {
-                  "label": "Abilities",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Clogging up traffic with the fear of their own abilities",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Running Late",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "He Drives",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Special Weapons",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Being Short",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "kinevils",
-      "navLabel": "KinEvils",
-      "emoji": "💀",
-      "enabled": true,
-      "parent": "villains",
-      "hiddenFromNav": false,
-      "sections": [
-        {
-          "type": "two-col",
-          "label": "Our Road, Your Nightmare",
-          "background": "dark",
-          "anchorId": "kinevils",
-          "heading": "KinEvils",
-          "body": "",
-          "imagePath": "clans/kinevils.png",
-          "imagePosition": "right",
-          "imageMaxWidth": "300",
-          "cta_linkType": "none",
-          "cta_linkUrl": "home",
-          "cta_linkLabel": ""
-        },
-        {
-          "type": "flip-cards",
-          "label": "",
-          "background": "dark",
-          "anchorId": "kinevils-villains",
-          "heading": "The Deceptors",
-          "subtitle": "",
-          "maxCols": 2,
-          "items": [
-            {
-              "name": "Handiscammer",
-              "tagline": "This undisabled villain parades around displaying the wheeled emblem, stealing parking spots reserved for villains in true need.",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "villains/handiscammer.jpg",
-              "imageSize": "sq",
-              "ribbon": "Decepticars",
-              "note": "",
-              "details": "",
-              "cardStyle": "dark",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": [
-                {
-                  "label": "Abilities",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Being a fully functioning jackass.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "No available handicap spots",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Vocal Heros",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Special Weapons",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Portable Disabled Mirror Badge",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            },
-            {
-              "name": "Lion Tamer",
-              "tagline": "Am I seeing things in slow motion, or is that monster car really going that slow? This villain has appearance of being a high performance, but the only thing high here is the maintenance. .",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "villains/lion-tamer.jpg",
-              "imageSize": "sq",
-              "ribbon": "Decepticars",
-              "note": "",
-              "details": "",
-              "cardStyle": "dark",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": [
-                {
-                  "label": "Abilities",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Clogging up traffic with the fear of their own abilities",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Running Late",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "He Drives",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Special Weapons",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Being Short",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "showtime",
-      "navLabel": "Showtime",
-      "emoji": "🎬",
-      "enabled": true,
-      "parent": "villains",
-      "hiddenFromNav": false,
-      "sections": [
-        {
-          "type": "two-col",
-          "label": "Making Traffic an Event",
-          "background": "dark",
-          "anchorId": "showtime",
-          "heading": "Showtime",
-          "body": "",
-          "imagePath": "clans/showtime.png",
-          "imagePosition": "right",
-          "imageMaxWidth": "300",
-          "cta_linkType": "none",
-          "cta_linkUrl": "home",
-          "cta_linkLabel": ""
-        },
-        {
-          "type": "flip-cards",
-          "label": "",
-          "background": "dark",
-          "anchorId": "showtime-villains",
-          "heading": "The Deceptors",
-          "subtitle": "",
-          "maxCols": 2,
-          "items": [
-            {
-              "name": "Handiscammer",
-              "tagline": "This undisabled villain parades around displaying the wheeled emblem, stealing parking spots reserved for villains in true need.",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "villains/handiscammer.jpg",
-              "imageSize": "sq",
-              "ribbon": "Decepticars",
-              "note": "",
-              "details": "",
-              "cardStyle": "dark",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": [
-                {
-                  "label": "Abilities",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Being a fully functioning jackass.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "No available handicap spots",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Vocal Heros",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Special Weapons",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Portable Disabled Mirror Badge",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            },
-            {
-              "name": "Lion Tamer",
-              "tagline": "Am I seeing things in slow motion, or is that monster car really going that slow? This villain has appearance of being a high performance, but the only thing high here is the maintenance. .",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "villains/lion-tamer.jpg",
-              "imageSize": "sq",
-              "ribbon": "Decepticars",
-              "note": "",
-              "details": "",
-              "cardStyle": "dark",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": [
-                {
-                  "label": "Abilities",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Clogging up traffic with the fear of their own abilities",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Running Late",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "He Drives",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Special Weapons",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Being Short",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "slug": "heroes",
       "navLabel": "Heroes",
       "emoji": "🦸‍♀️",
@@ -2399,7 +2399,7 @@ const SITE_CONFIG = {
       "sections": [
         {
           "type": "two-col",
-          "label": "Here They Come to Save the Day",
+          "label": "Crime Fighting Villains",
           "background": "dark",
           "anchorId": "heros",
           "heading": "Heros",
@@ -2421,14 +2421,14 @@ const SITE_CONFIG = {
           "maxCols": 2,
           "items": [
             {
-              "name": "Quicksilverette",
+              "name": "Half-Nelson",
               "tagline": "This villain is hot, but a capable, responsible driver she is not. If her driving were half as good as she is at getting free drinks all night, she'd be a Nascar driving instructor.",
               "price": "",
               "period": "",
               "icon": "",
-              "imagePath": "villains/quicksilverette.jpg",
+              "imagePath": "heros/half-nelson.jpg",
               "imageSize": "sq",
-              "ribbon": "OMGs",
+              "ribbon": "Heros",
               "note": "",
               "details": "",
               "cardStyle": "dark",
@@ -2444,7 +2444,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Can misinterpret all rules of the road, while pretending she knows what she is doing.",
+                  "label": "Occupying two lanes at one time, purposefully and dutifully.",
                   "status": "",
                   "isGroup": false
                 },
@@ -2454,122 +2454,27 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Automobiles",
+                  "label": "Wide Shoulders",
                   "status": "",
                   "isGroup": false
                 },
                 {
-                  "label": "Stop signs",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Traffic signals",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Parking lots",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "One-way streets",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Streets",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Highways",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Merging",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Etc.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Special Weapons",
+                  "label": "Special Weapon",
                   "status": "",
                   "isGroup": true
                 },
                 {
-                  "label": "Lipstick Mirror",
+                  "label": "Rearview & Passenger Side Mirrors",
                   "status": "",
                   "isGroup": false
                 },
                 {
-                  "label": "Visor Mirrors",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            },
-            {
-              "name": "SU-Vera",
-              "tagline": "Wants to be just like her villain man, driving a truck made from indestructible steel.",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "villains/su-vera.jpg",
-              "imageSize": "sq",
-              "ribbon": "OMGs",
-              "note": "",
-              "details": "",
-              "cardStyle": "dark",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": [
-                {
-                  "label": "Abilities",
+                  "label": "Nemesis",
                   "status": "",
                   "isGroup": true
                 },
                 {
-                  "label": "Lacks fear of breaking laws of the road or your bones.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Losing truck in divorce",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "He Drives",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Special Weapons",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "2 tons of Steel",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Being Short",
+                  "label": "Head and Shoulders",
                   "status": "",
                   "isGroup": false
                 }
@@ -2780,5 +2685,5 @@ const SITE_CONFIG = {
     "cp-9": "public",
     "cp-10": "public"
   },
-  "_savedAt": 1777483946901
+  "_savedAt": 1777497971382
 };
