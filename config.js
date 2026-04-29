@@ -319,6 +319,16 @@ const SITE_CONFIG = {
               "anchorId": ""
             }
           ]
+        },
+        {
+          "type": "link",
+          "label": "",
+          "background": "light",
+          "anchorId": "link",
+          "linkType": "internal",
+          "linkLabel": "Identify An Affliction",
+          "linkUrl": "afflictions",
+          "link_anchorId": ""
         }
       ]
     },
@@ -475,81 +485,18 @@ const SITE_CONFIG = {
           ]
         },
         {
-          "type": "link",
+          "type": "button",
           "label": "",
           "background": "light",
-          "anchorId": "link",
-          "linkType": "internal",
-          "linkLabel": "Identify a Villain",
-          "linkUrl": "identification",
-          "link_anchorId": ""
-        },
-        {
-          "type": "form",
-          "label": "New Epidemic",
-          "background": "dark",
-          "anchorId": "report-an-affliction",
-          "heading": "Report an Affliction",
-          "intro": "Report the finding and let us verify your discovery before it's too late.",
-          "submitLabel": "File Report",
-          "successMsg": "Thank you! We'll be in touch soon.",
-          "endpoint": "",
-          "fields": [
-            {
-              "type": "text",
-              "label": "Full Name",
-              "placeholder": "Not required",
-              "required": false,
-              "halfWidth": false,
-              "options": []
-            },
-            {
-              "type": "textarea",
-              "label": "Description / Traits",
-              "placeholder": "Describe the action or list the behavior/outcomes",
-              "required": true,
-              "halfWidth": false,
-              "options": []
-            },
-            {
-              "type": "text",
-              "label": "Suggested Affliction Name",
-              "placeholder": "Create a Descriptive Name",
-              "required": true,
-              "halfWidth": false,
-              "options": []
-            },
-            {
-              "type": "select",
-              "label": "Location",
-              "placeholder": "Where did you see the affliction",
-              "required": true,
-              "halfWidth": true,
-              "options": [
-                "Interstate",
-                "Highway",
-                "City Street",
-                "County Road",
-                "Side Street",
-                "Parking Lot",
-                "Other"
-              ]
-            },
-            {
-              "type": "select",
-              "label": "Time of Day",
-              "placeholder": "",
-              "required": true,
-              "halfWidth": false,
-              "options": [
-                "Morning",
-                "Noon",
-                "Afternoon",
-                "Night",
-                "Other"
-              ]
-            }
-          ]
+          "anchorId": "button",
+          "primary_linkType": "none",
+          "primary_linkLabel": "",
+          "primary_linkUrl": "",
+          "primary_anchorId": "",
+          "secondary_linkType": "internal",
+          "secondary_linkLabel": "Report an Affliction",
+          "secondary_linkUrl": "rhv-forms",
+          "secondary_anchorId": "report-an-affliction"
         }
       ]
     },
@@ -650,6 +597,20 @@ const SITE_CONFIG = {
               "imageSize": "sm"
             }
           ]
+        },
+        {
+          "type": "button",
+          "label": "",
+          "background": "light",
+          "anchorId": "button",
+          "primary_linkType": "none",
+          "primary_linkLabel": "",
+          "primary_linkUrl": "",
+          "primary_anchorId": "",
+          "secondary_linkType": "internal",
+          "secondary_linkLabel": "Report an Undocumented Villain",
+          "secondary_linkUrl": "rhv-forms",
+          "secondary_anchorId": "new-villain-encounter"
         }
       ]
     },
@@ -2435,7 +2396,188 @@ const SITE_CONFIG = {
       "enabled": true,
       "parent": null,
       "hiddenFromNav": false,
-      "sections": []
+      "sections": [
+        {
+          "type": "two-col",
+          "label": "Here They Come to Save the Day",
+          "background": "dark",
+          "anchorId": "heros",
+          "heading": "Heros",
+          "body": "",
+          "imagePath": "clans/heros.png",
+          "imagePosition": "right",
+          "imageMaxWidth": "300",
+          "cta_linkType": "none",
+          "cta_linkUrl": "home",
+          "cta_linkLabel": ""
+        },
+        {
+          "type": "flip-cards",
+          "label": "",
+          "background": "dark",
+          "anchorId": "super-heros",
+          "heading": "Super Heros",
+          "subtitle": "",
+          "maxCols": 2,
+          "items": [
+            {
+              "name": "Quicksilverette",
+              "tagline": "This villain is hot, but a capable, responsible driver she is not. If her driving were half as good as she is at getting free drinks all night, she'd be a Nascar driving instructor.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/quicksilverette.jpg",
+              "imageSize": "sq",
+              "ribbon": "OMGs",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Can misinterpret all rules of the road, while pretending she knows what she is doing.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Automobiles",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Stop signs",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Traffic signals",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Parking lots",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "One-way streets",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Streets",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Highways",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Merging",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Etc.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Lipstick Mirror",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Visor Mirrors",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "SU-Vera",
+              "tagline": "Wants to be just like her villain man, driving a truck made from indestructible steel.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/su-vera.jpg",
+              "imageSize": "sq",
+              "ribbon": "OMGs",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Lacks fear of breaking laws of the road or your bones.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Losing truck in divorce",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "He Drives",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "2 tons of Steel",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Being Short",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "slug": "glossary",
@@ -2445,6 +2587,150 @@ const SITE_CONFIG = {
       "parent": null,
       "hiddenFromNav": false,
       "sections": []
+    },
+    {
+      "slug": "rhv-forms",
+      "navLabel": "RHV Forms",
+      "emoji": "📄",
+      "enabled": true,
+      "parent": null,
+      "hiddenFromNav": false,
+      "sections": [
+        {
+          "type": "form",
+          "label": "New Epidemic",
+          "background": "dark",
+          "anchorId": "report-an-affliction",
+          "heading": "Report an Affliction",
+          "intro": "Report the finding and let us verify your discovery before it's too late.",
+          "submitLabel": "File Report",
+          "successMsg": "Thank you! We'll be in touch soon.",
+          "endpoint": "",
+          "fields": [
+            {
+              "type": "text",
+              "label": "Full Name",
+              "placeholder": "Not required",
+              "required": false,
+              "halfWidth": false,
+              "options": []
+            },
+            {
+              "type": "textarea",
+              "label": "Description / Traits",
+              "placeholder": "Describe the action or list the behavior/outcomes",
+              "required": true,
+              "halfWidth": false,
+              "options": []
+            },
+            {
+              "type": "text",
+              "label": "Suggested Affliction Name",
+              "placeholder": "Create a Descriptive Name",
+              "required": true,
+              "halfWidth": false,
+              "options": []
+            },
+            {
+              "type": "select",
+              "label": "Location",
+              "placeholder": "Where did you see the affliction",
+              "required": true,
+              "halfWidth": true,
+              "options": [
+                "Interstate",
+                "Highway",
+                "City Street",
+                "County Road",
+                "Side Street",
+                "Parking Lot",
+                "Other"
+              ]
+            },
+            {
+              "type": "select",
+              "label": "Time of Day",
+              "placeholder": "",
+              "required": true,
+              "halfWidth": false,
+              "options": [
+                "Morning",
+                "Noon",
+                "Afternoon",
+                "Night",
+                "Other"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "form",
+          "label": "Undocumented",
+          "background": "dark",
+          "anchorId": "new-villain-encounter",
+          "heading": "New Villain Encounter",
+          "intro": "Report the finding and let us verify your discovery before it's too late.",
+          "submitLabel": "File Report",
+          "successMsg": "Thank you! We'll be in touch soon.",
+          "endpoint": "",
+          "fields": [
+            {
+              "type": "text",
+              "label": "Full Name",
+              "placeholder": "Not required",
+              "required": false,
+              "halfWidth": false,
+              "options": []
+            },
+            {
+              "type": "textarea",
+              "label": "Description / Traits",
+              "placeholder": "Describe the action or list the behavior/outcomes",
+              "required": true,
+              "halfWidth": false,
+              "options": []
+            },
+            {
+              "type": "text",
+              "label": "Suggested Villain Name",
+              "placeholder": "Create a Descriptive Name",
+              "required": true,
+              "halfWidth": false,
+              "options": []
+            },
+            {
+              "type": "select",
+              "label": "Location",
+              "placeholder": "Where did you see the villain",
+              "required": true,
+              "halfWidth": true,
+              "options": [
+                "Interstate",
+                "Highway",
+                "City Street",
+                "County Road",
+                "Side Street",
+                "Parking Lot",
+                "Other"
+              ]
+            },
+            {
+              "type": "select",
+              "label": "Time of Day",
+              "placeholder": "",
+              "required": true,
+              "halfWidth": false,
+              "options": [
+                "Morning",
+                "Noon",
+                "Afternoon",
+                "Night",
+                "Other"
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "aboutSections": [],
@@ -2494,5 +2780,5 @@ const SITE_CONFIG = {
     "cp-9": "public",
     "cp-10": "public"
   },
-  "_savedAt": 1777483022704
+  "_savedAt": 1777483946901
 };
