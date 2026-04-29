@@ -120,17 +120,17 @@ const SITE_CONFIG = {
         "playDuration": 0
       },
       {
-        "mp4": "videos/hero-08.mp4",
+        "mp4": "videos/hero-03.mp4",
         "webm": "",
         "fallback": "",
         "transitionIn": "crossfade",
-        "objectPosition": "bottom center",
-        "playbackRate": 1.5,
+        "objectPosition": "center center",
+        "playbackRate": 1,
         "startTime": 0,
-        "playDuration": 6
+        "playDuration": 0
       },
       {
-        "mp4": "videos/hero-06.mp4",
+        "mp4": "videos/hero-01.mp4",
         "webm": "",
         "fallback": "",
         "transitionIn": "crossfade",
@@ -138,6 +138,16 @@ const SITE_CONFIG = {
         "playbackRate": 1.5,
         "startTime": 0,
         "playDuration": 6
+      },
+      {
+        "mp4": "videos/hero-02.mp4",
+        "webm": "",
+        "fallback": "",
+        "transitionIn": "crossfade",
+        "objectPosition": "center center",
+        "playbackRate": 1,
+        "startTime": 0,
+        "playDuration": 5
       }
     ],
     "videoFallback": "",
@@ -2685,5 +2695,5 @@ const SITE_CONFIG = {
     "cp-9": "public",
     "cp-10": "public"
   },
-  "_savedAt": 1777497971382
+  "_savedAt": 1777499633159
 };
