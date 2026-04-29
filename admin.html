@@ -2146,7 +2146,7 @@ function addTierFeature(pi, si, ci) {
   card.features.push({ label: '', status: 'yes', isGroup: false });
   if (pi === 'h') buildHomeSectionsList();
   else if (pi === 'a') buildAboutSectionsList();
-  else buildCustomPagesList();
+  else rebuildAfterMutation(pi);
   autosave();
 }
 
@@ -2159,7 +2159,7 @@ function removeTierFeature(pi, si, ci, fi) {
   card.features.splice(fi, 1);
   if (pi === 'h') buildHomeSectionsList();
   else if (pi === 'a') buildAboutSectionsList();
-  else buildCustomPagesList();
+  else rebuildAfterMutation(pi);
   autosave();
 }
 
@@ -2176,7 +2176,7 @@ function moveTierFeature(pi, si, ci, fi, dir) {
   card.features[fi2] = tmp;
   if (pi === 'h') buildHomeSectionsList();
   else if (pi === 'a') buildAboutSectionsList();
-  else buildCustomPagesList();
+  else rebuildAfterMutation(pi);
   autosave();
 }
 
@@ -2190,7 +2190,7 @@ function addFlipFeature(pi, si, ci) {
   card.features.push({ label: '', status: '', isGroup: false });
   if (pi === 'h') buildHomeSectionsList();
   else if (pi === 'a') buildAboutSectionsList();
-  else buildCustomPagesList();
+  else rebuildAfterMutation(pi);
   autosave();
 }
 
@@ -2203,7 +2203,7 @@ function removeFlipFeature(pi, si, ci, fi) {
   card.features.splice(fi, 1);
   if (pi === 'h') buildHomeSectionsList();
   else if (pi === 'a') buildAboutSectionsList();
-  else buildCustomPagesList();
+  else rebuildAfterMutation(pi);
   autosave();
 }
 
@@ -2220,7 +2220,7 @@ function moveFlipFeature(pi, si, ci, fi, dir) {
   card.features[fi2] = tmp;
   if (pi === 'h') buildHomeSectionsList();
   else if (pi === 'a') buildAboutSectionsList();
-  else buildCustomPagesList();
+  else rebuildAfterMutation(pi);
   autosave();
 }
 
@@ -6343,6 +6343,30 @@ function rebuildAfterMutation(pi) {
     }
   });
 
+  // Snapshot collapsed tier card sub-items: key = "si-subIdx"
+  const collapsedTierCards = new Set();
+  document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .tc-chev`).forEach(chev => {
+    const header = chev.closest('.cp-sub-item-header');
+    const body = header?.nextElementSibling;
+    if (body && body.style.display === 'none') {
+      const card = chev.closest('.cp-section-card');
+      const subItem = chev.closest('[data-sub-idx]');
+      if (card && subItem) collapsedTierCards.add(card.dataset.si + '-' + subItem.dataset.subIdx);
+    }
+  });
+
+  // Snapshot collapsed flip card sub-items: key = "si-subIdx"
+  const collapsedFlipCards = new Set();
+  document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .fc-chev`).forEach(chev => {
+    const header = chev.closest('.cp-sub-item-header');
+    const body = header?.nextElementSibling;
+    if (body && body.style.display === 'none') {
+      const card = chev.closest('.cp-section-card');
+      const subItem = chev.closest('[data-sub-idx]');
+      if (card && subItem) collapsedFlipCards.add(card.dataset.si + '-' + subItem.dataset.subIdx);
+    }
+  });
+
   if (pi === 'h') buildHomeSectionsList();
   else if (pi === 'a') buildAboutSectionsList();
   else buildCustomPagesList();
@@ -6377,6 +6401,36 @@ function rebuildAfterMutation(pi) {
       const key = card.dataset.si + '-' + subItem.dataset.subIdx;
       if (collapsedFeatures.has(key)) {
         const body = chev.closest('[onclick]')?.nextElementSibling;
+        if (body) { body.style.display = 'none'; chev.textContent = '▸'; }
+      }
+    });
+  }
+
+  // Restore collapsed tier card sub-items
+  if (collapsedTierCards.size) {
+    document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .tc-chev`).forEach(chev => {
+      const card = chev.closest('.cp-section-card');
+      const subItem = chev.closest('[data-sub-idx]');
+      if (!card || !subItem) return;
+      const key = card.dataset.si + '-' + subItem.dataset.subIdx;
+      if (collapsedTierCards.has(key)) {
+        const header = chev.closest('.cp-sub-item-header');
+        const body = header?.nextElementSibling;
+        if (body) { body.style.display = 'none'; chev.textContent = '▸'; }
+      }
+    });
+  }
+
+  // Restore collapsed flip card sub-items
+  if (collapsedFlipCards.size) {
+    document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .fc-chev`).forEach(chev => {
+      const card = chev.closest('.cp-section-card');
+      const subItem = chev.closest('[data-sub-idx]');
+      if (!card || !subItem) return;
+      const key = card.dataset.si + '-' + subItem.dataset.subIdx;
+      if (collapsedFlipCards.has(key)) {
+        const header = chev.closest('.cp-sub-item-header');
+        const body = header?.nextElementSibling;
         if (body) { body.style.display = 'none'; chev.textContent = '▸'; }
       }
     });

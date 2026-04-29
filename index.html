@@ -2096,6 +2096,8 @@ footer {
   color: var(--text-body);
 }
 .cps-two-col-text .cps-body p { margin-bottom: 14px; }
+/* Heading sits above flex row — space below before image/text columns */
+.cps-two-col-heading { margin-bottom: 28px; }
 @media (max-width: 768px) {
   .cps-two-col-img,
   .cps-two-col-text { flex: 0 0 100%; max-width: 100%; }
@@ -2455,9 +2457,14 @@ footer {
     text-transform: uppercase;
     color: var(--gold);
     font-weight: 600;
-    margin-bottom: 4px;
     font-family: var(--font-body);
+    background: var(--navy);
+    margin: -14px -20px 12px -20px;
+    padding: 10px 20px;
   }
+  .cps-section-dark .cps-fee-table td::before { background: rgba(255,255,255,0.07); color: var(--gold); }
+  .cps-section-light .cps-fee-table td::before,
+  .cps-section-alt   .cps-fee-table td::before { background: var(--navy); }
   .cps-fee-table tbody tr:hover td { background: var(--gold-pale); }
   .cps-section-dark .cps-fee-table tbody tr:hover td { background: rgba(255,255,255,0.05); }
   .cps-fee-amount { white-space: normal; }
@@ -5852,8 +5859,6 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         ? `<div class="cps-two-col-img"><img src="${sec.imagePath}" alt="${sec.heading||''}" loading="lazy"/></div>`
         : `<div class="cps-two-col-img"><div class="cps-two-col-img-placeholder">🏛️</div></div>`;
       const textHTML = `<div class="cps-two-col-text">
-        ${labelHTML}
-        ${sec.heading ? `<${headTag} class="${headClass} cps-heading">${sec.heading}</${headTag}>` : ''}
         <div class="cps-body">${formatBody(sec.body)}</div>
         ${(sec.cta_linkLabel || sec.ctaLabel) ? `<div style="margin-top:28px;"><button class="btn-primary" ${
           sec.cta_linkType === 'internal' ? `onclick="showPage('${escAttr(sec.cta_linkUrl || 'contact')}','${escAttr(sec.cta_anchorId||'')}')"` :
@@ -5862,6 +5867,8 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         }>${sec.cta_linkLabel || sec.ctaLabel} →</button></div>` : ''}
       </div>`;
       wrapper.innerHTML = `<div class="container">
+        ${labelHTML}
+        ${sec.heading ? `<${headTag} class="${headClass} cps-heading cps-two-col-heading">${sec.heading}</${headTag}>` : ''}
         <div class="cps-two-col ${imgSide} reveal" ${imgVarStyle}>
           ${imgHTML}${textHTML}
         </div>
