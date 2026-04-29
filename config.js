@@ -248,8 +248,8 @@ const SITE_CONFIG = {
           "items": [
             {
               "date": "",
-              "title": "Older model, parts falling off, re-engineered components, rust",
-              "body": "Leave plenty of space to dodge car parts, and oil slicks or splatter from other various  fluids.",
+              "title": "Older model, Parts falling off, Re-engineered components, Rust",
+              "body": "Leave plenty of space to dodge car parts, and oil slicks or splatter from other various fluids.",
               "linkLabel": "Junkyard Dawgs Clan",
               "linkType": "internal",
               "linkUrl": "junkyard-dawgs",
@@ -257,20 +257,65 @@ const SITE_CONFIG = {
             },
             {
               "date": "",
-              "title": "Loud terrible music, flashing lights, lots of bling,",
+              "title": "Loud terrible music, Flashing lights, Lots of bling,",
               "body": "Roll up your windows, put on some sun shades, maybe turn up your tunes a little.",
               "linkLabel": "Showtime Clan",
-              "linkType": "none",
-              "linkUrl": "home",
+              "linkType": "internal",
+              "linkUrl": "showtime",
               "anchorId": ""
             },
             {
               "date": "",
-              "title": "Excessive acceleration, in a hurry, negotiating traffic terribly, not courteous",
+              "title": "Excessive acceleration, In a hurry, Negotiating traffic terribly, Not courteous",
               "body": "Don't make any sudden decelerations/stops, leave space for diving, check the shoulder before making any turns",
               "linkLabel": "Grand Pricks Clan",
               "linkType": "internal",
               "linkUrl": "grand-pricks",
+              "anchorId": ""
+            },
+            {
+              "date": "",
+              "title": "Moves slowly, Loves brakes, seems lost, Lane changing issues, Fear",
+              "body": "Early detection is paramount, so that you don't get stuck behind them.",
+              "linkLabel": "Slow Moes Clan",
+              "linkType": "internal",
+              "linkUrl": "slow-moes",
+              "anchorId": ""
+            },
+            {
+              "date": "",
+              "title": "Focuses on anything but driving, No perception of driving concepts, Female",
+              "body": "",
+              "linkLabel": "OMGs Clan",
+              "linkType": "internal",
+              "linkUrl": "omgs",
+              "anchorId": ""
+            },
+            {
+              "date": "",
+              "title": "Oblivious of others, Loves social media, One perspective",
+              "body": "",
+              "linkLabel": "Bubble Brigade Clan",
+              "linkType": "internal",
+              "linkUrl": "bubble-brigade",
+              "anchorId": ""
+            },
+            {
+              "date": "",
+              "title": "Deceiving appearance, Sudden driving changes",
+              "body": "",
+              "linkLabel": "Decepitcars Clan",
+              "linkType": "internal",
+              "linkUrl": "decepticars",
+              "anchorId": ""
+            },
+            {
+              "date": "",
+              "title": "Aggressive, Redefines roadway use, Unfazed by Weather",
+              "body": "",
+              "linkLabel": "KinEvils Clan",
+              "linkType": "internal",
+              "linkUrl": "kinevils",
               "anchorId": ""
             }
           ]
@@ -537,9 +582,9 @@ const SITE_CONFIG = {
             {
               "title": "Bubble Brigade",
               "body": "In a world by themselves.",
-              "linkLabel": "",
-              "linkType": "none",
-              "linkUrl": "home",
+              "linkLabel": "Bubble Brigade",
+              "linkType": "internal",
+              "linkUrl": "bubble-brigade",
               "anchorId": "",
               "imagePath": "clans/bubblebrigade.png",
               "imageSize": "sm"
@@ -547,9 +592,9 @@ const SITE_CONFIG = {
             {
               "title": "Decepticars",
               "body": "Cars aren't who they look like.",
-              "linkLabel": "",
-              "linkType": "none",
-              "linkUrl": "home",
+              "linkLabel": "Decepticars",
+              "linkType": "internal",
+              "linkUrl": "decepticars",
               "anchorId": "",
               "imagePath": "clans/decepticars.png",
               "imageSize": "sm"
@@ -557,9 +602,9 @@ const SITE_CONFIG = {
             {
               "title": "Grand Pricks",
               "body": "",
-              "linkLabel": "",
-              "linkType": "none",
-              "linkUrl": "home",
+              "linkLabel": "Grand Pricks",
+              "linkType": "internal",
+              "linkUrl": "grand-pricks",
               "anchorId": "",
               "imagePath": "clans/grandpricks.png",
               "imageSize": "sm"
@@ -567,9 +612,9 @@ const SITE_CONFIG = {
             {
               "title": "Kinevils",
               "body": "",
-              "linkLabel": "",
-              "linkType": "none",
-              "linkUrl": "home",
+              "linkLabel": "KinEvils",
+              "linkType": "internal",
+              "linkUrl": "kinevils",
               "anchorId": "",
               "imagePath": "clans/kinevils.png",
               "imageSize": "sm"
@@ -577,9 +622,9 @@ const SITE_CONFIG = {
             {
               "title": "OMGs",
               "body": "We can't even believe it.",
-              "linkLabel": "",
-              "linkType": "none",
-              "linkUrl": "home",
+              "linkLabel": "OMGs",
+              "linkType": "internal",
+              "linkUrl": "omgs",
               "anchorId": "",
               "imagePath": "clans/omgs.png",
               "imageSize": "sm"
@@ -587,9 +632,9 @@ const SITE_CONFIG = {
             {
               "title": "Showtime",
               "body": "Lights, camera, action!",
-              "linkLabel": "",
-              "linkType": "none",
-              "linkUrl": "home",
+              "linkLabel": "Showtime",
+              "linkType": "internal",
+              "linkUrl": "showtime",
               "anchorId": "",
               "imagePath": "clans/showtime.png",
               "imageSize": "sm"
@@ -597,9 +642,9 @@ const SITE_CONFIG = {
             {
               "title": "Slow Moes",
               "body": "",
-              "linkLabel": "",
-              "linkType": "none",
-              "linkUrl": "home",
+              "linkLabel": "Slow Moes",
+              "linkType": "internal",
+              "linkUrl": "slow-moes",
               "anchorId": "",
               "imagePath": "clans/slowmoes.png",
               "imageSize": "sm"
@@ -889,7 +934,7 @@ const SITE_CONFIG = {
           "heading": "Grand Pricks",
           "body": "",
           "imagePath": "clans/grandpricks.png",
-          "imagePosition": "left",
+          "imagePosition": "right",
           "imageMaxWidth": "300",
           "cta_linkType": "none",
           "cta_linkUrl": "home",
@@ -910,7 +955,7 @@ const SITE_CONFIG = {
               "price": "",
               "period": "",
               "icon": "",
-              "imagePath": "villains/fly-bye.png",
+              "imagePath": "villains/fly-bye.jpg",
               "imageSize": "sq",
               "ribbon": "Grand Pricks",
               "note": "",
@@ -1015,7 +1060,7 @@ const SITE_CONFIG = {
               "price": "",
               "period": "",
               "icon": "",
-              "imagePath": "villains/head-and-shoulders.png",
+              "imagePath": "villains/head-and-shoulders.jpg",
               "imageSize": "sq",
               "ribbon": "Grand Pricks",
               "note": "",
@@ -1075,7 +1120,7 @@ const SITE_CONFIG = {
               "price": "",
               "period": "",
               "icon": "",
-              "imagePath": "villains/latergator.png",
+              "imagePath": "villains/later-gator.jpg",
               "imageSize": "sq",
               "ribbon": "Grand Pricks",
               "note": "",
@@ -1125,7 +1170,7 @@ const SITE_CONFIG = {
               "price": "",
               "period": "",
               "icon": "",
-              "imagePath": "villains/blame-changer.png",
+              "imagePath": "villains/blame-changer.jpg",
               "imageSize": "sq",
               "ribbon": "Grand Pricks",
               "note": "",
@@ -1165,7 +1210,7 @@ const SITE_CONFIG = {
               "price": "",
               "period": "",
               "icon": "",
-              "imagePath": "villains/dragqueen.png",
+              "imagePath": "villains/drag-queen.jpg",
               "imageSize": "sq",
               "ribbon": "Grand Pricks",
               "note": "",
@@ -1210,7 +1255,7 @@ const SITE_CONFIG = {
               "price": "",
               "period": "",
               "icon": "",
-              "imagePath": "villains/elcheetah.png",
+              "imagePath": "villains/el-cheetah.jpg",
               "imageSize": "sq",
               "ribbon": "Grand Pricks",
               "note": "",
@@ -1250,7 +1295,7 @@ const SITE_CONFIG = {
               "price": "",
               "period": "",
               "icon": "",
-              "imagePath": "villains/exxiton.png",
+              "imagePath": "villains/exxiton.jpg",
               "imageSize": "sq",
               "ribbon": "Grand Pricks",
               "note": "",
@@ -1582,7 +1627,7 @@ const SITE_CONFIG = {
           "background": "dark",
           "anchorId": "omgs",
           "heading": "OMGs",
-          "body": "",
+          "body": "The myth that all women are bad drivers is just a myth, until you encounter this clan of females.",
           "imagePath": "clans/omgs.png",
           "imagePosition": "right",
           "imageMaxWidth": "300",
@@ -1949,6 +1994,441 @@ const SITE_CONFIG = {
       ]
     },
     {
+      "slug": "decepticars",
+      "navLabel": "Decepticars",
+      "emoji": "🚘",
+      "enabled": true,
+      "parent": "villains",
+      "hiddenFromNav": false,
+      "sections": [
+        {
+          "type": "two-col",
+          "label": "What Are You Looking At",
+          "background": "dark",
+          "anchorId": "decepticars",
+          "heading": "Decepticars",
+          "body": "",
+          "imagePath": "clans/decepticars.png",
+          "imagePosition": "right",
+          "imageMaxWidth": "300",
+          "cta_linkType": "none",
+          "cta_linkUrl": "home",
+          "cta_linkLabel": ""
+        },
+        {
+          "type": "flip-cards",
+          "label": "",
+          "background": "dark",
+          "anchorId": "decepticars-villains",
+          "heading": "The Deceptors",
+          "subtitle": "",
+          "maxCols": 2,
+          "items": [
+            {
+              "name": "Handiscammer",
+              "tagline": "This undisabled villain parades around displaying the wheeled emblem, stealing parking spots reserved for villains in true need.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/handiscammer.jpg",
+              "imageSize": "sq",
+              "ribbon": "Decepticars",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Being a fully functioning jackass.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "No available handicap spots",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Vocal Heros",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Portable Disabled Mirror Badge",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Lion Tamer",
+              "tagline": "Am I seeing things in slow motion, or is that monster car really going that slow? This villain has appearance of being a high performance, but the only thing high here is the maintenance. .",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/lion-tamer.jpg",
+              "imageSize": "sq",
+              "ribbon": "Decepticars",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Clogging up traffic with the fear of their own abilities",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Running Late",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "He Drives",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Being Short",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "kinevils",
+      "navLabel": "KinEvils",
+      "emoji": "💀",
+      "enabled": true,
+      "parent": "villains",
+      "hiddenFromNav": false,
+      "sections": [
+        {
+          "type": "two-col",
+          "label": "Our Road, Your Nightmare",
+          "background": "dark",
+          "anchorId": "kinevils",
+          "heading": "KinEvils",
+          "body": "",
+          "imagePath": "clans/kinevils.png",
+          "imagePosition": "right",
+          "imageMaxWidth": "300",
+          "cta_linkType": "none",
+          "cta_linkUrl": "home",
+          "cta_linkLabel": ""
+        },
+        {
+          "type": "flip-cards",
+          "label": "",
+          "background": "dark",
+          "anchorId": "kinevils-villains",
+          "heading": "The Deceptors",
+          "subtitle": "",
+          "maxCols": 2,
+          "items": [
+            {
+              "name": "Handiscammer",
+              "tagline": "This undisabled villain parades around displaying the wheeled emblem, stealing parking spots reserved for villains in true need.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/handiscammer.jpg",
+              "imageSize": "sq",
+              "ribbon": "Decepticars",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Being a fully functioning jackass.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "No available handicap spots",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Vocal Heros",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Portable Disabled Mirror Badge",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Lion Tamer",
+              "tagline": "Am I seeing things in slow motion, or is that monster car really going that slow? This villain has appearance of being a high performance, but the only thing high here is the maintenance. .",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/lion-tamer.jpg",
+              "imageSize": "sq",
+              "ribbon": "Decepticars",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Clogging up traffic with the fear of their own abilities",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Running Late",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "He Drives",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Being Short",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "showtime",
+      "navLabel": "Showtime",
+      "emoji": "🎬",
+      "enabled": true,
+      "parent": "villains",
+      "hiddenFromNav": false,
+      "sections": [
+        {
+          "type": "two-col",
+          "label": "Making Traffic an Event",
+          "background": "dark",
+          "anchorId": "showtime",
+          "heading": "Showtime",
+          "body": "",
+          "imagePath": "clans/showtime.png",
+          "imagePosition": "right",
+          "imageMaxWidth": "300",
+          "cta_linkType": "none",
+          "cta_linkUrl": "home",
+          "cta_linkLabel": ""
+        },
+        {
+          "type": "flip-cards",
+          "label": "",
+          "background": "dark",
+          "anchorId": "showtime-villains",
+          "heading": "The Deceptors",
+          "subtitle": "",
+          "maxCols": 2,
+          "items": [
+            {
+              "name": "Handiscammer",
+              "tagline": "This undisabled villain parades around displaying the wheeled emblem, stealing parking spots reserved for villains in true need.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/handiscammer.jpg",
+              "imageSize": "sq",
+              "ribbon": "Decepticars",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Being a fully functioning jackass.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "No available handicap spots",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Vocal Heros",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Portable Disabled Mirror Badge",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Lion Tamer",
+              "tagline": "Am I seeing things in slow motion, or is that monster car really going that slow? This villain has appearance of being a high performance, but the only thing high here is the maintenance. .",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/lion-tamer.jpg",
+              "imageSize": "sq",
+              "ribbon": "Decepticars",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Clogging up traffic with the fear of their own abilities",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Running Late",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "He Drives",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Being Short",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "slug": "heroes",
       "navLabel": "Heroes",
       "emoji": "🦸‍♀️",
@@ -2010,7 +2490,9 @@ const SITE_CONFIG = {
     "cp-5": "public",
     "cp-6": "public",
     "cp-7": "public",
-    "cp-8": "public"
+    "cp-8": "public",
+    "cp-9": "public",
+    "cp-10": "public"
   },
-  "_savedAt": 1777437171886
+  "_savedAt": 1777483022704
 };
