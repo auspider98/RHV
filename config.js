@@ -22,6 +22,8 @@ const SITE_CONFIG = {
   "logoSplashChoice": "alternate",
   "logoSplashHeight": 150,
   "logoSplashMode": "logo-tagline",
+  "logoFooterChoice": "none",
+  "logoFooterHeight": 40,
   "pageHeaders": {
     "about": {
       "label": "About Us",
@@ -74,8 +76,8 @@ const SITE_CONFIG = {
   "colors": {
     "navy": "#1c1c1c",
     "navyLight": "#424242",
-    "gold": "#e8e11e",
-    "goldLight": "#ff0000",
+    "gold": "#eeb417",
+    "goldLight": "#de1b1b",
     "goldPale": "#faf6ec",
     "warmWhite": "#fffdf9",
     "cream": "#faf6ec",
@@ -2705,5 +2707,5 @@ const SITE_CONFIG = {
     "cp-12": "public",
     "cp-13": "public"
   },
-  "_savedAt": 1777526668241
+  "_savedAt": 1777557300233
 };

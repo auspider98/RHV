@@ -923,6 +923,21 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
             </select>
             <div class="field-hint">Logo + line / tagline hides the site name. Logo only hides everything else.</div>
           </div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin:14px 0 8px;">Footer Logo</div>
+          <div class="form-row-2">
+            <div class="field-group" style="margin:0;">
+              <label>Logo to Use</label>
+              <select id="f_logoFooterChoice">
+                <option value="none">None (use text name)</option>
+                <option value="primary">Primary Logo</option>
+                <option value="alternate">Alternate Logo</option>
+              </select>
+            </div>
+            <div class="field-group" style="margin:0;">
+              <label>Logo Height (px)</label>
+              <input type="number" id="f_logoFooterHeight" placeholder="40" min="16" max="120" style="width:100px;"/>
+            </div>
+          </div>
         </div>
       </div>
       <div class="panel open">
@@ -1700,6 +1715,7 @@ let DATA = {
   logoPrimary:"", logoAlternate:"",
   logoHeaderChoice:"none", logoHeaderHeight:40,
   logoSplashChoice:"none", logoSplashHeight:80, logoSplashMode:"logo-name-tagline",
+  logoFooterChoice:"none", logoFooterHeight:40,
   pageHeaders:{
     about:        {label:"About Us",   title:"About Us", subtitle:""},
     contact:      {label:"Get in Touch"},
@@ -1883,6 +1899,9 @@ function loadForm() {
   if (lsc) lsc.value = DATA.logoSplashChoice || 'none';
   const lsm = document.getElementById('f_logoSplashMode');
   if (lsm) lsm.value = DATA.logoSplashMode || 'logo-name-tagline';
+  const lfc = document.getElementById('f_logoFooterChoice');
+  if (lfc) lfc.value = DATA.logoFooterChoice || 'none';
+  setVal('f_logoFooterHeight', DATA.logoFooterHeight || 40);
   // Page Headers
   const ph = DATA.pageHeaders || {};
   const pages = ['about'];
@@ -2353,6 +2372,8 @@ function collectData() {
   DATA.logoSplashChoice  = getVal('f_logoSplashChoice')  || 'none';
   DATA.logoSplashHeight  = parseInt(getVal('f_logoSplashHeight'))  || 80;
   DATA.logoSplashMode    = getVal('f_logoSplashMode')    || 'logo-tagline';
+  DATA.logoFooterChoice  = getVal('f_logoFooterChoice')  || 'none';
+  DATA.logoFooterHeight  = parseInt(getVal('f_logoFooterHeight'))  || 40;
   // Page Headers
   const phPages = ['about'];
   const phFields = ['label','title','subtitle'];

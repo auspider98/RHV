@@ -120,6 +120,14 @@ img { display: block; max-width: 100%; }
   width: auto;
   object-fit: contain;
 }
+#footer-logo {
+  display: none;
+  height: var(--footer-logo-h, 40px);
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
 #splash-logo {
   display: none;
   height: var(--splash-logo-h, 80px);
@@ -3832,6 +3840,7 @@ footer {
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
+        <img id="footer-logo" alt="Logo" style="display:none;"/>
         <div class="logo-name" id="footer-firm-name"></div>
         <div class="logo-tagline" id="footer-tagline-foot" style="margin-top:4px;"></div>
         <div id="footer-social-icons" style="margin-top:16px;"></div>
@@ -4605,7 +4614,25 @@ function buildContact() {
    FOOTER
    ============================================= */
 function buildFooter() {
-  document.getElementById('footer-firm-name').textContent = CFG.firmName;
+  // Footer logo
+  const primaryLogo   = CFG.logoPrimary   || '';
+  const alternateLogo = CFG.logoAlternate || '';
+  const footerChoice  = CFG.logoFooterChoice || 'none';
+  const footerLogoH   = CFG.logoFooterHeight || 40;
+  document.documentElement.style.setProperty('--footer-logo-h', footerLogoH + 'px');
+  const footerLogoEl  = document.getElementById('footer-logo');
+  const footerNameEl  = document.getElementById('footer-firm-name');
+  const footerLogoSrc = footerChoice === 'primary'   ? primaryLogo
+                      : footerChoice === 'alternate' ? alternateLogo : '';
+  if (footerLogoEl && footerLogoSrc) {
+    footerLogoEl.src = footerLogoSrc;
+    footerLogoEl.style.display = 'block';
+    if (footerNameEl) footerNameEl.style.display = 'none';
+  } else {
+    if (footerLogoEl) footerLogoEl.style.display = 'none';
+    if (footerNameEl) { footerNameEl.style.display = ''; footerNameEl.textContent = CFG.firmName; }
+  }
+
   document.getElementById('footer-tagline-foot').textContent = CFG.tagline;
   document.getElementById('footer-bio').textContent = CFG.footerBio || (CFG.aboutBio1 ? CFG.aboutBio1.substring(0,120)+'…' : '');
 
