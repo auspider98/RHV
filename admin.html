@@ -868,6 +868,65 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
       </div>
       <div class="panel open">
         <div class="panel-header" onclick="togglePanel(this)">
+          <div class="panel-title"><span class="panel-title-icon">🖼️</span> Branding & Logo</div>
+          <span class="panel-chevron">▼</span>
+        </div>
+        <div class="panel-body">
+          <div class="form-row-2">
+            <div class="field-group">
+              <label>Primary Logo Path</label>
+              <input type="text" id="f_logoPrimary" placeholder="images/logo.png"/>
+              <div class="field-hint">Used in header and/or splash screen.</div>
+            </div>
+            <div class="field-group">
+              <label>Alternate Logo Path</label>
+              <input type="text" id="f_logoAlternate" placeholder="images/logo-alt.png"/>
+              <div class="field-hint">Optional — e.g. light version for dark backgrounds.</div>
+            </div>
+          </div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin:14px 0 8px;">Header Logo</div>
+          <div class="form-row-2">
+            <div class="field-group" style="margin:0;">
+              <label>Logo to Use</label>
+              <select id="f_logoHeaderChoice">
+                <option value="none">None (use text name)</option>
+                <option value="primary">Primary Logo</option>
+                <option value="alternate">Alternate Logo</option>
+              </select>
+            </div>
+            <div class="field-group" style="margin:0;">
+              <label>Logo Height (px)</label>
+              <input type="number" id="f_logoHeaderHeight" placeholder="40" min="16" max="120" style="width:100px;"/>
+            </div>
+          </div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin:14px 0 8px;">Splash Screen Logo</div>
+          <div class="form-row-2">
+            <div class="field-group" style="margin:0;">
+              <label>Logo to Use</label>
+              <select id="f_logoSplashChoice">
+                <option value="none">None (use text name)</option>
+                <option value="primary">Primary Logo</option>
+                <option value="alternate">Alternate Logo</option>
+              </select>
+            </div>
+            <div class="field-group" style="margin:0;">
+              <label>Logo Height (px)</label>
+              <input type="number" id="f_logoSplashHeight" placeholder="80" min="20" max="300" style="width:100px;"/>
+            </div>
+          </div>
+          <div class="field-group" style="margin-top:12px;">
+            <label>Splash Display Mode</label>
+            <select id="f_logoSplashMode">
+              <option value="logo-name-tagline">Logo + name / line / tagline</option>
+              <option value="logo-tagline">Logo + line / tagline</option>
+              <option value="logo-only">Logo only</option>
+            </select>
+            <div class="field-hint">Logo + line / tagline hides the site name. Logo only hides everything else.</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel open">
+        <div class="panel-header" onclick="togglePanel(this)">
           <div class="panel-title"><span class="panel-title-icon">📊</span> Stats Bar</div>
           <div style="display:flex;align-items:center;gap:10px;margin-left:auto;margin-right:12px;" onclick="event.stopPropagation()">
             <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;color:var(--muted);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;">
@@ -1638,6 +1697,9 @@ const LS_FAB     = () => window._SITE_KEY + '_adminFabPos';
    ============================================= */
 let DATA = {
   firmName:"", tagline:"", preloaderTagline:"",
+  logoPrimary:"", logoAlternate:"",
+  logoHeaderChoice:"none", logoHeaderHeight:40,
+  logoSplashChoice:"none", logoSplashHeight:80, logoSplashMode:"logo-name-tagline",
   pageHeaders:{
     about:        {label:"About Us",   title:"About Us", subtitle:""},
     contact:      {label:"Get in Touch"},
@@ -1811,6 +1873,16 @@ function loadForm() {
   const animEl = document.getElementById('f_animateStats');
   if (animEl) animEl.checked = DATA.animateStats === true;
   setVal('f_preloaderTagline', DATA.preloaderTagline||'');
+  setVal('f_logoPrimary',      DATA.logoPrimary      || '');
+  setVal('f_logoAlternate',    DATA.logoAlternate    || '');
+  setVal('f_logoHeaderHeight', DATA.logoHeaderHeight || 40);
+  setVal('f_logoSplashHeight', DATA.logoSplashHeight || 80);
+  const lhc = document.getElementById('f_logoHeaderChoice');
+  if (lhc) lhc.value = DATA.logoHeaderChoice || 'none';
+  const lsc = document.getElementById('f_logoSplashChoice');
+  if (lsc) lsc.value = DATA.logoSplashChoice || 'none';
+  const lsm = document.getElementById('f_logoSplashMode');
+  if (lsm) lsm.value = DATA.logoSplashMode || 'logo-name-tagline';
   // Page Headers
   const ph = DATA.pageHeaders || {};
   const pages = ['about'];
@@ -2274,6 +2346,13 @@ function collectData() {
   const _animEl = document.getElementById('f_animateStats');
   DATA.animateStats = _animEl ? _animEl.checked : false;
   DATA.preloaderTagline = getVal('f_preloaderTagline');
+  DATA.logoPrimary       = getVal('f_logoPrimary');
+  DATA.logoAlternate     = getVal('f_logoAlternate');
+  DATA.logoHeaderChoice  = getVal('f_logoHeaderChoice')  || 'none';
+  DATA.logoHeaderHeight  = parseInt(getVal('f_logoHeaderHeight'))  || 40;
+  DATA.logoSplashChoice  = getVal('f_logoSplashChoice')  || 'none';
+  DATA.logoSplashHeight  = parseInt(getVal('f_logoSplashHeight'))  || 80;
+  DATA.logoSplashMode    = getVal('f_logoSplashMode')    || 'logo-tagline';
   // Page Headers
   const phPages = ['about'];
   const phFields = ['label','title','subtitle'];
