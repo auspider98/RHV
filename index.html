@@ -1372,6 +1372,9 @@ h2.section-title {
   color: var(--text-muted);
   letter-spacing: 0.05em;
   margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 .about-credentials {
   display: flex; flex-direction: row; flex-wrap: wrap; gap: 8px;
@@ -1790,6 +1793,14 @@ h2.section-title {
   align-items: start;
 }
 .contact-info { color: rgba(255,255,255,0.7); }
+.contact-location { margin-bottom: 32px; }
+.contact-location:last-child { margin-bottom: 0; }
+.contact-location-name {
+  font-family: var(--font-display);
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 12px;
+}
 .contact-info h3 {
   font-family: var(--font-display);
   font-size: 22px;
@@ -3738,38 +3749,7 @@ footer {
     <div class="container">
       <p class="section-subtitle reveal" style="color:rgba(255,255,255,0.6);margin-bottom:48px;" id="contact-subline"></p>
       <div class="contact-grid reveal reveal-delay-1">
-        <div class="contact-info">
-          <h3 id="contact-info-firm"></h3>
-          <div class="contact-detail">
-            <div class="contact-detail-icon">📞</div>
-            <div class="contact-detail-text">
-              <strong>Phone</strong>
-              <a id="contact-phone-link" href="" style="color:var(--gold)"></a>
-            </div>
-          </div>
-          <div class="contact-detail">
-            <div class="contact-detail-icon">📠</div>
-            <div class="contact-detail-text">
-              <strong>Fax</strong>
-              <span id="contact-fax"></span>
-            </div>
-          </div>
-          <div class="contact-detail">
-            <div class="contact-detail-icon">✉️</div>
-            <div class="contact-detail-text">
-              <strong>Email</strong>
-              <a id="contact-email-link" href="" style="color:var(--gold)"></a>
-            </div>
-          </div>
-          <div class="contact-detail">
-            <div class="contact-detail-icon">📍</div>
-            <div class="contact-detail-text">
-              <strong>Address</strong>
-              <span id="contact-address"></span>
-            </div>
-          </div>
-          <div class="contact-hours" id="contact-hours"></div>
-        </div>
+        <div id="contact-locations-wrap"></div>
         <div class="contact-form" id="contact-form-wrap"></div>
       </div>
     </div>
@@ -4497,7 +4477,10 @@ function buildAbout() {
         </div>
         <div class="about-right-col">
           <h2 class="about-attorney-name">${a.name||''}</h2>
-          <div class="about-attorney-degree">${a.degree||''}</div>
+          <div class="about-attorney-degree">${
+            (a.education && a.education.length ? a.education : (a.degree ? [a.degree] : []))
+              .map(e => `<div>${e}</div>`).join('')
+          }</div>
           <div class="about-bio-full">${bios}</div>
         </div>
         <div class="about-social-btn-col">
@@ -4529,21 +4512,44 @@ function buildContact() {
   const hl = document.getElementById('contact-headline');
   if (hl) hl.textContent = CFG.contactHeadline;
   document.getElementById('contact-subline').textContent = CFG.contactSubline;
-  document.getElementById('contact-info-firm').textContent = CFG.firmName;
-  const pl = document.getElementById('contact-phone-link');
-  pl.href = `tel:${CFG.phoneRaw}`; pl.textContent = CFG.phone;
-  document.getElementById('contact-fax').textContent = CFG.fax;
-  const el = document.getElementById('contact-email-link');
-  el.href = `mailto:${CFG.email}`; el.textContent = CFG.email;
-  document.getElementById('contact-address').textContent = `${CFG.address}, ${CFG.city}, ${CFG.stateAbbr} ${CFG.zip}`;
-  const hours = document.getElementById('contact-hours');
-  hours.innerHTML = `<div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Office Hours</div>` +
-    (CFG.hours||[]).map(h => `<div class="hours-row"><span class="hours-days">${h.days}</span><span class="hours-time">${h.hours}</span></div>`).join('');
-  document.getElementById('privacy-email').textContent = CFG.email;
+
+  // Resolve locations — use CFG.locations[] if present, else fall back to flat fields
+  const locs = (CFG.locations && CFG.locations.length)
+    ? CFG.locations
+    : [{ name:'', phone:CFG.phone||'', phoneRaw:CFG.phoneRaw||'', fax:CFG.fax||'',
+         email:CFG.email||'', address:CFG.address||'', city:CFG.city||'',
+         state:CFG.state||'', stateAbbr:CFG.stateAbbr||'', zip:CFG.zip||'',
+         hours:CFG.hours||[] }];
+
+  const wrap = document.getElementById('contact-locations-wrap');
+  if (wrap) {
+    wrap.innerHTML = locs.map(loc => {
+      const addrParts = [loc.address, [loc.city, loc.stateAbbr, loc.zip].filter(Boolean).join(', ')].filter(Boolean);
+      const hoursHtml = (loc.hours||[]).length
+        ? `<div class="contact-hours">
+            <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Office Hours</div>
+            ${loc.hours.map(h => `<div class="hours-row"><span class="hours-days">${h.days}</span><span class="hours-time">${h.hours}</span></div>`).join('')}
+           </div>`
+        : '';
+      return `<div class="contact-info contact-location">
+        ${loc.name ? `<div class="contact-location-name">${loc.name}</div>` : `<h3>${CFG.firmName}</h3>`}
+        ${loc.phone ? `<div class="contact-detail"><div class="contact-detail-icon">📞</div><div class="contact-detail-text"><strong>Phone</strong><a href="tel:${loc.phoneRaw||loc.phone}" style="color:var(--gold)">${loc.phone}</a></div></div>` : ''}
+        ${loc.fax   ? `<div class="contact-detail"><div class="contact-detail-icon">📠</div><div class="contact-detail-text"><strong>Fax</strong><span>${loc.fax}</span></div></div>` : ''}
+        ${loc.email ? `<div class="contact-detail"><div class="contact-detail-icon">✉️</div><div class="contact-detail-text"><strong>Email</strong><a href="mailto:${loc.email}" style="color:var(--gold)">${loc.email}</a></div></div>` : ''}
+        ${addrParts.length ? `<div class="contact-detail"><div class="contact-detail-icon">📍</div><div class="contact-detail-text"><strong>Address</strong><span>${addrParts.join('<br>')}</span></div></div>` : ''}
+        ${hoursHtml}
+      </div>`;
+    }).join('');
+  }
+
+  // Update privacy page email — use first location's email
+  const firstEmail = locs[0]?.email || CFG.email || '';
+  const privEl = document.getElementById('privacy-email');
+  if (privEl) privEl.textContent = firstEmail;
 
   // Build dynamic contact form
-  const wrap = document.getElementById('contact-form-wrap');
-  if (!wrap) return;
+  const formWrap = document.getElementById('contact-form-wrap');
+  if (!formWrap) return;
   const formId = 'contact-main-form';
   const fields = CFG.contactForm || [];
   const endpoint = CFG.formEndpoint || '';
@@ -4596,7 +4602,7 @@ function buildContact() {
     }
   }
 
-  wrap.innerHTML = `
+  formWrap.innerHTML = `
     ${heading ? `<h3>${heading}</h3>` : ''}
     ${intro   ? `<p>${intro}</p>`    : ''}
     <form id="${formId}" onsubmit="submitCpsForm(event,'${formId}','${escAttr(endpoint)}','${escAttr(successMsg)}')">
@@ -4654,11 +4660,18 @@ function buildFooter() {
     }</div>` : '';
   }
   document.getElementById('footer-copyright').textContent = `© ${new Date().getFullYear()} ${CFG.firmName}. All rights reserved.`;
-  document.getElementById('footer-contact-links').innerHTML = `
-    <a href="tel:${CFG.phoneRaw}">${CFG.phone}</a>
-    <a href="mailto:${CFG.email}">${CFG.email}</a>
-    <a>${CFG.address}</a>
-    <a>${CFG.city}, ${CFG.state} ${CFG.zip}</a>`;
+  const locs = (CFG.locations && CFG.locations.length)
+    ? CFG.locations
+    : [{ name:'', phone:CFG.phone||'', phoneRaw:CFG.phoneRaw||'', email:CFG.email||'',
+         address:CFG.address||'', city:CFG.city||'', state:CFG.state||'', zip:CFG.zip||'' }];
+  document.getElementById('footer-contact-links').innerHTML = locs.map(loc => {
+    const addrLine = [loc.city, loc.state, loc.zip].filter(Boolean).join(', ');
+    return (loc.name ? `<span style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-top:12px;display:block;">${loc.name}</span>` : '') +
+      (loc.phone   ? `<a href="tel:${loc.phoneRaw||loc.phone}">${loc.phone}</a>` : '') +
+      (loc.email   ? `<a href="mailto:${loc.email}">${loc.email}</a>` : '') +
+      (loc.address ? `<a>${loc.address}</a>` : '') +
+      (addrLine    ? `<a>${addrLine}</a>` : '');
+  }).join('');
 }
 
 /* =============================================
@@ -6373,7 +6386,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
           ${photoHTML}
           <div class="cps-team-info">
             <div class="cps-team-name">${m.name||''}</div>
-            ${m.degree ? `<div class="cps-team-title">${m.degree}</div>` : ''}
+            ${m.degree || (m.education && m.education.length) ? `<div class="cps-team-title">${(m.education && m.education.length ? m.education : [m.degree]).join(' · ')}</div>` : ''}
             ${m.bio ? `<p class="cps-team-bio">${m.bio.substring(0,140)}…</p>` : ''}
           </div>
         </div>`;

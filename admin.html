@@ -984,74 +984,9 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
           <div class="field-group"><label>CTA Button Label</label><input type="text" id="f_ctaLabel" placeholder="Free Consultation"/><div class="field-hint">Text used on the nav and footer call-to-action button.</div></div>
         </div>
       </div>
-      <div class="panel open">
-        <div class="panel-header" onclick="togglePanel(this)">
-          <div class="panel-title"><span class="panel-title-icon">📞</span> Phone &amp; Email</div>
-          <span class="panel-chevron">▼</span>
-        </div>
-        <div class="panel-body">
-          <div class="form-row-2">
-            <div class="field-group">
-              <label>Phone (Display)</label>
-              <input type="tel" id="f_phone" placeholder="(555) 000-0000"/>
-            </div>
-            <div class="field-group">
-              <label>Phone (Raw, for tel: link)</label>
-              <input type="text" id="f_phoneRaw" placeholder="+15550000000"/>
-            </div>
-          </div>
-          <div class="form-row-2">
-            <div class="field-group">
-              <label>Fax</label>
-              <input type="tel" id="f_fax"/>
-            </div>
-            <div class="field-group">
-              <label>Email Address</label>
-              <input type="email" id="f_email"/>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel open">
-        <div class="panel-header" onclick="togglePanel(this)">
-          <div class="panel-title"><span class="panel-title-icon">📍</span> Address</div>
-          <span class="panel-chevron">▼</span>
-        </div>
-        <div class="panel-body">
-          <div class="field-group">
-            <label>Street Address</label>
-            <input type="text" id="f_address"/>
-          </div>
-          <div class="form-row-3">
-            <div class="field-group">
-              <label>City</label>
-              <input type="text" id="f_city"/>
-            </div>
-            <div class="field-group">
-              <label>State</label>
-              <input type="text" id="f_state"/>
-            </div>
-            <div class="field-group">
-              <label>State Abbreviation</label>
-              <input type="text" id="f_stateAbbr" maxlength="2"/>
-            </div>
-          </div>
-          <div class="field-group" style="max-width:180px;">
-            <label>ZIP Code</label>
-            <input type="text" id="f_zip"/>
-          </div>
-        </div>
-      </div>
-      <div class="panel open">
-        <div class="panel-header" onclick="togglePanel(this)">
-          <div class="panel-title"><span class="panel-title-icon">🕐</span> Office Hours</div>
-          <span class="panel-chevron">▼</span>
-        </div>
-        <div class="panel-body">
-          <div id="hours-list" class="array-list"></div>
-          <button class="btn-add" onclick="addHour()">+ Add Hour Row</button>
-        </div>
-      </div>
+      <!-- Locations list -->
+      <div id="locations-list"></div>
+      <button class="btn-add" style="margin-bottom:16px;" onclick="addLocation()">+ Add Location</button>
       <div class="panel open">
         <div class="panel-header" onclick="togglePanel(this)">
           <div class="panel-title"><span class="panel-title-icon">📬</span> Contact Form</div>
@@ -1729,6 +1664,7 @@ let DATA = {
   phone:"", phoneRaw:"",
   fax:"", email:"",
   address:"", city:"", state:"", stateAbbr:"", zip:"",
+  locations:[],
   hours:[],
   socialLinks:[],
   stats:[],
@@ -1908,15 +1844,16 @@ function loadForm() {
   const fields = ['label','title','subtitle'];
   pages.forEach(p => fields.forEach(f => { const el = document.getElementById('ph_'+p+'_'+f); if(el) el.value = (ph[p]&&ph[p][f]) ? ph[p][f] : ''; }));
   const contactLbl = document.getElementById('ph_contact_label'); if(contactLbl) contactLbl.value = (ph.contact&&ph.contact.label) ? ph.contact.label : '';
-  setVal('f_phone', DATA.phone);
-  setVal('f_phoneRaw', DATA.phoneRaw);
-  setVal('f_fax', DATA.fax);
-  setVal('f_email', DATA.email);
-  setVal('f_address', DATA.address);
-  setVal('f_city', DATA.city);
-  setVal('f_state', DATA.state);
-  setVal('f_stateAbbr', DATA.stateAbbr);
-  setVal('f_zip', DATA.zip);
+  // Seed locations from flat fields if not present
+  if (!DATA.locations || DATA.locations.length === 0) {
+    DATA.locations = [{
+      name: '', phone: DATA.phone||'', phoneRaw: DATA.phoneRaw||'', fax: DATA.fax||'',
+      email: DATA.email||'', address: DATA.address||'', city: DATA.city||'',
+      state: DATA.state||'', stateAbbr: DATA.stateAbbr||'', zip: DATA.zip||'',
+      hours: (DATA.hours||[]).slice()
+    }];
+  }
+  buildLocationsList();
   setVal('f_heroHeadline', DATA.heroHeadline);
   setVal('f_heroSubline', DATA.heroSubline);
   setVal('f_heroTrustBullets', (DATA.heroTrustBullets||[]).join('\n'));
@@ -2033,7 +1970,6 @@ function loadForm() {
   buildHeroVideoClipsList();
   updateVideoLoopUI();
   buildStatsList();
-  buildHoursList();
   buildSocialList();
   buildHeroSlidesList();
   // Seed attorneys array from legacy flat fields on first load
@@ -2041,6 +1977,7 @@ function loadForm() {
     DATA.attorneys = [{
       name: DATA.attorneyName||'',
       degree: DATA.attorneyDegree||'',
+      education: DATA.attorneyDegree ? [DATA.attorneyDegree] : [],
       photo: DATA.attorneyPhoto||'',
       credentials: (DATA.attorneyCredentials||[]).slice(),
       bio1: DATA.aboutBio1||'',
@@ -2383,15 +2320,19 @@ function collectData() {
     phFields.forEach(f => { const el = document.getElementById('ph_'+p+'_'+f); DATA.pageHeaders[p][f] = el ? el.value.trim() : ''; });
   });
   DATA.pageHeaders.contact = { label: (document.getElementById('ph_contact_label')||{value:''}).value.trim() };
-  DATA.phone = getVal('f_phone');
-  DATA.phoneRaw = getVal('f_phoneRaw');
-  DATA.fax = getVal('f_fax');
-  DATA.email = getVal('f_email');
-  DATA.address = getVal('f_address');
-  DATA.city = getVal('f_city');
-  DATA.state = getVal('f_state');
-  DATA.stateAbbr = getVal('f_stateAbbr');
-  DATA.zip = getVal('f_zip');
+  DATA.locations = collectLocations();
+  // Mirror first location into legacy flat fields for backwards compat
+  const loc0 = (DATA.locations && DATA.locations[0]) || {};
+  DATA.phone     = loc0.phone     || '';
+  DATA.phoneRaw  = loc0.phoneRaw  || '';
+  DATA.fax       = loc0.fax       || '';
+  DATA.email     = loc0.email     || '';
+  DATA.address   = loc0.address   || '';
+  DATA.city      = loc0.city      || '';
+  DATA.state     = loc0.state     || '';
+  DATA.stateAbbr = loc0.stateAbbr || '';
+  DATA.zip       = loc0.zip       || '';
+  DATA.hours     = loc0.hours     || [];
   DATA.heroHeadline = getVal('f_heroHeadline');
   DATA.heroSubline = getVal('f_heroSubline');
   DATA.heroTrustBullets = getVal('f_heroTrustBullets').split('\n').map(s=>s.trim()).filter(Boolean);
@@ -2479,7 +2420,7 @@ function collectData() {
   DATA.heroBg.videoHold = parseInt(document.getElementById('f_heroVideoHold')?.value) || 4;
   collectHeroVideoClips();
   DATA.stats = collectArray('stats-list', ['num','label','animate']);
-  DATA.hours = collectArray('hours-list', ['days','hours']);
+  // hours now collected inside collectLocations() → mirrored to DATA.hours via loc0
   DATA.socialLinks = collectArray('social-list', ['platform','url']);
   DATA.heroBg.slides = collectArray('hero-slides-list', ['imagePath','position']);
   DATA.attorneys = collectAttorneys();
@@ -2536,6 +2477,36 @@ function updateAttorneyLabel(input) {
   const panel = input.closest('.attorney-accordion');
   if (panel) { const lbl = panel.querySelector('.attorney-label'); if (lbl) lbl.textContent = input.value || 'Team Member'; }
 }
+
+function addAttorneyEducation(ai) {
+  const list = document.querySelector(`.attorney-education-list[data-a="${ai}"]`);
+  if (!list) return;
+  const ei = list.querySelectorAll('[data-edu-idx]').length;
+  const row = document.createElement('div');
+  row.style.cssText = 'display:flex;gap:6px;align-items:center;margin-bottom:6px;';
+  row.dataset.eduIdx = ei;
+  row.innerHTML = `<input type="text" data-a="${ai}" data-field="education" data-ei="${ei}" value="" placeholder="e.g. J.D., Harvard Law" style="flex:1;min-width:0;"/>` +
+    `<button class="btn-remove" onclick="removeAttorneyEducation(${ai},${ei})" style="flex-shrink:0;">×</button>`;
+  list.appendChild(row);
+  row.querySelector('input').focus();
+  autosave();
+}
+
+function removeAttorneyEducation(ai, ei) {
+  const list = document.querySelector(`.attorney-education-list[data-a="${ai}"]`);
+  if (!list) return;
+  const row = list.querySelector(`[data-edu-idx="${ei}"]`);
+  if (row) row.remove();
+  // Re-index remaining rows
+  list.querySelectorAll('[data-edu-idx]').forEach((r, newEi) => {
+    r.dataset.eduIdx = newEi;
+    const inp = r.querySelector('input');
+    if (inp) { inp.dataset.ei = newEi; }
+    const btn = r.querySelector('button');
+    if (btn) btn.setAttribute('onclick', `removeAttorneyEducation(${ai},${newEi})`);
+  });
+  autosave();
+}
 function updateAboutNavLabel(input) {
   const val = (typeof input === 'string' ? input : input.value) || 'About Us';
   const sidebarLbl = document.getElementById('sidebar-about-label');
@@ -2587,7 +2558,14 @@ function buildAttorneyAccordions() {
           </div>
           <div class="field-group">
             <label>Degree / Education</label>
-            <input type="text" data-a="${i}" data-field="degree" value="${escHtml(a.degree||'')}"/>
+            <div class="attorney-education-list" data-a="${i}">
+              ${(a.education && a.education.length ? a.education : (a.degree ? [a.degree] : [''])).map((edu, ei) => `
+                <div style="display:flex;gap:6px;align-items:center;margin-bottom:6px;" data-edu-idx="${ei}">
+                  <input type="text" data-a="${i}" data-field="education" data-ei="${ei}" value="${escHtml(edu)}" placeholder="e.g. J.D., Harvard Law" style="flex:1;min-width:0;"/>
+                  <button class="btn-remove" onclick="removeAttorneyEducation(${i},${ei})" style="flex-shrink:0;">×</button>
+                </div>`).join('')}
+            </div>
+            <button class="btn-add" style="margin-top:4px;font-size:11px;padding:4px 10px;" onclick="addAttorneyEducation(${i})">+ Add Degree</button>
           </div>
         </div>
         <div class="field-group">
@@ -2728,7 +2706,8 @@ function collectAttorneys() {
       : (panel.querySelector(`[data-a="${i}"][data-field="btnLinkUrl-url"]`)?.value.trim() || '');
     return {
       name:        get('name'),
-      degree:      get('degree'),
+      degree:      panel.querySelector(`[data-a="${i}"][data-field="education"][data-ei="0"]`)?.value.trim() || get('degree') || '',
+      education:   Array.from(panel.querySelectorAll(`[data-a="${i}"][data-field="education"]`)).map(el => el.value.trim()).filter(Boolean),
       photo:       get('photo'),
       credentials: get('credentials-text').split('\n').map(s=>s.trim()).filter(Boolean),
       bio1:        get('bio1'),
@@ -2885,11 +2864,119 @@ function buildStatsList() {
 function addStat() { collectData(); DATA.stats.push({num:'',label:''}); buildStatsList(); autosave(); }
 
 
-function buildHoursList() {
-  const list = document.getElementById('hours-list');
-  list.innerHTML = (DATA.hours||[]).map((h,i) => arrayItemHtml(i,[{key:'days',label:'Days'},{key:'hours',label:'Hours'}],h,'hours-list')).join('');
+function buildLocationsList() {
+  const container = document.getElementById('locations-list');
+  if (!container) return;
+  const locs = DATA.locations || [];
+  container.innerHTML = locs.map((loc, li) => {
+    const hoursRows = (loc.hours||[]).map((h, hi) => `
+      <div class="array-item" data-loc="${li}" data-hi="${hi}" style="margin-bottom:4px;">
+        <div class="array-item-header">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="array-item-label">#${hi+1}</span>
+          </div>
+          <button class="btn-remove" onclick="removeLocationHour(${li},${hi})">×</button>
+        </div>
+        <div class="form-row-2">
+          <div class="field-group" style="margin:0;"><label>Days</label><input type="text" data-loc="${li}" data-field="hours-days" data-hi="${hi}" value="${escHtml(h.days||'')}" placeholder="Mon – Fri"/></div>
+          <div class="field-group" style="margin:0;"><label>Hours</label><input type="text" data-loc="${li}" data-field="hours-time" data-hi="${hi}" value="${escHtml(h.hours||'')}" placeholder="9:00am – 5:00pm"/></div>
+        </div>
+      </div>`).join('');
+    const title = loc.name || ('Location #' + (li+1));
+    return `<div class="panel open location-panel" data-loc-idx="${li}" style="margin-bottom:8px;">
+      <div class="panel-header" onclick="togglePanel(this)">
+        <div class="panel-title"><span class="panel-title-icon">📍</span> <span class="location-label">${escHtml(title)}</span></div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          ${locs.length > 1 ? `<button class="btn-remove" onclick="removeLocation(${li});event.stopPropagation();">×</button>` : ''}
+          <span class="panel-chevron">▼</span>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="field-group">
+          <label>Location Name</label>
+          <input type="text" data-loc="${li}" data-field="name" value="${escHtml(loc.name||'')}" placeholder="e.g. Birmingham Office" oninput="updateLocationLabel(this,${li})"/>
+        </div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin:10px 0 6px;">Phone &amp; Email</div>
+        <div class="form-row-2">
+          <div class="field-group" style="margin-bottom:6px;"><label>Phone (Display)</label><input type="tel" data-loc="${li}" data-field="phone" value="${escHtml(loc.phone||'')}" placeholder="(555) 000-0000"/></div>
+          <div class="field-group" style="margin-bottom:6px;"><label>Phone (Raw, for tel: link)</label><input type="text" data-loc="${li}" data-field="phoneRaw" value="${escHtml(loc.phoneRaw||'')}" placeholder="+15550000000"/></div>
+        </div>
+        <div class="form-row-2">
+          <div class="field-group" style="margin-bottom:6px;"><label>Fax</label><input type="tel" data-loc="${li}" data-field="fax" value="${escHtml(loc.fax||'')}"/></div>
+          <div class="field-group" style="margin-bottom:6px;"><label>Email Address</label><input type="email" data-loc="${li}" data-field="email" value="${escHtml(loc.email||'')}"/></div>
+        </div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin:10px 0 6px;">Address</div>
+        <div class="field-group" style="margin-bottom:6px;"><label>Street Address</label><input type="text" data-loc="${li}" data-field="address" value="${escHtml(loc.address||'')}"/></div>
+        <div class="form-row-3" style="margin-bottom:6px;">
+          <div class="field-group" style="margin:0;"><label>City</label><input type="text" data-loc="${li}" data-field="city" value="${escHtml(loc.city||'')}"/></div>
+          <div class="field-group" style="margin:0;"><label>State</label><input type="text" data-loc="${li}" data-field="state" value="${escHtml(loc.state||'')}"/></div>
+          <div class="field-group" style="margin:0;"><label>State Abbr.</label><input type="text" data-loc="${li}" data-field="stateAbbr" value="${escHtml(loc.stateAbbr||'')}" maxlength="2"/></div>
+        </div>
+        <div class="field-group" style="max-width:180px;margin-bottom:10px;"><label>ZIP Code</label><input type="text" data-loc="${li}" data-field="zip" value="${escHtml(loc.zip||'')}"/></div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin:10px 0 6px;">Office Hours</div>
+        <div class="array-list location-hours-list" data-loc="${li}">${hoursRows}</div>
+        <button class="btn-add" style="margin-top:4px;" onclick="addLocationHour(${li})">+ Add Hour Row</button>
+      </div>
+    </div>`;
+  }).join('');
 }
-function addHour() { DATA.hours.push({days:'',hours:''}); buildHoursList(); }
+
+function updateLocationLabel(input, li) {
+  const panel = input.closest('.location-panel');
+  if (panel) { const lbl = panel.querySelector('.location-label'); if (lbl) lbl.textContent = input.value || ('Location #' + (li+1)); }
+}
+
+function addLocation() {
+  collectData();
+  DATA.locations = DATA.locations || [];
+  DATA.locations.push({ name:'', phone:'', phoneRaw:'', fax:'', email:'', address:'', city:'', state:'', stateAbbr:'', zip:'', hours:[] });
+  buildLocationsList();
+  autosave();
+}
+
+function removeLocation(li) {
+  if (!confirm('Remove this location?')) return;
+  collectData();
+  DATA.locations.splice(li, 1);
+  buildLocationsList();
+  autosave();
+}
+
+function addLocationHour(li) {
+  collectData();
+  if (!DATA.locations[li]) return;
+  DATA.locations[li].hours = DATA.locations[li].hours || [];
+  DATA.locations[li].hours.push({ days:'', hours:'' });
+  buildLocationsList();
+  autosave();
+}
+
+function removeLocationHour(li, hi) {
+  collectData();
+  if (!DATA.locations[li]) return;
+  DATA.locations[li].hours.splice(hi, 1);
+  buildLocationsList();
+  autosave();
+}
+
+function collectLocations() {
+  const container = document.getElementById('locations-list');
+  if (!container) return DATA.locations || [];
+  return Array.from(container.querySelectorAll('.location-panel')).map((panel, li) => {
+    const g = f => panel.querySelector(`[data-loc="${li}"][data-field="${f}"]`)?.value.trim() || '';
+    const hours = Array.from(panel.querySelectorAll(`[data-loc="${li}"][data-field="hours-days"]`)).map((el, hi) => ({
+      days:  el.value.trim(),
+      hours: panel.querySelector(`[data-loc="${li}"][data-field="hours-time"][data-hi="${hi}"]`)?.value.trim() || '',
+    }));
+    return { name:g('name'), phone:g('phone'), phoneRaw:g('phoneRaw'), fax:g('fax'), email:g('email'), address:g('address'), city:g('city'), state:g('state'), stateAbbr:g('stateAbbr'), zip:g('zip'), hours };
+  });
+}
+
+function buildHoursList() {
+  // Hours are now managed per-location inside buildLocationsList()
+  // This function is kept as a no-op for backwards compatibility
+}
+function addHour() { /* no-op — use addLocationHour(li) instead */ }
 
 const SOCIAL_PLATFORMS = [
   { value:'facebook',  label:'Facebook' },
