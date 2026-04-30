@@ -77,6 +77,7 @@ img { display: block; max-width: 100%; }
 #preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 .preloader-inner {
   text-align: center;
+  width: min(480px, 80vw);
 }
 .preloader-wordmark {
   font-family: var(--font-display);
@@ -111,6 +112,24 @@ img { display: block; max-width: 100%; }
 @keyframes wordReveal { to { transform: translateY(0); } }
 @keyframes barFill { to { width: 100%; } }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Logo images */
+#header-logo {
+  display: none;
+  height: var(--header-logo-h, 40px);
+  width: auto;
+  object-fit: contain;
+}
+#splash-logo {
+  display: none;
+  height: var(--splash-logo-h, 80px);
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  opacity: 0;
+  animation: fadeUp 0.6s var(--ease-out) 0.2s forwards;
+  margin: 0 auto 18px;
+}
 
 /* =============================================
    HEADER / NAV — hamburger-only, scroll-fade bg
@@ -3600,6 +3619,7 @@ footer {
 <!-- Preloader -->
 <div id="preloader">
   <div class="preloader-inner">
+    <img id="splash-logo" alt="Logo"/>
     <div class="preloader-wordmark">
       <span id="preload-firm"></span>
     </div>
@@ -3613,6 +3633,7 @@ footer {
   <div class="container">
     <div class="header-inner">
       <div class="site-logo" onclick="showPage('home')">
+        <img id="header-logo" alt="Logo"/>
         <div class="logo-name" id="header-firm-name"></div>
         <div class="logo-tagline" id="header-tagline"></div>
       </div>
@@ -3976,6 +3997,26 @@ if (!Array.isArray(CFG.customPages)) CFG.customPages = [];
   try {
     const sub = document.getElementById('preloader-sub');
     if (sub) sub.textContent = CFG.preloaderTagline || '';
+    // Apply splash logo early if configured
+    const splashChoice = CFG.logoSplashChoice || 'none';
+    const splashSrc = splashChoice === 'primary' ? (CFG.logoPrimary || '')
+                    : splashChoice === 'alternate' ? (CFG.logoAlternate || '') : '';
+    if (splashSrc) {
+      const splashLogoEl = document.getElementById('splash-logo');
+      if (splashLogoEl) { splashLogoEl.src = splashSrc; splashLogoEl.style.display = 'block'; }
+      const splashLogoH = CFG.logoSplashHeight || 80;
+      document.documentElement.style.setProperty('--splash-logo-h', splashLogoH + 'px');
+      const mode = CFG.logoSplashMode || 'logo-name-tagline';
+      const wm  = document.querySelector('.preloader-wordmark');
+      const bar = document.querySelector('.preloader-bar');
+      if (mode === 'logo-only') {
+        if (wm)  wm.style.display  = 'none';
+        if (bar) bar.style.display = 'none';
+        if (sub) sub.style.display = 'none';
+      } else if (mode === 'logo-tagline') {
+        if (wm)  wm.style.display  = 'none';
+      }
+    }
     // Apply critical color vars immediately so preloader uses correct palette
     const c = CFG.colors || {};
     const r = document.documentElement;
@@ -4791,10 +4832,63 @@ function buildPageHeaders() {
 }
 
 function buildHeader() {
-  document.getElementById('header-firm-name').textContent = CFG.firmName;
-  document.getElementById('header-tagline').textContent = CFG.tagline;
+  // Resolve logo paths
+  const primaryLogo = CFG.logoPrimary || '';
+  const alternateLogo = CFG.logoAlternate || '';
+  const headerChoice = CFG.logoHeaderChoice || 'none';
+  const splashChoice = CFG.logoSplashChoice || 'none';
+  const splashMode  = CFG.logoSplashMode  || 'logo-tagline';
+  const headerLogoH = CFG.logoHeaderHeight || 40;
+  const splashLogoH = CFG.logoSplashHeight || 80;
+
+  // Set CSS custom properties for logo sizes
+  document.documentElement.style.setProperty('--header-logo-h', headerLogoH + 'px');
+  document.documentElement.style.setProperty('--splash-logo-h', splashLogoH + 'px');
+
+  // ── Header logo ──
+  const headerLogoEl = document.getElementById('header-logo');
+  const headerNameEl = document.getElementById('header-firm-name');
+  const headerTagEl  = document.getElementById('header-tagline');
+  const headerLogoSrc = headerChoice === 'primary' ? primaryLogo
+                      : headerChoice === 'alternate' ? alternateLogo : '';
+  if (headerLogoSrc) {
+    headerLogoEl.src = headerLogoSrc;
+    headerLogoEl.style.display = 'block';
+    headerNameEl.style.display = 'none';
+    headerTagEl.style.display  = 'none';
+  } else {
+    headerLogoEl.style.display = 'none';
+    headerNameEl.style.display = '';
+    headerTagEl.style.display  = '';
+    headerNameEl.textContent = CFG.firmName;
+    headerTagEl.textContent  = CFG.tagline;
+  }
+
+  // ── Splash logo ──
+  const splashLogoEl   = document.getElementById('splash-logo');
+  const splashWordmark = document.querySelector('.preloader-wordmark');
+  const splashBar      = document.querySelector('.preloader-bar');
+  const splashSub      = document.getElementById('preloader-sub');
+  const splashLogoSrc  = splashChoice === 'primary' ? primaryLogo
+                       : splashChoice === 'alternate' ? alternateLogo : '';
+  if (splashLogoSrc) {
+    splashLogoEl.src = splashLogoSrc;
+    splashLogoEl.style.display = 'block';
+    const showName    = splashMode === 'logo-name-tagline';
+    const showTagline = splashMode !== 'logo-only';
+    if (splashWordmark) splashWordmark.style.display = showName    ? '' : 'none';
+    if (splashBar)      splashBar.style.display      = showTagline ? '' : 'none';
+    if (splashSub)      splashSub.style.display      = showTagline ? '' : 'none';
+  } else {
+    splashLogoEl.style.display = 'none';
+    if (splashWordmark) splashWordmark.style.display = '';
+    if (splashBar)      splashBar.style.display = '';
+    if (splashSub)      splashSub.style.display = '';
+  }
+
+  // Always set text fallback content
   document.getElementById('preload-firm').textContent = CFG.firmName;
-  document.getElementById('preloader-sub').textContent = CFG.preloaderTagline || '';
+  if (splashSub) splashSub.textContent = CFG.preloaderTagline || '';
   document.getElementById('metaDesc').content = CFG.metaDescription;
   document.getElementById('metaKeys').content = CFG.metaKeywords;
 }
