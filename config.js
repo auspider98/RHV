@@ -287,73 +287,73 @@ const SITE_CONFIG = {
           "subtitle": "The first step in identifying a villain is to determine which clan your suspect belongs to. There are 8 known clans operating today and we've put together this intuitive chart to help with the clan identification process.",
           "items": [
             {
-              "date": "",
+              "date": "Bubble Brigade Clan",
               "title": "Oblivious of others, Loves social media, One perspective",
-              "body": "",
-              "linkLabel": "Bubble Brigade Clan",
+              "body": "Watch for them carefully because they aren't watching for anyone in their world on one.",
+              "linkLabel": "Bubble Brigade Villains",
               "linkType": "internal",
               "linkUrl": "bubble-brigade",
               "anchorId": ""
             },
             {
-              "date": "",
+              "date": "Decepticars Clan",
               "title": "Deceiving appearance, Sudden driving changes",
-              "body": "",
-              "linkLabel": "Decepitcars Clan",
+              "body": "Never trust your eyes, only your instincts and make sure you have thought through all of your avoidance scenarios.",
+              "linkLabel": "Decepticars Villains",
               "linkType": "internal",
               "linkUrl": "decepticars",
               "anchorId": ""
             },
             {
-              "date": "",
+              "date": "Junkyard Dawgs Clan",
               "title": "Older model, Parts falling off, Re-engineered components, Rust",
               "body": "Leave plenty of space to dodge car parts, and oil slicks or splatter from other various fluids.",
-              "linkLabel": "Junkyard Dawgs Clan",
+              "linkLabel": "Junkyard Dawgs Villains",
               "linkType": "internal",
               "linkUrl": "junkyard-dawgs",
               "anchorId": ""
             },
             {
-              "date": "",
+              "date": "Grand Pricks Clan",
               "title": "Excessive acceleration, In a hurry, Negotiating traffic terribly, Not courteous",
               "body": "Don't make any sudden decelerations/stops, leave space for diving, check the shoulder before making any turns",
-              "linkLabel": "Grand Pricks Clan",
+              "linkLabel": "Grand Pricks Villains",
               "linkType": "internal",
               "linkUrl": "grand-pricks",
               "anchorId": ""
             },
             {
-              "date": "",
+              "date": "KinEvils Clan",
               "title": "Aggressive, Redefines roadway use, Unfazed by Weather",
-              "body": "",
-              "linkLabel": "KinEvils Clan",
+              "body": "Just because you'd never do it, doesn't mean they won't...THEY WILL...so be ready for anything!",
+              "linkLabel": "KinEvils Villains",
               "linkType": "internal",
               "linkUrl": "kinevils",
               "anchorId": ""
             },
             {
-              "date": "",
+              "date": "OMGs Clan",
               "title": "Focuses on anything but driving, No perception of driving concepts, Female",
-              "body": "",
-              "linkLabel": "OMGs Clan",
+              "body": "They are so cute and innocent looking, until they begin to move, then you'd better keep a safe distance.",
+              "linkLabel": "OMGs Villains",
               "linkType": "internal",
               "linkUrl": "omgs",
               "anchorId": ""
             },
             {
-              "date": "",
+              "date": "Showtime Clan",
               "title": "Loud terrible music, Flashing lights, Lots of bling,",
               "body": "Roll up your windows, put on some sun shades, maybe turn up your tunes a little.",
-              "linkLabel": "Showtime Clan",
+              "linkLabel": "Showtime Villains",
               "linkType": "internal",
               "linkUrl": "showtime",
               "anchorId": ""
             },
             {
-              "date": "",
+              "date": "Slow Moes Clan",
               "title": "Moves slowly, Loves brakes, seems lost, Lane changing issues, Fear",
               "body": "Early detection is paramount, so that you don't get stuck behind them.",
-              "linkLabel": "Slow Moes Clan",
+              "linkLabel": "Slow Moes Villains",
               "linkType": "internal",
               "linkUrl": "slow-moes",
               "anchorId": ""
@@ -681,7 +681,7 @@ const SITE_CONFIG = {
           "label": "",
           "background": "dark",
           "anchorId": "bubble-villains",
-          "heading": "Bubble Villains",
+          "heading": "the Brigade",
           "subtitle": "",
           "maxCols": 2,
           "items": [
@@ -1486,7 +1486,7 @@ const SITE_CONFIG = {
           "label": "",
           "background": "dark",
           "anchorId": "decepticars-villains",
-          "heading": "The Deceptors",
+          "heading": "the Deceptors",
           "subtitle": "",
           "maxCols": 2,
           "items": [
@@ -1646,7 +1646,7 @@ const SITE_CONFIG = {
               "price": "",
               "period": "",
               "icon": "",
-              "imagePath": "villains/the-enabled.png",
+              "imagePath": "villains/the-enabled.jpg",
               "imageSize": "sq",
               "ribbon": "Decepticars",
               "note": "",
@@ -1946,9 +1946,9 @@ const SITE_CONFIG = {
               "price": "",
               "period": "",
               "icon": "",
-              "imagePath": "villains/yo-yo.png",
+              "imagePath": "villains/yo-yo.jpg",
               "imageSize": "sq",
-              "ribbon": "",
+              "ribbon": "Decepticars",
               "note": "",
               "details": "",
               "cardStyle": "dark",
@@ -2016,7 +2016,7 @@ const SITE_CONFIG = {
           "label": "",
           "background": "dark",
           "anchorId": "junkyard-villains",
-          "heading": "The Yard",
+          "heading": "the Dawgs",
           "subtitle": "",
           "maxCols": 2,
           "items": [
@@ -2281,7 +2281,7 @@ const SITE_CONFIG = {
           "label": "",
           "background": "dark",
           "anchorId": "grand-villains",
-          "heading": "The Strip",
+          "heading": "the Pricks",
           "subtitle": "",
           "maxCols": 2,
           "items": [
@@ -2391,12 +2391,12 @@ const SITE_CONFIG = {
               ]
             },
             {
-              "name": "Head and Shoulders",
+              "name": "aHead and Shoulders",
               "tagline": "Slow traffic can aggravate this villain to no end, so the DMV created shoulder lanes to cool his temper and fire up his engine.",
               "price": "",
               "period": "",
               "icon": "",
-              "imagePath": "villains/head-and-shoulders.jpg",
+              "imagePath": "villains/ahead-and-shoulders.jpg",
               "imageSize": "sq",
               "ribbon": "Grand Pricks",
               "note": "",
@@ -2711,7 +2711,7 @@ const SITE_CONFIG = {
           "label": "",
           "background": "dark",
           "anchorId": "kinevils-villains",
-          "heading": "The Deceptors",
+          "heading": "the Evils",
           "subtitle": "",
           "maxCols": 2,
           "items": [
@@ -2856,7 +2856,7 @@ const SITE_CONFIG = {
           "label": "",
           "background": "dark",
           "anchorId": "omgs-villains",
-          "heading": "The Oh-Mys",
+          "heading": "the Oh-Mys",
           "subtitle": "",
           "maxCols": 2,
           "items": [
@@ -2957,7 +2957,7 @@ const SITE_CONFIG = {
             },
             {
               "name": "SU-Vera",
-              "tagline": "Wants to be just like her villain man, driving a truck made from indestructible steel.",
+              "tagline": "She loves to be seen in her big safe SUV, but driving it is secondary to whatever the kids are doing in the backseat, whoever is video calling her, or the need to respond to whatever someone posted on her social sites.",
               "price": "",
               "period": "",
               "icon": "",
@@ -2994,7 +2994,7 @@ const SITE_CONFIG = {
                   "isGroup": false
                 },
                 {
-                  "label": "He Drives",
+                  "label": "He Drives, she rides",
                   "status": "",
                   "isGroup": false
                 },
@@ -3007,9 +3007,64 @@ const SITE_CONFIG = {
                   "label": "2 tons of Steel",
                   "status": "",
                   "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "GI Jane",
+              "tagline": "This rugged 4x4 villain has seen less off-road than the rubber ducks that adorn its carcass. What rolled off the assembly line ready for a battle with rocks and mud, has been battling tacky accessories, k-pop radio, and angry villains.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/gi-jane.jpg",
+              "imageSize": "sq",
+              "ribbon": "OMGs",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
                 },
                 {
-                  "label": "Being Short",
+                  "label": "Causing other villains to make sudden lane changes to avoid debris firing from all wheels.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Cold Weather",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Rain and no top",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Rocks and debris from tire cannons",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Duck shrapnel from failing glue bond",
                   "status": "",
                   "isGroup": false
                 }
@@ -3046,7 +3101,7 @@ const SITE_CONFIG = {
           "label": "",
           "background": "dark",
           "anchorId": "showtime-villains",
-          "heading": "The Deceptors",
+          "heading": "the Show",
           "subtitle": "",
           "maxCols": 2,
           "items": [
@@ -3159,6 +3214,71 @@ const SITE_CONFIG = {
                   "isGroup": false
                 }
               ]
+            },
+            {
+              "name": "GI Joker",
+              "tagline": "This quacked out villain is built to climb over or through anything it encounters, but the most challenging thing its ever encountered is a cement driveway with brick inlaid.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/gi-joker.jpg",
+              "imageSize": "sq",
+              "ribbon": "Showtime",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abililities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Burning through off-road tire rubber in like butter.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Any surface not made of cement or asphalt",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Sun Glare from ultra clean surfaces",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Duck shrapnel from failing glue bond",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Alter-Ego",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "GI Jane",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
             }
           ]
         }
@@ -3191,7 +3311,7 @@ const SITE_CONFIG = {
           "label": "",
           "background": "dark",
           "anchorId": "slow-villains",
-          "heading": "The Yard",
+          "heading": "the Moes",
           "subtitle": "",
           "maxCols": 2,
           "items": [
@@ -3728,7 +3848,7 @@ const SITE_CONFIG = {
     "cp-12": "public",
     "cp-13": "public"
   },
-  "_savedAt": 1777953749495,
+  "_savedAt": 1778015775391,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""
