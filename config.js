@@ -791,7 +791,7 @@ const SITE_CONFIG = {
               "price": "",
               "period": "",
               "icon": "",
-              "imagePath": "villains/cell-toney.png",
+              "imagePath": "villains/cell-toney.jpg",
               "imageSize": "sq",
               "ribbon": "Bubble Brigade",
               "note": "",
@@ -4138,7 +4138,7 @@ const SITE_CONFIG = {
     "cp-12": "public",
     "cp-13": "public"
   },
-  "_savedAt": 1778041970155,
+  "_savedAt": 1778105293116,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""
