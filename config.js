@@ -791,7 +791,7 @@ const SITE_CONFIG = {
               "price": "",
               "period": "",
               "icon": "",
-              "imagePath": "villains/cell-toney.jpg",
+              "imagePath": "villains/cell-toney.png",
               "imageSize": "sq",
               "ribbon": "Bubble Brigade",
               "note": "",
@@ -2716,14 +2716,14 @@ const SITE_CONFIG = {
           "maxCols": 2,
           "items": [
             {
-              "name": "Handiscammer",
-              "tagline": "This undisabled villain parades around displaying the wheeled emblem, stealing parking spots reserved for villains in true need.",
+              "name": "Ka-Boose",
+              "tagline": "Jealous of always being at the tail end of the line, this aggressive beast quickly latches onto the last car and tucks in as close as possible.",
               "price": "",
               "period": "",
               "icon": "",
-              "imagePath": "villains/handiscammer.jpg",
+              "imagePath": "villains/ka-boose.jpg",
               "imageSize": "sq",
-              "ribbon": "Decepticars",
+              "ribbon": "KinEvils",
               "note": "",
               "details": "",
               "cardStyle": "dark",
@@ -2739,7 +2739,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Being a fully functioning jackass.",
+                  "label": "Quick acceleration and deceleration showcasing their unbelievable tag-along ability.",
                   "status": "",
                   "isGroup": false
                 },
@@ -2749,12 +2749,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "No available handicap spots",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Vocal Heros",
+                  "label": "Law Enforcement (taking the fall for the good of the line)",
                   "status": "",
                   "isGroup": false
                 },
@@ -2764,21 +2759,21 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Portable Disabled Mirror Badge",
+                  "label": "Adaptive Cruise Control",
                   "status": "",
                   "isGroup": false
                 }
               ]
             },
             {
-              "name": "Lion Tamer",
-              "tagline": "Am I seeing things in slow motion, or is that monster car really going that slow? This villain has appearance of being a high performance, but the only thing high here is the maintenance. .",
+              "name": "Michelin Man",
+              "tagline": "Immune to anything that Mother Nature can throw at him, this villain rides the roads on a rail and a prayer.",
               "price": "",
               "period": "",
               "icon": "",
-              "imagePath": "villains/lion-tamer.jpg",
+              "imagePath": "villains/michelin-man.jpg",
               "imageSize": "sq",
-              "ribbon": "Decepticars",
+              "ribbon": "KinEvils",
               "note": "",
               "details": "",
               "cardStyle": "dark",
@@ -2794,12 +2789,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Clogging up traffic with the fear of their own abilities",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Running Late",
+                  "label": "Unfazed by weather conditions, this villain has an unflappable belief that his tires possess abilities beyond what manufacturers suggest or designed for.",
                   "status": "",
                   "isGroup": false
                 },
@@ -2809,7 +2799,12 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "He Drives",
+                  "label": "Sunny days",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Old windshield wipers",
                   "status": "",
                   "isGroup": false
                 },
@@ -2819,7 +2814,107 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Being Short",
+                  "label": "Large Puddle Splash",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Special Centergy",
+              "tagline": "While the DMV rolled out this special lane just for him, other villains occasionally use it for turning purposes.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/special-centergy.jpg",
+              "imageSize": "sq",
+              "ribbon": "KinEvils",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Can roll down his lane and bypass all traffic in both directions, without a care in the world or a turn in his near future.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Medians",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Alter-Ego",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "ahead and Shoulders",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Wrongabout",
+              "tagline": "Confused by these old-fangled road circles, this villain endangers all who enter.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/wrongabout.jpg",
+              "imageSize": "sq",
+              "ribbon": "KinEvils",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Making a clockwise twirl in a counter-clockwise region look like a stroll in the park.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Following a Villain",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapon",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Front bumper",
                   "status": "",
                   "isGroup": false
                 }
@@ -3106,14 +3201,14 @@ const SITE_CONFIG = {
           "maxCols": 2,
           "items": [
             {
-              "name": "Handiscammer",
-              "tagline": "This undisabled villain parades around displaying the wheeled emblem, stealing parking spots reserved for villains in true need.",
+              "name": "Bassasaurus",
+              "tagline": "Usually found in the inner city, this loud mouth is known to rattle its armor and your soul when cruising the streets.",
               "price": "",
               "period": "",
               "icon": "",
-              "imagePath": "villains/handiscammer.jpg",
+              "imagePath": "villains/bassasaurus.jpg",
               "imageSize": "sq",
-              "ribbon": "Decepticars",
+              "ribbon": "Showtime",
               "note": "",
               "details": "",
               "cardStyle": "dark",
@@ -3129,7 +3224,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Being a fully functioning jackass.",
+                  "label": "Neck paralyzing beats keep fellow villains from taking a glance at this slow roller, while simultaneously disabling the abilities for them to hear their radios or carry on a conversation.",
                   "status": "",
                   "isGroup": false
                 },
@@ -3139,12 +3234,17 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "No available handicap spots",
+                  "label": "the 5-0",
                   "status": "",
                   "isGroup": false
                 },
                 {
-                  "label": "Vocal Heros",
+                  "label": "Call from baby mama",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Call from momma",
                   "status": "",
                   "isGroup": false
                 },
@@ -3154,21 +3254,36 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Portable Disabled Mirror Badge",
+                  "label": "Nasty deep bass beats",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Skunky odors",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Rival",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Treblor",
                   "status": "",
                   "isGroup": false
                 }
               ]
             },
             {
-              "name": "Lion Tamer",
-              "tagline": "Am I seeing things in slow motion, or is that monster car really going that slow? This villain has appearance of being a high performance, but the only thing high here is the maintenance. .",
+              "name": "Color Guard",
+              "tagline": "This flag displaying villain might actually love his team or country more than you!",
               "price": "",
               "period": "",
               "icon": "",
-              "imagePath": "villains/lion-tamer.jpg",
+              "imagePath": "villains/color-guard.jpg",
               "imageSize": "sq",
-              "ribbon": "Decepticars",
+              "ribbon": "Showtime",
               "note": "",
               "details": "",
               "cardStyle": "dark",
@@ -3184,12 +3299,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Clogging up traffic with the fear of their own abilities",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Running Late",
+                  "label": "Attachment of full size flags to their rig is the easy part...not looking like a goofy flag toting fool...difficult.",
                   "status": "",
                   "isGroup": false
                 },
@@ -3199,7 +3309,22 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "He Drives",
+                  "label": "Rain",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Any significant speed",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Poor construction materials",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Embarrassing season or loss",
                   "status": "",
                   "isGroup": false
                 },
@@ -3209,7 +3334,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Being Short",
+                  "label": "Flag",
                   "status": "",
                   "isGroup": false
                 }
@@ -3275,6 +3400,171 @@ const SITE_CONFIG = {
                 },
                 {
                   "label": "GI Jane",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "De-Car-ator",
+              "tagline": "If you can hang it from your mirror, or display it in your back window, there's no reason not to for this hoarding villain.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/de-car-ator.jpg",
+              "imageSize": "sq",
+              "ribbon": "Showtime",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Junking up a vehicles interior without style or clear views of the road.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Window tinting",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapon",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Blinding reflective objects dangling from rearview mirror",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Excessorize",
+              "tagline": "This eyesore has armor comprised of the entire catalog of mismatched accessories.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/excessorize.jpg",
+              "imageSize": "sq",
+              "ribbon": "Showtime",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Diminishing the value of its ride, one terribly unstylish accessory at a time.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Lack of funds",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Alter-Ego",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Mechtech Menace",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Mechtech Menace",
+              "tagline": "This villain has bought 15\" chrome spinning wheel covers, a coffee can muffler and shopping cart rear wing with the resources he should have spent maintaining his car. Frequently displays bright, distinctive plumage, a shoddy purple tint job, cheap Walmart LED driving lights and APC banner stickers on windshield and rear window.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/mechtech-menace.jpg",
+              "imageSize": "sq",
+              "ribbon": "Showtime",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Creating intestinal distress in nearby drivers via a combination of day-glo green paint and an unearthly drone from an oversized muffler.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Bad alternator or water pump, any easily-preventable mechanical failure.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapon",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Anything that makes noise",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Alter-Ego",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Excessorize",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Muff-oh-Lord",
                   "status": "",
                   "isGroup": false
                 }
@@ -3848,7 +4138,7 @@ const SITE_CONFIG = {
     "cp-12": "public",
     "cp-13": "public"
   },
-  "_savedAt": 1778103669386,
+  "_savedAt": 1778041970155,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""
