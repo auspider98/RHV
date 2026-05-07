@@ -3950,6 +3950,7 @@ const CP_SECTION_TYPES = [
   { value:'pricing',      label:'🏆 Tier Cards' },
   { value:'flip-cards',  label:'🃏 Flip Cards' },
   { value:'locations',   label:'📍 Locations' },
+  { value:'table',       label:'📊 Table' },
   { value:'link',         label:'🔗 Link' },
   { value:'button',       label:'🔘 Button' },
   { value:'richtext',     label:'✍️ Rich Text Block' },
@@ -4017,7 +4018,7 @@ function addHomeSection() {
   if (!sel) return;
   const type = sel.value;
   const defaults = { type, label: '', background: 'light' };
-  if (['stats','bullets','services','steps','faq','timeline','fees'].includes(type)) defaults.items = [];
+  if (['stats','bullets','services','steps','faq','timeline','fees','table'].includes(type)) defaults.items = [];
   if (type === 'checklist') defaults.categories = [];
   if (type === 'form') { defaults.fields = []; defaults.submitLabel = 'Send Message'; defaults.successMsg = "Thank you! We'll be in touch soon."; }
   if (type === 'link') { defaults.linkType = 'none'; defaults.linkUrl = ''; defaults.linkLabel = ''; }
@@ -4030,6 +4031,7 @@ function addHomeSection() {
   if (type === 'gallery') { defaults.items = []; defaults.galleryCols = 3; }
   if (type === 'pricing') { defaults.items = []; }
   if (type === 'locations') { defaults.items = []; defaults.displayMode = 'cards'; defaults.layoutMode = 'top'; defaults.mapMode = 'linkout'; defaults.maxCols = 2; defaults.showHours = true; }
+  if (type === 'table') { defaults.cols = 2; defaults.col1Label = 'Column 1'; defaults.col2Label = 'Column 2'; defaults.col3Label = ''; defaults.col1Style = 'normal'; defaults.col2Style = 'normal'; defaults.col3Style = 'normal'; defaults.firstColHeader = false; defaults.items = []; }
   if (!Array.isArray(DATA.homeSections)) DATA.homeSections = [];
   DATA.homeSections.push(defaults);
   buildHomeSectionsList();
@@ -4084,7 +4086,7 @@ function addAboutSection() {
   if (!sel) return;
   const type = sel.value;
   const defaults = { type, label: '', background: 'light' };
-  if (['stats','bullets','services','steps','faq','timeline','fees'].includes(type)) defaults.items = [];
+  if (['stats','bullets','services','steps','faq','timeline','fees','table'].includes(type)) defaults.items = [];
   if (type === 'checklist') defaults.categories = [];
   if (type === 'form') { defaults.fields = []; defaults.submitLabel = 'Send Message'; defaults.successMsg = "Thank you! We'll be in touch soon."; }
   if (type === 'link') { defaults.linkType = 'none'; defaults.linkUrl = ''; defaults.linkLabel = ''; }
@@ -4097,6 +4099,7 @@ function addAboutSection() {
   if (type === 'gallery') { defaults.items = []; defaults.galleryCols = 3; }
   if (type === 'pricing') { defaults.items = []; }
   if (type === 'locations') { defaults.items = []; defaults.displayMode = 'cards'; defaults.layoutMode = 'top'; defaults.mapMode = 'linkout'; defaults.maxCols = 2; defaults.showHours = true; }
+  if (type === 'table') { defaults.cols = 2; defaults.col1Label = 'Column 1'; defaults.col2Label = 'Column 2'; defaults.col3Label = ''; defaults.col1Style = 'normal'; defaults.col2Style = 'normal'; defaults.col3Style = 'normal'; defaults.firstColHeader = false; defaults.items = []; }
   if (!Array.isArray(DATA.aboutSections)) DATA.aboutSections = [];
   DATA.aboutSections.push(defaults);
   buildAboutSectionsList();
@@ -4184,6 +4187,7 @@ function collectHomeSingleSection_forPi(secCard, pi, si, existing) {
     resources: ['tag','title','excerpt','date','readTime','featured','emoji','imagePath','linkType','linkUrl','ctaLabel'],
     team: ['name','title','photo','bio'],
     locations: ['locationIndex','imagePath'],
+    table: ['cell1','cell2','cell3'],
   };
   if (arrTypes[type]) {
     sec.items = Array.from(secCard.querySelectorAll('.cp-sub-item')).map(item => {
@@ -4325,6 +4329,15 @@ function collectHomeSingleSection_forPi(secCard, pi, si, existing) {
     sec.mapMode      = get('mapMode')      || 'linkout';
     sec.maxCols      = parseInt(get('maxCols')) || 2;
     sec.showHours    = secCard.querySelector('[data-field="showHours"]')?.checked !== false;
+  }
+
+  // Table
+  if (type === 'table') {
+    sec.cols           = parseInt(get('cols')) || 2;
+    sec.col1Label      = get('col1Label'); sec.col1Style = get('col1Style') || 'normal';
+    sec.col2Label      = get('col2Label'); sec.col2Style = get('col2Style') || 'normal';
+    sec.col3Label      = get('col3Label'); sec.col3Style = get('col3Style') || 'normal';
+    sec.firstColHeader = secCard.querySelector('[data-field="firstColHeader"]')?.checked === true;
   }
 
   // Jurisdiction
@@ -5591,6 +5604,97 @@ function buildCpSectionTypeFields(sec, pi, si) {
         <div class="field-group" style="margin-top:12px;"><label>Disclaimer (small text below table)</label><input type="text" ${p} data-field="disclaimer" value="${v('disclaimer')}" placeholder="Fees are estimates and may vary..."/></div>`;
     }
 
+    case 'table': {
+      const cols        = parseInt(sec.cols) || 2;
+      const col1Label   = sec.col1Label || 'Column 1';
+      const col2Label   = sec.col2Label || 'Column 2';
+      const col3Label   = sec.col3Label || 'Column 3';
+      const col1Style   = sec.col1Style || 'normal';
+      const col2Style   = sec.col2Style || 'normal';
+      const col3Style   = sec.col3Style || 'normal';
+      const firstColHdr = sec.firstColHeader === true;
+      const items       = sec.items || [];
+      const piArg       = typeof pi === 'string' ? "'" + pi + "'" : pi;
+
+      const styleOpts = (sel) => `
+        <option value="normal"${sel==='normal'?' selected':''}>Normal</option>
+        <option value="bold"${sel==='bold'?' selected':''}>Bold</option>
+        <option value="large"${sel==='large'?' selected':''}>Large</option>
+        <option value="bold-large"${sel==='bold-large'?' selected':''}>Bold + Large</option>`;
+
+      const col3Block = cols >= 3 ? `
+        <div class="field-group" style="margin:0;"><label>Column 3 Header</label>
+          <input type="text" ${p} data-field="col3Label" value="${escHtml(col3Label)}"/></div>
+        <div class="field-group" style="margin:0;"><label>Column 3 Style</label>
+          <select ${p} data-field="col3Style">${styleOpts(col3Style)}</select></div>` : '';
+
+      const rows = items.map((it, ii) => {
+        const cell1 = escHtml(it.cell1||'');
+        const cell2 = escHtml(it.cell2||'');
+        const cell3 = escHtml(it.cell3||'');
+        const c3field = cols >= 3 ? `
+            <div class="field-group" style="margin:0;"><label>${escHtml(col3Label)}</label>
+              <input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="cell3" value="${cell3}"/></div>` : '';
+        return `<div class="cp-sub-item" data-sub-idx="${ii}">
+          <div class="cp-sub-item-header" style="cursor:pointer;" onclick="const b=this.nextElementSibling;b.style.display=b.style.display===''?'none':'';this.querySelector('.tbl-chev').textContent=b.style.display==='none'?'&#9656;':'&#9662;';">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="cp-sub-item-drag-handle" title="Drag to reorder" onclick="event.stopPropagation();">&#8903;</span>
+              <span class="cp-sub-item-label">Row #${ii+1}${it.cell1 ? ' — ' + it.cell1.substring(0,30) : ''}</span>
+              <span class="tbl-chev" style="font-size:10px;color:var(--muted);margin-left:2px;">&#9656;</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:4px;">
+              <button class="cp-move-btn" onclick="moveCpSubItem(${piArg},${si},'items',${ii},-1);event.stopPropagation();" title="Move up">&#8593;</button>
+              <button class="cp-move-btn" onclick="moveCpSubItem(${piArg},${si},'items',${ii},1);event.stopPropagation();" title="Move down">&#8595;</button>
+              <button class="btn-remove" onclick="removeCpSubItem(${piArg},${si},'items',${ii});event.stopPropagation();">&#215;</button>
+            </div>
+          </div>
+          <div class="cp-sub-item-body" style="padding-top:8px;display:none;">
+            <div class="form-row-2">
+              <div class="field-group" style="margin:0;"><label>${escHtml(col1Label)}</label>
+                <input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="cell1" value="${cell1}"/></div>
+              <div class="field-group" style="margin:0;"><label>${escHtml(col2Label)}</label>
+                <input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="cell2" value="${cell2}"/></div>
+            </div>${c3field}
+          </div>
+        </div>`;
+      }).join('');
+
+      return `
+        <div class="field-group"><label>Heading (optional)</label>
+          <input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
+        <div class="field-group"><label>Subtitle (optional)</label>
+          <input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
+        <div class="form-row-2" style="margin-bottom:10px;">
+          <div class="field-group" style="margin:0;"><label>Columns</label>
+            <select ${p} data-field="cols" onchange="collectData();rebuildAfterMutation(${piArg});">
+              <option value="2"${cols===2?' selected':''}>2 Columns</option>
+              <option value="3"${cols===3?' selected':''}>3 Columns</option>
+            </select>
+          </div>
+          <div class="field-group" style="margin:0;">
+            <div class="switch-row" style="margin:0;padding-top:22px;">
+              <span class="switch-label">First column as row header</span>
+              <label class="switch"><input type="checkbox" ${p} data-field="firstColHeader" ${firstColHdr?'checked':''}/><span class="switch-slider"></span></label>
+            </div>
+          </div>
+        </div>
+        <div class="form-row-2" style="margin-bottom:6px;">
+          <div class="field-group" style="margin:0;"><label>Column 1 Header</label>
+            <input type="text" ${p} data-field="col1Label" value="${escHtml(col1Label)}"/></div>
+          <div class="field-group" style="margin:0;"><label>Column 1 Style</label>
+            <select ${p} data-field="col1Style">${styleOpts(col1Style)}</select></div>
+        </div>
+        <div class="form-row-2" style="margin-bottom:6px;">
+          <div class="field-group" style="margin:0;"><label>Column 2 Header</label>
+            <input type="text" ${p} data-field="col2Label" value="${escHtml(col2Label)}"/></div>
+          <div class="field-group" style="margin:0;"><label>Column 2 Style</label>
+            <select ${p} data-field="col2Style">${styleOpts(col2Style)}</select></div>
+        </div>${col3Block}
+        <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${rows}</div>
+        <button class="btn-add" onclick="addCpSubItem(${piArg},${si},'items',{cell1:'',cell2:'',cell3:''})">+ Add Row</button>`;
+    }
+
+
     case 'jurisdiction': {
       const lt = sec.linkType || 'none';
       const intOpts = getInternalPageOptions(sec.linkUrl || '');
@@ -6727,7 +6831,7 @@ function addCpSection(pi) {
   const type = sel.value;
   const defaults = { type, label:'', background:'light' };
   // Seed empty items for array-based types
-  if (['stats','bullets','services','steps','faq','timeline','fees'].includes(type)) defaults.items = [];
+  if (['stats','bullets','services','steps','faq','timeline','fees','table'].includes(type)) defaults.items = [];
   if (type === 'checklist') defaults.categories = [];
   if (type === 'form') { defaults.fields = []; defaults.submitLabel = 'Send Message'; defaults.successMsg = "Thank you! We'll be in touch soon."; }
   if (type === 'link') { defaults.linkType = 'none'; defaults.linkUrl = ''; defaults.linkLabel = ''; }
@@ -6740,6 +6844,7 @@ function addCpSection(pi) {
   if (type === 'gallery') { defaults.items = []; defaults.galleryCols = 3; }
   if (type === 'pricing') { defaults.items = []; }
   if (type === 'locations') { defaults.items = []; defaults.displayMode = 'cards'; defaults.layoutMode = 'top'; defaults.mapMode = 'linkout'; defaults.maxCols = 2; defaults.showHours = true; }
+  if (type === 'table') { defaults.cols = 2; defaults.col1Label = 'Column 1'; defaults.col2Label = 'Column 2'; defaults.col3Label = ''; defaults.col1Style = 'normal'; defaults.col2Style = 'normal'; defaults.col3Style = 'normal'; defaults.firstColHeader = false; defaults.items = []; }
   if (!DATA.customPages[pi]) return;
   DATA.customPages[pi].sections = DATA.customPages[pi].sections || [];
   DATA.customPages[pi].sections.push(defaults);
@@ -6782,99 +6887,45 @@ function rebuildAfterMutation(pi) {
       .map(el => el.dataset.si)
   );
 
-  // Snapshot collapsed review cards: key = "si-subIdx"
-  const collapsedReviews = new Set();
+  // Snapshot EXPANDED sub-items (inverted logic — track open, restore open, leave rest collapsed)
+  // Helper: get key for a chev element
+  function chevKey(chev) {
+    const card = chev.closest('.cp-section-card');
+    const subItem = chev.closest('[data-sub-idx]');
+    return (card && subItem) ? card.dataset.si + '-' + subItem.dataset.subIdx : null;
+  }
+
+  // rev-chevron: body is nextSibling of onclick ancestor
+  const expandedReviews = new Set();
   document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .rev-chevron`).forEach(chev => {
     const body = chev.closest('[onclick]')?.nextElementSibling;
-    if (body && body.style.display === 'none') {
-      const card = chev.closest('.cp-section-card');
-      const subItem = chev.closest('[data-sub-idx]');
-      if (card && subItem) collapsedReviews.add(card.dataset.si + '-' + subItem.dataset.subIdx);
-    }
+    if (body && body.style.display !== 'none') { const k = chevKey(chev); if (k) expandedReviews.add(k); }
   });
 
-  // Snapshot collapsed tier feature lists: key = "si-ci" (card index within section)
-  const collapsedFeatures = new Set();
+  // tf-chevron: tier/flip feature lists
+  const expandedFeatures = new Set();
   document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .tf-chevron`).forEach(chev => {
     const body = chev.closest('[onclick]')?.nextElementSibling;
-    if (body && body.style.display === 'none') {
-      const card = chev.closest('.cp-section-card');
-      const subItem = chev.closest('[data-sub-idx]');
-      if (card && subItem) collapsedFeatures.add(card.dataset.si + '-' + subItem.dataset.subIdx);
-    }
+    if (body && body.style.display !== 'none') { const k = chevKey(chev); if (k) expandedFeatures.add(k); }
   });
 
-  // Snapshot collapsed tier card sub-items: key = "si-subIdx"
-  const collapsedTierCards = new Set();
-  document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .tc-chev`).forEach(chev => {
-    const header = chev.closest('.cp-sub-item-header');
-    const body = header?.nextElementSibling;
-    if (body && body.style.display === 'none') {
-      const card = chev.closest('.cp-section-card');
-      const subItem = chev.closest('[data-sub-idx]');
-      if (card && subItem) collapsedTierCards.add(card.dataset.si + '-' + subItem.dataset.subIdx);
-    }
-  });
-
-  // Snapshot collapsed flip card sub-items: key = "si-subIdx"
-  const collapsedFlipCards = new Set();
-  document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .fc-chev`).forEach(chev => {
-    const header = chev.closest('.cp-sub-item-header');
-    const body = header?.nextElementSibling;
-    if (body && body.style.display === 'none') {
-      const card = chev.closest('.cp-section-card');
-      const subItem = chev.closest('[data-sub-idx]');
-      if (card && subItem) collapsedFlipCards.add(card.dataset.si + '-' + subItem.dataset.subIdx);
-    }
-  });
-
-  // Snapshot collapsed service sub-items: key = "si-subIdx"
-  const collapsedServices = new Set();
-  document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .svc-chev`).forEach(chev => {
-    const header = chev.closest('.cp-sub-item-header');
-    const body = header?.nextElementSibling;
-    if (body && body.style.display === 'none') {
-      const card = chev.closest('.cp-section-card');
-      const subItem = chev.closest('[data-sub-idx]');
-      if (card && subItem) collapsedServices.add(card.dataset.si + '-' + subItem.dataset.subIdx);
-    }
-  });
-
-  // Snapshot collapsed FAQ sub-items: key = "si-subIdx"
-  const collapsedFaqs = new Set();
-  document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .faq-chev`).forEach(chev => {
-    const header = chev.closest('.cp-sub-item-header');
-    const body = header?.nextElementSibling;
-    if (body && body.style.display === 'none') {
-      const card = chev.closest('.cp-section-card');
-      const subItem = chev.closest('[data-sub-idx]');
-      if (card && subItem) collapsedFaqs.add(card.dataset.si + '-' + subItem.dataset.subIdx);
-    }
-  });
-
-  // Snapshot collapsed gallery sub-items: key = "si-subIdx"
-  const collapsedGallery = new Set();
-  document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .gal-chev`).forEach(chev => {
-    const header = chev.closest('.cp-sub-item-header');
-    const body = header?.nextElementSibling;
-    if (body && body.style.display === 'none') {
-      const card = chev.closest('.cp-section-card');
-      const subItem = chev.closest('[data-sub-idx]');
-      if (card && subItem) collapsedGallery.add(card.dataset.si + '-' + subItem.dataset.subIdx);
-    }
-  });
-
-  // Snapshot collapsed timeline sub-items: key = "si-subIdx"
-  const collapsedTimeline = new Set();
-  document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .tl-chev`).forEach(chev => {
-    const header = chev.closest('.cp-sub-item-header');
-    const body = header?.nextElementSibling;
-    if (body && body.style.display === 'none') {
-      const card = chev.closest('.cp-section-card');
-      const subItem = chev.closest('[data-sub-idx]');
-      if (card && subItem) collapsedTimeline.add(card.dataset.si + '-' + subItem.dataset.subIdx);
-    }
-  });
+  // tc-chev, fc-chev, svc-chev, faq-chev, gal-chev, tl-chev: body is nextSibling of header
+  function snapshotExpanded(selector) {
+    const set = new Set();
+    document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] ${selector}`).forEach(chev => {
+      const header = chev.closest('.cp-sub-item-header');
+      const body = header?.nextElementSibling;
+      if (body && body.style.display !== 'none') { const k = chevKey(chev); if (k) set.add(k); }
+    });
+    return set;
+  }
+  const expandedTierCards = snapshotExpanded('.tc-chev');
+  const expandedFlipCards = snapshotExpanded('.fc-chev');
+  const expandedServices  = snapshotExpanded('.svc-chev');
+  const expandedFaqs      = snapshotExpanded('.faq-chev');
+  const expandedGallery   = snapshotExpanded('.gal-chev');
+  const expandedTimeline  = snapshotExpanded('.tl-chev');
+  const expandedTable     = snapshotExpanded('.tbl-chev');
 
   if (pi === 'h') buildHomeSectionsList();
   else if (pi === 'a') buildAboutSectionsList();
@@ -6887,123 +6938,47 @@ function rebuildAfterMutation(pi) {
     });
   }
 
-  // Restore collapsed review cards
-  if (collapsedReviews.size) {
-    document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .rev-chevron`).forEach(chev => {
+  // Restore EXPANDED sub-items — re-open anything that was open before the rebuild
+  function restoreExpanded(selector, expandedSet, getBody) {
+    if (!expandedSet.size) return;
+    document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] ${selector}`).forEach(chev => {
       const card = chev.closest('.cp-section-card');
       const subItem = chev.closest('[data-sub-idx]');
       if (!card || !subItem) return;
       const key = card.dataset.si + '-' + subItem.dataset.subIdx;
-      if (collapsedReviews.has(key)) {
-        const body = chev.closest('[onclick]')?.nextElementSibling;
-        if (body) { body.style.display = 'none'; chev.textContent = '▸'; }
+      if (expandedSet.has(key)) {
+        const body = getBody(chev);
+        if (body) { body.style.display = ''; chev.textContent = '▾'; }
       }
     });
   }
 
-  // Restore collapsed tier feature lists
-  if (collapsedFeatures.size) {
-    document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .tf-chevron`).forEach(chev => {
-      const card = chev.closest('.cp-section-card');
-      const subItem = chev.closest('[data-sub-idx]');
-      if (!card || !subItem) return;
-      const key = card.dataset.si + '-' + subItem.dataset.subIdx;
-      if (collapsedFeatures.has(key)) {
-        const body = chev.closest('[onclick]')?.nextElementSibling;
-        if (body) { body.style.display = 'none'; chev.textContent = '▸'; }
-      }
-    });
-  }
+  restoreExpanded('.rev-chevron', expandedReviews,
+    chev => chev.closest('[onclick]')?.nextElementSibling);
 
-  // Restore collapsed tier card sub-items
-  if (collapsedTierCards.size) {
-    document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .tc-chev`).forEach(chev => {
-      const card = chev.closest('.cp-section-card');
-      const subItem = chev.closest('[data-sub-idx]');
-      if (!card || !subItem) return;
-      const key = card.dataset.si + '-' + subItem.dataset.subIdx;
-      if (collapsedTierCards.has(key)) {
-        const header = chev.closest('.cp-sub-item-header');
-        const body = header?.nextElementSibling;
-        if (body) { body.style.display = 'none'; chev.textContent = '▸'; }
-      }
-    });
-  }
+  restoreExpanded('.tf-chevron', expandedFeatures,
+    chev => chev.closest('[onclick]')?.nextElementSibling);
 
-  // Restore collapsed flip card sub-items
-  if (collapsedFlipCards.size) {
-    document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .fc-chev`).forEach(chev => {
-      const card = chev.closest('.cp-section-card');
-      const subItem = chev.closest('[data-sub-idx]');
-      if (!card || !subItem) return;
-      const key = card.dataset.si + '-' + subItem.dataset.subIdx;
-      if (collapsedFlipCards.has(key)) {
-        const header = chev.closest('.cp-sub-item-header');
-        const body = header?.nextElementSibling;
-        if (body) { body.style.display = 'none'; chev.textContent = '▸'; }
-      }
-    });
-  }
+  restoreExpanded('.tc-chev', expandedTierCards,
+    chev => chev.closest('.cp-sub-item-header')?.nextElementSibling);
 
-  // Restore collapsed service sub-items
-  if (collapsedServices.size) {
-    document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .svc-chev`).forEach(chev => {
-      const card = chev.closest('.cp-section-card');
-      const subItem = chev.closest('[data-sub-idx]');
-      if (!card || !subItem) return;
-      const key = card.dataset.si + '-' + subItem.dataset.subIdx;
-      if (collapsedServices.has(key)) {
-        const header = chev.closest('.cp-sub-item-header');
-        const body = header?.nextElementSibling;
-        if (body) { body.style.display = 'none'; chev.textContent = '▸'; }
-      }
-    });
-  }
+  restoreExpanded('.fc-chev', expandedFlipCards,
+    chev => chev.closest('.cp-sub-item-header')?.nextElementSibling);
 
-  // Restore collapsed FAQ sub-items
-  if (collapsedFaqs.size) {
-    document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .faq-chev`).forEach(chev => {
-      const card = chev.closest('.cp-section-card');
-      const subItem = chev.closest('[data-sub-idx]');
-      if (!card || !subItem) return;
-      const key = card.dataset.si + '-' + subItem.dataset.subIdx;
-      if (collapsedFaqs.has(key)) {
-        const header = chev.closest('.cp-sub-item-header');
-        const body = header?.nextElementSibling;
-        if (body) { body.style.display = 'none'; chev.textContent = '▸'; }
-      }
-    });
-  }
+  restoreExpanded('.svc-chev', expandedServices,
+    chev => chev.closest('.cp-sub-item-header')?.nextElementSibling);
 
-  // Restore collapsed gallery sub-items
-  if (collapsedGallery.size) {
-    document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .gal-chev`).forEach(chev => {
-      const card = chev.closest('.cp-section-card');
-      const subItem = chev.closest('[data-sub-idx]');
-      if (!card || !subItem) return;
-      const key = card.dataset.si + '-' + subItem.dataset.subIdx;
-      if (collapsedGallery.has(key)) {
-        const header = chev.closest('.cp-sub-item-header');
-        const body = header?.nextElementSibling;
-        if (body) { body.style.display = 'none'; chev.textContent = '▸'; }
-      }
-    });
-  }
+  restoreExpanded('.faq-chev', expandedFaqs,
+    chev => chev.closest('.cp-sub-item-header')?.nextElementSibling);
 
-  // Restore collapsed timeline sub-items
-  if (collapsedTimeline.size) {
-    document.querySelectorAll(`.cp-section-card[data-pi="${pi}"] .tl-chev`).forEach(chev => {
-      const card = chev.closest('.cp-section-card');
-      const subItem = chev.closest('[data-sub-idx]');
-      if (!card || !subItem) return;
-      const key = card.dataset.si + '-' + subItem.dataset.subIdx;
-      if (collapsedTimeline.has(key)) {
-        const header = chev.closest('.cp-sub-item-header');
-        const body = header?.nextElementSibling;
-        if (body) { body.style.display = 'none'; chev.textContent = '▸'; }
-      }
-    });
-  }
+  restoreExpanded('.gal-chev', expandedGallery,
+    chev => chev.closest('.cp-sub-item-header')?.nextElementSibling);
+
+  restoreExpanded('.tl-chev', expandedTimeline,
+    chev => chev.closest('.cp-sub-item-header')?.nextElementSibling);
+
+  restoreExpanded('.tbl-chev', expandedTable,
+    chev => chev.closest('.cp-sub-item-header')?.nextElementSibling);
 }
 
 function exportCpSection(pi, si) {
@@ -7366,6 +7341,12 @@ function toggleCpSection(header) {
       const body = header?.nextElementSibling;
       if (body) { body.style.display = 'none'; chev.textContent = '▸'; }
     });
+    // Collapse table rows (tbl-chev pattern)
+    card.querySelectorAll('.tbl-chev').forEach(chev => {
+      const header = chev.closest('.cp-sub-item-header');
+      const body = header?.nextElementSibling;
+      if (body) { body.style.display = 'none'; chev.textContent = '▸'; }
+    });
   }
 }
 
@@ -7589,6 +7570,14 @@ function collectCpSections(card, pi, existingSections) {
         sec.col1Label = get('col1Label'); sec.col2Label = get('col2Label'); sec.col3Label = get('col3Label');
         sec.disclaimer = get('disclaimer');
         sec.items = collectCpSubItems(secCard, pi, si, ['service','amount','detail','note','linkLabel','linkType','linkUrl','anchorId']); break;
+      case 'table':
+        sec.heading        = get('heading'); sec.subtitle = get('subtitle');
+        sec.cols           = parseInt(get('cols')) || 2;
+        sec.col1Label      = get('col1Label'); sec.col1Style = get('col1Style') || 'normal';
+        sec.col2Label      = get('col2Label'); sec.col2Style = get('col2Style') || 'normal';
+        sec.col3Label      = get('col3Label'); sec.col3Style = get('col3Style') || 'normal';
+        sec.firstColHeader = secCard.querySelector('[data-field="firstColHeader"]')?.checked === true;
+        sec.items          = collectCpSubItems(secCard, pi, si, ['cell1','cell2','cell3']); break;
       case 'jurisdiction':
         sec.icon = get('icon'); sec.title = get('title');
         sec.heading = get('heading'); sec.body = get('body');

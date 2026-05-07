@@ -2209,6 +2209,71 @@ const SITE_CONFIG = {
                   "isGroup": false
                 }
               ]
+            },
+            {
+              "name": "Muff-Oh-Lord",
+              "tagline": "The roar of this villain can be heard from great distances, as that rusty old muffler, from years of battles, chokes out toxic fumes.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/muff-oh-lord.jpg",
+              "imageSize": "sq",
+              "ribbon": "Junkyard Dawgs",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilitities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Thunderous noise creates an audible illusion of mighty size.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Echoing rumbled makes it difficult to determine actual villain location.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Car Stereos",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Active Emergency Vehicles",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Nemesis",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Bassasaurus",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Treblor",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
             }
           ]
         }
@@ -4098,7 +4163,7 @@ const SITE_CONFIG = {
     "cp-12": "public",
     "cp-13": "public"
   },
-  "_savedAt": 1778163346427,
+  "_savedAt": 1778170519637,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""
