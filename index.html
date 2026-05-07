@@ -6907,11 +6907,17 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
           + '</div></div>';
       };
 
-      // Build track: clone last + all items + clone first for infinite loop
-      const last  = items[items.length - 1];
-      const first = items[0];
+      // Build track with enough clones to fill the visible window on snap-back
+      // Clone count = visibleCards so the viewport is never empty during a snap
+      const cloneCount = Math.min(visibleCards, items.length);
+      const leadClones = isMulti
+        ? items.slice(-cloneCount).map(cardHtml).join('')   // last N cards at front
+        : '';
+      const trailClones = isMulti
+        ? items.slice(0, cloneCount).map(cardHtml).join('') // first N cards at end
+        : '';
       const trackInner = isMulti
-        ? cardHtml(last) + items.map(cardHtml).join('') + cardHtml(first)
+        ? leadClones + items.map(cardHtml).join('') + trailClones
         : items.map(cardHtml).join('');
 
       const dotsHtml = (showDots && isMulti)
@@ -6976,10 +6982,13 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
           });
         }
 
+        const cloneCount = Math.min(visibleCards, totalCards);
+
         function getOffset(idx) {
           const cw = getCardW();
-          // isMulti track has a leading clone, so idx+1; single card track has no clone
-          return isMulti ? (idx + 1) * (cw + gap) : idx * (cw + gap);
+          // Track layout: [cloneCount lead clones] [real cards] [cloneCount trail clones]
+          // idx 0 = first real card, at position cloneCount in track
+          return isMulti ? (idx + cloneCount) * (cw + gap) : idx * (cw + gap);
         }
 
         function goTo(idx, animate) {
@@ -7004,11 +7013,12 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         }
 
         let isSnapping = false;
-        const TRANS_MS = 450; // must match CSS transition duration
+        const TRANS_MS = 450;
 
         function next() {
           if (isSnapping) return;
           if (current >= totalCards - 1) {
+            // Slide to trail clone of card0 (position totalCards in real-card space)
             isSnapping = true;
             goTo(totalCards, true);
             setTimeout(() => {
@@ -7023,6 +7033,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         function prev() {
           if (isSnapping) return;
           if (current <= 0) {
+            // Slide to lead clone of last card (position -1 in real-card space)
             isSnapping = true;
             goTo(-1, true);
             setTimeout(() => {
