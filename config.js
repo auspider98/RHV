@@ -2151,46 +2151,6 @@ const SITE_CONFIG = {
               ]
             },
             {
-              "name": "ReTuned",
-              "tagline": "You won't find this disastrous glitch in the matrix at any dealership and its debatable whether it will make it to its destination, much less down the street..",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "villains/retuned.jpg",
-              "imageSize": "sq",
-              "ribbon": "Junkyard Dawgs",
-              "note": "",
-              "details": "",
-              "cardStyle": "dark",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": [
-                {
-                  "label": "Abilities",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Cranking up. Not much of an ability, but this Frankensteined vehicle is proof that backyard engineering is alive, but not well.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Bad re-engineering",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            },
-            {
               "name": "Spare Change",
               "tagline": "Spare Change is a relentless, chaotic driver piloting a rusted-out rig that has been running on a single, undersized \"donut\" spare tire for months longer than engineering allows.",
               "price": "",
@@ -4138,7 +4098,7 @@ const SITE_CONFIG = {
     "cp-12": "public",
     "cp-13": "public"
   },
-  "_savedAt": 1778163233536,
+  "_savedAt": 1778163346427,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""
