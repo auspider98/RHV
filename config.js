@@ -369,6 +369,70 @@ const SITE_CONFIG = {
           "linkLabel": "Identify An Affliction",
           "linkUrl": "afflictions",
           "link_anchorId": ""
+        },
+        {
+          "type": "rotating-cards",
+          "label": "Label",
+          "background": "dark",
+          "anchorId": "heading",
+          "heading": "Heading",
+          "subtitle": "Subtitle",
+          "visibleCards": 3,
+          "cardHeight": 420,
+          "showDots": true,
+          "showArrows": true,
+          "autoplay": false,
+          "autoplaySpeed": 4,
+          "items": [
+            {
+              "title": "Card Title",
+              "body": "Body Text",
+              "imagePath": "villains/muff-oh-lord.jpg",
+              "bgColor": "",
+              "fullBleed": true,
+              "textColor": "light",
+              "btnLabel": "Button",
+              "btnLinkType": "internal",
+              "btnLinkUrl": "decepticars",
+              "btnAnchorId": ""
+            },
+            {
+              "title": "sdfgds",
+              "body": "sdfgd",
+              "imagePath": "villains/excessorizer.jpg",
+              "bgColor": "",
+              "fullBleed": true,
+              "textColor": "light",
+              "btnLabel": "adfas",
+              "btnLinkType": "internal",
+              "btnLinkUrl": "slow-moes",
+              "btnAnchorId": ""
+            },
+            {
+              "title": "asdfasdf",
+              "body": "adfas",
+              "imagePath": "villains/color-guard.jpg",
+              "bgColor": "",
+              "fullBleed": true,
+              "textColor": "light",
+              "btnLabel": "sdfsda",
+              "btnLinkType": "internal",
+              "btnLinkUrl": "showtime",
+              "btnAnchorId": ""
+            },
+            {
+              "title": "adfasadg",
+              "body": "dgasdga",
+              "imagePath": "villains/too-tall.jpg",
+              "bgColor": "",
+              "fullBleed": true,
+              "textColor": "light",
+              "btnLabel": "adfsdfd",
+              "btnLinkType": "internal",
+              "btnLinkUrl": "kinevils",
+              "btnAnchorId": ""
+            }
+          ]
         }
       ]
     },
@@ -4163,7 +4227,7 @@ const SITE_CONFIG = {
     "cp-12": "public",
     "cp-13": "public"
   },
-  "_savedAt": 1778170519637,
+  "_savedAt": 1778191843425,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""

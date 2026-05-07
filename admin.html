@@ -3700,6 +3700,22 @@ function onServiceBtnLinkTypeChange(pi, si, ii, sel) {
   if (anchorEl) anchorEl.style.display = val === 'internal' ? '' : 'none';
 }
 
+function onRcBtnLinkTypeChange(pi, si, ii, sel) {
+  const val = sel.value;
+  const intEl = document.getElementById('cp-rc-internal-' + pi + '-' + si + '-' + ii);
+  const urlEl = document.getElementById('cp-rc-url-' + pi + '-' + si + '-' + ii);
+  const anchorEl = document.getElementById('cp-rc-anchor-' + pi + '-' + si + '-' + ii);
+  if (intEl) intEl.style.display = val === 'internal' ? '' : 'none';
+  if (urlEl) {
+    urlEl.style.display = (val === 'external' || val === 'file') ? '' : 'none';
+    const label = urlEl.querySelector('label');
+    const input = urlEl.querySelector('input');
+    if (label) label.textContent = val === 'file' ? 'File Path / URL' : 'External URL';
+    if (input) input.placeholder = val === 'file' ? 'files/doc.pdf' : 'https://';
+  }
+  if (anchorEl) anchorEl.style.display = val === 'internal' ? '' : 'none';
+}
+
 function onBulletLinkTypeChange(pi, si, ii, sel) {
   const val = sel.value;
   const intEl = document.getElementById('cp-bullet-internal-' + pi + '-' + si + '-' + ii);
@@ -3951,6 +3967,7 @@ const CP_SECTION_TYPES = [
   { value:'flip-cards',  label:'🃏 Flip Cards' },
   { value:'locations',   label:'📍 Locations' },
   { value:'table',       label:'📊 Table' },
+  { value:'rotating-cards', label:'🎠 Rotating Cards' },
   { value:'link',         label:'🔗 Link' },
   { value:'button',       label:'🔘 Button' },
   { value:'richtext',     label:'✍️ Rich Text Block' },
@@ -4018,7 +4035,7 @@ function addHomeSection() {
   if (!sel) return;
   const type = sel.value;
   const defaults = { type, label: '', background: 'light' };
-  if (['stats','bullets','services','steps','faq','timeline','fees','table'].includes(type)) defaults.items = [];
+  if (['stats','bullets','services','steps','faq','timeline','fees','table','rotating-cards'].includes(type)) defaults.items = [];
   if (type === 'checklist') defaults.categories = [];
   if (type === 'form') { defaults.fields = []; defaults.submitLabel = 'Send Message'; defaults.successMsg = "Thank you! We'll be in touch soon."; }
   if (type === 'link') { defaults.linkType = 'none'; defaults.linkUrl = ''; defaults.linkLabel = ''; }
@@ -4032,6 +4049,7 @@ function addHomeSection() {
   if (type === 'pricing') { defaults.items = []; }
   if (type === 'locations') { defaults.items = []; defaults.displayMode = 'cards'; defaults.layoutMode = 'top'; defaults.mapMode = 'linkout'; defaults.maxCols = 2; defaults.showHours = true; }
   if (type === 'table') { defaults.cols = 2; defaults.col1Label = 'Column 1'; defaults.col2Label = 'Column 2'; defaults.col3Label = ''; defaults.col1Style = 'normal'; defaults.col2Style = 'normal'; defaults.col3Style = 'normal'; defaults.firstColHeader = false; defaults.items = []; }
+  if (type === 'rotating-cards') { defaults.items = []; defaults.visibleCards = 1; defaults.cardHeight = 420; defaults.showDots = true; defaults.showArrows = true; defaults.autoplay = false; defaults.autoplaySpeed = 4; }
   if (!Array.isArray(DATA.homeSections)) DATA.homeSections = [];
   DATA.homeSections.push(defaults);
   buildHomeSectionsList();
@@ -4086,7 +4104,7 @@ function addAboutSection() {
   if (!sel) return;
   const type = sel.value;
   const defaults = { type, label: '', background: 'light' };
-  if (['stats','bullets','services','steps','faq','timeline','fees','table'].includes(type)) defaults.items = [];
+  if (['stats','bullets','services','steps','faq','timeline','fees','table','rotating-cards'].includes(type)) defaults.items = [];
   if (type === 'checklist') defaults.categories = [];
   if (type === 'form') { defaults.fields = []; defaults.submitLabel = 'Send Message'; defaults.successMsg = "Thank you! We'll be in touch soon."; }
   if (type === 'link') { defaults.linkType = 'none'; defaults.linkUrl = ''; defaults.linkLabel = ''; }
@@ -4100,6 +4118,7 @@ function addAboutSection() {
   if (type === 'pricing') { defaults.items = []; }
   if (type === 'locations') { defaults.items = []; defaults.displayMode = 'cards'; defaults.layoutMode = 'top'; defaults.mapMode = 'linkout'; defaults.maxCols = 2; defaults.showHours = true; }
   if (type === 'table') { defaults.cols = 2; defaults.col1Label = 'Column 1'; defaults.col2Label = 'Column 2'; defaults.col3Label = ''; defaults.col1Style = 'normal'; defaults.col2Style = 'normal'; defaults.col3Style = 'normal'; defaults.firstColHeader = false; defaults.items = []; }
+  if (type === 'rotating-cards') { defaults.items = []; defaults.visibleCards = 1; defaults.cardHeight = 420; defaults.showDots = true; defaults.showArrows = true; defaults.autoplay = false; defaults.autoplaySpeed = 4; }
   if (!Array.isArray(DATA.aboutSections)) DATA.aboutSections = [];
   DATA.aboutSections.push(defaults);
   buildAboutSectionsList();
@@ -4188,6 +4207,7 @@ function collectHomeSingleSection_forPi(secCard, pi, si, existing) {
     team: ['name','title','photo','bio'],
     locations: ['locationIndex','imagePath'],
     table: ['cell1','cell2','cell3'],
+    'rotating-cards': ['title','body','imagePath','bgColor','fullBleed','textColor','btnLabel','btnLinkType','btnLinkUrl','btnAnchorId'],
   };
   if (arrTypes[type]) {
     sec.items = Array.from(secCard.querySelectorAll('.cp-sub-item')).map(item => {
@@ -4338,6 +4358,16 @@ function collectHomeSingleSection_forPi(secCard, pi, si, existing) {
     sec.col2Label      = get('col2Label'); sec.col2Style = get('col2Style') || 'normal';
     sec.col3Label      = get('col3Label'); sec.col3Style = get('col3Style') || 'normal';
     sec.firstColHeader = secCard.querySelector('[data-field="firstColHeader"]')?.checked === true;
+  }
+
+  // Rotating Cards
+  if (type === 'rotating-cards') {
+    sec.visibleCards  = parseInt(get('visibleCards')) || 1;
+    sec.cardHeight    = parseInt(get('cardHeight')) || 420;
+    sec.showDots      = secCard.querySelector('[data-field="showDots"]')?.checked !== false;
+    sec.showArrows    = secCard.querySelector('[data-field="showArrows"]')?.checked !== false;
+    sec.autoplay      = secCard.querySelector('[data-field="autoplay"]')?.checked === true;
+    sec.autoplaySpeed = parseInt(get('autoplaySpeed')) || 4;
   }
 
   // Jurisdiction
@@ -5695,6 +5725,147 @@ function buildCpSectionTypeFields(sec, pi, si) {
     }
 
 
+    case 'rotating-cards': {
+      const visibleCards = parseInt(sec.visibleCards) || 1;
+      const cardHeight   = parseInt(sec.cardHeight) || 420;
+      const showDots     = sec.showDots !== false;
+      const showArrows   = sec.showArrows !== false;
+      const autoplay     = sec.autoplay === true;
+      const autoplaySpd  = sec.autoplaySpeed || 4;
+      const items        = sec.items || [];
+      const piArg        = typeof pi === 'string' ? "'" + pi + "'" : pi;
+
+      const selV1 = visibleCards === 1 ? ' selected' : '';
+      const selV2 = visibleCards === 2 ? ' selected' : '';
+      const selV3 = visibleCards === 3 ? ' selected' : '';
+
+      const rows = items.map((it, ii) => {
+        const lt = it.btnLinkType || 'none';
+        const intOpts = getInternalPageOptions(it.btnLinkUrl || '');
+        const showInt = lt === 'internal' ? '' : 'display:none;';
+        const showUrl = (lt === 'external' || lt === 'file') ? '' : 'display:none;';
+        const urlLabel = lt === 'file' ? 'File Path / URL' : 'External URL';
+        const urlPlaceholder = lt === 'file' ? 'files/doc.pdf' : 'https://';
+        const selInt  = lt === 'internal' ? ' selected' : '';
+        const selExt  = lt === 'external' ? ' selected' : '';
+        const selFile = lt === 'file'     ? ' selected' : '';
+        const isFullBleed = it.fullBleed === true || it.fullBleed === 'true';
+        const selLight = (it.textColor || 'dark') === 'light' ? ' selected' : '';
+        const selDark  = (it.textColor || 'dark') === 'dark'  ? ' selected' : '';
+        return `<div class="cp-sub-item" data-sub-idx="${ii}">
+          <div class="cp-sub-item-header" style="cursor:pointer;" onclick="const b=this.nextElementSibling;b.style.display=b.style.display===''?'none':'';this.querySelector('.rc-chev').textContent=b.style.display==='none'?'&#9656;':'&#9662;';">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="cp-sub-item-drag-handle" title="Drag to reorder" onclick="event.stopPropagation();">&#8903;</span>
+              <span class="cp-sub-item-label">Card #${ii+1}${it.title ? ' — ' + it.title.substring(0,30) : ''}</span>
+              <span class="rc-chev" style="font-size:10px;color:var(--muted);margin-left:2px;">&#9656;</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:4px;">
+              <button class="cp-move-btn" onclick="moveCpSubItem(${piArg},${si},'items',${ii},-1);event.stopPropagation();" title="Move up">&#8593;</button>
+              <button class="cp-move-btn" onclick="moveCpSubItem(${piArg},${si},'items',${ii},1);event.stopPropagation();" title="Move down">&#8595;</button>
+              <button class="btn-remove" onclick="removeCpSubItem(${piArg},${si},'items',${ii});event.stopPropagation();">&#215;</button>
+            </div>
+          </div>
+          <div class="cp-sub-item-body" style="padding-top:8px;display:none;">
+            <div class="form-row-2">
+              <div class="field-group" style="margin-bottom:6px;"><label>Title</label>
+                <input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="title" value="${escHtml(it.title||'')}"/></div>
+              <div class="field-group" style="margin-bottom:6px;"><label>Image Path (optional)</label>
+                <input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="imagePath" value="${escHtml(it.imagePath||'')}" placeholder="images/card.jpg"/></div>
+            </div>
+            <div class="field-group" style="margin-bottom:6px;"><label>Body Text</label>
+              <textarea data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="body" rows="2">${escHtml(it.body||'')}</textarea></div>
+            <div class="form-row-2" style="margin-bottom:6px;">
+              <div class="field-group" style="margin:0;"><label>Fallback Background Color</label>
+                <input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="bgColor" value="${escHtml(it.bgColor||'')}" placeholder="#f5f0e8"/></div>
+              <div class="field-group" style="margin:0;">
+                <div class="switch-row" style="margin:0;padding-top:22px;">
+                  <span class="switch-label">Full bleed image (text overlay)</span>
+                  <label class="switch"><input type="checkbox" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="fullBleed" ${isFullBleed?'checked':''}/><span class="switch-slider"></span></label>
+                </div>
+              </div>
+            </div>
+            <div class="field-group" style="margin-bottom:6px;"><label>Text Color (for overlay mode)</label>
+              <select data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="textColor">
+                <option value="dark"${selDark}>Dark (navy)</option>
+                <option value="light"${selLight}>Light (white)</option>
+              </select></div>
+            <div class="form-row-2" style="margin-bottom:4px;">
+              <div class="field-group" style="margin:0;"><label>Button Label (optional)</label>
+                <input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="btnLabel" value="${escHtml(it.btnLabel||'')}"/></div>
+              <div class="field-group" style="margin:0;"><label>Button Link Type</label>
+                <select data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="btnLinkType" onchange="onRcBtnLinkTypeChange(${piArg},${si},${ii},this)">
+                  <option value="none">None</option>
+                  <option value="internal"${selInt}>Internal Page</option>
+                  <option value="external"${selExt}>External URL</option>
+                  <option value="file"${selFile}>File / Document</option>
+                </select></div>
+            </div>
+            <div class="field-group" id="cp-rc-internal-${pi}-${si}-${ii}" style="margin-bottom:4px;${showInt}">
+              <label>Internal Page</label>
+              <select data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="btnLinkUrl"
+                onchange="updateAnchorSelect(document.getElementById('cp-rc-anchor-sel-${pi}-${si}-${ii}'),this.value,'')">${intOpts}</select>
+              <div class="field-group cp-anchor-select" id="cp-rc-anchor-${pi}-${si}-${ii}" style="margin-top:6px;margin-bottom:0;">
+                <label>Scroll to Section (optional)</label>
+                <select data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="btnAnchorId" id="cp-rc-anchor-sel-${pi}-${si}-${ii}">
+                  ${getAnchorOptions(it.btnLinkUrl||'', it.btnAnchorId||'')}
+                </select>
+              </div>
+            </div>
+            <div class="field-group" id="cp-rc-url-${pi}-${si}-${ii}" style="margin-bottom:4px;${showUrl}">
+              <label>${urlLabel}</label>
+              <input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="btnLinkUrl" value="${escHtml(it.btnLinkUrl||'')}" placeholder="${urlPlaceholder}"/>
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+
+      return `
+        <div class="field-group"><label>Heading (optional)</label>
+          <input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
+        <div class="field-group"><label>Subtitle (optional)</label>
+          <input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
+        <div class="form-row-2" style="margin-bottom:10px;">
+          <div class="field-group" style="margin:0;"><label>Cards Visible (desktop)</label>
+            <select ${p} data-field="visibleCards">
+              <option value="1"${selV1}>1 Card</option>
+              <option value="2"${selV2}>2 Cards</option>
+              <option value="3"${selV3}>3 Cards</option>
+            </select>
+          </div>
+          <div class="field-group" style="margin:0;"><label>Card Height (px)</label>
+            <input type="number" ${p} data-field="cardHeight" value="${cardHeight}" min="200" max="900" step="10"/>
+          </div>
+        </div>
+        <div class="form-row-2" style="margin-bottom:10px;">
+          <div class="field-group" style="margin:0;"><label>Autoplay Speed (seconds)</label>
+            <input type="number" ${p} data-field="autoplaySpeed" value="${autoplaySpd}" min="2" max="10" step="1"/>
+          </div>
+        </div>
+        <div class="form-row-2" style="margin-bottom:16px;">
+          <div class="field-group" style="margin:0;">
+            <div class="switch-row" style="margin:0;">
+              <span class="switch-label">Show dots / lines</span>
+              <label class="switch"><input type="checkbox" ${p} data-field="showDots" ${showDots?'checked':''}/><span class="switch-slider"></span></label>
+            </div>
+          </div>
+          <div class="field-group" style="margin:0;">
+            <div class="switch-row" style="margin:0;">
+              <span class="switch-label">Show arrows</span>
+              <label class="switch"><input type="checkbox" ${p} data-field="showArrows" ${showArrows?'checked':''}/><span class="switch-slider"></span></label>
+            </div>
+          </div>
+        </div>
+        <div class="field-group" style="margin-bottom:16px;">
+          <div class="switch-row" style="margin:0;">
+            <span class="switch-label">Autoplay</span>
+            <label class="switch"><input type="checkbox" ${p} data-field="autoplay" ${autoplay?'checked':''}/><span class="switch-slider"></span></label>
+          </div>
+        </div>
+        <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${rows}</div>
+        <button class="btn-add" onclick="addCpSubItem(${piArg},${si},'items',{title:'',body:'',imagePath:'',bgColor:'',fullBleed:false,textColor:'dark',btnLabel:'',btnLinkType:'none',btnLinkUrl:''})">+ Add Card</button>`;
+    }
+
+
     case 'jurisdiction': {
       const lt = sec.linkType || 'none';
       const intOpts = getInternalPageOptions(sec.linkUrl || '');
@@ -6831,7 +7002,7 @@ function addCpSection(pi) {
   const type = sel.value;
   const defaults = { type, label:'', background:'light' };
   // Seed empty items for array-based types
-  if (['stats','bullets','services','steps','faq','timeline','fees','table'].includes(type)) defaults.items = [];
+  if (['stats','bullets','services','steps','faq','timeline','fees','table','rotating-cards'].includes(type)) defaults.items = [];
   if (type === 'checklist') defaults.categories = [];
   if (type === 'form') { defaults.fields = []; defaults.submitLabel = 'Send Message'; defaults.successMsg = "Thank you! We'll be in touch soon."; }
   if (type === 'link') { defaults.linkType = 'none'; defaults.linkUrl = ''; defaults.linkLabel = ''; }
@@ -6845,6 +7016,7 @@ function addCpSection(pi) {
   if (type === 'pricing') { defaults.items = []; }
   if (type === 'locations') { defaults.items = []; defaults.displayMode = 'cards'; defaults.layoutMode = 'top'; defaults.mapMode = 'linkout'; defaults.maxCols = 2; defaults.showHours = true; }
   if (type === 'table') { defaults.cols = 2; defaults.col1Label = 'Column 1'; defaults.col2Label = 'Column 2'; defaults.col3Label = ''; defaults.col1Style = 'normal'; defaults.col2Style = 'normal'; defaults.col3Style = 'normal'; defaults.firstColHeader = false; defaults.items = []; }
+  if (type === 'rotating-cards') { defaults.items = []; defaults.visibleCards = 1; defaults.cardHeight = 420; defaults.showDots = true; defaults.showArrows = true; defaults.autoplay = false; defaults.autoplaySpeed = 4; }
   if (!DATA.customPages[pi]) return;
   DATA.customPages[pi].sections = DATA.customPages[pi].sections || [];
   DATA.customPages[pi].sections.push(defaults);
@@ -6926,6 +7098,7 @@ function rebuildAfterMutation(pi) {
   const expandedGallery   = snapshotExpanded('.gal-chev');
   const expandedTimeline  = snapshotExpanded('.tl-chev');
   const expandedTable     = snapshotExpanded('.tbl-chev');
+  const expandedRcCards   = snapshotExpanded('.rc-chev');
 
   if (pi === 'h') buildHomeSectionsList();
   else if (pi === 'a') buildAboutSectionsList();
@@ -6978,6 +7151,9 @@ function rebuildAfterMutation(pi) {
     chev => chev.closest('.cp-sub-item-header')?.nextElementSibling);
 
   restoreExpanded('.tbl-chev', expandedTable,
+    chev => chev.closest('.cp-sub-item-header')?.nextElementSibling);
+
+  restoreExpanded('.rc-chev', expandedRcCards,
     chev => chev.closest('.cp-sub-item-header')?.nextElementSibling);
 }
 
@@ -7347,6 +7523,12 @@ function toggleCpSection(header) {
       const body = header?.nextElementSibling;
       if (body) { body.style.display = 'none'; chev.textContent = '▸'; }
     });
+    // Collapse rotating card sub-items (rc-chev pattern)
+    card.querySelectorAll('.rc-chev').forEach(chev => {
+      const header = chev.closest('.cp-sub-item-header');
+      const body = header?.nextElementSibling;
+      if (body) { body.style.display = 'none'; chev.textContent = '▸'; }
+    });
   }
 }
 
@@ -7578,6 +7760,15 @@ function collectCpSections(card, pi, existingSections) {
         sec.col3Label      = get('col3Label'); sec.col3Style = get('col3Style') || 'normal';
         sec.firstColHeader = secCard.querySelector('[data-field="firstColHeader"]')?.checked === true;
         sec.items          = collectCpSubItems(secCard, pi, si, ['cell1','cell2','cell3']); break;
+      case 'rotating-cards':
+        sec.heading       = get('heading'); sec.subtitle = get('subtitle');
+        sec.visibleCards  = parseInt(get('visibleCards')) || 1;
+        sec.cardHeight    = parseInt(get('cardHeight')) || 420;
+        sec.showDots      = secCard.querySelector('[data-field="showDots"]')?.checked !== false;
+        sec.showArrows    = secCard.querySelector('[data-field="showArrows"]')?.checked !== false;
+        sec.autoplay      = secCard.querySelector('[data-field="autoplay"]')?.checked === true;
+        sec.autoplaySpeed = parseInt(get('autoplaySpeed')) || 4;
+        sec.items         = collectCpSubItems(secCard, pi, si, ['title','body','imagePath','bgColor','fullBleed','textColor','btnLabel','btnLinkType','btnLinkUrl','btnAnchorId']); break;
       case 'jurisdiction':
         sec.icon = get('icon'); sec.title = get('title');
         sec.heading = get('heading'); sec.body = get('body');
@@ -7723,7 +7914,9 @@ function collectCpSubItems(secCard, pi, si, fields) {
         }
         return true;
       });
-      obj[f] = (visible || matches[0]).value.trim();
+      const el = visible || matches[0];
+      if (el.type === 'checkbox') obj[f] = el.checked;
+      else obj[f] = el.value.trim();
     });
     items.push(obj);
   });

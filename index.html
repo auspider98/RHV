@@ -2468,6 +2468,212 @@ footer {
   white-space: nowrap;
 }
 .cps-fee-note { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+/* Table section */
+.cps-tbl-wrap { overflow-x: auto; }
+.cps-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 32px;
+  font-size: 14px;
+}
+.cps-tbl thead tr {
+  background: var(--navy);
+  color: var(--gold);
+}
+.cps-tbl th {
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: var(--font-body);
+}
+.cps-tbl td {
+  padding: 14px 20px;
+  border-bottom: 1px solid #e8e3d8;
+  color: var(--text-body);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.cps-tbl tbody tr:last-child td { border-bottom: none; }
+.cps-tbl tbody tr:hover td { background: var(--gold-pale); }
+.cps-tbl td.col-row-hdr { font-weight: 700; color: var(--navy); }
+.cps-tbl td.style-bold { font-weight: 700; }
+.cps-tbl td.style-large { font-size: 1.05rem; }
+.cps-tbl td.style-bold-large { font-weight: 700; font-size: 1.05rem; }
+.cps-section-dark .cps-tbl thead tr { background: rgba(255,255,255,0.07); }
+.cps-section-dark .cps-tbl td { border-bottom-color: rgba(255,255,255,0.1); color: rgba(255,255,255,0.75); }
+.cps-section-dark .cps-tbl td.col-row-hdr { color: #fff; }
+.cps-section-dark .cps-tbl tbody tr:hover td { background: rgba(255,255,255,0.05); }
+.cps-section-alt .cps-tbl td { border-bottom-color: var(--border); }
+@media (max-width: 580px) {
+  .cps-tbl th, .cps-tbl td { padding: 10px 12px; }
+}
+
+/* =============================================
+   ROTATING CARDS SECTION
+   ============================================= */
+.cps-rc-outer {
+  position: relative;
+  margin-top: 40px;
+}
+.cps-rc-track-wrap {
+  overflow: hidden;
+  cursor: grab;
+  width: 100%;
+}
+.cps-rc-track-wrap:active { cursor: grabbing; }
+.cps-rc-track {
+  display: flex;
+  transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+  will-change: transform;
+}
+.cps-rc-card {
+  flex-shrink: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-right: var(--rc-gap, 16px);
+  position: relative;
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 24px rgba(var(--navy-rgb),0.08);
+}
+.cps-rc-card.full-bleed {
+  background: var(--navy);
+}
+.cps-rc-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.cps-rc-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+  z-index: 1;
+}
+/* Standard (non-full-bleed) image — takes remaining space above body */
+.cps-rc-card-img-std {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 0;
+}
+.cps-rc-card-body {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 2;
+  min-height: fit-content;
+}
+/* Full-bleed: body overlays entire card at bottom */
+.cps-rc-card.full-bleed .cps-rc-card-body {
+  justify-content: flex-end;
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+/* Standard cards no longer need ::after pseudo gradient */
+.cps-rc-card-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+.cps-rc-card-body.text-dark .cps-rc-card-title { color: var(--navy); }
+.cps-rc-card-body.text-light .cps-rc-card-title { color: #fff; }
+.cps-rc-card-body:not(.text-dark):not(.text-light) .cps-rc-card-title { color: var(--navy); }
+.cps-rc-card-text {
+  font-size: 0.97rem;
+  line-height: 1.65;
+  margin: 0;
+}
+.cps-rc-card-body.text-dark .cps-rc-card-text { color: var(--text-body); }
+.cps-rc-card-body.text-light .cps-rc-card-text { color: rgba(255,255,255,0.85); }
+.cps-rc-card-body:not(.text-dark):not(.text-light) .cps-rc-card-text { color: var(--text-body); }
+.cps-rc-card-btn {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 10px 22px;
+  border-radius: 50px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s, transform 0.2s;
+  align-self: flex-start;
+}
+.cps-rc-card-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+.cps-rc-card-body.text-light .cps-rc-card-btn { background: #fff; color: var(--navy); }
+.cps-rc-card-body.text-dark .cps-rc-card-btn { background: var(--navy); color: #fff; }
+.cps-rc-card-body:not(.text-dark):not(.text-light) .cps-rc-card-btn { background: var(--navy); color: #fff; }
+
+/* Arrows */
+.cps-rc-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid rgba(var(--navy-rgb),0.12);
+  box-shadow: 0 2px 12px rgba(var(--navy-rgb),0.12);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--navy);
+  transition: background 0.2s, color 0.2s;
+  user-select: none;
+}
+.cps-rc-arrow:hover { background: var(--navy); color: #fff; }
+.cps-rc-arrow-prev { left: -22px; }
+.cps-rc-arrow-next { right: -22px; }
+.cps-section-dark .cps-rc-arrow { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2); color: #fff; }
+.cps-section-dark .cps-rc-arrow:hover { background: var(--gold); color: var(--navy); }
+
+/* Dots */
+.cps-rc-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+.cps-rc-dot {
+  height: 3px;
+  width: 32px;
+  border-radius: 2px;
+  background: rgba(var(--navy-rgb),0.18);
+  transition: background 0.3s, width 0.3s;
+  cursor: pointer;
+}
+.cps-rc-dot.active {
+  background: var(--navy);
+  width: 48px;
+}
+.cps-section-dark .cps-rc-dot { background: rgba(255,255,255,0.25); }
+.cps-section-dark .cps-rc-dot.active { background: #fff; }
+
+@media (max-width: 768px) {
+  .cps-rc-arrow-prev { left: -16px; }
+  .cps-rc-arrow-next { right: -16px; }
+  .cps-rc-arrow { width: 36px; height: 36px; font-size: 15px; }
+}
 .cps-fee-link {
   display: block;
   margin-top: 6px;
@@ -6615,6 +6821,298 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
     }
 
     // ── TEAM BLOCK ───────────────────────────────────────────────
+    case 'table': {
+      const cols        = parseInt(sec.cols) || 2;
+      const col1Label   = sec.col1Label || 'Column 1';
+      const col2Label   = sec.col2Label || 'Column 2';
+      const col3Label   = sec.col3Label || 'Column 3';
+      const col1Style   = sec.col1Style || 'normal';
+      const col2Style   = sec.col2Style || 'normal';
+      const col3Style   = sec.col3Style || 'normal';
+      const firstColHdr = sec.firstColHeader === true;
+      const items       = sec.items || [];
+      if (!items.length) break;
+
+      wrapper.classList.add('cps-section-table');
+
+      function styleClass(s) {
+        if (s === 'bold') return ' style-bold';
+        if (s === 'large') return ' style-large';
+        if (s === 'bold-large') return ' style-bold-large';
+        return '';
+      }
+
+      const col3th = cols >= 3 ? `<th>${col3Label}</th>` : '';
+      const thead = `<thead><tr><th>${col1Label}</th><th>${col2Label}</th>${col3th}</tr></thead>`;
+
+      const tbodyRows = items.map(it => {
+        const c1Class = (firstColHdr ? ' col-row-hdr' : '') + styleClass(col1Style);
+        const c2Class = styleClass(col2Style);
+        const c3Class = styleClass(col3Style);
+        const c3td = cols >= 3 ? `<td class="${c3Class}">${it.cell3||''}</td>` : '';
+        return `<tr><td class="${c1Class}">${it.cell1||''}</td><td class="${c2Class}">${it.cell2||''}</td>${c3td}</tr>`;
+      }).join('');
+
+      wrapper.innerHTML =
+        '<div class="container">' +
+          labelHTML +
+          (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
+          (sec.subtitle ? '<p class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + sec.subtitle + '</p>' : '') +
+          '<div class="reveal reveal-delay-2 cps-tbl-wrap"><table class="cps-tbl">' + thead + '<tbody>' + tbodyRows + '</tbody></table></div>' +
+        '</div>';
+      break;
+    }
+
+    case 'rotating-cards': {
+      const items        = sec.items || [];
+      if (!items.length) break;
+      const visibleCards = parseInt(sec.visibleCards) || 1;
+      const cardHeight   = parseInt(sec.cardHeight) || 420;
+      const showDots     = sec.showDots !== false;
+      const showArrows   = sec.showArrows !== false;
+      const autoplay     = sec.autoplay === true;
+      const autoplaySpd  = (parseInt(sec.autoplaySpeed) || 4) * 1000;
+      const gap          = 16; // px between cards
+      const peek         = 48; // px of next card showing
+      const isMulti      = items.length > 1;
+
+      wrapper.classList.add('cps-section-rc');
+
+      // Unique ID for this carousel instance
+      const rcId = 'rc-' + Math.random().toString(36).slice(2,8);
+
+      // Build card HTML (we'll clone first/last for infinite loop)
+      const cardHtml = (it) => {
+        const isFullBleed = it.fullBleed === true || it.fullBleed === 'true' || it.fullBleed === 'on';
+        const tc = it.textColor || 'dark';
+        const bodyClass = 'cps-rc-card-body text-' + tc;
+        const imgTag = it.imagePath
+          ? (isFullBleed
+              ? '<img class="cps-rc-card-img" src="' + it.imagePath + '" alt="' + (it.title||'') + '" loading="lazy"/><div class="cps-rc-card-overlay"></div>'
+              : '<img class="cps-rc-card-img-std" src="' + it.imagePath + '" alt="' + (it.title||'') + '" loading="lazy"/>')
+          : '';
+        const btnOnclick = it.btnLinkType === 'internal'
+          ? 'showPage(\'' + escAttr(it.btnLinkUrl) + '\',\'' + escAttr(it.btnAnchorId||'') + '\')'
+          : 'openSmartLink(\'' + escAttr(it.btnLinkType) + '\',\'' + escAttr(it.btnLinkUrl) + '\')';
+        const btnHtml = (it.btnLabel && it.btnLinkType && it.btnLinkType !== 'none')
+          ? '<button class="cps-rc-card-btn" onclick="' + btnOnclick + '">' + it.btnLabel + '</button>'
+          : '';
+        const bgStyle = (!it.imagePath && it.bgColor) ? ' style="background:' + escAttr(it.bgColor) + ';"' : '';
+        return '<div class="cps-rc-card' + (isFullBleed ? ' full-bleed' : '') + '"' + bgStyle + '>'
+          + imgTag
+          + '<div class="' + bodyClass + '">'
+          + (it.title ? '<div class="cps-rc-card-title">' + it.title + '</div>' : '')
+          + (it.body  ? '<p class="cps-rc-card-text">' + it.body + '</p>' : '')
+          + btnHtml
+          + '</div></div>';
+      };
+
+      // Build track: clone last + all items + clone first for infinite loop
+      const last  = items[items.length - 1];
+      const first = items[0];
+      const trackInner = isMulti
+        ? cardHtml(last) + items.map(cardHtml).join('') + cardHtml(first)
+        : items.map(cardHtml).join('');
+
+      const dotsHtml = (showDots && isMulti)
+        ? '<div class="cps-rc-dots" id="' + rcId + '-dots">'
+          + items.map((_,i) => '<div class="cps-rc-dot' + (i===0?' active':'') + '" data-rcid="' + rcId + '" data-idx="' + i + '" onclick="rcDotClick(this)"></div>').join('')
+          + '</div>'
+        : '';
+
+      const arrowsHtml = (showArrows && isMulti)
+        ? '<div class="cps-rc-arrow cps-rc-arrow-prev" data-rcid="' + rcId + '" onclick="rcArrowClick(this,-1)">&#8592;</div>'
+          + '<div class="cps-rc-arrow cps-rc-arrow-next" data-rcid="' + rcId + '" onclick="rcArrowClick(this,1)">&#8594;</div>'
+        : '';
+
+      wrapper.innerHTML =
+        '<div class="container">'
+          + labelHTML
+          + (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '')
+          + (sec.subtitle ? '<p class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + sec.subtitle + '</p>' : '')
+          + '<div class="cps-rc-outer" style="--rc-gap:' + gap + 'px;--rc-peek:' + peek + 'px;">'
+            + arrowsHtml
+            + '<div class="cps-rc-track-wrap" id="' + rcId + '-wrap">'
+              + '<div class="cps-rc-track" id="' + rcId + '-track">' + trackInner + '</div>'
+            + '</div>'
+          + '</div>'
+          + dotsHtml
+        + '</div>';
+
+      // Init carousel — retry until the outer element has a real width
+      function _rcInit() {
+        const totalCards = items.length;
+        let current = 0;
+        let isDragging = false, dragStartX = 0, dragDelta = 0;
+        let autoTimer = null;
+
+        const outer  = wrapper.querySelector('.cps-rc-outer');
+        const wrap   = document.getElementById(rcId + '-wrap');
+        const track  = document.getElementById(rcId + '-track');
+        const dots   = document.getElementById(rcId + '-dots');
+
+        function getContainerW() {
+          // outer is a direct child of .container — always reliable full-content width
+          return outer.offsetWidth || wrap.offsetWidth || wrapper.offsetWidth || 800;
+        }
+
+        function getCardW() {
+          const ow = getContainerW();
+          const effectivePeek = (isMulti && items.length > visibleCards) ? peek : 0;
+          return Math.floor((ow - (visibleCards - 1) * gap - effectivePeek) / visibleCards);
+        }
+
+        function setCardSizes() {
+          const cw = getCardW();
+          const ow = getContainerW();
+          wrap.style.width = ow + 'px';
+          wrap.style.maxWidth = ow + 'px';
+          track.querySelectorAll('.cps-rc-card').forEach(c => {
+            c.style.width = cw + 'px';
+            c.style.flexBasis = cw + 'px';
+            c.style.flexShrink = '0';
+            c.style.height = cardHeight + 'px';
+            c.style.marginRight = gap + 'px';
+          });
+        }
+
+        function getOffset(idx) {
+          const cw = getCardW();
+          // isMulti track has a leading clone, so idx+1; single card track has no clone
+          return isMulti ? (idx + 1) * (cw + gap) : idx * (cw + gap);
+        }
+
+        function goTo(idx, animate) {
+          if (animate === false) {
+            track.style.transition = 'none';
+            track.style.transform = 'translateX(-' + getOffset(idx) + 'px)';
+            track.offsetHeight; // force reflow
+            track.style.transition = ''; // re-enable for next animated move
+          } else {
+            track.style.transition = '';
+            track.style.transform = 'translateX(-' + getOffset(idx) + 'px)';
+          }
+          current = idx;
+          updateDots();
+        }
+
+        function updateDots() {
+          if (!dots) return;
+          dots.querySelectorAll('.cps-rc-dot').forEach((d, i) => {
+            d.classList.toggle('active', i === current);
+          });
+        }
+
+        let isSnapping = false;
+        const TRANS_MS = 450; // must match CSS transition duration
+
+        function next() {
+          if (isSnapping) return;
+          if (current >= totalCards - 1) {
+            isSnapping = true;
+            goTo(totalCards, true);
+            setTimeout(() => {
+              goTo(0, false);
+              isSnapping = false;
+            }, TRANS_MS);
+          } else {
+            goTo(current + 1, true);
+          }
+        }
+
+        function prev() {
+          if (isSnapping) return;
+          if (current <= 0) {
+            isSnapping = true;
+            goTo(-1, true);
+            setTimeout(() => {
+              goTo(totalCards - 1, false);
+              isSnapping = false;
+            }, TRANS_MS);
+          } else {
+            goTo(current - 1, true);
+          }
+        }
+
+        // Single card — size, show, responsive — no navigation
+        if (!isMulti) {
+          setCardSizes();
+          goTo(0, false);
+          window.addEventListener('resize', () => { setCardSizes(); goTo(0, false); });
+          return;
+        }
+
+        // Register in global registry
+        if (!window._rcRegistry) window._rcRegistry = {};
+        window._rcRegistry[rcId] = { next, prev, goTo };
+        if (!window.rcDotClick) {
+          window.rcDotClick = function(el) {
+            const id = el.dataset.rcid, i = parseInt(el.dataset.idx);
+            if (window._rcRegistry[id]) window._rcRegistry[id].goTo(i, true);
+          };
+        }
+        if (!window.rcArrowClick) {
+          window.rcArrowClick = function(el, dir) {
+            const id = el.dataset.rcid;
+            if (window._rcRegistry[id]) { if (dir < 0) window._rcRegistry[id].prev(); else window._rcRegistry[id].next(); }
+          };
+        }
+
+        // Drag/swipe
+        wrap.addEventListener('mousedown', e => { if (isSnapping) return; isDragging = true; dragStartX = e.clientX; track.style.transition = 'none'; });
+        window.addEventListener('mousemove', e => {
+          if (!isDragging) return;
+          dragDelta = e.clientX - dragStartX;
+          track.style.transform = 'translateX(' + (-getOffset(current) + dragDelta) + 'px)';
+        });
+        window.addEventListener('mouseup', () => {
+          if (!isDragging) return;
+          isDragging = false;
+          if (dragDelta < -50) next();
+          else if (dragDelta > 50) prev();
+          else goTo(current, true);
+          dragDelta = 0;
+        });
+        wrap.addEventListener('touchstart', e => { if (isSnapping) return; dragStartX = e.touches[0].clientX; track.style.transition = 'none'; }, { passive: true });
+        wrap.addEventListener('touchmove', e => {
+          dragDelta = e.touches[0].clientX - dragStartX;
+          track.style.transform = 'translateX(' + (-getOffset(current) + dragDelta) + 'px)';
+        }, { passive: true });
+        wrap.addEventListener('touchend', () => {
+          if (dragDelta < -50) next();
+          else if (dragDelta > 50) prev();
+          else goTo(current, true);
+          dragDelta = 0;
+        });
+
+        // Autoplay
+        function startAuto() {
+          if (!autoplay) return;
+          autoTimer = setInterval(next, autoplaySpd);
+        }
+        function stopAuto() { clearInterval(autoTimer); }
+        wrap.addEventListener('mouseenter', stopAuto);
+        wrap.addEventListener('mouseleave', startAuto);
+
+        // Init
+        setCardSizes();
+        goTo(0, false);
+        startAuto();
+        window.addEventListener('resize', () => { setCardSizes(); goTo(current, false); });
+      }
+      // Retry loop — keeps trying until outer has a real width
+      function _rcTry() {
+        const o = wrapper.querySelector('.cps-rc-outer');
+        if (o && o.offsetWidth > 0) {
+          _rcInit();
+        } else {
+          requestAnimationFrame(_rcTry);
+        }
+      }
+      requestAnimationFrame(_rcTry);
+      break;
+    }
+
     case 'team': {
       // Use configured attorneys or custom items
       const members = sec.useAttorneys !== false
