@@ -2879,6 +2879,10 @@ footer {
 .btn-outline-dark:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.06); }
 /* Link + Button appendage sections — inherit prior section background, moderate continuation padding */
 .cps-appendage { padding: 8px 0 32px; }
+/* Sections that inherit background from their predecessor */
+.cps-inherit-bg { padding-top: 0; padding-bottom: calc(var(--section-pad) / 2); }
+/* Sections with no label/heading/subtitle — flow tight to prior section */
+.section.cps-no-header { padding-top: 0; }
 
 /* ── RICH TEXT SECTION ─────────────────────────────────────── */
 .cps-rt-wrap { max-width: 860px; }
@@ -3261,7 +3265,7 @@ footer {
 }
 .cps-mq-logo-item img {
   display: block;
-  height: 48px;
+  height: var(--mq-logo-h, 48px);
   width: auto;
   object-fit: contain;
 }
@@ -6297,15 +6301,22 @@ function buildCustomPages() {
   });
 }
 
-// For link/button sections, inherit background from the nearest preceding non-appendage section.
+// For link/button/richtext sections, inherit background from the nearest preceding non-inheriting section.
 function getInheritedBg(sections, idx) {
   for (let i = idx - 1; i >= 0; i--) {
-    const t = sections[i].type;
-    if (t !== 'link' && t !== 'button' && !(t === 'richtext' && sections[i].background === 'inherit')) {
-      return sections[i].background || 'light';
-    }
+    const s = sections[i];
+    const t = s.type;
+    const isAppendage = t === 'link' || t === 'button';
+    const inherits = (s.background === 'inherit') || isAppendage;
+    if (!inherits) return s.background || 'light';
   }
   return 'light';
+}
+
+function bgToClass(bg) {
+  return bg === 'dark' ? 'cps-section-dark section-dark'
+       : bg === 'alt'  ? 'cps-section-alt section-alt'
+       : 'cps-section-light';
 }
 
 const CPS_NO_ZONE_TYPES = new Set(['link','button','cta','stats','two-col','feature-cards','video']);
@@ -6391,13 +6402,19 @@ function buildVideoEmbed(url, mp4) {
 function renderCustomSection(sec, idx, isFirst, allSections) {
   if (!sec || !sec.type) return null;
 
-  const isDark = sec.background === 'dark';
-  const bgClass = isDark ? 'cps-section-dark section-dark'
-                : sec.background === 'alt'  ? 'cps-section-alt section-alt'
-                : 'cps-section-light';
+  // Resolve background — 'inherit' looks back to nearest non-inheriting section
+  const isAppendageType = sec.type === 'link' || sec.type === 'button';
+  const isInheritBg = sec.background === 'inherit' && !isAppendageType;
+  const secBg = isInheritBg
+    ? getInheritedBg(allSections || [], idx)
+    : (sec.background || 'light');
+
+  const isDark = secBg === 'dark';
+  const bgClass = bgToClass(secBg);
 
   const wrapper = document.createElement('section');
   wrapper.className = `section ${bgClass}`;
+  if (isInheritBg) wrapper.classList.add('cps-inherit-bg');
   if (sec.anchorId) wrapper.id = sec.anchorId;
 
   // First section: replaces the page banner — clear fixed header, use banner typography
@@ -6410,6 +6427,10 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       <div class="section-label-line"></div>
       <span class="section-label-text">${sec.label}</span>
     </div>` : '';
+
+  // If no label, heading, or subtitle — reduce top padding so headerless sections flow together
+  const hasHeader = !!(sec.label || sec.heading || sec.subtitle);
+  if (!hasHeader && !isFirst) wrapper.classList.add('cps-no-header');
 
   // For first section, headings use page-banner-title scale and the h1 tag
   const headTag = isFirst ? 'h1' : 'h2';
@@ -6958,21 +6979,26 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         const dots   = document.getElementById(rcId + '-dots');
 
         function getContainerW() {
-          // outer is a direct child of .container — always reliable full-content width
           return outer.offsetWidth || wrap.offsetWidth || wrapper.offsetWidth || 800;
+        }
+
+        function getEffectiveVisible() {
+          const w = window.innerWidth;
+          if (w < 580) return 1;
+          if (w < 900) return Math.min(visibleCards, 2);
+          return visibleCards;
         }
 
         function getCardW() {
           const ow = getContainerW();
-          const effectivePeek = (isMulti && items.length > visibleCards) ? peek : 0;
-          return Math.floor((ow - (visibleCards - 1) * gap - effectivePeek) / visibleCards);
+          const ev = getEffectiveVisible();
+          const effectivePeek = (isMulti && items.length > ev) ? peek : 0;
+          return Math.floor((ow - (ev - 1) * gap - effectivePeek) / ev);
         }
 
         function setCardSizes() {
           const cw = getCardW();
           const ow = getContainerW();
-          wrap.style.width = ow + 'px';
-          wrap.style.maxWidth = ow + 'px';
           track.querySelectorAll('.cps-rc-card').forEach(c => {
             c.style.width = cw + 'px';
             c.style.flexBasis = cw + 'px';
@@ -6986,8 +7012,6 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
 
         function getOffset(idx) {
           const cw = getCardW();
-          // Track layout: [cloneCount lead clones] [real cards] [cloneCount trail clones]
-          // idx 0 = first real card, at position cloneCount in track
           return isMulti ? (idx + cloneCount) * (cw + gap) : idx * (cw + gap);
         }
 
@@ -6995,8 +7019,8 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
           if (animate === false) {
             track.style.transition = 'none';
             track.style.transform = 'translateX(-' + getOffset(idx) + 'px)';
-            track.offsetHeight; // force reflow
-            track.style.transition = ''; // re-enable for next animated move
+            track.offsetHeight;
+            track.style.transition = '';
           } else {
             track.style.transition = '';
             track.style.transform = 'translateX(-' + getOffset(idx) + 'px)';
@@ -7049,13 +7073,15 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         if (!isMulti) {
           setCardSizes();
           goTo(0, false);
+          if (!window._rcRegistry) window._rcRegistry = {};
+          window._rcRegistry[rcId] = { outer, refresh: () => { setCardSizes(); goTo(0, false); } };
           window.addEventListener('resize', () => { setCardSizes(); goTo(0, false); });
           return;
         }
 
         // Register in global registry
         if (!window._rcRegistry) window._rcRegistry = {};
-        window._rcRegistry[rcId] = { next, prev, goTo };
+        window._rcRegistry[rcId] = { next, prev, goTo, outer, refresh: () => { setCardSizes(); goTo(current, false); } };
         if (!window.rcDotClick) {
           window.rcDotClick = function(el) {
             const id = el.dataset.rcid, i = parseInt(el.dataset.idx);
@@ -7270,23 +7296,11 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
 
     // ── RICH TEXT ─────────────────────────────────────────────────
     case 'richtext': {
-      const rtBg = sec.background || 'inherit';
-      let rtBgClass, rtIsInherit;
-      if (rtBg === 'inherit') {
-        const inherited = getInheritedBg(allSections || [], idx);
-        rtBgClass = inherited === 'dark' ? 'cps-section-dark section-dark'
-                  : inherited === 'alt'  ? 'cps-section-alt section-alt'
-                  : 'cps-section-light';
-        rtIsInherit = true;
-      } else {
-        rtBgClass = rtBg === 'dark' ? 'cps-section-dark section-dark'
-                  : rtBg === 'alt'  ? 'cps-section-alt section-alt'
-                  : 'cps-section-light';
-        rtIsInherit = false;
-      }
-      wrapper.className = `section ${rtBgClass}${rtIsInherit ? ' cps-rt-inherit' : ''}`;
+      // bgClass, isDark, isInheritBg already resolved at top of renderCustomSection.
+      // Richtext inheriting bg gets tighter continuation padding via cps-rt-inherit.
+      if (isInheritBg) wrapper.classList.add('cps-rt-inherit');
 
-      const rtIsDark = rtBgClass.includes('section-dark');
+      const rtIsDark = isDark;
       const rtHtml = sec.richContent || '';
       const imgPath = sec.imagePath || '';
       const imgPos  = sec.imagePos  || 'none';
@@ -7674,6 +7688,8 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       const mqSep = sec.mqSeparator || '·';
       const speedMap = { slow: '50s', medium: '30s', fast: '15s' };
       const dur = speedMap[mqSpeed] || '30s';
+      const logoSizeMap = { sm: '32px', md: '48px', lg: '64px', xl: '96px' };
+      const mqLogoH = logoSizeMap[sec.mqLogoSize] || '48px';
       let trackInner = '';
       if (mqMode === 'text') {
         const text = sec.mqText || '';
@@ -7697,7 +7713,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         (sec.heading ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
         (sec.subtitle ? '<p class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + sec.subtitle + '</p>' : '') +
       '</div>' +
-      '<div class="cps-marquee-outer ' + dirClass + pauseClass + '" style="--marquee-dur:' + dur + ';margin-top:' + (hasHeader ? '32px' : '0') + ';">' +
+      '<div class="cps-marquee-outer ' + dirClass + pauseClass + '" style="--marquee-dur:' + dur + ';--mq-logo-h:' + mqLogoH + ';margin-top:' + (hasHeader ? '32px' : '0') + ';">' +
         '<div class="cps-marquee-track">' + trackInner + '</div>' +
       '</div>';
       break;
@@ -8117,6 +8133,23 @@ document.addEventListener('DOMContentLoaded', () => {
   _run(initReveal,           'initReveal');
   _run(initProcessObserver,  'initProcessObserver');
   _run(initAuth,             'initAuth');
+
+  // Restore carousels on bfcache back-navigation
+  window.addEventListener('pageshow', e => {
+    if (e.persisted && window._rcRegistry) {
+      Object.values(window._rcRegistry).forEach(rc => {
+        if (!rc.refresh) return;
+        function tryRefresh() {
+          if (rc.outer && rc.outer.offsetWidth > 0) {
+            rc.refresh();
+          } else {
+            requestAnimationFrame(tryRefresh);
+          }
+        }
+        requestAnimationFrame(tryRefresh);
+      });
+    }
+  });
 
   // Seed initial history state and navigate to hash if present
   try {
