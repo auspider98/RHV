@@ -3938,6 +3938,51 @@ const SITE_CONFIG = {
               ]
             },
             {
+              "name": "Reno GLO",
+              "tagline": "Be transported to the cheap streets of Reno behind this villain with his parade of brake light flashing across the back of his sleigh with every pump of the brake pedal.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/reno-glo.jpg",
+              "imageSize": "sq",
+              "ribbon": "Showtime",
+              "note": "",
+              "details": "During the day they are just lights, but after the sun sets they become a nauseating beacon of glowing hate that dance across your pupils and illuminate the interior of your car like a blast from an atomic bombs",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Destroying rods and cones, with every flex of their ankle.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Flowing traffic",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Blown fuse",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
               "name": "ReTuned",
               "tagline": "This villain has bought 15\" chrome spinning wheel covers, a coffee can muffler and shopping cart rear wing with the resources he should have spent maintaining his car.",
               "price": "",
@@ -4750,7 +4795,7 @@ const SITE_CONFIG = {
     "cp-12": "public",
     "cp-13": "public"
   },
-  "_savedAt": 1778590666994,
+  "_savedAt": 1778624586820,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""
