@@ -2882,7 +2882,7 @@ footer {
 /* Sections that inherit background from their predecessor */
 .cps-inherit-bg { padding-top: 0; padding-bottom: calc(var(--section-pad) / 2); }
 /* Sections with no label/heading/subtitle — flow tight to prior section */
-.section.cps-no-header { padding-top: 0; }
+.section.cps-no-header { padding-top: 8px; }
 
 /* ── RICH TEXT SECTION ─────────────────────────────────────── */
 .cps-rt-wrap { max-width: 860px; }
@@ -6323,7 +6323,7 @@ const CPS_NO_ZONE_TYPES = new Set(['link','button','cta','stats','two-col','feat
 
 function applyTwoZoneLayout(wrapper, sec, isFirst) {
   if (CPS_NO_ZONE_TYPES.has(sec.type)) return;
-  if (!sec.heading) return;
+  if (!(sec.heading || sec.subtitle)) return;
   if (isFirst) return;
   if (!(sec.subtitle || sec.body)) return;
 

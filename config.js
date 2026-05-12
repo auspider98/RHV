@@ -15,7 +15,7 @@ const SITE_CONFIG = {
   "firmName": "Rush Hour Villains",
   "tagline": "Ultimate Drivers Survival Guide",
   "preloaderTagline": "Ultimate Drivers Survival Guide",
-  "logoPrimary": "logos/rhv-pipes-color.png",
+  "logoPrimary": "logos/rushhourvillains-color.png",
   "logoAlternate": "logos/rhv-pipes-white.png",
   "logoHeaderChoice": "alternate",
   "logoHeaderHeight": 60,
@@ -1456,6 +1456,58 @@ const SITE_CONFIG = {
               ]
             }
           ]
+        },
+        {
+          "type": "marquee",
+          "label": "",
+          "background": "dark",
+          "anchorId": "marquee",
+          "heading": "",
+          "subtitle": "",
+          "mqMode": "logos",
+          "mqSpeed": "medium",
+          "mqDir": "left",
+          "mqPause": true,
+          "mqText": "",
+          "mqSeparator": "·",
+          "mqLogoSize": "xl",
+          "items": [
+            {
+              "imagePath": "clans/slowmoes.png",
+              "alt": "",
+              "linkUrl": "#slow-moes"
+            },
+            {
+              "imagePath": "clans/junkyard dawgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/grandpricks.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/omgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/bubblebrigade.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/kinevils.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/decepticars.png",
+              "alt": "",
+              "linkUrl": ""
+            }
+          ]
         }
       ]
     },
@@ -1986,6 +2038,58 @@ const SITE_CONFIG = {
               ]
             }
           ]
+        },
+        {
+          "type": "marquee",
+          "label": "",
+          "background": "dark",
+          "anchorId": "marquee",
+          "heading": "",
+          "subtitle": "",
+          "mqMode": "logos",
+          "mqSpeed": "medium",
+          "mqDir": "left",
+          "mqPause": true,
+          "mqText": "",
+          "mqSeparator": "·",
+          "mqLogoSize": "xl",
+          "items": [
+            {
+              "imagePath": "clans/slowmoes.png",
+              "alt": "",
+              "linkUrl": "#slow-moes"
+            },
+            {
+              "imagePath": "clans/junkyard dawgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/grandpricks.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/omgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/bubblebrigade.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/kinevils.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/decepticars.png",
+              "alt": "",
+              "linkUrl": ""
+            }
+          ]
         }
       ]
     },
@@ -2274,6 +2378,58 @@ const SITE_CONFIG = {
                   "isGroup": false
                 }
               ]
+            }
+          ]
+        },
+        {
+          "type": "marquee",
+          "label": "",
+          "background": "dark",
+          "anchorId": "marquee",
+          "heading": "",
+          "subtitle": "",
+          "mqMode": "logos",
+          "mqSpeed": "medium",
+          "mqDir": "left",
+          "mqPause": true,
+          "mqText": "",
+          "mqSeparator": "·",
+          "mqLogoSize": "xl",
+          "items": [
+            {
+              "imagePath": "clans/slowmoes.png",
+              "alt": "",
+              "linkUrl": "#slow-moes"
+            },
+            {
+              "imagePath": "clans/junkyard dawgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/grandpricks.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/omgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/bubblebrigade.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/kinevils.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/decepticars.png",
+              "alt": "",
+              "linkUrl": ""
             }
           ]
         }
@@ -2801,6 +2957,58 @@ const SITE_CONFIG = {
               ]
             }
           ]
+        },
+        {
+          "type": "marquee",
+          "label": "",
+          "background": "dark",
+          "anchorId": "marquee",
+          "heading": "",
+          "subtitle": "",
+          "mqMode": "logos",
+          "mqSpeed": "medium",
+          "mqDir": "left",
+          "mqPause": true,
+          "mqText": "",
+          "mqSeparator": "·",
+          "mqLogoSize": "xl",
+          "items": [
+            {
+              "imagePath": "clans/slowmoes.png",
+              "alt": "",
+              "linkUrl": "#slow-moes"
+            },
+            {
+              "imagePath": "clans/junkyard dawgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/grandpricks.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/omgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/bubblebrigade.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/kinevils.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/decepticars.png",
+              "alt": "",
+              "linkUrl": ""
+            }
+          ]
         }
       ]
     },
@@ -3039,6 +3247,58 @@ const SITE_CONFIG = {
                   "isGroup": false
                 }
               ]
+            }
+          ]
+        },
+        {
+          "type": "marquee",
+          "label": "",
+          "background": "dark",
+          "anchorId": "marquee",
+          "heading": "",
+          "subtitle": "",
+          "mqMode": "logos",
+          "mqSpeed": "medium",
+          "mqDir": "left",
+          "mqPause": true,
+          "mqText": "",
+          "mqSeparator": "·",
+          "mqLogoSize": "xl",
+          "items": [
+            {
+              "imagePath": "clans/slowmoes.png",
+              "alt": "",
+              "linkUrl": "#slow-moes"
+            },
+            {
+              "imagePath": "clans/junkyard dawgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/grandpricks.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/omgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/bubblebrigade.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/kinevils.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/decepticars.png",
+              "alt": "",
+              "linkUrl": ""
             }
           ]
         }
@@ -3284,6 +3544,58 @@ const SITE_CONFIG = {
                   "isGroup": false
                 }
               ]
+            }
+          ]
+        },
+        {
+          "type": "marquee",
+          "label": "",
+          "background": "dark",
+          "anchorId": "marquee",
+          "heading": "",
+          "subtitle": "",
+          "mqMode": "logos",
+          "mqSpeed": "medium",
+          "mqDir": "left",
+          "mqPause": true,
+          "mqText": "",
+          "mqSeparator": "·",
+          "mqLogoSize": "xl",
+          "items": [
+            {
+              "imagePath": "clans/slowmoes.png",
+              "alt": "",
+              "linkUrl": "#slow-moes"
+            },
+            {
+              "imagePath": "clans/junkyard dawgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/grandpricks.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/omgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/bubblebrigade.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/kinevils.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/decepticars.png",
+              "alt": "",
+              "linkUrl": ""
             }
           ]
         }
@@ -3689,6 +4001,118 @@ const SITE_CONFIG = {
                   "isGroup": false
                 }
               ]
+            },
+            {
+              "name": "Totes",
+              "tagline": "This villain treats every Tuesday morning commute like a cross-country expedition, sporting a massive, empty aerodynamic roof box that adds three feet of height and zero functionality to their daily drive.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "villains/totes.png",
+              "imageSize": "sq",
+              "ribbon": "Showtime",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilitites",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Load 4x more stuff in or on your ride than any one else can, at any time.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Fuel Economy",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Looking cool",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Parking Garages and Drive Thrus",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Create unseen vortexes that alter space time.",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "marquee",
+          "label": "",
+          "background": "dark",
+          "anchorId": "marquee",
+          "heading": "",
+          "subtitle": "",
+          "mqMode": "logos",
+          "mqSpeed": "medium",
+          "mqDir": "left",
+          "mqPause": true,
+          "mqText": "",
+          "mqSeparator": "·",
+          "mqLogoSize": "xl",
+          "items": [
+            {
+              "imagePath": "clans/slowmoes.png",
+              "alt": "",
+              "linkUrl": "#slow-moes"
+            },
+            {
+              "imagePath": "clans/junkyard dawgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/grandpricks.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/omgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/bubblebrigade.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/kinevils.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/decepticars.png",
+              "alt": "",
+              "linkUrl": ""
             }
           ]
         }
@@ -3904,6 +4328,58 @@ const SITE_CONFIG = {
                   "isGroup": false
                 }
               ]
+            }
+          ]
+        },
+        {
+          "type": "marquee",
+          "label": "",
+          "background": "dark",
+          "anchorId": "marquee",
+          "heading": "",
+          "subtitle": "",
+          "mqMode": "logos",
+          "mqSpeed": "medium",
+          "mqDir": "left",
+          "mqPause": true,
+          "mqText": "",
+          "mqSeparator": "·",
+          "mqLogoSize": "xl",
+          "items": [
+            {
+              "imagePath": "clans/slowmoes.png",
+              "alt": "",
+              "linkUrl": "#slow-moes"
+            },
+            {
+              "imagePath": "clans/junkyard dawgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/grandpricks.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/omgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/bubblebrigade.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/kinevils.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/decepticars.png",
+              "alt": "",
+              "linkUrl": ""
             }
           ]
         }
@@ -4161,57 +4637,6 @@ const SITE_CONFIG = {
   "aboutSections": [],
   "homeSections": [
     {
-      "type": "marquee",
-      "label": "",
-      "background": "dark",
-      "anchorId": "marquee",
-      "heading": "",
-      "subtitle": "",
-      "mqMode": "logos",
-      "mqSpeed": "medium",
-      "mqDir": "left",
-      "mqPause": true,
-      "mqText": "",
-      "mqSeparator": "·",
-      "items": [
-        {
-          "imagePath": "clans/slowmoes.png",
-          "alt": "",
-          "linkUrl": "#slow-moes"
-        },
-        {
-          "imagePath": "clans/junkyard dawgs.png",
-          "alt": "",
-          "linkUrl": ""
-        },
-        {
-          "imagePath": "clans/grandpricks.png",
-          "alt": "",
-          "linkUrl": ""
-        },
-        {
-          "imagePath": "clans/omgs.png",
-          "alt": "",
-          "linkUrl": ""
-        },
-        {
-          "imagePath": "clans/bubblebrigade.png",
-          "alt": "",
-          "linkUrl": ""
-        },
-        {
-          "imagePath": "clans/kinevils.png",
-          "alt": "",
-          "linkUrl": ""
-        },
-        {
-          "imagePath": "clans/decepticars.png",
-          "alt": "",
-          "linkUrl": ""
-        }
-      ]
-    },
-    {
       "type": "rotating-cards",
       "label": "Explore RHV Portfolio",
       "background": "dark",
@@ -4325,7 +4750,7 @@ const SITE_CONFIG = {
     "cp-12": "public",
     "cp-13": "public"
   },
-  "_savedAt": 1778472054790,
+  "_savedAt": 1778558026156,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""
