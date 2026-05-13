@@ -173,6 +173,7 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
   color: rgba(255,255,255,0.5);
 }
 .cp-nav-item--child .cp-nav-item-emoji { font-size: 12px; }
+.cp-nav-hidden-badge { font-size: 9px; color: var(--muted); margin-left: 4px; opacity: 0.7; flex-shrink: 0; }
 .cp-nav-item--child .cp-nav-drag-handle {
   color: rgba(255,255,255,0.12);
   font-size: 11px;
@@ -772,7 +773,7 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
     <a href="index.html" target="_blank" class="btn btn-ghost btn-sm"
       onmousedown="saveData()" ontouchstart="saveData()">💾 Save &amp; Preview</a>
     <button class="btn btn-outline btn-sm" onclick="exportConfig()">⬇ Export config.js</button>
-    <button class="btn btn-gold btn-sm" onclick="document.getElementById('importFileInput').click()">⬆ Import config.js</button>
+    <button class="btn btn-gold btn-sm" onclick="exportConfig()">⬇ Export config.js</button>
   </div>
 </div>
 <input type="file" id="importFileInput" accept=".js" style="display:none" onchange="importConfig(this)"/>
@@ -4254,6 +4255,7 @@ function collectHomeSingleSection_forPi(secCard, pi, si, existing) {
 
   // Checklist
   if (type === 'checklist') {
+    sec.fullWidth  = secCard.querySelector('[data-field="fullWidth"]')?.checked || false;
     sec.categories = Array.from(secCard.querySelectorAll('.cp-checklist-category')).map(cat => ({
       title: cat.querySelector('[data-field="catTitle"]')?.value.trim() || '',
       items: Array.from(cat.querySelectorAll('.cp-checklist-item')).map(item => ({
@@ -4294,8 +4296,10 @@ function collectHomeSingleSection_forPi(secCard, pi, si, existing) {
       const inp = document.getElementById(`cp-link-url-${key}`);
       return inp ? inp.value.trim() : '';
     };
-    sec.cta_primary_linkUrl   = readUrl(primKey, sec.cta_primary_linkType);
-    sec.cta_secondary_linkUrl = readUrl(secKey,  sec.cta_secondary_linkType);
+    sec.cta_primary_linkUrl    = readUrl(primKey, sec.cta_primary_linkType);
+    sec.cta_secondary_linkUrl  = readUrl(secKey,  sec.cta_secondary_linkType);
+    sec.cta_primary_anchorId   = get('cta_primary_anchorId')  || '';
+    sec.cta_secondary_anchorId = get('cta_secondary_anchorId') || '';
   }
 
   // Testimonials
@@ -4317,35 +4321,22 @@ function collectHomeSingleSection_forPi(secCard, pi, si, existing) {
 
   // Two-col
   if (type === 'two-col') {
-    sec.imagePath = get('imagePath');
-    sec.imageAlt = get('imageAlt');
-    sec.imagePos = get('imagePos') || existing.imagePos || 'right';
+    sec.imagePath      = get('imagePath');
+    sec.imageMaxWidth  = get('imageMaxWidth');
+    sec.imagePosition  = get('imagePosition') || existing.imagePosition || 'right';
+    sec.cta_linkType   = get('cta_linkType')  || 'none';
+    sec.cta_linkLabel  = get('cta_linkLabel') || '';
+    sec.cta_linkUrl    = collectCpSmartLinkUrl(secCard, pi, si, 'cta_', sec.cta_linkType);
+    sec.cta_anchorId   = get('cta_anchorId')  || '';
   }
 
   // Feature cards
   if (type === 'feature-cards') {
-    sec.badgeNum = get('badgeNum');
+    sec.badgeNum  = get('badgeNum');
     sec.badgeLabel = get('badgeLabel');
-    sec.items = Array.from(secCard.querySelectorAll('.cp-sub-item')).map(item => {
-      // linkUrl has two elements (internal select + external input) — pick the visible one
-      const linkUrlEls = Array.from(item.querySelectorAll('[data-field="linkUrl"]'));
-      const visibleLinkUrl = linkUrlEls.find(el => {
-        let node = el;
-        while (node && node !== item) {
-          if (getComputedStyle(node).display === 'none') return false;
-          node = node.parentElement;
-        }
-        return true;
-      }) || linkUrlEls[0];
-      return {
-        num:       item.querySelector('[data-field="num"]')?.value.trim() || '',
-        title:     item.querySelector('[data-field="title"]')?.value.trim() || '',
-        body:      item.querySelector('[data-field="body"]')?.value.trim() || '',
-        linkLabel: item.querySelector('[data-field="linkLabel"]')?.value.trim() || '',
-        linkType:  item.querySelector('[data-field="linkType"]')?.value || 'none',
-        linkUrl:   visibleLinkUrl?.value.trim() || '',
-      };
-    });
+    sec.fullWidth = secCard.querySelector('[data-field="fullWidth"]')?.checked || false;
+    sec.maxCols   = parseInt(get('maxCols')) || 2;
+    sec.items     = collectCpSubItems(secCard, pi, si, ['num','title','body','linkLabel','linkType','linkUrl','anchorId','imagePath','imageSize']);
   }
 
   // Locations
@@ -4375,11 +4366,19 @@ function collectHomeSingleSection_forPi(secCard, pi, si, existing) {
     sec.showArrows    = secCard.querySelector('[data-field="showArrows"]')?.checked !== false;
     sec.autoplay      = secCard.querySelector('[data-field="autoplay"]')?.checked === true;
     sec.autoplaySpeed = parseInt(get('autoplaySpeed')) || 4;
+    sec.items         = collectCpSubItems(secCard, pi, si, ['title','body','imagePath','bgColor','fullBleed','textColor','btnLabel','btnLinkType','btnLinkUrl','btnAnchorId']);
   }
 
   // Jurisdiction
   if (type === 'jurisdiction') {
-    sec.jurisdictionText = get('jurisdictionText');
+    sec.icon          = get('icon');
+    sec.title         = get('title');
+    sec.heading       = get('heading');
+    sec.body          = get('body');
+    sec.linkLabel     = get('linkLabel');
+    sec.linkType      = get('linkType') || 'none';
+    sec.linkUrl       = collectCpSmartLinkUrl(secCard, pi, si, '', sec.linkType);
+    sec.jur_anchorId  = get('jur_anchorId') || '';
   }
 
   // Rich text block
@@ -4400,9 +4399,10 @@ function collectHomeSingleSection_forPi(secCard, pi, si, existing) {
     sec.containedWidth = get('containedWidth') || 'medium';
     sec.embedUrl       = get('embedUrl');
     sec.mp4Url         = get('mp4Url');
-    sec.cta_linkType   = get('cta_linkType')   || 'none';
-    sec.cta_linkLabel  = get('cta_linkLabel')  || '';
-    sec.cta_anchorId   = get('cta_anchorId')   || '';
+    sec.cta_linkType   = get('cta_linkType')  || 'none';
+    sec.cta_linkLabel  = get('cta_linkLabel') || '';
+    sec.cta_linkUrl    = collectCpSmartLinkUrl(secCard, pi, si, 'cta_', sec.cta_linkType);
+    sec.cta_anchorId   = get('cta_anchorId')  || '';
   }
 
   // Pricing / Tier Cards
@@ -4470,6 +4470,7 @@ function collectHomeSingleSection_forPi(secCard, pi, si, existing) {
     sec.mqText      = get('mqText');
     sec.mqSeparator = get('mqSeparator') || '·';
     sec.mqLogoSize  = get('mqLogoSize') || 'md';
+    sec.mqLogoGap   = get('mqLogoGap')  || 'normal';
     sec.items = Array.from(secCard.querySelectorAll('.cp-sub-item')).map(item => ({
       imagePath: item.querySelector('[data-field="imagePath"]')?.value.trim() || '',
       alt:       item.querySelector('[data-field="alt"]')?.value.trim() || '',
@@ -4564,6 +4565,7 @@ function buildCustomPagesList() {
         '<span class="cp-nav-item-link" onclick="showCpSection(' + pi + ')">' +
           '<span class="cp-nav-item-emoji">' + emoji + '</span>' +
           '<span class="cp-nav-item-label">' + escHtml(label) + '</span>' +
+          (page.hiddenFromNav ? '<span class="cp-nav-hidden-badge" title="Hidden from navigation">🚫</span>' : '') +
         '</span>' +
         addSubBtn +
         '<span class="cp-nav-arrows">' +
@@ -6456,13 +6458,23 @@ function buildCpSectionTypeFields(sec, pi, si) {
             <input type="text" ${p} data-field="mqSeparator" value="${v('mqSeparator','·')}" placeholder="·" style="max-width:80px;"/></div>
         </div>
         <div data-mq-logo-fields style="${mqMode==='logos'?'':'display:none;'}">
-          <div class="field-group" style="margin-bottom:12px;"><label>Logo Size</label>
-            <select ${p} data-field="mqLogoSize">
-              <option value="sm"  ${(sec.mqLogoSize||'md')==='sm' ?'selected':''}>Small (32px)</option>
-              <option value="md"  ${(sec.mqLogoSize||'md')==='md' ?'selected':''}>Medium (48px)</option>
-              <option value="lg"  ${(sec.mqLogoSize||'md')==='lg' ?'selected':''}>Large (64px)</option>
-              <option value="xl"  ${(sec.mqLogoSize||'md')==='xl' ?'selected':''}>X-Large (96px)</option>
-            </select>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+            <div class="field-group" style="margin-bottom:0;"><label>Logo Height</label>
+              <select ${p} data-field="mqLogoSize">
+                <option value="sm"  ${(sec.mqLogoSize||'md')==='sm' ?'selected':''}>Small (32px)</option>
+                <option value="md"  ${(sec.mqLogoSize||'md')==='md' ?'selected':''}>Medium (48px)</option>
+                <option value="lg"  ${(sec.mqLogoSize||'md')==='lg' ?'selected':''}>Large (64px)</option>
+                <option value="xl"  ${(sec.mqLogoSize||'md')==='xl' ?'selected':''}>X-Large (96px)</option>
+              </select>
+            </div>
+            <div class="field-group" style="margin-bottom:0;"><label>Logo Spacing</label>
+              <select ${p} data-field="mqLogoGap">
+                <option value="tight"  ${(sec.mqLogoGap||'normal')==='tight'  ?'selected':''}>Tight (16px)</option>
+                <option value="normal" ${(sec.mqLogoGap||'normal')==='normal' ?'selected':''}>Normal (32px)</option>
+                <option value="wide"   ${(sec.mqLogoGap||'normal')==='wide'   ?'selected':''}>Wide (48px)</option>
+                <option value="xl"     ${(sec.mqLogoGap||'normal')==='xl'     ?'selected':''}>Extra Wide (64px)</option>
+              </select>
+            </div>
           </div>
           <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${logoRows}</div>
           <button class="btn-add" onclick="addCpSubItem(${typeof pi==='string'?("'"+pi+"'"):pi},${si},'items',{imagePath:'',alt:'',linkUrl:''})">+ Add Logo</button>
@@ -7875,6 +7887,7 @@ function collectCpSections(card, pi, existingSections) {
         sec.mqText = get('mqText');
         sec.mqSeparator = get('mqSeparator') || '·';
         sec.mqLogoSize = get('mqLogoSize') || 'md';
+        sec.mqLogoGap  = get('mqLogoGap')  || 'normal';
         sec.items = collectCpSubItems(secCard, pi, si, ['imagePath','alt','linkUrl']); break;
       case 'locations':
         sec.displayMode  = get('displayMode')  || 'cards';

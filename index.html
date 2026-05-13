@@ -3261,7 +3261,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 32px;
+  padding: 0 var(--mq-logo-gap, 32px);
 }
 .cps-mq-logo-item img {
   display: block;
@@ -6327,7 +6327,10 @@ function applyTwoZoneLayout(wrapper, sec, isFirst) {
   if (isFirst) return;
   if (!(sec.subtitle || sec.body)) return;
 
-  const bg = sec.background || 'light';
+  // Resolve effective background — for 'inherit' sections read the already-applied class on the wrapper
+  const bg = sec.background === 'inherit'
+    ? (wrapper.classList.contains('section-dark') ? 'dark' : wrapper.classList.contains('section-alt') ? 'alt' : 'light')
+    : (sec.background || 'light');
   if (bg === 'dark') return;
 
   const _divCs = getComputedStyle(document.documentElement);
@@ -6456,10 +6459,10 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
     // ── TWO COLUMN ──────────────────────────────────────────────
     case 'two-col': {
       const imgSide = sec.imagePosition === 'left' ? 'image-left' : 'image-right';
-      const imgW = sec.imageMaxWidth ? `${sec.imageMaxWidth}px` : '45%';
+      const imgW = sec.imageMaxWidth ? `${parseInt(sec.imageMaxWidth)||480}px` : '45%';
       const imgVarStyle = `style="--tc-img-w:${imgW};"`;
       const imgHTML = sec.imagePath
-        ? `<div class="cps-two-col-img"><img src="${sec.imagePath}" alt="${sec.heading||''}" loading="lazy"/></div>`
+        ? `<div class="cps-two-col-img"><img src="${escAttr(sec.imagePath)}" alt="${escAttr(sec.heading||'')}" loading="lazy"/></div>`
         : `<div class="cps-two-col-img"><div class="cps-two-col-img-placeholder">🏛️</div></div>`;
       const textHTML = `<div class="cps-two-col-text">
         <div class="cps-body">${formatBody(sec.body)}</div>
@@ -6909,8 +6912,8 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         const bodyClass = 'cps-rc-card-body text-' + tc;
         const imgTag = it.imagePath
           ? (isFullBleed
-              ? '<img class="cps-rc-card-img" src="' + it.imagePath + '" alt="' + (it.title||'') + '" loading="lazy"/><div class="cps-rc-card-overlay"></div>'
-              : '<img class="cps-rc-card-img-std" src="' + it.imagePath + '" alt="' + (it.title||'') + '" loading="lazy"/>')
+              ? '<img class="cps-rc-card-img" src="' + escAttr(it.imagePath) + '" alt="' + escAttr(it.title||'') + '" loading="lazy"/><div class="cps-rc-card-overlay"></div>'
+              : '<img class="cps-rc-card-img-std" src="' + escAttr(it.imagePath) + '" alt="' + escAttr(it.title||'') + '" loading="lazy"/>')
           : '';
         const btnOnclick = it.btnLinkType === 'internal'
           ? 'showPage(\'' + escAttr(it.btnLinkUrl) + '\',\'' + escAttr(it.btnAnchorId||'') + '\')'
@@ -7157,7 +7160,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         : (sec.items || []);
       const cards = members.map(m => {
         const photoHTML = m.photo
-          ? `<img class="cps-team-photo" src="${m.photo}" alt="${m.name||''}" loading="lazy"/>`
+          ? `<img class="cps-team-photo" src="${escAttr(m.photo)}" alt="${escAttr(m.name||'')}" loading="lazy"/>`
           : `<div class="cps-team-photo-placeholder">👤</div>`;
         return `<div class="cps-team-card reveal">
           ${photoHTML}
@@ -7269,10 +7272,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
     // ── LINK ─────────────────────────────────────────────────────
     case 'link': {
       const inheritedBg = getInheritedBg(allSections || [], idx);
-      const inheritedClass = inheritedBg === 'dark' ? 'cps-section-dark section-dark'
-                           : inheritedBg === 'alt'  ? 'cps-section-alt section-alt'
-                           : 'cps-section-light';
-      wrapper.className = `cps-appendage ${inheritedClass}`;
+      wrapper.className = `cps-appendage ${bgToClass(inheritedBg)}`;
 
       const hasLink = sec.linkType && sec.linkType !== 'none' && sec.linkUrl;
       let clickHandler = '';
@@ -7330,16 +7330,13 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
     // ── BUTTON ───────────────────────────────────────────────────
     case 'button': {
       const inheritedBg = getInheritedBg(allSections || [], idx);
-      const inheritedClass = inheritedBg === 'dark' ? 'cps-section-dark section-dark'
-                           : inheritedBg === 'alt'  ? 'cps-section-alt section-alt'
-                           : 'cps-section-light';
-      wrapper.className = `cps-appendage ${inheritedClass}`;
+      wrapper.className = `cps-appendage ${bgToClass(inheritedBg)}`;
 
-      function makeBtnClick(linkType, linkUrl, anchorId) {
+      const makeBtnClick = (linkType, linkUrl, anchorId) => {
         if (!linkType || linkType === 'none' || !linkUrl) return '';
         if (linkType === 'internal') return `onclick="showPage('${escAttr(linkUrl)}','${escAttr(anchorId||'')}')"`;
         return `onclick="openSmartLink('${escAttr(linkType)}','${escAttr(linkUrl)}')"`;
-      }
+      };
       const hasPrimary = sec.primary_linkType && sec.primary_linkType !== 'none' && sec.primary_linkUrl;
       const hasSecondary = sec.secondary_linkType && sec.secondary_linkType !== 'none' && sec.secondary_linkUrl;
       const primaryBtn = (hasPrimary || sec.primary_linkLabel)
@@ -7631,9 +7628,9 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         const imgPos = item.imagePos || 'none';
         let bodyInner = '';
         if (item.imagePath && imgPos === 'top') {
-          bodyInner = '<div class="cps-acc-img-top"><img src="' + item.imagePath + '" alt="' + (item.title || '') + '" loading="lazy"/></div>' + (item.body || '');
+          bodyInner = '<div class="cps-acc-img-top"><img src="' + escAttr(item.imagePath) + '" alt="' + escAttr(item.title || '') + '" loading="lazy"/></div>' + (item.body || '');
         } else if (item.imagePath && (imgPos === 'left' || imgPos === 'right')) {
-          const thumb = '<div class="cps-acc-thumb"><img src="' + item.imagePath + '" alt="' + (item.title || '') + '" loading="lazy"/></div>';
+          const thumb = '<div class="cps-acc-thumb"><img src="' + escAttr(item.imagePath) + '" alt="' + escAttr(item.title || '') + '" loading="lazy"/></div>';
           const text = '<div class="cps-acc-text-part">' + (item.body || '') + '</div>';
           bodyInner = '<div class="cps-acc-img-side">' + (imgPos === 'left' ? thumb + text : text + thumb) + '</div>';
         } else {
@@ -7660,7 +7657,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
     case 'logo-strip': {
       const logoSize = sec.logoSize || 'medium';
       const logos = (sec.items || []).map(logo => {
-        const imgTag = logo.imagePath ? '<img src="' + logo.imagePath + '" alt="' + (logo.alt || logo.caption || '') + '" loading="lazy"/>' : '';
+        const imgTag = logo.imagePath ? '<img src="' + escAttr(logo.imagePath) + '" alt="' + escAttr(logo.alt || logo.caption || '') + '" loading="lazy"/>' : '';
         const inner = '<div class="cps-logo-img-wrap">' + imgTag + '</div>' + (logo.caption ? '<div class="cps-logo-caption">' + logo.caption + '</div>' : '');
         if (logo.linkUrl) {
           return '<div class="cps-logo-item" onclick="openSmartLink(\'external\',\'' + escAttr(logo.linkUrl) + '\')" style="cursor:pointer;">' + inner + '</div>';
@@ -7690,6 +7687,8 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       const dur = speedMap[mqSpeed] || '30s';
       const logoSizeMap = { sm: '32px', md: '48px', lg: '64px', xl: '96px' };
       const mqLogoH = logoSizeMap[sec.mqLogoSize] || '48px';
+      const logoGapMap = { tight: '16px', normal: '32px', wide: '48px', xl: '64px' };
+      const mqLogoGap = logoGapMap[sec.mqLogoGap] || '32px';
       let trackInner = '';
       if (mqMode === 'text') {
         const text = sec.mqText || '';
@@ -7698,7 +7697,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         trackInner = halfTrack + halfTrack;
       } else {
         const logoItems = (sec.items || []).map(logo => {
-          const imgTag = logo.imagePath ? '<img src="' + logo.imagePath + '" alt="' + (logo.alt || '') + '" loading="lazy"/>' : '';
+          const imgTag = logo.imagePath ? '<img src="' + escAttr(logo.imagePath) + '" alt="' + escAttr(logo.alt || '') + '" loading="lazy"/>' : '';
           if (logo.linkUrl) return '<div class="cps-mq-logo-item" onclick="openSmartLink(\'external\',\'' + escAttr(logo.linkUrl) + '\')" style="cursor:pointer;">' + imgTag + '</div>';
           return '<div class="cps-mq-logo-item">' + imgTag + '</div>';
         }).join('');
@@ -7713,7 +7712,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         (sec.heading ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
         (sec.subtitle ? '<p class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + sec.subtitle + '</p>' : '') +
       '</div>' +
-      '<div class="cps-marquee-outer ' + dirClass + pauseClass + '" style="--marquee-dur:' + dur + ';--mq-logo-h:' + mqLogoH + ';margin-top:' + (hasHeader ? '32px' : '0') + ';">' +
+      '<div class="cps-marquee-outer ' + dirClass + pauseClass + '" style="--marquee-dur:' + dur + ';--mq-logo-h:' + mqLogoH + ';--mq-logo-gap:' + mqLogoGap + ';margin-top:' + (hasHeader ? '32px' : '0') + ';">' +
         '<div class="cps-marquee-track">' + trackInner + '</div>' +
       '</div>';
       break;
@@ -7768,7 +7767,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
           const locIdx = parseInt(item.locationIndex) || 0;
           const loc = locs[locIdx];
           if (!loc) return '';
-          const imgHtml = item.imagePath ? '<img class="cps-loc-card-img" src="' + item.imagePath + '" alt="' + (loc.name || '') + '" loading="lazy"/>' : '';
+          const imgHtml = item.imagePath ? '<img class="cps-loc-card-img" src="' + escAttr(item.imagePath) + '" alt="' + escAttr(loc.name || '') + '" loading="lazy"/>' : '';
           const mapHtml = locMap(loc);
           const mapWrap = mapHtml ? '<div class="cps-loc-map-wrap">' + mapHtml + '</div>' : '';
           return '<div class="cps-loc-card' + sideClass + ' reveal">' +
@@ -7787,7 +7786,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
           const locIdx = parseInt(item.locationIndex) || 0;
           const loc = locs[locIdx];
           if (!loc) return '';
-          const imgHtml = item.imagePath ? '<img class="cps-loc-card-img" src="' + item.imagePath + '" alt="' + (loc.name || '') + '" loading="lazy"/>' : '';
+          const imgHtml = item.imagePath ? '<img class="cps-loc-card-img" src="' + escAttr(item.imagePath) + '" alt="' + escAttr(loc.name || '') + '" loading="lazy"/>' : '';
           const mapHtml = locMap(loc);
           const reverseClass = featureSide === 'right' ? ' reverse' : '';
           return '<div class="cps-loc-feature-row' + reverseClass + ' reveal">' +
@@ -8134,21 +8133,28 @@ document.addEventListener('DOMContentLoaded', () => {
   _run(initProcessObserver,  'initProcessObserver');
   _run(initAuth,             'initAuth');
 
-  // Restore carousels on bfcache back-navigation
+  // Restore carousels + stat animations on bfcache back-navigation
   window.addEventListener('pageshow', e => {
-    if (e.persisted && window._rcRegistry) {
+    if (!e.persisted) return;
+    // Carousels
+    if (window._rcRegistry) {
       Object.values(window._rcRegistry).forEach(rc => {
         if (!rc.refresh) return;
-        function tryRefresh() {
-          if (rc.outer && rc.outer.offsetWidth > 0) {
-            rc.refresh();
-          } else {
-            requestAnimationFrame(tryRefresh);
-          }
-        }
+        const tryRefresh = () => {
+          if (rc.outer && rc.outer.offsetWidth > 0) rc.refresh();
+          else requestAnimationFrame(tryRefresh);
+        };
         requestAnimationFrame(tryRefresh);
       });
     }
+    // Stat animations — reset values then re-observe
+    document.querySelectorAll('.stat-num[data-stat-raw]').forEach(el => {
+      el.textContent = el.dataset.statRaw || '';
+      delete el.dataset.statAnimate;
+    });
+    document.querySelectorAll('.stats-inner').forEach(container => {
+      initStatAnimations(container);
+    });
   });
 
   // Seed initial history state and navigate to hash if present
