@@ -37,7 +37,7 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
-  --section-pad: clamp(80px, 10vw, 140px);
+  --section-pad: clamp(48px, 6vw, 80px);
   --container:   1240px;
   --gutter:      clamp(20px, 5vw, 60px);
 }
@@ -1421,7 +1421,7 @@ h2.section-title {
   border-bottom: 1px solid rgba(255,255,255,0.06);
   position: relative;
 }
-.process-step:last-child { border-bottom: none; }
+.process-step:last-child { border-bottom: none; padding-bottom: 0; }
 .step-num-wrap {
   flex-shrink: 0;
   width: 56px; height: 56px;
@@ -1497,6 +1497,8 @@ h2.section-title {
   max-width: 900px;
   transition: color 0.3s;
 }
+.step-desc p { margin: 0 0 0.75em; }
+.step-desc p:last-child { margin-bottom: 0; }
 .process-step.step-active .step-desc { color: rgba(255,255,255,0.75); }
 
 /* Process steps light/alt section theming */
@@ -2410,12 +2412,15 @@ footer {
   color: var(--text-head);
   margin-bottom: 8px;
 }
-.cps-timeline-body p {
+.cps-timeline-body p,
+.cps-timeline-text {
   font-size: 14px;
   line-height: 1.8;
   color: var(--text-muted);
   max-width: 900px;
 }
+.cps-timeline-text p { margin: 0 0 0.75em; }
+.cps-timeline-text p:last-child { margin-bottom: 0; }
 .cps-timeline-date {
   font-size: 11px;
   letter-spacing: 0.15em;
@@ -2427,7 +2432,8 @@ footer {
 /* Timeline dark/alt section theming */
 .cps-section-dark .cps-timeline-dot { background: rgba(255,255,255,0.08); border-color: rgba(201,168,76,0.5); color: var(--gold); }
 .cps-section-dark .cps-timeline-body h4 { color: #fff; }
-.cps-section-dark .cps-timeline-body p { color: rgba(255,255,255,0.65); }
+.cps-section-dark .cps-timeline-body p,
+.cps-section-dark .cps-timeline-text { color: rgba(255,255,255,0.65); }
 .cps-section-alt .cps-timeline-body h4 { color: var(--navy); }
 
 /* Data Table */
@@ -6319,67 +6325,6 @@ function bgToClass(bg) {
        : 'cps-section-light';
 }
 
-const CPS_NO_ZONE_TYPES = new Set(['link','button','cta','stats','two-col','feature-cards','video']);
-
-function applyTwoZoneLayout(wrapper, sec, isFirst) {
-  if (CPS_NO_ZONE_TYPES.has(sec.type)) return;
-  if (!(sec.heading || sec.subtitle)) return;
-  if (isFirst) return;
-  if (!(sec.subtitle || sec.body)) return;
-
-  // Resolve effective background — for 'inherit' sections read the already-applied class on the wrapper
-  const bg = sec.background === 'inherit'
-    ? (wrapper.classList.contains('section-dark') ? 'dark' : wrapper.classList.contains('section-alt') ? 'alt' : 'light')
-    : (sec.background || 'light');
-  if (bg === 'dark') return;
-
-  const _divCs = getComputedStyle(document.documentElement);
-  const _goldRaw = _divCs.getPropertyValue('--gold').trim() || '#c9a84c';
-  const _goldHex = _goldRaw.replace('#','');
-  const _gr = parseInt(_goldHex.substring(0,2),16), _gg = parseInt(_goldHex.substring(2,4),16), _gb = parseInt(_goldHex.substring(4,6),16);
-  const dividerColor = bg === 'alt'
-    ? `rgba(${_gr},${_gg},${_gb},0.25)`
-    : (_divCs.getPropertyValue('--divider-color').trim() || '#e4e0d8');
-
-  const container = wrapper.querySelector('.container');
-  if (!container) return;
-
-  const headerItems = [];
-  const contentItems = [];
-  Array.from(container.childNodes).forEach(node => {
-    if (node.nodeType === 3 && !node.textContent.trim()) return;
-    const isLabel   = node.nodeType === 1 && node.classList && node.classList.contains('section-label');
-    const isHeading = node.nodeType === 1 && (node.tagName === 'H1' || node.tagName === 'H2');
-    if (isLabel || isHeading) {
-      headerItems.push(node.cloneNode(true));
-    } else {
-      contentItems.push(node.cloneNode(true));
-    }
-  });
-
-  if (!headerItems.length || !contentItems.length) return;
-
-  const headerZone = document.createElement('div');
-  headerZone.className = 'cps-header-zone';
-  headerZone.style.paddingBottom = '32px';
-  headerZone.style.borderBottom = '1px solid ' + dividerColor;
-  const hc = document.createElement('div');
-  hc.className = 'container';
-  headerItems.forEach(n => hc.appendChild(n));
-  headerZone.appendChild(hc);
-
-  const contentZone = document.createElement('div');
-  contentZone.className = 'cps-content-zone';
-  contentZone.style.paddingTop = '40px';
-  const cc = document.createElement('div');
-  cc.className = 'container';
-  contentItems.forEach(n => cc.appendChild(n));
-  contentZone.appendChild(cc);
-
-  // No background change — wrapper keeps its section class bg
-  // Just remove the container and replace with two zones
-  container.replaceWith(headerZone, contentZone);
-}
 
 function buildVideoEmbed(url, mp4) {
   if (mp4) {
@@ -6632,7 +6577,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
             : `<div class="step-num-wrap"><span class="step-num">${i+1}</span></div>`}
           <div class="step-body${hasLink?' has-step-link':''}">
             <h3 class="step-title">${s.title}</h3>
-            <p class="step-desc">${s.body || s.desc || ''}</p>
+            <div class="step-desc">${formatBody(s.body || s.desc || '')}</div>
             ${linkHtml}
           </div>
         </div>`;
@@ -6642,7 +6587,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         ${labelHTML}
         ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
         ${sec.subtitle ? `<p class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${sec.subtitle}</p>` : ''}
-        <div class="process-timeline" style="margin-top:48px;">${items}</div>
+        <div class="process-timeline" style="margin-top:${hasHeader ? '48px' : '0'};">${items}</div>
       </div>`;
       break;
     }
@@ -6776,7 +6721,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
           <div class="cps-timeline-body${hasLink?' has-tl-link':''}">
             ${item.date ? `<div class="cps-timeline-date">${item.date}</div>` : ''}
             <h4>${item.title}</h4>
-            <p>${item.body || ''}</p>
+            <div class="cps-timeline-text">${formatBody(item.body || '')}</div>
             ${linkHtml}
           </div>
         </div>`;
@@ -6785,7 +6730,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         ${labelHTML}
         ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
         ${sec.subtitle ? `<p class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${sec.subtitle}</p>` : ''}
-        <div class="cps-timeline" style="margin-top:48px;">${items}</div>
+        <div class="cps-timeline" style="margin-top:${hasHeader ? '48px' : '0'};">${items}</div>
       </div>`;
       break;
     }
@@ -7814,8 +7759,6 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       return null;
   }
 
-  // Apply two-zone header/content split for sections with headings
-  applyTwoZoneLayout(wrapper, sec, isFirst);
 
   return wrapper;
 }

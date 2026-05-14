@@ -373,170 +373,91 @@ const SITE_CONFIG = {
       ]
     },
     {
-      "slug": "afflictions",
-      "navLabel": "Afflictions",
-      "emoji": "🤒",
+      "slug": "gridlock-gauge",
+      "navLabel": "Gridlock Gauge",
+      "emoji": "⚠️",
       "enabled": true,
       "parent": null,
       "hiddenFromNav": false,
       "sections": [
         {
-          "type": "flip-cards",
-          "label": "Contagious",
+          "type": "text",
+          "label": "Risk Assessment Study",
           "background": "dark",
-          "anchorId": "afflictions",
-          "heading": "Afflictions",
-          "subtitle": "Villains are no different than anyone else, they too are susceptible to silly trends and bad decisions. These ridiculous afflictions can turn any dangerous villains, into a notoriously dangerous villain in the blink of a tiktok video.",
-          "maxCols": 2,
+          "anchorId": "gridlock-gauge",
+          "heading": "Gridlock Gauge",
+          "body": "To truly understand the danger a Rush Hour Villain possesses on our roadways, we must first evaluate them across a range of categories that factor in both the psychological torture they inflict and the physical danger they pose to everyone’s insurance premiums. Once we know the villains capabilities and their true nature of existing, we can assign them to a Threat Rating Tier allowing us to make more educated adjustments out there on the battlefield.\n\nTo determine if a villain is a minor nuisance or a total road-clogging catastrophe, evaluate each one on a scale of 1–10 across these categories:"
+        },
+        {
+          "type": "timeline",
+          "label": "",
+          "background": "dark",
+          "anchorId": "gridlock-threat",
+          "heading": "Threat Rating",
+          "subtitle": "",
           "items": [
             {
-              "name": "Co-Pet",
-              "tagline": "We all love our furry friends, but not theirs. The lap companion decreases reaction time and reduces vision.",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "afflictions/co-pet.jpg",
-              "imageSize": "sq",
-              "ribbon": "Afflictions",
-              "note": "",
-              "details": "",
-              "cardStyle": "light",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": []
+              "date": "The Chaos Quotient (Unpredictability)",
+              "title": "Measures how much a villain defies logic and the laws of physics. (10 points)",
+              "body": "A) Does the villain make sudden, erratic maneuvers (like 12-point U-turns or multi-lane sweeps) without any signaling or warning?\n\nB) Is their behavior so unpredictable that even experienced drivers cannot guess their next move?\n\nc) Does their driving style consistently ignore the basic \"common sense\" or logical flow of traffic?",
+              "linkLabel": "",
+              "linkType": "none",
+              "linkUrl": "home",
+              "anchorId": ""
             },
             {
-              "name": "Doplertitious",
-              "tagline": "During stormy weather some villains experience a sick lonely feeling prompting them to turn on every flashing light they have to alert others of their location, which in turn blinds and frustrates every living creature around them.",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "afflictions/doplertitious.jpg",
-              "imageSize": "sq",
-              "ribbon": "Afflictions",
-              "note": "",
-              "details": "",
-              "cardStyle": "light",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": []
-            },
-            {
-              "name": "Ear Buddy",
-              "tagline": "More often found with convertible villains, this affliction is caused by feelings of inferiority. Having the top off isn't enough to feel important, so having your phone constantly connect to your ear like you're needed at all times give them their high. Is it charged or working, probably not. But they are too busy looking like a fool to worry about that.",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "afflictions/ear-buddy.jpg",
-              "imageSize": "sq",
-              "ribbon": "Afflictions",
-              "note": "",
-              "details": "",
-              "cardStyle": "light",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": []
-            },
-            {
-              "name": "Emergency Road Block",
-              "tagline": "With symptoms of hearing loss, and spatial awareness, ERB can make some villains look like they are in a dream like state, while causing a nightmare of a roadblock for emergency vehicles.",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "afflictions/emergency-road-block.jpg",
-              "imageSize": "sq",
-              "ribbon": "Afflictions",
-              "note": "",
-              "details": "",
-              "cardStyle": "light",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": []
-            },
-            {
-              "name": "Holey Moley",
-              "tagline": "Nobody loves a good pothole like a villain suffering from decreased pain sensation. Villains suffering from HM often seem to steer their rigs directly at these ruts like they hate their suspensions.",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "afflictions/holey-moley.jpg",
-              "imageSize": "sq",
-              "ribbon": "Afflictions",
-              "note": "",
-              "details": "",
-              "cardStyle": "light",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": []
-            },
-            {
-              "name": "Lane Envy",
-              "tagline": "The grass is always green in the other lane when a villain contracts this affliction, that causes tunnel vision and reduced depth perception.",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "afflictions/lane-envy.jpg",
-              "imageSize": "sq",
-              "ribbon": "Afflictions",
-              "note": "",
-              "details": "",
-              "cardStyle": "light",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": []
-            },
-            {
-              "name": "Wheeler Dealer",
-              "tagline": "Vehicle tats, license plate covers, and front license plates displaying their dealerships logos, are often symptoms of a villain suffering from this terribly commercial marketing illness that was actually contracted from the dealership being showcased.",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "afflictions/wheeler-dealer.jpg",
-              "imageSize": "sq",
-              "ribbon": "Afflictions",
-              "note": "",
-              "details": "",
-              "cardStyle": "light",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": []
+              "date": "Structural Instability (The \"Jenga\" Factor)",
+              "title": "Measures how close the vehicle is to physically disintegrating.",
+              "body": "A) Is the vehicle actively shedding parts, debris, or \"loot\" (like sparks, smoke, or loose cargo) onto the road?\n\nB) Is the vehicle's cargo held together by visibly inadequate means, such as \"prayer and twine\" or a single fraying string?\n\nC) Does the car exhibit extreme physical symptoms of failure, such as a \"Permanent Lean\" or tires grinding against the wheel wells?",
+              "linkLabel": "",
+              "linkType": "none",
+              "linkUrl": "home",
+              "anchorId": ""
             }
           ]
         },
         {
-          "type": "button",
+          "type": "table",
           "label": "",
-          "background": "light",
-          "anchorId": "button",
-          "primary_linkType": "none",
-          "primary_linkLabel": "",
-          "primary_linkUrl": "",
-          "primary_anchorId": "",
-          "secondary_linkType": "internal",
-          "secondary_linkLabel": "Report an Affliction",
-          "secondary_linkUrl": "rhv-forms",
-          "secondary_anchorId": "report-an-affliction"
+          "background": "dark",
+          "anchorId": "gridlock-tiers",
+          "heading": "Rating Tiers",
+          "subtitle": "Assigning villains to a tier level will help us all make safer, more informed decisions on the roads.",
+          "cols": 3,
+          "col1Label": "Tier",
+          "col1Style": "bold-large",
+          "col2Label": "Classification",
+          "col2Style": "bold",
+          "col3Label": "Description",
+          "col3Style": "normal",
+          "firstColHeader": false,
+          "items": [
+            {
+              "cell1": "Tier 1",
+              "cell2": "The Nuisance",
+              "cell3": "Mostly harmless, but will definitely raise your blood pressure."
+            },
+            {
+              "cell1": "Tier 2",
+              "cell2": "The Obstacle",
+              "cell3": "They won't hit you, but they'll make sure you're 20 minutes late."
+            },
+            {
+              "cell1": "Tier 3",
+              "cell2": "The Hazard",
+              "cell3": "Their vehicle is a rolling safety violation; keep your distance."
+            },
+            {
+              "cell1": "Tier 4",
+              "cell2": "The Predator",
+              "cell3": "Actively aggressive; they want your lane and they want it now."
+            },
+            {
+              "cell1": "Tier 5",
+              "cell2": "The Wild Card",
+              "cell3": "Total unpredictability. May cause a 12-car pileup while reading a historical plaque."
+            }
+          ]
         }
       ]
     },
@@ -4929,6 +4850,174 @@ const SITE_CONFIG = {
       ]
     },
     {
+      "slug": "afflictions",
+      "navLabel": "Afflictions",
+      "emoji": "🤒",
+      "enabled": true,
+      "parent": null,
+      "hiddenFromNav": false,
+      "sections": [
+        {
+          "type": "flip-cards",
+          "label": "Contagious",
+          "background": "dark",
+          "anchorId": "afflictions",
+          "heading": "Afflictions",
+          "subtitle": "Villains are no different than anyone else, they too are susceptible to silly trends and bad decisions. These ridiculous afflictions can turn any dangerous villains, into a notoriously dangerous villain in the blink of a tiktok video.",
+          "maxCols": 2,
+          "items": [
+            {
+              "name": "Co-Pet",
+              "tagline": "We all love our furry friends, but not theirs. The lap companion decreases reaction time and reduces vision.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "afflictions/co-pet.jpg",
+              "imageSize": "sq",
+              "ribbon": "Afflictions",
+              "note": "",
+              "details": "",
+              "cardStyle": "light",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": []
+            },
+            {
+              "name": "Doplertitious",
+              "tagline": "During stormy weather some villains experience a sick lonely feeling prompting them to turn on every flashing light they have to alert others of their location, which in turn blinds and frustrates every living creature around them.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "afflictions/doplertitious.jpg",
+              "imageSize": "sq",
+              "ribbon": "Afflictions",
+              "note": "",
+              "details": "",
+              "cardStyle": "light",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": []
+            },
+            {
+              "name": "Ear Buddy",
+              "tagline": "More often found with convertible villains, this affliction is caused by feelings of inferiority. Having the top off isn't enough to feel important, so having your phone constantly connect to your ear like you're needed at all times give them their high. Is it charged or working, probably not. But they are too busy looking like a fool to worry about that.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "afflictions/ear-buddy.jpg",
+              "imageSize": "sq",
+              "ribbon": "Afflictions",
+              "note": "",
+              "details": "",
+              "cardStyle": "light",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": []
+            },
+            {
+              "name": "Emergency Road Block",
+              "tagline": "With symptoms of hearing loss, and spatial awareness, ERB can make some villains look like they are in a dream like state, while causing a nightmare of a roadblock for emergency vehicles.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "afflictions/emergency-road-block.jpg",
+              "imageSize": "sq",
+              "ribbon": "Afflictions",
+              "note": "",
+              "details": "",
+              "cardStyle": "light",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": []
+            },
+            {
+              "name": "Holey Moley",
+              "tagline": "Nobody loves a good pothole like a villain suffering from decreased pain sensation. Villains suffering from HM often seem to steer their rigs directly at these ruts like they hate their suspensions.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "afflictions/holey-moley.jpg",
+              "imageSize": "sq",
+              "ribbon": "Afflictions",
+              "note": "",
+              "details": "",
+              "cardStyle": "light",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": []
+            },
+            {
+              "name": "Lane Envy",
+              "tagline": "The grass is always green in the other lane when a villain contracts this affliction, that causes tunnel vision and reduced depth perception.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "afflictions/lane-envy.jpg",
+              "imageSize": "sq",
+              "ribbon": "Afflictions",
+              "note": "",
+              "details": "",
+              "cardStyle": "light",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": []
+            },
+            {
+              "name": "Wheeler Dealer",
+              "tagline": "Vehicle tats, license plate covers, and front license plates displaying their dealerships logos, are often symptoms of a villain suffering from this terribly commercial marketing illness that was actually contracted from the dealership being showcased.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "afflictions/wheeler-dealer.jpg",
+              "imageSize": "sq",
+              "ribbon": "Afflictions",
+              "note": "",
+              "details": "",
+              "cardStyle": "light",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": []
+            }
+          ]
+        },
+        {
+          "type": "button",
+          "label": "",
+          "background": "light",
+          "anchorId": "button",
+          "primary_linkType": "none",
+          "primary_linkLabel": "",
+          "primary_linkUrl": "",
+          "primary_anchorId": "",
+          "secondary_linkType": "internal",
+          "secondary_linkLabel": "Report an Affliction",
+          "secondary_linkUrl": "rhv-forms",
+          "secondary_anchorId": "report-an-affliction"
+        }
+      ]
+    },
+    {
       "slug": "glossary",
       "navLabel": "Glossary",
       "emoji": "📖",
@@ -5080,133 +5169,6 @@ const SITE_CONFIG = {
           ]
         }
       ]
-    },
-    {
-      "slug": "gridlock-gauge",
-      "navLabel": "Gridlock Gauge",
-      "emoji": "⚠️",
-      "enabled": true,
-      "parent": null,
-      "hiddenFromNav": false,
-      "sections": [
-        {
-          "type": "text",
-          "label": "RHV Threat Rating",
-          "background": "dark",
-          "anchorId": "gridlock-gauge",
-          "heading": "Gridlock Gauge RHV Threat Rating",
-          "body": "To truly understand the danger a Rush Hour Villain posseses on our roadways, we must first evaluate them on a scale of 1-10, across a range of categories that factor in both the psychological torture they inflict and the physical danger they pose to everyone’s insurance premiums.\n\nTo determine if a villain is a minor nuisance or a total road-clogging catastrophe, we should evaluate them on a scale of 1–10 across these categories:"
-        },
-        {
-          "type": "pricing",
-          "label": "",
-          "background": "dark",
-          "anchorId": "gridlock-catergories",
-          "heading": "",
-          "subtitle": "",
-          "maxCols": 3,
-          "items": [
-            {
-              "name": "The Chaos Quotient (Unpredictability)",
-              "tagline": "Measures how much a villain defies logic and the laws of physics. (10 points)",
-              "price": "10",
-              "period": "Possible Points",
-              "icon": "",
-              "imagePath": "",
-              "imageSize": "md",
-              "ribbon": "",
-              "note": "Rating System - 1 Yes (1-3) - 2 Yes (4-6) - 3 Yes (7-10)",
-              "cardStyle": "dark",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": [
-                {
-                  "label": "Question 1",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Does the villain make sudden, erratic maneuvers (like 12-point U-turns or multi-lane sweeps) without any signaling or warning?",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Question 2",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Is their behavior so unpredictable that even experienced drivers cannot guess their next move?",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Question 3",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Does their driving style consistently ignore the basic \"common sense\" or logical flow of traffic?",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            },
-            {
-              "name": "Structural Instability (The \"Jenga\" Factor)",
-              "tagline": "Measures how close the vehicle is to physically disintegrating.",
-              "price": "10",
-              "period": "Possible Points",
-              "icon": "",
-              "imagePath": "",
-              "imageSize": "md",
-              "ribbon": "",
-              "note": "",
-              "cardStyle": "dark",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "Q3",
-              "features": [
-                {
-                  "label": "Question 1",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Is the vehicle actively shedding parts, debris, or \"loot\" (like sparks, smoke, or loose cargo) onto the road?",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Question 2",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Is the vehicle's cargo held together by visibly inadequate means, such as \"prayer and twine\" or a single fraying string?",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Question 3",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Does the car exhibit extreme physical symptoms of failure, such as a \"Permanent Lean\" or tires grinding against the wheel wells?",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            }
-          ]
-        }
-      ]
     }
   ],
   "aboutSections": [],
@@ -5323,9 +5285,10 @@ const SITE_CONFIG = {
     "cp-10": "public",
     "cp-11": "public",
     "cp-12": "public",
-    "cp-13": "public"
+    "cp-13": "public",
+    "cp-14": "public"
   },
-  "_savedAt": 1778733590735,
+  "_savedAt": 1778798625370,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""
