@@ -6029,12 +6029,9 @@ function buildCpSectionTypeFields(sec, pi, si) {
               '<button class="btn-remove" style="font-size:11px;" onclick="removeTierFeature(' + piArg + ',' + si + ',' + ci + ',' + fi + ')">×</button>' +
             '</div>' +
             '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">' +
-              '<label style="display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer;">' +
+              '<label style="display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer;flex:1;">' +
                 '<input type="checkbox" data-cp="' + pi + '" data-sec="' + ci + '" data-feature="' + fi + '" data-field="isGroup" ' + (isGroup?'checked':'') + '/> Group Header' +
               '</label>' +
-            '</div>' +
-            '<div style="display:flex;gap:8px;align-items:center;">' +
-              '<input type="text" style="flex:1;" data-cp="' + pi + '" data-sec="' + ci + '" data-feature="' + fi + '" data-field="flabel" value="' + escHtml(f.label||'') + '" placeholder="' + (isGroup?'Group label…':'Feature label…') + '"/>' +
               '<select style="width:90px;" data-cp="' + pi + '" data-sec="' + ci + '" data-feature="' + fi + '" data-field="fstatus">' +
                 '<option value=""        ' + (!status||status===''     ?'selected':'') + '>—</option>' +
                 '<option value="yes"     ' + (status==='yes'           ?'selected':'') + '>✓ Yes</option>' +
@@ -6042,6 +6039,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
                 '<option value="partial" ' + (status==='partial'       ?'selected':'') + '>~ Part</option>' +
               '</select>' +
             '</div>' +
+              '<textarea style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;" rows="1" data-cp="' + pi + '" data-sec="' + ci + '" data-feature="' + fi + '" data-field="flabel" placeholder="' + (isGroup?'Group label…':'Feature label…') + '">' + escHtml(f.label||'') + '</textarea>' +
           '</div>';
         }).join('');
 
@@ -6171,12 +6169,9 @@ function buildCpSectionTypeFields(sec, pi, si) {
               '<button class="btn-remove" style="font-size:11px;" onclick="removeFlipFeature(' + piArg + ',' + si + ',' + ci + ',' + fi + ')">×</button>' +
             '</div>' +
             '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">' +
-              '<label style="display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer;">' +
+              '<label style="display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer;flex:1;">' +
                 '<input type="checkbox" data-cp="' + pi + '" data-sec="' + ci + '" data-feature="' + fi + '" data-field="isGroup" ' + (isGroup?'checked':'') + '/> Group Header' +
               '</label>' +
-            '</div>' +
-            '<div style="display:flex;gap:8px;align-items:center;">' +
-              '<input type="text" style="flex:1;" data-cp="' + pi + '" data-sec="' + ci + '" data-feature="' + fi + '" data-field="flabel" value="' + escHtml(f.label||'') + '" placeholder="' + (isGroup?'Group label…':'Feature label…') + '"/>' +
               '<select style="width:90px;" data-cp="' + pi + '" data-sec="' + ci + '" data-feature="' + fi + '" data-field="fstatus">' +
                 '<option value=""        ' + (!status||status===''     ?'selected':'') + '>—</option>' +
                 '<option value="yes"     ' + (status==='yes'           ?'selected':'') + '>✓ Yes</option>' +
@@ -6184,6 +6179,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
                 '<option value="partial" ' + (status==='partial'       ?'selected':'') + '>~ Part</option>' +
               '</select>' +
             '</div>' +
+              '<textarea style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;" rows="1" data-cp="' + pi + '" data-sec="' + ci + '" data-feature="' + fi + '" data-field="flabel" placeholder="' + (isGroup?'Group label…':'Feature label…') + '">' + escHtml(f.label||'') + '</textarea>' +
           '</div>';
         }).join('');
 
@@ -8533,6 +8529,14 @@ function closeMobileNav() {
 })();
 
 window.addEventListener('DOMContentLoaded', () => {
+  // Auto-grow textareas with data-field="flabel" (feature label rows)
+  document.addEventListener('input', e => {
+    const ta = e.target;
+    if (ta.tagName === 'TEXTAREA' && ta.dataset.field === 'flabel') {
+      ta.style.height = 'auto';
+      ta.style.height = ta.scrollHeight + 'px';
+    }
+  });
   document.addEventListener('dragover', e => e.preventDefault());
   document.addEventListener('drop', e => e.preventDefault());
   document.addEventListener('click', e => {
