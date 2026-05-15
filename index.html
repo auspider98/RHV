@@ -935,6 +935,8 @@ h2.section-title {
   max-width: 900px;
   margin-top: 16px;
 }
+.section-subtitle p { margin: 0 0 0.75em; }
+.section-subtitle p:last-child { margin-bottom: 0; }
 .section-dark .section-subtitle { color: rgba(255,255,255,0.6); }
 
 /* =============================================
@@ -1576,7 +1578,6 @@ h2.section-title {
 /* =============================================
    FAQ
    ============================================= */
-#faq { background: var(--warm-white); }
 .faq-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -3142,6 +3143,8 @@ footer {
   padding-bottom: 24px;
   font-size: 14px; line-height: 1.85; color: var(--text-muted);
 }
+.cps-acc-inner p { margin: 0 0 0.75em; }
+.cps-acc-inner p:last-child { margin-bottom: 0; }
 /* image positions */
 .cps-acc-img-top { margin-bottom: 16px; border-radius: 4px; overflow: hidden; aspect-ratio: 16/9; }
 .cps-acc-img-top img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -6514,7 +6517,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       wrapper.innerHTML = `<div class="container">
         ${labelHTML}
         ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<p class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${sec.subtitle}</p>` : ''}
+        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
         <div class="cps-bullets-list${sec.fullWidth ? ' cps-bullets-list--full' : ''}">${items}</div>
       </div>`;
       break;
@@ -6555,7 +6558,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       wrapper.innerHTML = `<div class="container">
         ${labelHTML}
         ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<p class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${sec.subtitle}</p>` : ''}
+        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
         <div class="services-grid" data-cols="${svcCols}" style="margin-top:40px;">${items}</div>
       </div>`;
       break;
@@ -6586,7 +6589,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       wrapper.innerHTML = `<div class="container">
         ${labelHTML}
         ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<p class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${sec.subtitle}</p>` : ''}
+        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
         <div class="process-timeline" style="margin-top:${hasHeader ? '48px' : '0'};">${items}</div>
       </div>`;
       break;
@@ -6605,13 +6608,13 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
             <span class="faq-question-text">${f.q}</span>
             <div class="faq-toggle"><span class="faq-toggle-icon">+</span></div>
           </div>
-          <div class="faq-answer"><div class="faq-answer-inner${hasLink?' has-faq-link':''}">${(f.a||'').replace(/\r\n/g,'\n').replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br>')}</div>${linkHtml}</div>
+          <div class="faq-answer"><div class="faq-answer-inner${hasLink?' has-faq-link':''}">${formatBody(f.a||'')}</div>${linkHtml}</div>
         </div>`;
       }).join('');
       wrapper.innerHTML = `<div class="container">
         ${labelHTML}
         ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<p class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${sec.subtitle}</p>` : ''}
+        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
         <div class="faq-grid${sec.fullWidth ? ' faq-grid-full' : ''}" style="margin-top:40px;">${items}</div>
       </div>`;
       break;
@@ -6637,7 +6640,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       wrapper.innerHTML = `<div class="container">
         ${labelHTML}
         ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<p class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${sec.subtitle}</p>` : ''}
+        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
         <div class="testimonials-track" style="margin-top:40px;">${items}</div>
         ${showBtn ? `<div style="text-align:center;margin-top:40px;"><button class="btn-primary" onclick="showPage('${testiSourceSlug}')" style="margin:0 auto;">${btnLabel} →</button></div>` : ''}
       </div>`;
@@ -6654,7 +6657,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       wrapper.innerHTML = `<div class="container">
         ${labelHTML}
         ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<p class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${sec.subtitle}</p>` : ''}
+        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
         <div class="blog-grid" style="margin-top:40px;">${items}</div>
       </div>`;
       break;
@@ -6699,7 +6702,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       wrapper.innerHTML = `<div class="container">
         ${labelHTML}
         ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<p class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${sec.subtitle}</p>` : ''}
+        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
         <div class="cps-doc-checklist reveal reveal-delay-2" style="margin-top:40px;">${cats}</div>
       </div>`;
       break;
@@ -6729,7 +6732,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       wrapper.innerHTML = `<div class="container">
         ${labelHTML}
         ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<p class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${sec.subtitle}</p>` : ''}
+        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
         <div class="cps-timeline" style="margin-top:${hasHeader ? '48px' : '0'};">${items}</div>
       </div>`;
       break;
@@ -6758,7 +6761,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       wrapper.innerHTML = `<div class="container">
         ${labelHTML}
         ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<p class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${sec.subtitle}</p>` : ''}
+        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
         <div class="reveal reveal-delay-2 cps-fee-wrap">
           <table class="cps-fee-table">
             <thead><tr><th>${col1Label}</th><th>${col2Label}</th><th>${col3Label}</th></tr></thead>
@@ -6826,7 +6829,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         '<div class="container">' +
           labelHTML +
           (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
-          (sec.subtitle ? '<p class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + sec.subtitle + '</p>' : '') +
+          (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
           '<div class="reveal reveal-delay-2 cps-tbl-wrap"><table class="cps-tbl">' + thead + '<tbody>' + tbodyRows + '</tbody></table></div>' +
         '</div>';
       break;
@@ -6904,7 +6907,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         '<div class="container">'
           + labelHTML
           + (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '')
-          + (sec.subtitle ? '<p class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + sec.subtitle + '</p>' : '')
+          + (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '')
           + '<div class="cps-rc-outer" style="--rc-gap:' + gap + 'px;--rc-peek:' + peek + 'px;">'
             + arrowsHtml
             + '<div class="cps-rc-track-wrap" id="' + rcId + '-wrap">'
@@ -7428,7 +7431,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       wrapper.innerHTML = '<div class="container">' +
         labelHTML +
         (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
-        (sec.subtitle ? '<p class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + sec.subtitle + '</p>' : '') +
+        (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
         '<div class="cps-tier-grid" data-cols="' + cols + '">' + cardHtml + '</div>' +
       '</div>';
       break;
@@ -7534,7 +7537,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       wrapper.innerHTML = '<div class="container">' +
         labelHTML +
         (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
-        (sec.subtitle ? '<p class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + sec.subtitle + '</p>' : '') +
+        (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
         '<div class="cps-flip-grid" data-cols="' + flipCols + '">' + flipCardHtml + '</div>' +
       '</div>';
       break;
@@ -7561,7 +7564,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       wrapper.innerHTML = '<div class="container">' +
         labelHTML +
         (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
-        (sec.subtitle ? '<p class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + sec.subtitle + '</p>' : '') +
+        (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
         '<div class="cps-gallery-grid reveal reveal-delay-1" data-cols="' + cols + '">' + cells + '</div>' +
       '</div>';
       break;
@@ -7573,13 +7576,13 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         const imgPos = item.imagePos || 'none';
         let bodyInner = '';
         if (item.imagePath && imgPos === 'top') {
-          bodyInner = '<div class="cps-acc-img-top"><img src="' + escAttr(item.imagePath) + '" alt="' + escAttr(item.title || '') + '" loading="lazy"/></div>' + (item.body || '');
+          bodyInner = '<div class="cps-acc-img-top"><img src="' + escAttr(item.imagePath) + '" alt="' + escAttr(item.title || '') + '" loading="lazy"/></div>' + formatBody(item.body || '');
         } else if (item.imagePath && (imgPos === 'left' || imgPos === 'right')) {
           const thumb = '<div class="cps-acc-thumb"><img src="' + escAttr(item.imagePath) + '" alt="' + escAttr(item.title || '') + '" loading="lazy"/></div>';
-          const text = '<div class="cps-acc-text-part">' + (item.body || '') + '</div>';
+          const text = '<div class="cps-acc-text-part">' + formatBody(item.body || '') + '</div>';
           bodyInner = '<div class="cps-acc-img-side">' + (imgPos === 'left' ? thumb + text : text + thumb) + '</div>';
         } else {
-          bodyInner = item.body || '';
+          bodyInner = formatBody(item.body || '');
         }
         return '<div class="cps-acc-item">' +
           '<div class="cps-acc-trigger" onclick="toggleAccordion(this)">' +
@@ -7592,7 +7595,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       wrapper.innerHTML = '<div class="container">' +
         labelHTML +
         (sec.heading ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
-        (sec.subtitle ? '<p class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + sec.subtitle + '</p>' : '') +
+        (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
         '<div class="cps-accordion reveal reveal-delay-1" style="margin-top:40px;">' + items + '</div>' +
       '</div>';
       break;
@@ -7615,7 +7618,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       wrapper.innerHTML = '<div class="container">' +
         labelHTML +
         (sec.heading ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
-        (sec.subtitle ? '<p class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + sec.subtitle + '</p>' : '') +
+        (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
         '<div class="cps-logo-strip cps-logo-strip--' + logoSize + ' reveal reveal-delay-1">' + logos + '</div>' +
       '</div>';
       break;
@@ -7655,7 +7658,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       wrapper.innerHTML = '<div class="container">' +
         labelHTML +
         (sec.heading ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
-        (sec.subtitle ? '<p class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + sec.subtitle + '</p>' : '') +
+        (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
       '</div>' +
       '<div class="cps-marquee-outer ' + dirClass + pauseClass + '" style="--marquee-dur:' + dur + ';--mq-logo-h:' + mqLogoH + ';--mq-logo-gap:' + mqLogoGap + ';margin-top:' + (hasHeader ? '32px' : '0') + ';">' +
         '<div class="cps-marquee-track">' + trackInner + '</div>' +
@@ -7749,7 +7752,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         '<div class="container">' +
           labelHTML +
           (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
-          (sec.subtitle ? '<p class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + sec.subtitle + '</p>' : '') +
+          (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
           innerHtml +
         '</div>';
       break;

@@ -5001,7 +5001,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
       }).join('');
       return `
         <div class="field-group"><label>Heading</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
-        <div class="field-group"><label>Subtitle</label><input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
+        <div class="field-group"><label>Subtitle</label><textarea rows="1" style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;" ${p} data-field="subtitle">${v('subtitle')}</textarea></div>
         <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${rows}</div>
         <button class="btn-add" onclick="addCpSubItem(${typeof pi==='string'?("'"+pi+"'"):pi},${si},'items',{icon:'✓',title:'',desc:'',linkType:'none',linkUrl:''})">+ Add Item</button>`;
     }
@@ -5090,7 +5090,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
           </select>
         </div>
         <div class="field-group"><label>Heading</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
-        <div class="field-group"><label>Subtitle</label><input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
+        <div class="field-group"><label>Subtitle</label><textarea rows="1" style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;" ${p} data-field="subtitle">${v('subtitle')}</textarea></div>
         <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${rows}</div>
         <button class="btn-add" onclick="addCpSubItem(${piArg},${si},'items',{icon:'&#9878;&#65039;',title:'',desc:'',detail:'',btnLabel:'',btnLinkType:'none',btnLinkUrl:''})">+ Add Service</button>`;
     }
@@ -5153,7 +5153,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
       }).join('');
       return `
         <div class="field-group"><label>Heading</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
-        <div class="field-group"><label>Subtitle</label><input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
+        <div class="field-group"><label>Subtitle</label><textarea rows="1" style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;" ${p} data-field="subtitle">${v('subtitle')}</textarea></div>
         <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${rows}</div>
         <button class="btn-add" onclick="addCpSubItem(${typeof pi==='string'?("'"+pi+"'"):pi},${si},'items',{title:'',body:'',linkLabel:'',linkType:'none',linkUrl:''})">+ Add Step</button>`;
     }
@@ -5220,7 +5220,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
       }).join('');
       return `
         <div class="field-group"><label>Heading</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
-        <div class="field-group"><label>Subtitle</label><input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
+        <div class="field-group"><label>Subtitle</label><textarea rows="1" style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;" ${p} data-field="subtitle">${v('subtitle')}</textarea></div>
         <div class="switch-row" style="margin-bottom:16px;">
           <span class="switch-label">Full Width (single column)</span>
           <label class="switch"><input type="checkbox" ${p} data-field="fullWidth" ${sec.fullWidth ? 'checked' : ''}/><span class="switch-slider"></span></label>
@@ -5264,7 +5264,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
       return `
         <div class="form-row-2" style="margin-bottom:12px;">
           <div class="field-group"><label>Heading</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
-          <div class="field-group"><label>Subtitle</label><input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
+          <div class="field-group"><label>Subtitle</label><textarea rows="1" style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;" ${p} data-field="subtitle">${v('subtitle')}</textarea></div>
         </div>
         <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;padding:10px 14px;background:var(--navy);border-radius:6px;">
           <div style="display:flex;align-items:center;gap:10px;">
@@ -5368,7 +5368,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
       }).join('');
       return `
         <div class="field-group"><label>Heading</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
-        <div class="field-group"><label>Subtitle</label><input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
+        <div class="field-group"><label>Subtitle</label><textarea rows="1" style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;" ${p} data-field="subtitle">${v('subtitle')}</textarea></div>
         <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${rows}</div>
         <button class="btn-add" onclick="addCpSubItem(${typeof pi==='string'?("'"+pi+"'"):pi},${si},'items',{emoji:'📋',tag:'',imagePath:'',title:'',excerpt:'',date:'',readTime:'',featured:false,linkType:'none',linkUrl:'',ctaLabel:''})">+ Add Post</button>`;
     }
@@ -5500,7 +5500,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
         </div>`).join('');
       return `
         <div class="field-group"><label>Heading</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
-        <div class="field-group"><label>Subtitle</label><input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
+        <div class="field-group"><label>Subtitle</label><textarea rows="1" style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;" ${p} data-field="subtitle">${v('subtitle')}</textarea></div>
         <div class="cp-sub-items" data-cp-drag="${pi}-${si}-categories">${catRows}</div>
         <button class="btn-add" onclick="addCpSubItem(${typeof pi==='string'?("'"+pi+"'"):pi},${si},'categories',{title:'',items:[]})">+ Add Category</button>`;
     }
@@ -5570,7 +5570,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
       }).join('');
       return `
         <div class="field-group"><label>Heading</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
-        <div class="field-group"><label>Subtitle</label><input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
+        <div class="field-group"><label>Subtitle</label><textarea rows="1" style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;" ${p} data-field="subtitle">${v('subtitle')}</textarea></div>
         <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${rows}</div>
         <button class="btn-add" onclick="addCpSubItem(${piArg},${si},'items',{date:'',title:'',body:'',linkLabel:'',linkType:'none',linkUrl:''})">+ Add Event</button>`;
     }
@@ -5631,7 +5631,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
       return `
         <div class="form-row-2" style="margin-bottom:6px;">
           <div class="field-group" style="margin:0;"><label>Heading</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
-          <div class="field-group" style="margin:0;"><label>Subtitle</label><input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
+          <div class="field-group" style="margin:0;"><label>Subtitle</label><textarea rows="1" style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;" ${p} data-field="subtitle">${v('subtitle')}</textarea></div>
         </div>
         <div class="form-row-3" style="margin-bottom:16px;">
           <div class="field-group" style="margin:0;"><label>Column 1 Label</label><input type="text" ${p} data-field="col1Label" data-fee-col="1" oninput="updateFeeLabels('${pi}',${si})" value="${v('col1Label')}" placeholder="Service"/></div>
@@ -5702,7 +5702,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
         <div class="field-group"><label>Heading (optional)</label>
           <input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
         <div class="field-group"><label>Subtitle (optional)</label>
-          <input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
+          <textarea rows="1" style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;" ${p} data-field="subtitle">${v('subtitle')}</textarea></div>
         <div class="form-row-2" style="margin-bottom:10px;">
           <div class="field-group" style="margin:0;"><label>Columns</label>
             <select ${p} data-field="cols" onchange="collectData();rebuildAfterMutation(${piArg});">
@@ -5832,7 +5832,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
         <div class="field-group"><label>Heading (optional)</label>
           <input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
         <div class="field-group"><label>Subtitle (optional)</label>
-          <input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
+          <textarea rows="1" style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;" ${p} data-field="subtitle">${v('subtitle')}</textarea></div>
         <div class="form-row-2" style="margin-bottom:10px;">
           <div class="field-group" style="margin:0;"><label>Cards Visible (desktop)</label>
             <select ${p} data-field="visibleCards">
@@ -6330,7 +6330,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
       </div>`).join('');
       return `
         <div class="field-group"><label>Heading (optional)</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
-        <div class="field-group"><label>Subtitle (optional)</label><input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
+        <div class="field-group"><label>Subtitle (optional)</label><textarea rows="1" style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;" ${p} data-field="subtitle">${v('subtitle')}</textarea></div>
         <div class="field-group"><label>Columns</label>
           <select ${p} data-field="galleryCols">
             <option value="2" ${cols==2?'selected':''}>2 Columns</option>
@@ -6368,7 +6368,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
       }).join('');
       return `
         <div class="field-group"><label>Heading</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
-        <div class="field-group"><label>Subtitle (optional)</label><input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
+        <div class="field-group"><label>Subtitle (optional)</label><textarea rows="1" style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;" ${p} data-field="subtitle">${v('subtitle')}</textarea></div>
         <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${rows}</div>
         <button class="btn-add" onclick="addCpSubItem(${typeof pi==='string'?("'"+pi+"'"):pi},${si},'items',{title:'',body:'',imagePath:'',imagePos:'none'})">+ Add Item</button>`;
     }
@@ -6393,7 +6393,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
       </div>`).join('');
       return `
         <div class="field-group"><label>Heading (optional)</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
-        <div class="field-group"><label>Subtitle (optional)</label><input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
+        <div class="field-group"><label>Subtitle (optional)</label><textarea rows="1" style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;" ${p} data-field="subtitle">${v('subtitle')}</textarea></div>
         <div class="field-group"><label>Logo Size</label>
           <select ${p} data-field="logoSize">
             <option value="small"  ${logoSize==='small' ?'selected':''}>Small (80px)</option>
@@ -6423,7 +6423,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
       </div>`).join('');
       return `
         <div class="field-group"><label>Heading (optional)</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
-        <div class="field-group"><label>Subtitle (optional)</label><input type="text" ${p} data-field="subtitle" value="${v('subtitle')}"/></div>
+        <div class="field-group"><label>Subtitle (optional)</label><textarea rows="1" style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;" ${p} data-field="subtitle">${v('subtitle')}</textarea></div>
         <div class="form-row-2" style="margin-bottom:12px;">
           <div class="field-group" style="margin:0;"><label>Mode</label>
             <select ${p} data-field="mqMode" onchange="onMqModeChange(${typeof pi==='string'?("'"+pi+"'"):pi},${si},this)">
@@ -8532,7 +8532,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // Auto-grow textareas with data-field="flabel" (feature label rows)
   document.addEventListener('input', e => {
     const ta = e.target;
-    if (ta.tagName === 'TEXTAREA' && ta.dataset.field === 'flabel') {
+    if (ta.tagName === 'TEXTAREA' && (ta.dataset.field === 'flabel' || ta.dataset.field === 'subtitle')) {
       ta.style.height = 'auto';
       ta.style.height = ta.scrollHeight + 'px';
     }
