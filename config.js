@@ -369,115 +369,57 @@ const SITE_CONFIG = {
           "linkLabel": "Identify An Affliction",
           "linkUrl": "afflictions",
           "link_anchorId": ""
-        }
-      ]
-    },
-    {
-      "slug": "rhvtr-system",
-      "navLabel": "RHVTR System",
-      "emoji": "⚠️",
-      "enabled": true,
-      "parent": null,
-      "hiddenFromNav": false,
-      "sections": [
-        {
-          "type": "text",
-          "label": "Risk Assessment Study",
-          "background": "dark",
-          "anchorId": "rhvtr-system",
-          "heading": "RHVTR System",
-          "body": "To truly understand the danger a Rush Hour Villain possesses on our roadways, we must first evaluate them across a range of categories that factor in both the psychological torture they inflict and the physical danger they pose to everyone’s insurance premiums. Once we know the villains capabilities and their true nature of existing, we can assign them to a Threat Rating Tier allowing us to make more educated adjustments out there on the battlefield.\n\nDetermining a villain’s tier classification in the Rush Hour Villain Threat Rating (RHVTR) system is a two-step process: first, calculating the Total Score across the five sections of the Gridlock Gauge, and then matching that score to its corresponding Threat Tier."
         },
         {
-          "type": "timeline",
+          "type": "marquee",
           "label": "",
           "background": "dark",
-          "anchorId": "gridlock-gauge",
-          "heading": "Step 1 - Gridlock Gauge",
-          "subtitle": "To determine if a villain is a minor nuisance or a total road-clogging catastrophe, evaluate each villain using the Gridlock Gauge sections of questions below. Answer each of the three questions in a section with either yes or no, then \n\nScoring for each section...\n(1) Yes=1-3pts / (2) Yes=4-6pts / (3) Yes=7-10pts",
+          "anchorId": "marquee",
+          "heading": "",
+          "subtitle": "",
+          "mqMode": "logos",
+          "mqSpeed": "medium",
+          "mqDir": "left",
+          "mqPause": true,
+          "mqText": "",
+          "mqSeparator": "·",
+          "mqLogoSize": "xl",
+          "mqLogoGap": "tight",
           "items": [
             {
-              "date": "The Chaos Quotient",
-              "title": "Unpredictability - Measures how much a villain defies logic and the laws of physics.",
-              "body": "A) Does the villain make sudden, erratic maneuvers (like 12-point U-turns or multi-lane sweeps) without any signaling or warning?\n\nB) Is their behavior so unpredictable that even experienced drivers cannot guess their next move?\n\nc) Does their driving style consistently ignore the basic \"common sense\" or logical flow of traffic?",
-              "linkLabel": "",
-              "linkType": "none",
-              "linkUrl": "home",
-              "anchorId": ""
+              "imagePath": "clans/slowmoes.png",
+              "alt": "",
+              "linkUrl": "#slow-moes"
             },
             {
-              "date": "Structural Instability",
-              "title": "The \"Jenga\" Factor - Measures how close the vehicle is to physically disintegrating.",
-              "body": "A) Is the vehicle actively shedding parts, debris, or \"loot\" (like sparks, smoke, or loose cargo) onto the road?\n\nB) Is the vehicle's cargo held together by visibly inadequate means, such as \"prayer and twine\" or a single fraying string?\n\nC) Does the car exhibit extreme physical symptoms of failure, such as a \"Permanent Lean\" or tires grinding against the wheel wells?",
-              "linkLabel": "",
-              "linkType": "none",
-              "linkUrl": "home",
-              "anchorId": ""
+              "imagePath": "clans/junkyard dawgs.png",
+              "alt": "",
+              "linkUrl": ""
             },
             {
-              "date": "Flow-Friction Index",
-              "title": "Traffic Clogging - Measures the physical impact on traffic speed and lane availability.",
-              "body": "A) Does the villain’s presence cause an immediate, noticeable backup or stoppage in one or more lanes?\n\nB) Are other commuters forced to perform emergency braking or evasive swerves to avoid this vehicle?\n\nC) Does the driver create a \"localized vacuum of movement\" that slows down the entire surrounding traffic flow?",
-              "linkLabel": "",
-              "linkType": "none",
-              "linkUrl": "home",
-              "anchorId": ""
+              "imagePath": "clans/grandpricks.png",
+              "alt": "",
+              "linkUrl": ""
             },
             {
-              "date": "Psychological Damage",
-              "title": "The \"Sanity Drain\" - Measures the mental toll, frustration, and existential dread caused by the villain.",
-              "body": "A) Does being near this driver cause a sudden spike in anxiety, frustration, or a sense of \"Navigation Nihilism\"?\n\nB) Do they employ \"mental warfare\" tactics, such as an \"Infinite Blink\" that stays on for miles without a turn?\n\nC) Does their driving style make you question the fundamental laws of reality or your own mental state?",
-              "linkLabel": "",
-              "linkType": "none",
-              "linkUrl": "home",
-              "anchorId": ""
+              "imagePath": "clans/omgs.png",
+              "alt": "",
+              "linkUrl": ""
             },
             {
-              "date": "Aggression Levels",
-              "title": "Hostility - Measures intentional intimidation versus oblivious dangerous behavior.",
-              "body": "A) Does the driver use their vehicle's size or speed to actively \"bully\" or intimidate other drivers?\n\nB) Is their behavior intentionally confrontational (e.g., aggressive tailgating or lane-blocking)?\n\nC) Does the driver seem to be actively seeking dominance over the road rather than being accidentally oblivious?",
-              "linkLabel": "",
-              "linkType": "none",
-              "linkUrl": "home",
-              "anchorId": ""
-            }
-          ]
-        },
-        {
-          "type": "table",
-          "label": "",
-          "background": "dark",
-          "anchorId": "threat-tiers",
-          "heading": "Step 2 - Threat Tier",
-          "subtitle": "Classifying villains will help us identify threat levels sooner, improving reaction time and escapability by making proper battlefield adjustments based on knowledge and awareness.\n\nUsing the table below, find the row with the corresponding points range that fits your Gridlock Gauge Total Points.",
-          "cols": 3,
-          "col1Label": "Points",
-          "col1Style": "bold",
-          "col2Label": "Classification",
-          "col2Style": "bold-large",
-          "col3Label": "Description",
-          "col3Style": "normal",
-          "firstColHeader": false,
-          "items": [
-            {
-              "cell1": "0-15",
-              "cell2": "NUISANCE",
-              "cell3": "These villains are the \"mosquitoes\" of the highway. They are irritating and may cause you to roll your eyes or mutter under your breath, but they rarely cause a significant delay or a safety risk."
+              "imagePath": "clans/bubblebrigade.png",
+              "alt": "",
+              "linkUrl": ""
             },
             {
-              "cell1": "16-30",
-              "cell2": "OBSTACLE",
-              "cell3": "These villains represent a tangible disruption. They force you to actively change your driving behavior—such as switching lanes or riding your brakes—to maintain your commute."
+              "imagePath": "clans/kinevils.png",
+              "alt": "",
+              "linkUrl": ""
             },
             {
-              "cell1": "31-45",
-              "cell2": "HAZARD",
-              "cell3": "These are high-threat villains that demand immediate defensive driving. Their presence introduces physical danger (falling objects, mechanical failure) or extreme mental exhaustion. vehicle is a rolling safety violation; keep your distance."
-            },
-            {
-              "cell1": "46-50",
-              "cell2": "CATASTROPHE",
-              "cell3": "This is the \"Legendary\" tier. These villains possess the rare ability to shut down multiple lanes of traffic simultaneously or cause a \"localized vacuum of movement\" that can be felt for miles."
+              "imagePath": "clans/decepticars.png",
+              "alt": "",
+              "linkUrl": ""
             }
           ]
         }
@@ -3050,7 +2992,7 @@ const SITE_CONFIG = {
               "imageSize": "sq",
               "ribbon": "KinEvils",
               "note": "",
-              "details": "If you encounter MegaMerger coming, just remember: his ego is much larger than his insurance policy. Let him in—the \"clunk\" of him hitting a concrete barrier three miles ahead is the only justice you'll need.",
+              "details": "",
               "cardStyle": "dark",
               "featured": true,
               "cta_linkLabel": "",
@@ -3064,12 +3006,12 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Use all of the paved merging lane provide at the slowest possible speeds",
+                  "label": "Shoulder Sprint: Possesses the uncanny ability to treat the breakdown lane and dirt shoulders as a \"Secret Level\" designed specifically to bypass the common folk.",
                   "status": "",
                   "isGroup": false
                 },
                 {
-                  "label": "Create a merging lane out of a non-merging lane",
+                  "label": "Cone-Clapping Momentum: He is physically incapable of feeling the \"thwack-thwack-thwack\" of orange traffic cones against his fender; to him, it’s just the applause of the road.",
                   "status": "",
                   "isGroup": false
                 },
@@ -3079,7 +3021,12 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Airborne Traffic Cones",
+                  "label": "Debris Deployment: Firing orange traffic barrels at fellow villains as fast as he can hit them, creating a literal minefield for villain unfortunate enough to share the road with him.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Smug Wave: A terrifyingly casual hand gesture offered after he nearly causes a 12-car pileup, signaling that he thinks you’re \"welcome\" for the interaction.",
                   "status": "",
                   "isGroup": false
                 },
@@ -3089,12 +3036,22 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Line full of No-Way Joses",
+                  "label": "Jersey Barriers: Concrete is the only thing MegaMerger respects, mostly because it’s the only obstacle on the road that doesn't \"flinch\" when he charges.",
                   "status": "",
                   "isGroup": false
                 },
                 {
-                  "label": "Half-Nelson on scene",
+                  "label": "Half-Nelson Hero: His kryptonite is a driver in a $500 rust-bucket who has absolutely nothing to lose and refuses to allow that merging lane to extend beyond his rolling vehicle.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Just remember: his ego is much larger than his insurance policy. Let him in—the \"clunk\" of him hitting a concrete barrier three miles ahead is the only justice you'll need.",
                   "status": "",
                   "isGroup": false
                 }
@@ -4532,14 +4489,14 @@ const SITE_CONFIG = {
             {
               "name": "Miss Guided",
               "tagline": "A human \"spinning loading icon\" who views the daily commute as an unplanned scavenger hunt. They treat every green light like a philosophical question and considers a highway exit sign to be merely a \"suggestion\" that requires at least three miles of internal debate.",
-              "price": "",
-              "period": "",
+              "price": "47",
+              "period": "/ CATASTROPHE",
               "icon": "",
               "imagePath": "villains/miss-guided.jpg",
               "imageSize": "sq",
               "ribbon": "Slow Moes",
               "note": "",
-              "details": "If you encounter Miss Guided, do not honk. It only makes them look at the rearview mirror longer to see who is waving, which—in their mind—is just another interesting \"scenic marker\" to investigate.",
+              "details": "",
               "cardStyle": "dark",
               "featured": true,
               "cta_linkLabel": "",
@@ -4553,7 +4510,12 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Stacking up traffic with low speed braking and even slower turns.",
+                  "label": "Intersection Paralysis: Has the supernatural power to slow down to a crisp 3 mph the moment a street sign comes into view, regardless of the thirty angry commuters behind her.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Panoramic Peripheral Vision: Capable of spotting a \"Historical Landmark\" plaque from three lanes over, causing an immediate and unannounced drop in velocity to read about a local blacksmith from 1804.",
                   "status": "",
                   "isGroup": false
                 },
@@ -4563,7 +4525,12 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "12-point U-turn across four lanes of traffic because she \"thought they saw a Starbucks.\"",
+                  "label": "\"U-Turn Anywhere\" Gambit: Sudden U-turns across four lanes of traffic because they missed their turn.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "\"Last-Second Lunge\": After sitting stationary at a green light for ten seconds, she will suddenly accelerate and veer across two lanes to catch an exit at a 90-degree angle.",
                   "status": "",
                   "isGroup": false
                 },
@@ -4573,12 +4540,22 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "In-Car Navigation",
+                  "label": "Functional GPS: If a voice tells her \"Turn Left in 200 Feet\" with too much authority, she may suffer a brief mechanical existential crisis.",
                   "status": "",
                   "isGroup": false
                 },
                 {
-                  "label": "Local Passenger",
+                  "label": "Local Passenger: Anyone who actually knows where they are going is her natural predator; their confidence deeply confuses her.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Do not honk. It only makes them look at the rearview mirror longer to see who is waving, which—in their mind—is just another interesting \"scenic marker\" to investigate.",
                   "status": "",
                   "isGroup": false
                 }
@@ -4648,13 +4625,13 @@ const SITE_CONFIG = {
               "name": "Pack Rat",
               "tagline": "A master of \"Automotive Tetris\" who views a vehicle’s maximum payload capacity as a personal insult. He operates on the firm belief that with enough twine, prayer, and a single \"that ain't goin' nowhere\" pat, a three-bedroom house can be successfully transported on the roof of a 2004 compact sedan.",
               "price": "38",
-              "period": "Gridlock Gauge (Tier 3)",
+              "period": "/ HAZARD",
               "icon": "",
               "imagePath": "villains/pack-rat.jpg",
               "imageSize": "sq",
               "ribbon": "Slow Moes",
               "note": "",
-              "details": "If you encounter Pack Rat, do not attempt to pass. That \"free\" dresser on his roof is only free if you’re prepared to catch it with your radiator.",
+              "details": "",
               "cardStyle": "dark",
               "featured": true,
               "cta_linkLabel": "",
@@ -4678,7 +4655,17 @@ const SITE_CONFIG = {
                   "isGroup": false
                 },
                 {
-                  "label": "Stack Sail: The haul catches crosswinds so effectively he can sail across three lanes of traffic without ever touching the steering wheel.",
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Twine Trap: A single, fraying piece of kitchen string holding a queen-sized mattress in place. If it snaps, the driver behind him is suddenly playing a high-stakes game of \"Sleep or Die.\"",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Projectile Deployment: Spontaneously sheds \"loot\" such as loose PVC pipes, rogue pillows, or a sliding glass door, forcing every driver in a half-mile radius to test their emergency braking.",
                   "status": "",
                   "isGroup": false
                 },
@@ -4698,7 +4685,47 @@ const SITE_CONFIG = {
                   "isGroup": false
                 },
                 {
-                  "label": "Functional Physics: Gravity and wind resistance are constantly suing him for copyright infringement, and eventually, they always win.",
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Do not attempt to pass. That \"free\" dresser on his roof is only free if you’re prepared to catch it with your radiator.",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Sir Brakes-A-Lot",
+              "tagline": "A nervous Morse Code enthusiast who communicates with the world through a rhythmic, non-stop light show of red LEDs. He views every leaf, shadow, and distant cloud as a reason to panic-tap his pedal into oblivion.",
+              "price": "32",
+              "period": "/ HAZARD",
+              "icon": "",
+              "imagePath": "villains/sir-brakes-a-lot.jpg",
+              "imageSize": "sq",
+              "ribbon": "Slow Moes",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Brake Light Remix: The supernatural power to flicker his brake lights 50 times in a single block without actually losing a single mph of momentum.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Disguised Deceleration: Can expertly hide a genuine, emergency stop behind a wall of \"just-checking\" taps, ensuring the villain behind them has no idea when to actually slam their foot down.",
                   "status": "",
                   "isGroup": false
                 },
@@ -4708,12 +4735,32 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Twine Trap: A single, fraying piece of kitchen string holding a queen-sized mattress in place. If it snaps, the driver behind him is suddenly playing a high-stakes game of \"Sleep or Die.\"",
+                  "label": "Dancing Brake Lights: Those casino lights he installed on his rig put on a little show routine every 2 seconds that cause colors to dance across any trailing villains pupils for hours afterwards.",
                   "status": "",
                   "isGroup": false
                 },
                 {
-                  "label": "Projectile Deployment: Spontaneously sheds \"loot\" such as loose PVC pipes, rogue pillows, or a sliding glass door, forcing every driver in a half-mile radius to test their emergency braking.",
+                  "label": "Anxiety Induction: Creates a localized field of pure stress that makes every villain within three car lengths hover their foot over the brake like they're playing a high-stakes game of Whac-A-Mole.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Open Horizons: With nothing in front of them to react to, they enter a state of existential dread, often tapping the brakes just to make sure the car still knows they are there.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Increase your following distance until he looks like a tiny, flickering firefly in the distance. Do not attempt to \"rhythm-match\" him, as this leads to chronic calf-cramps and premature brake pad replacement. If available, change lanes immediately.",
                   "status": "",
                   "isGroup": false
                 }
@@ -5049,6 +5096,242 @@ const SITE_CONFIG = {
       "sections": []
     },
     {
+      "slug": "rhvtr-system",
+      "navLabel": "RHVTR System",
+      "emoji": "⚠️",
+      "enabled": true,
+      "parent": null,
+      "hiddenFromNav": false,
+      "sections": [
+        {
+          "type": "two-col",
+          "label": "Risk Assessment Study",
+          "background": "dark",
+          "anchorId": "rhvtr-system",
+          "heading": "RHVTR System",
+          "body": "To truly understand the danger a Rush Hour Villain possesses on our roadways, we must first evaluate them across a range of categories that factor in both the psychological torture they inflict and the physical danger they pose to everyone’s insurance premiums. Once we know the villains capabilities and their true nature of existing, we can assign them to a Threat Rating Tier allowing us to make more educated adjustments out there on the battlefield.\n\nWhile identifying the distinct archetypes of \"Rush Hour Villains\" may seem like a lighthearted exercise, the underlying mechanism of the Rush Hour Villain Threat Rating (RHVTR) System is actually a serious, data-driven approach to enhancing defensive driving.",
+          "imagePath": "logos/rhvtr-logo.png",
+          "imagePosition": "left",
+          "imageMaxWidth": "275",
+          "cta_linkType": "none",
+          "cta_linkUrl": "home",
+          "cta_linkLabel": ""
+        },
+        {
+          "type": "steps",
+          "label": "Making Us Safer",
+          "background": "dark",
+          "anchorId": "rhvtr-steps",
+          "heading": "The RHVTR System makes us safer in three critical ways:",
+          "subtitle": "",
+          "items": [
+            {
+              "title": "Accelerating Instant Pattern Recognition",
+              "body": "In a split-second driving scenario, processing raw visual data takes time. By pre-defining common villain archetypes, the RHVTR System empowers a driver to instantly recognize dangerous behavior patterns. Instead of analyzing a sequence of abstract cues—like a car with missing mirrors weaving aggressively—the brain instantly pings a complete, known profile: \"MegaMerger. Tier 4. Aggressive Predator.\" This instant categorization bypasses conscious analysis, speeding up recognition time and allowing the driver to skip straight to the correct safety response.",
+              "linkLabel": "",
+              "linkType": "none",
+              "linkUrl": "home",
+              "anchorId": "",
+              "imagePath": "",
+              "imageSize": "thumb"
+            },
+            {
+              "title": "Dictating Tailored Defensive Playbooks",
+              "body": "Different threats require different counter-tactics. The RHVTR System removes the guesswork from defensive posture by providing a specific playbook for each threat level. When a driver knows they are behind a Tier 3 (Hazard) like \"Pack Rat,\" the protocol is clear: establish maximum following distance to prepare for \"Projectile Deployment.\" However, when facing a Tier 4 (Predator), the optimal tactic is not resistance, but immediate de-escalation and submission to protect the vehicle's bumpers.",
+              "linkLabel": "",
+              "linkType": "none",
+              "linkUrl": "home",
+              "anchorId": "",
+              "imagePath": "",
+              "imageSize": "thumb"
+            },
+            {
+              "title": "De-escalating Road Rage Through Depersonalization",
+              "body": "One of the greatest dangers during rush hour is not the mechanical error of vehicles, but the emotional volatility of their drivers. Road rage often starts when a driver takes another commuter's poor behavior personally.",
+              "linkLabel": "",
+              "linkType": "none",
+              "linkUrl": "home",
+              "anchorId": "",
+              "imagePath": "",
+              "imageSize": "thumb"
+            }
+          ]
+        },
+        {
+          "type": "richtext",
+          "label": "",
+          "background": "inherit",
+          "anchorId": "richtext",
+          "richContent": "<p>The RHVTR System provides a crucial psychological buffer. By framing hazardous behavior as the predictable actions of a specific \"villain character,\" the system depersonalizes the interaction. The driver is no longer angry at a \"personal attack,\" but is analytically (or even humorously) observant of a known archetype's script. This emotional detachment keeps adrenaline spikes in check, cognitive function high, and the driver calm, focused, and in total control. Ultimately, the RHVTR System transforms the commuter from a passive victim of random traffic chaos into a tactical driver. It provides a structured map of predictable hazards, allowing us to proactively navigate the high-stakes world of rush hour and ensure everyone arrives home safely.\n<br><br>Determining a villain’s declassification (not classification, because there's nothing Classy about these fools) tier in the Rush Hour Villain Threat Rating (RHVTR) system is a two-step process: first, calculating the Threat Level Score across the five sections of the Gridlock Gauge, and then matching that score to its corresponding Threat Tier.</p>",
+          "imagePath": "",
+          "imagePos": "none",
+          "imageSize": "md",
+          "imageCaption": "",
+          "fullWidth": true
+        },
+        {
+          "type": "timeline",
+          "label": "Grading the Villain",
+          "background": "dark",
+          "anchorId": "gridlock-gauge",
+          "heading": "Step 1 - Gridlock Gauge",
+          "subtitle": "To determine if a villain is a minor nuisance or a total road-clogging catastrophe, evaluate each villain using the Gridlock Gauge sections of questions below. Answer each of the three questions in a section with either yes or no. Use the scoring chart to assign a numerical value to that section. After answering all of the questions in each section, tally up the section values to determine the villains Threat Level Score. (Maximum possible score is 50)\n\nScoring for each section\n1 \"Yes\" = 1–3 points (Low)\n2 \"Yes\" = 4–6 points (Moderate)\n3 \"Yes\" = 8–10 points (Critical)",
+          "items": [
+            {
+              "date": "The Chaos Quotient",
+              "title": "Unpredictability - Measures how much a villain defies logic and the laws of physics.",
+              "body": "A) Does the villain make sudden, erratic maneuvers (like 12-point U-turns or multi-lane sweeps) without any signaling or warning?\n\nB) Is their behavior so unpredictable that even experienced drivers cannot guess their next move?\n\nc) Does their driving style consistently ignore the basic \"common sense\" or logical flow of traffic?",
+              "linkLabel": "",
+              "linkType": "none",
+              "linkUrl": "home",
+              "anchorId": ""
+            },
+            {
+              "date": "Structural Instability",
+              "title": "The \"Jenga\" Factor - Measures how close the vehicle is to physically disintegrating.",
+              "body": "A) Is the vehicle actively shedding parts, debris, or \"loot\" (like sparks, smoke, or loose cargo) onto the road?\n\nB) Is the vehicle's cargo held together by visibly inadequate means, such as \"prayer and twine\" or a single fraying string?\n\nC) Does the car exhibit extreme physical symptoms of failure, such as a \"Permanent Lean\" or tires grinding against the wheel wells?",
+              "linkLabel": "",
+              "linkType": "none",
+              "linkUrl": "home",
+              "anchorId": ""
+            },
+            {
+              "date": "Flow-Friction Index",
+              "title": "Traffic Clogging - Measures the physical impact on traffic speed and lane availability.",
+              "body": "A) Does the villain’s presence cause an immediate, noticeable backup or stoppage in one or more lanes?\n\nB) Are other commuters forced to perform emergency braking or evasive swerves to avoid this vehicle?\n\nC) Does the driver create a \"localized vacuum of movement\" that slows down the entire surrounding traffic flow?",
+              "linkLabel": "",
+              "linkType": "none",
+              "linkUrl": "home",
+              "anchorId": ""
+            },
+            {
+              "date": "Psychological Damage",
+              "title": "The \"Sanity Drain\" - Measures the mental toll, frustration, and existential dread caused by the villain.",
+              "body": "A) Does being near this driver cause a sudden spike in anxiety, frustration, or a sense of \"Navigation Nihilism\"?\n\nB) Do they employ \"mental warfare\" tactics, such as an \"Infinite Blink\" that stays on for miles without a turn?\n\nC) Does their driving style make you question the fundamental laws of reality or your own mental state?",
+              "linkLabel": "",
+              "linkType": "none",
+              "linkUrl": "home",
+              "anchorId": ""
+            },
+            {
+              "date": "Aggression Levels",
+              "title": "Hostility - Measures intentional intimidation versus oblivious dangerous behavior.",
+              "body": "A) Does the driver use their vehicle's size or speed to actively \"bully\" or intimidate other drivers?\n\nB) Is their behavior intentionally confrontational (e.g., aggressive tailgating or lane-blocking)?\n\nC) Does the driver seem to be actively seeking dominance over the road rather than being accidentally oblivious?",
+              "linkLabel": "",
+              "linkType": "none",
+              "linkUrl": "home",
+              "anchorId": ""
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "label": "deClassifying the Villain",
+          "background": "dark",
+          "anchorId": "threat-tiers",
+          "heading": "Step 2 - Threat Tier",
+          "subtitle": "Declassifying villains will help us identify threat levels sooner, improving reaction time and escapability by making proper battlefield adjustments based on knowledge and awareness.\n\nUsing the table below, find the row with the corresponding points range that fits the villains Threat Level Score from the Gridlock Gauge.",
+          "cols": 3,
+          "col1Label": "Score",
+          "col1Style": "bold",
+          "col2Label": "deClassification",
+          "col2Style": "bold-large",
+          "col3Label": "Description",
+          "col3Style": "normal",
+          "firstColHeader": false,
+          "items": [
+            {
+              "cell1": "0-15",
+              "cell2": "NUISANCE",
+              "cell3": "These villains are the \"mosquitoes\" of the highway. They are irritating and may cause you to roll your eyes or mutter under your breath, but they rarely cause a significant delay or a safety risk."
+            },
+            {
+              "cell1": "16-30",
+              "cell2": "OBSTACLE",
+              "cell3": "These villains represent a tangible disruption. They force you to actively change your driving behavior—such as switching lanes or riding your brakes—to maintain your commute."
+            },
+            {
+              "cell1": "31-45",
+              "cell2": "HAZARD",
+              "cell3": "These are high-threat villains that demand immediate defensive driving. Their presence introduces physical danger (falling objects, mechanical failure) or extreme mental exhaustion. vehicle is a rolling safety violation; keep your distance."
+            },
+            {
+              "cell1": "46-50",
+              "cell2": "CATASTROPHE",
+              "cell3": "This is the \"Legendary\" tier. These villains possess the rare ability to shut down multiple lanes of traffic simultaneously or cause a \"localized vacuum of movement\" that can be felt for miles."
+            }
+          ]
+        },
+        {
+          "type": "button",
+          "label": "",
+          "background": "light",
+          "anchorId": "button",
+          "primary_linkType": "none",
+          "primary_linkLabel": "",
+          "primary_linkUrl": "",
+          "primary_anchorId": "",
+          "secondary_linkType": "internal",
+          "secondary_linkLabel": "Villain Clans Database",
+          "secondary_linkUrl": "villains",
+          "secondary_anchorId": ""
+        },
+        {
+          "type": "marquee",
+          "label": "",
+          "background": "dark",
+          "anchorId": "marquee",
+          "heading": "",
+          "subtitle": "",
+          "mqMode": "logos",
+          "mqSpeed": "medium",
+          "mqDir": "left",
+          "mqPause": true,
+          "mqText": "",
+          "mqSeparator": "·",
+          "mqLogoSize": "xl",
+          "mqLogoGap": "tight",
+          "items": [
+            {
+              "imagePath": "clans/slowmoes.png",
+              "alt": "",
+              "linkUrl": "#slow-moes"
+            },
+            {
+              "imagePath": "clans/junkyard dawgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/grandpricks.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/omgs.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/bubblebrigade.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/kinevils.png",
+              "alt": "",
+              "linkUrl": ""
+            },
+            {
+              "imagePath": "clans/decepticars.png",
+              "alt": "",
+              "linkUrl": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
       "slug": "rhv-forms",
       "navLabel": "RHV Forms",
       "emoji": "📄",
@@ -5056,73 +5339,6 @@ const SITE_CONFIG = {
       "parent": null,
       "hiddenFromNav": false,
       "sections": [
-        {
-          "type": "form",
-          "label": "New Epidemic",
-          "background": "dark",
-          "anchorId": "report-an-affliction",
-          "heading": "Report an Affliction",
-          "intro": "Report the finding and let us verify your discovery before it's too late.",
-          "submitLabel": "File Report",
-          "successMsg": "Thank you! We'll be in touch soon.",
-          "endpoint": "",
-          "fields": [
-            {
-              "type": "text",
-              "label": "Full Name",
-              "placeholder": "Not required",
-              "required": false,
-              "halfWidth": false,
-              "options": []
-            },
-            {
-              "type": "textarea",
-              "label": "Description / Traits",
-              "placeholder": "Describe the action or list the behavior/outcomes",
-              "required": true,
-              "halfWidth": false,
-              "options": []
-            },
-            {
-              "type": "text",
-              "label": "Suggested Affliction Name",
-              "placeholder": "Create a Descriptive Name",
-              "required": true,
-              "halfWidth": false,
-              "options": []
-            },
-            {
-              "type": "select",
-              "label": "Location",
-              "placeholder": "Where did you see the affliction",
-              "required": true,
-              "halfWidth": true,
-              "options": [
-                "Interstate",
-                "Highway",
-                "City Street",
-                "County Road",
-                "Side Street",
-                "Parking Lot",
-                "Other"
-              ]
-            },
-            {
-              "type": "select",
-              "label": "Time of Day",
-              "placeholder": "",
-              "required": true,
-              "halfWidth": false,
-              "options": [
-                "Morning",
-                "Noon",
-                "Afternoon",
-                "Night",
-                "Other"
-              ]
-            }
-          ]
-        },
         {
           "type": "form",
           "label": "Undocumented",
@@ -5162,6 +5378,100 @@ const SITE_CONFIG = {
               "type": "select",
               "label": "Location",
               "placeholder": "Where did you see the villain",
+              "required": true,
+              "halfWidth": true,
+              "options": [
+                "Interstate",
+                "Highway",
+                "City Street",
+                "County Road",
+                "Side Street",
+                "Parking Lot",
+                "Other"
+              ]
+            },
+            {
+              "type": "select",
+              "label": "Time of Day",
+              "placeholder": "",
+              "required": true,
+              "halfWidth": false,
+              "options": [
+                "Morning",
+                "Noon",
+                "Afternoon",
+                "Night",
+                "Other"
+              ]
+            },
+            {
+              "type": "select",
+              "label": "Estimated Threat Tier Rating (RHVTR)",
+              "placeholder": "",
+              "required": false,
+              "halfWidth": false,
+              "options": [
+                "Tier 1 - NUISANCE",
+                "Tier 2 - OBSTACLE",
+                "Tier 3 - HAZARD",
+                "Tier 4 - CATASTROPHE"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "button",
+          "label": "",
+          "background": "light",
+          "anchorId": "button",
+          "primary_linkType": "none",
+          "primary_linkLabel": "",
+          "primary_linkUrl": "",
+          "primary_anchorId": "",
+          "secondary_linkType": "internal",
+          "secondary_linkLabel": "RHVTR System - Calculate Threat Status",
+          "secondary_linkUrl": "rhvtr-system",
+          "secondary_anchorId": ""
+        },
+        {
+          "type": "form",
+          "label": "New Epidemic",
+          "background": "dark",
+          "anchorId": "report-an-affliction",
+          "heading": "Report an Affliction",
+          "intro": "Report the finding and let us verify your discovery before it's too late.",
+          "submitLabel": "File Report",
+          "successMsg": "Thank you! We'll be in touch soon.",
+          "endpoint": "",
+          "fields": [
+            {
+              "type": "text",
+              "label": "Full Name",
+              "placeholder": "Not required",
+              "required": false,
+              "halfWidth": false,
+              "options": []
+            },
+            {
+              "type": "textarea",
+              "label": "Description / Traits",
+              "placeholder": "Describe the action or list the behavior/outcomes",
+              "required": true,
+              "halfWidth": false,
+              "options": []
+            },
+            {
+              "type": "text",
+              "label": "Suggested Affliction Name",
+              "placeholder": "Create a Descriptive Name",
+              "required": true,
+              "halfWidth": false,
+              "options": []
+            },
+            {
+              "type": "select",
+              "label": "Location",
+              "placeholder": "Where did you see the affliction",
               "required": true,
               "halfWidth": true,
               "options": [
@@ -5254,7 +5564,7 @@ const SITE_CONFIG = {
         }
       ],
       "visibleCards": 3,
-      "cardHeight": 420,
+      "cardHeight": 350,
       "showDots": true,
       "showArrows": true,
       "autoplay": true,
@@ -5310,7 +5620,7 @@ const SITE_CONFIG = {
     "cp-13": "public",
     "cp-14": "public"
   },
-  "_savedAt": 1778817982755,
+  "_savedAt": 1778876457028,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""
