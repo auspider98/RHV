@@ -3219,18 +3219,47 @@ footer {
   padding: 20px 0;
 }
 /* fade edges */
-.cps-marquee-outer::before,
-.cps-marquee-outer::after {
+.cps-marquee-outer.fade-edges::before,
+.cps-marquee-outer.fade-edges::after {
   content: '';
-  position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2;
+  position: absolute; top: 0; bottom: 0; width: var(--mq-fade-w, 80px); z-index: 2;
   pointer-events: none;
 }
-.cps-marquee-outer::before { left: 0; background: linear-gradient(to right, var(--warm-white), transparent); }
-.cps-marquee-outer::after  { right: 0; background: linear-gradient(to left, var(--warm-white), transparent); }
-.cps-section-dark .cps-marquee-outer::before { background: linear-gradient(to right, var(--navy), transparent); }
-.cps-section-dark .cps-marquee-outer::after  { background: linear-gradient(to left, var(--navy), transparent); }
-.cps-section-alt  .cps-marquee-outer::before { background: linear-gradient(to right, var(--cream), transparent); }
-.cps-section-alt  .cps-marquee-outer::after  { background: linear-gradient(to left, var(--cream), transparent); }
+.cps-marquee-outer.fade-edges::before { left: 0; background: linear-gradient(to right, var(--warm-white), transparent); }
+.cps-marquee-outer.fade-edges::after  { right: 0; background: linear-gradient(to left, var(--warm-white), transparent); }
+.cps-section-dark .cps-marquee-outer.fade-edges::before { background: linear-gradient(to right, var(--navy), transparent); }
+.cps-section-dark .cps-marquee-outer.fade-edges::after  { background: linear-gradient(to left, var(--navy), transparent); }
+.cps-section-alt  .cps-marquee-outer.fade-edges::before { background: linear-gradient(to right, var(--cream), transparent); }
+.cps-section-alt  .cps-marquee-outer.fade-edges::after  { background: linear-gradient(to left, var(--cream), transparent); }
+/* Linked text items */
+.cps-mq-text-link { text-decoration: none; color: inherit; display: contents; }
+.cps-mq-text-link:hover .cps-mq-text-content { opacity: 0.7; }
+/* Vertical ticker */
+.cps-mq-ticker-outer {
+  overflow: hidden;
+  height: 2em;
+  position: relative;
+}
+.cps-mq-ticker-inner {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+.cps-mq-ticker-item {
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: clamp(15px, 2vw, 18px);
+  color: var(--text-body);
+  white-space: nowrap;
+  cursor: default;
+  flex-shrink: 0;
+}
+.cps-mq-ticker-item.has-link { cursor: pointer; }
+.cps-mq-ticker-item.has-link:hover { opacity: 0.75; }
+.cps-section-dark .cps-mq-ticker-item { color: rgba(255,255,255,0.85); }
 
 .cps-marquee-track {
   display: flex;
@@ -6718,7 +6747,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         return `
         <div class="cps-timeline-item reveal">
           <div class="cps-timeline-left">
-            <div class="cps-timeline-dot">${i+1}</div>
+            <div class="cps-timeline-dot">${item.dot || (i+1)}</div>
             <div class="cps-timeline-line"></div>
           </div>
           <div class="cps-timeline-body${hasLink?' has-tl-link':''}">
@@ -7637,22 +7666,95 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       const mqLogoH = logoSizeMap[sec.mqLogoSize] || '48px';
       const logoGapMap = { tight: '16px', normal: '32px', wide: '48px', xl: '64px' };
       const mqLogoGap = logoGapMap[sec.mqLogoGap] || '32px';
+      const mqFade = sec.mqFadeEdges !== false;
+      const fadeWMap = { narrow: '48px', normal: '80px', wide: '140px' };
+      const mqFadeW = fadeWMap[sec.mqFadeWidth] || '80px';
       let trackInner = '';
-      if (mqMode === 'text') {
-        const text = sec.mqText || '';
-        const oneCopy = '<span class="cps-mq-text-item"><span class="cps-mq-text-content">' + text + '</span><span class="cps-mq-sep">' + mqSep + '</span></span>';
-        const halfTrack = oneCopy.repeat(10);
-        trackInner = halfTrack + halfTrack;
+      let isTickerMode = mqMode === 'ticker';
+      if (mqMode === 'text' || isTickerMode) {
+        // Support legacy mqText string and new items array
+        const textItems = (sec.items && sec.items.length)
+          ? sec.items
+          : (sec.mqText ? [{ text: sec.mqText, linkType: 'none', linkUrl: '' }] : [{ text: '', linkType: 'none', linkUrl: '' }]);
+        if (isTickerMode) {
+          // Vertical ticker — build stacked items
+          const tickerId = 'mq-ticker-' + Math.random().toString(36).slice(2,8);
+          const holdMs  = (parseInt(sec.mqTickerHold)  || 3) * 1000;
+          const transMs = ({ fast: 300, normal: 500, slow: 800 })[sec.mqTickerSpeed || 'normal'] || 500;
+          const tickerItems = textItems.map(it => {
+            const hasLnk = it.linkType && it.linkType !== 'none' && it.linkUrl;
+            const onClick = hasLnk
+              ? (it.linkType === 'internal'
+                ? ' onclick="showPage(\'' + escAttr(it.linkUrl) + '\',\'' + escAttr(it.anchorId||'') + '\')"'
+                : ' onclick="openSmartLink(\'' + escAttr(it.linkType) + '\',\'' + escAttr(it.linkUrl) + '\')"')
+              : '';
+            const linkClass = hasLnk ? ' has-link' : '';
+            return '<div class="cps-mq-ticker-item' + linkClass + '"' + onClick + '>' + (it.text || '') + '</div>';
+          }).join('');
+          const hasHeader = sec.heading || sec.subtitle || sec.label;
+          wrapper.classList.add('cps-section-marquee');
+          wrapper.innerHTML = '<div class="container">' +
+            labelHTML +
+            (sec.heading ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
+            (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
+          '</div>' +
+          '<div class="cps-mq-ticker-outer" style="margin-top:' + (hasHeader ? '24px' : '0') + ';">' +
+            '<div class="cps-mq-ticker-inner" id="' + tickerId + '">' + tickerItems + '</div>' +
+          '</div>';
+          // Init ticker after insertion into DOM
+          requestAnimationFrame(() => {
+            const inner = document.getElementById(tickerId);
+            if (!inner || inner.children.length < 2) return;
+            let idx = 0;
+            const total = inner.children.length;
+            inner.style.transition = 'none';
+            inner.style.transform = 'translateY(0)';
+            const tick = () => {
+              idx++;
+              inner.style.transition = 'transform ' + transMs + 'ms ease-in-out';
+              inner.style.transform = 'translateY(-' + (idx * 2) + 'em)';
+              if (idx >= total - 1) {
+                setTimeout(() => {
+                  inner.style.transition = 'none';
+                  inner.style.transform = 'translateY(0)';
+                  idx = 0;
+                }, transMs + 50);
+              }
+            };
+            setInterval(tick, holdMs + transMs);
+          });
+          break;
+        } else {
+          const oneCopy = textItems.map(it => {
+            const inner = '<span class="cps-mq-text-content">' + (it.text || '') + '</span><span class="cps-mq-sep">' + mqSep + '</span>';
+            const hasLnk = it.linkType && it.linkType !== 'none' && it.linkUrl;
+            const onClick = hasLnk
+              ? (it.linkType === 'internal'
+                ? ' onclick="showPage(\'' + escAttr(it.linkUrl) + '\',\'' + escAttr(it.anchorId||'') + '\')" style="cursor:pointer;"'
+                : ' onclick="openSmartLink(\'' + escAttr(it.linkType) + '\',\'' + escAttr(it.linkUrl) + '\')" style="cursor:pointer;"')
+              : '';
+            return '<span class="cps-mq-text-item"' + onClick + '>' + inner + '</span>';
+          }).join('');
+          const halfTrack = oneCopy.repeat(10);
+          trackInner = halfTrack + halfTrack;
+        }
       } else {
         const logoItems = (sec.items || []).map(logo => {
           const imgTag = logo.imagePath ? '<img src="' + escAttr(logo.imagePath) + '" alt="' + escAttr(logo.alt || '') + '" loading="lazy"/>' : '';
-          if (logo.linkUrl) return '<div class="cps-mq-logo-item" onclick="openSmartLink(\'external\',\'' + escAttr(logo.linkUrl) + '\')" style="cursor:pointer;">' + imgTag + '</div>';
+          const lType = logo.linkType && logo.linkType !== 'none' ? logo.linkType : 'external';
+          if (logo.linkUrl && lType !== 'none') {
+            const lClick = lType === 'internal'
+              ? 'showPage(\'' + escAttr(logo.linkUrl) + '\',\'' + escAttr(logo.anchorId||'') + '\')'
+              : 'openSmartLink(\'' + escAttr(lType) + '\',\'' + escAttr(logo.linkUrl) + '\')';
+            return '<div class="cps-mq-logo-item" onclick="' + lClick + '" style="cursor:pointer;">' + imgTag + '</div>';
+          }
           return '<div class="cps-mq-logo-item">' + imgTag + '</div>';
         }).join('');
         trackInner = logoItems + logoItems;
       }
       const dirClass = 'dir-' + mqDir;
       const pauseClass = mqPause ? ' pause-hover' : '';
+      const fadeClass = mqFade ? ' fade-edges' : '';
       const hasHeader = sec.heading || sec.subtitle || sec.label;
       wrapper.classList.add('cps-section-marquee');
       wrapper.innerHTML = '<div class="container">' +
@@ -7660,11 +7762,12 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         (sec.heading ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
         (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
       '</div>' +
-      '<div class="cps-marquee-outer ' + dirClass + pauseClass + '" style="--marquee-dur:' + dur + ';--mq-logo-h:' + mqLogoH + ';--mq-logo-gap:' + mqLogoGap + ';margin-top:' + (hasHeader ? '32px' : '0') + ';">' +
+      '<div class="cps-marquee-outer ' + dirClass + pauseClass + fadeClass + '" style="--marquee-dur:' + dur + ';--mq-logo-h:' + mqLogoH + ';--mq-logo-gap:' + mqLogoGap + ';--mq-fade-w:' + mqFadeW + ';margin-top:' + (hasHeader ? '32px' : '0') + ';">' +
         '<div class="cps-marquee-track">' + trackInner + '</div>' +
       '</div>';
       break;
     }
+
 
     case 'locations': {
       const locs = CFG.locations && CFG.locations.length ? CFG.locations : [];
