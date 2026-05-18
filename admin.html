@@ -870,6 +870,11 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
             <textarea id="f_footerBio" rows="3" placeholder="A short description of the firm shown in the footer..."></textarea>
             <div class="field-hint">Appears below the firm name in the footer. Keep it brief — 1–2 sentences.</div>
           </div>
+          <div class="field-group">
+            <label>Copyright Text (optional)</label>
+            <input type="text" id="f_copyrightText" placeholder="© 2026 My Business. All rights reserved."/>
+            <div class="field-hint">Overrides the auto-generated copyright line in the footer. Leave blank to use the default.</div>
+          </div>
         </div>
       </div>
       <div class="panel">
@@ -1664,7 +1669,7 @@ const LS_FAB     = () => window._SITE_KEY + '_adminFabPos';
    STATE
    ============================================= */
 let DATA = {
-  firmName:"", tagline:"", preloaderTagline:"",
+  firmName:"", tagline:"", preloaderTagline:"", copyrightText:"",
   logoPrimary:"", logoAlternate:"",
   logoHeaderChoice:"none", logoHeaderHeight:40,
   logoSplashChoice:"none", logoSplashHeight:80, logoSplashMode:"logo-name-tagline",
@@ -1841,6 +1846,7 @@ function loadForm() {
   setVal('f_firmName', DATA.firmName);
   setVal('f_tagline', DATA.tagline);
   setVal('f_footerBio', DATA.footerBio||'');
+  setVal('f_copyrightText', DATA.copyrightText||'');
   const animEl = document.getElementById('f_animateStats');
   if (animEl) animEl.checked = DATA.animateStats === true;
   setVal('f_preloaderTagline', DATA.preloaderTagline||'');
@@ -2327,6 +2333,7 @@ function collectData() {
   DATA.firmName = getVal('f_firmName');
   DATA.tagline = getVal('f_tagline');
   DATA.footerBio = getVal('f_footerBio');
+  DATA.copyrightText = getVal('f_copyrightText');
   const _animEl = document.getElementById('f_animateStats');
   DATA.animateStats = _animEl ? _animEl.checked : false;
   DATA.preloaderTagline = getVal('f_preloaderTagline');
@@ -4493,7 +4500,15 @@ function collectHomeSingleSection_forPi(secCard, pi, si, existing) {
     sec.mqFadeWidth   = get('mqFadeWidth')   || 'normal';
     sec.mqTickerHold  = parseInt(get('mqTickerHold'))  || 3;
     sec.mqTickerSpeed = get('mqTickerSpeed') || 'normal';
-    sec.items = Array.from(secCard.querySelectorAll('.cp-sub-item')).map(item => ({
+    // Collect items from the correct container based on mode to avoid duplicates
+    const mqIsLogos = (sec.mqMode === 'logos');
+    const mqItemContainer = mqIsLogos
+      ? secCard.querySelector('[data-mq-logo]')
+      : secCard.querySelector('[data-mq-primary]');
+    const mqItemEls = mqItemContainer
+      ? Array.from(mqItemContainer.querySelectorAll('.cp-sub-item'))
+      : [];
+    sec.items = mqItemEls.map(item => ({
       text:      item.querySelector('[data-field="text"]')?.value.trim() || '',
       imagePath: item.querySelector('[data-field="imagePath"]')?.value.trim() || '',
       alt:       item.querySelector('[data-field="alt"]')?.value.trim() || '',
@@ -6528,7 +6543,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
              <div data-mq-text-fields style="${mqMode==='text'?'':'display:none;'}">
           <div class="field-group"><label>Separator Character</label>
             <input type="text" ${p} data-field="mqSeparator" value="${v('mqSeparator','·')}" placeholder="·" style="max-width:80px;"/></div>
-          <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${textRows}</div>
+          <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items" data-mq-primary>${textRows}</div>
           <button class="btn-add" onclick="addCpSubItem(${typeof pi==='string'?('\'' + pi + '\''):pi},${si},'items',{text:'',linkType:'none',linkUrl:''})">+ Add Item</button>
         </div>
         <div data-mq-ticker-fields style="${mqMode==='ticker'?'':'display:none;'}">
@@ -6547,9 +6562,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
                 <option value="slow"   ${(sec.mqTickerSpeed||'normal')==='slow'  ?'selected':''}>Slow</option>
               </select></div>
           </div>
-          <p style="font-size:11px;color:var(--muted);margin:0 0 8px;">Items shared with Scrolling Text mode.</p>
-          <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${textRows}</div>
-          <button class="btn-add" onclick="addCpSubItem(${typeof pi==='string'?('\''+pi+'\''):pi},${si},'items',{text:'',linkType:'none',linkUrl:''})">+ Add Item</button>
+          <p style="font-size:11px;color:var(--muted);margin:0 0 8px;">Items are shared with Scrolling Text mode — switch to Scrolling Text to add or edit items.</p>
         </div>
         <div data-mq-logo-fields style="${mqMode==='logos'?'':'display:none;'}">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
@@ -6570,7 +6583,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
               </select>
             </div>
           </div>
-          <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${logoRows}</div>
+          <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items" data-mq-logo>${logoRows}</div>
           <button class="btn-add" onclick="addCpSubItem(${typeof pi==='string'?("'"+pi+"'"):pi},${si},'items',{imagePath:'',alt:'',linkUrl:''})">+ Add Logo</button>
         </div>
         <div class="field-group" style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px;">

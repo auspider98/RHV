@@ -5110,7 +5110,7 @@ function buildFooter() {
       links.map(s => `<a class="footer-social-icon" onclick="openSmartLink('external','${escAttr(s.url)}')" title="${escAttr(s.platform)}">${SOCIAL_SVGS[s.platform] || SOCIAL_SVGS.custom}</a>`).join('')
     }</div>` : '';
   }
-  document.getElementById('footer-copyright').textContent = `© ${new Date().getFullYear()} ${CFG.firmName}. All rights reserved.`;
+  document.getElementById('footer-copyright').textContent = CFG.copyrightText || `© ${new Date().getFullYear()} ${CFG.firmName}. All rights reserved.`;
   const locs = (CFG.locations && CFG.locations.length)
     ? CFG.locations
     : [{ name:'', phone:CFG.phone||'', phoneRaw:CFG.phoneRaw||'', email:CFG.email||'',
