@@ -477,7 +477,7 @@ const SITE_CONFIG = {
           "items": [
             {
               "title": "Junkyard Dawgs",
-              "body": "The mystery machine junkers known as the Junkyard Dawgs",
+              "body": "The Junkyard Dawgs are the immortal iron of the highway, a clan of rust-covered relics that refuse to go gently into that good scrap heap.",
               "linkLabel": "Junkyard Dawgs",
               "linkType": "internal",
               "linkUrl": "junkyard-dawgs",
@@ -487,7 +487,7 @@ const SITE_CONFIG = {
             },
             {
               "title": "Bubble Brigade",
-              "body": "In a world by themselves.",
+              "body": "The Bubble Brigade is a specialized clan of road rogues who operate under a single, unwavering philosophy: \"I am the only person currently in existence.\"",
               "linkLabel": "Bubble Brigade",
               "linkType": "internal",
               "linkUrl": "bubble-brigade",
@@ -497,7 +497,7 @@ const SITE_CONFIG = {
             },
             {
               "title": "Decepticars",
-              "body": "Cars aren't who they look like.",
+              "body": "The Decepticars are the highway’s premier performance artists of the visual lie. While most clans signal their intent through their body style, this group operates on a platform of pure, unadulterated bait-and-switch.",
               "linkLabel": "Decepticars",
               "linkType": "internal",
               "linkUrl": "decepticars",
@@ -507,7 +507,7 @@ const SITE_CONFIG = {
             },
             {
               "title": "Grand Pricks",
-              "body": "",
+              "body": "The Grand Pricks are the self-anointed elite of the asphalt, treating every Tuesday morning commute like it’s the final lap at Monaco.",
               "linkLabel": "Grand Pricks",
               "linkType": "internal",
               "linkUrl": "grand-pricks",
@@ -517,7 +517,7 @@ const SITE_CONFIG = {
             },
             {
               "title": "Kinevils",
-              "body": "",
+              "body": "The KinEvils are the true wildcards of the highway, treating the DMV handbook as a work of light historical fiction.",
               "linkLabel": "KinEvils",
               "linkType": "internal",
               "linkUrl": "kinevils",
@@ -527,7 +527,7 @@ const SITE_CONFIG = {
             },
             {
               "title": "OMGs",
-              "body": "We can't even believe it.",
+              "body": "The OMGs are the high-glam, high-impact division of the highway. This all-female collective believes that \"Main Character Energy\" is the only fuel a vehicle truly needs.",
               "linkLabel": "OMGs",
               "linkType": "internal",
               "linkUrl": "omgs",
@@ -537,7 +537,7 @@ const SITE_CONFIG = {
             },
             {
               "title": "Showtime",
-              "body": "Lights, camera, action!",
+              "body": "The Showtime clan operates on a single, deafening frequency: \"Look at me, Hear me, and Feel my bass in your dental work.\"",
               "linkLabel": "Showtime",
               "linkType": "internal",
               "linkUrl": "showtime",
@@ -547,7 +547,7 @@ const SITE_CONFIG = {
             },
             {
               "title": "Slow Moes",
-              "body": "",
+              "body": "The Slow Moes are the highway’s premier practitioners of automotive meditation. To this clan, the \"limit\" in \"speed limit\" is an aspirational goal they have no intention of reaching.",
               "linkLabel": "Slow Moes",
               "linkType": "internal",
               "linkUrl": "slow-moes",
@@ -5454,7 +5454,7 @@ const SITE_CONFIG = {
           "label": "",
           "background": "dark",
           "anchorId": "super-heros",
-          "heading": "Super Heros",
+          "heading": "Super Heroes",
           "subtitle": "",
           "maxCols": 2,
           "items": [
@@ -5469,7 +5469,7 @@ const SITE_CONFIG = {
               "ribbon": "Heros",
               "note": "",
               "details": "",
-              "cardStyle": "dark",
+              "cardStyle": "gold",
               "featured": true,
               "cta_linkLabel": "",
               "cta_linkType": "none",
@@ -5523,6 +5523,146 @@ const SITE_CONFIG = {
                 },
                 {
                   "label": "Despite what Half-Nelson tells himself while looking in the mirror, he isn't wearing a cape—he’s wearing a giant bullseye for every frustrated commuter on the asphalt battlefield. If you spot this self-righteous roadblock straddling the dotted line ahead, do not engage in a game of automotive chicken. Instead, signal early, blend into the open gaps well before his choke point, or safely slip past him using the Shoulder Bypass method before his depth perception catches up to your approach!",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Slow Plow",
+              "tagline": "A hyper-aerodynamic, high-speed touring wagon vigilante who treats the passing lane like hallowed ground. He considers left-lane lingering an act of pure automotive treason and has made it his life's work to violently clear the path of any obstructionist villains.",
+              "price": "24",
+              "period": "/  NUISANCE",
+              "icon": "",
+              "imagePath": "heros/slow-plow.jpg",
+              "imageSize": "sq",
+              "ribbon": "Heros",
+              "note": "",
+              "details": "",
+              "cardStyle": "gold",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Aerodynamic Slipstreaming: Can weave through heavy right-lane villain clusters with zero air resistance, maintaining perfect momentum to position himself directly behind his target.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Asphalt Battering Ram: Possesses the uncanny ability to close a 200-yard gap in the blink of an eye, nesting his front bumper exactly 0.5 inches away from a slow-moving villain's trunk without ever making physical contact.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Runaway Freight Train Horn: With a fully extended arm with a bent wrist, Slow Plow lays on his horn emitting a terrifying sonic boom mimicking a multi-ton locomotive barrel-rolling down the highway.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Retinal Meltdown Strobes: Grille-integrated, 12-million-lumen strobe lights capable of flashing fast enough to reset a lingering villain's brain back to factory settings through their rearview mirror.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Brake-Light Morse Code: If he encounters a villain like Sir Brakes-A-Lot, the endless rhythm of simulated brake taps can short-circuit his precise following-distance calculations.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Rolling Iron Curtain: He is completely powerless if two slow-moving semi-truck villains form an unintentional, permanent wall across all lanes, trapping him in a localized vacuum of low-speed misery.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "If you are cruising down the highway and your cabin suddenly starts vibrating to the sound of a phantom freight train, do not look back. You have stepped into Slow Plow's crosshairs. Do not attempt to tap your brakes or assert dominance. Hit your turn signal immediately, migrate to the right-hand lane among the lesser villains, and let this high-speed locomotive of justice sweep the pavement clean!",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Green Horn-It",
+              "tagline": "A self-appointed mercenary of mechanical justice who patrols the asphalt to aggressively shatter the digital trance of intersection idling. Operating out of a battered pickup truck rigged with an industrial soundscape, this rogue vigilante targets phone-obsessed villains whose brains completely lock up the moment a red light goes green.",
+              "price": "27",
+              "period": "/  NUISANCE",
+              "icon": "",
+              "imagePath": "heros/green-horn-it.png",
+              "imageSize": "sq",
+              "ribbon": "Hero",
+              "note": "",
+              "details": "",
+              "cardStyle": "gold",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Vigilante Standoff: Positions his vehicle precisely one car length behind distracted villains at traffic lights, monitoring their windshield silhouettes for the telltale, downward glow of an illuminated smartphone.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Lightning-Fast Reflex Threshold: Operates on an absolute fraction-of-a-second trigger, tracking the precise millisecond an intersection signal switches to green with the accuracy of an Olympic drag racer.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Decibel Shockwave: If an idling villain remains stationary for more than 0.2 seconds after a light changes, he drops the hammer on his horn, unleashing a sonic wallop loud enough to rattle a smartphone straight out of a villain's hands and vibrate their entire chassis into immediate motion.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Air Compressor Recharge Lag: His devastating sonic blasts consume massive amounts of pressurized air; if forced to clear an entire gridlocked boulevard of phone-gazers consecutively, his horns will temporarily drop in pitch from a terrifying locomotive roar to a sad, wheezing duck call.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "If you wind up trapped at a red light directly in front of Green Horn-It, treat your dashboard like a bomb defusal sequence. Put the smartphone down, lock your eyes onto the traffic signal overhead, and keep your foot hovered over the gas pedal. The millisecond that light turns green, you move—otherwise, your eardrums are going to be forcibly relocated to the backseat of your car.",
                   "status": "",
                   "isGroup": false
                 }
@@ -6502,18 +6642,6 @@ const SITE_CONFIG = {
       "subtitle": "",
       "items": [
         {
-          "title": "Afflictions",
-          "body": "",
-          "imagePath": "afflictions/wheeler-dealer.jpg",
-          "bgColor": "",
-          "fullBleed": true,
-          "textColor": "light",
-          "btnLabel": "Browse",
-          "btnLinkType": "internal",
-          "btnLinkUrl": "afflictions",
-          "btnAnchorId": ""
-        },
-        {
           "title": "Clans",
           "body": "",
           "imagePath": "clans/junkyarddawgs.png",
@@ -6535,6 +6663,18 @@ const SITE_CONFIG = {
           "btnLabel": "Browse",
           "btnLinkType": "internal",
           "btnLinkUrl": "heroes",
+          "btnAnchorId": ""
+        },
+        {
+          "title": "Afflictions",
+          "body": "",
+          "imagePath": "afflictions/wheeler-dealer.jpg",
+          "bgColor": "",
+          "fullBleed": true,
+          "textColor": "light",
+          "btnLabel": "Browse",
+          "btnLinkType": "internal",
+          "btnLinkUrl": "afflictions",
           "btnAnchorId": ""
         },
         {
@@ -6706,7 +6846,7 @@ const SITE_CONFIG = {
     "cp-14": "public",
     "cp-15": "public"
   },
-  "_savedAt": 1779119826469,
+  "_savedAt": 1779140493824,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""
