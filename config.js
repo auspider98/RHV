@@ -3104,9 +3104,9 @@ const SITE_CONFIG = {
             },
             {
               "name": "Fly Bye",
-              "tagline": "There are no lights or signs that are going to slow this illiterate villain.",
-              "price": "",
-              "period": "",
+              "tagline": "A hyper-accelerated, sign-blind anarchist who treats the civil traffic code as a collection of optional suggestions written in a dead language. Convinced that physics and municipal ordinances only apply to lesser drivers, they operate on a permanent high-velocity flight path that entirely deletes red lights, orange barrels, and safety zones from reality.",
+              "price": "37",
+              "period": "/ ☢️ HAZARD",
               "icon": "",
               "imagePath": "villains/fly-bye.jpg",
               "imageSize": "sq",
@@ -3126,22 +3126,12 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Immunity to construction, school zone speed restrictions, and school bus stops.",
+                  "label": "Orange-Cone Mirage: The uncanny ability to rocket through active, single-lane construction zones at triple-digit speeds without clipping a single barrel or acknowledging a flustered flag-waving crew member.",
                   "status": "",
                   "isGroup": false
                 },
                 {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Crossing Guards",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Speed Bumps",
+                  "label": "STOP-Sign Cloaking Device: A continuous state of movement where octagonal red signs and extended school bus stop arms become entirely transparent, allowing them to zip past flashing stop beacons without a millisecond of brake-pad friction.",
                   "status": "",
                   "isGroup": false
                 },
@@ -3151,7 +3141,37 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Lead Foot",
+                  "label": "Sonic Draft Wake: A massive wall of high-velocity air pressure left in their wake that violently rocks neighboring vehicles, blowing loose garbage out of truck beds and causing surrounding villains to white-knuckle their steering wheels.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Blinding Blindspots: An aggressive, unpredictable lane-weaving pattern that allows them to materialize instantly in a rival vehicle's rearview mirror before vanishing into their blind spot, leaving a trail of triggered collision-avoidance sensors.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Radar Lock: An extreme vulnerability to localized speed traps where high-visibility law-enforcement units break their illusion of total immunity, reducing their aggressive flight path to an immediate, sad shoulder-pull-off.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Handheld Stop-Sign Standoff: While static signs, flashing lights, and entire school buses are completely ignored by his hyper-accelerated operating system, the physical presence of a crossing guard stepping onto the asphalt acts as an immediate override, scrambling Fly Bye’s trajectory, forcing an existential panic-brake that threatens to flat-spot his tires and shatter his cocky demeanor.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "When Fly Bye is tracking hot on your radar, do not attempt to protect the integrity of the lane or enforce the law yourself. This illiterate rocket ship does not recognize your brake lights or your righteous indignation. Signal early, smoothly migrate away from the passing lanes, and yield a massive tactical window of open asphalt. Let them challenge the local highway patrol further up the concrete—your radiator and insurance premiums will thank you.",
                   "status": "",
                   "isGroup": false
                 }
@@ -6975,7 +6995,7 @@ const SITE_CONFIG = {
     "cp-14": "public",
     "cp-15": "public"
   },
-  "_savedAt": 1779287455609,
+  "_savedAt": 1779291325111,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""
