@@ -2106,28 +2106,18 @@ footer {
 .cps-text-block .cps-body p { margin-bottom: 16px; }
 
 /* Two Column */
-.cps-two-col {
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(40px, 6vw, 80px);
-  align-items: start;
-}
-.cps-two-col.image-right { flex-direction: row-reverse; }
-.cps-two-col.image-left  { flex-direction: row; }
+.cps-two-col { overflow: hidden; }  /* clearfix for floated image */
 .cps-two-col-img {
-  flex: 0 0 var(--tc-img-w, 45%);
-  width: var(--tc-img-w, 45%);
-  max-width: 100%;
   border-radius: 2px;
   overflow: hidden;
   position: relative;
+  max-width: 100%;
 }
 .cps-two-col-img img {
   width: 100%;
-  height: 100%;
-  min-height: 280px;
-  object-fit: cover;
   display: block;
+  object-fit: cover;
+  min-height: 200px;
 }
 .cps-two-col-img-placeholder {
   background: var(--navy);
@@ -2138,29 +2128,22 @@ footer {
   color: rgba(255,255,255,0.2);
   font-size: 48px;
 }
-.cps-two-col-text {
-  flex: 1 1 300px;
-  min-width: 0;
-}
-.cps-two-col-text .cps-heading {
-  font-family: var(--font-display);
-  font-size: clamp(22px, 2.8vw, 34px);
-  font-weight: 500;
-  color: var(--text-head);
-  margin-bottom: 16px;
-  line-height: 1.25;
-}
-.cps-two-col-text .cps-body {
+.cps-two-col p {
   font-size: 15px;
   line-height: 1.85;
   color: var(--text-body);
+  margin-bottom: 14px;
 }
-.cps-two-col-text .cps-body p { margin-bottom: 14px; }
-/* Heading sits above flex row — space below before image/text columns */
+.cps-two-col p:last-of-type { margin-bottom: 0; }
+.cps-section-dark .cps-two-col p { color: rgba(255,255,255,0.75); }
+.cps-section-alt .cps-two-col p { color: var(--text-body); }
 .cps-two-col-heading { margin-bottom: 28px; }
 @media (max-width: 768px) {
-  .cps-two-col-img,
-  .cps-two-col-text { flex: 0 0 100%; max-width: 100%; }
+  .cps-two-col-img {
+    float: none !important;
+    width: 100% !important;
+    margin: 0 0 28px 0 !important;
+  }
 }
 
 /* Stats Bar (custom) */
@@ -6435,25 +6418,25 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
 
     // ── TWO COLUMN ──────────────────────────────────────────────
     case 'two-col': {
-      const imgSide = sec.imagePosition === 'left' ? 'image-left' : 'image-right';
+      const imgIsLeft = sec.imagePosition !== 'right';
       const imgW = sec.imageMaxWidth ? `${parseInt(sec.imageMaxWidth)||480}px` : '45%';
-      const imgVarStyle = `style="--tc-img-w:${imgW};"`;
+      const imgFloat = imgIsLeft ? 'left' : 'right';
+      const imgMargin = imgIsLeft ? `0 clamp(24px,4vw,56px) 16px 0` : `0 0 16px clamp(24px,4vw,56px)`;
+      const imgStyle = `float:${imgFloat};width:${imgW};margin:${imgMargin};`;
       const imgHTML = sec.imagePath
-        ? `<div class="cps-two-col-img"><img src="${escAttr(sec.imagePath)}" alt="${escAttr(sec.heading||'')}" loading="lazy"/></div>`
-        : `<div class="cps-two-col-img"><div class="cps-two-col-img-placeholder">🏛️</div></div>`;
-      const textHTML = `<div class="cps-two-col-text">
-        <div class="cps-body">${formatBody(sec.body)}</div>
-        ${(sec.cta_linkLabel || sec.ctaLabel) ? `<div style="margin-top:28px;"><button class="btn-primary" ${
-          sec.cta_linkType === 'internal' ? `onclick="showPage('${escAttr(sec.cta_linkUrl || 'contact')}','${escAttr(sec.cta_anchorId||'')}')"` :
-          (sec.cta_linkType === 'external' || sec.cta_linkType === 'file') ? `onclick="openSmartLink('${escAttr(sec.cta_linkType)}','${escAttr(sec.cta_linkUrl)}')"` :
-          `onclick="showPage('contact')"`
-        }>${sec.cta_linkLabel || sec.ctaLabel} →</button></div>` : ''}
-      </div>`;
+        ? `<div class="cps-two-col-img reveal" style="${imgStyle}"><img src="${escAttr(sec.imagePath)}" alt="${escAttr(sec.heading||'')}" loading="lazy"/></div>`
+        : `<div class="cps-two-col-img reveal" style="${imgStyle}"><div class="cps-two-col-img-placeholder">🏛️</div></div>`;
       wrapper.innerHTML = `<div class="container">
         ${labelHTML}
         ${sec.heading ? `<${headTag} class="${headClass} cps-heading cps-two-col-heading">${sec.heading}</${headTag}>` : ''}
-        <div class="cps-two-col ${imgSide} reveal" ${imgVarStyle}>
-          ${imgHTML}${textHTML}
+        <div class="cps-two-col reveal">
+          ${imgHTML}
+          ${formatBody(sec.body)}
+          ${(sec.cta_linkLabel || sec.ctaLabel) ? `<div style="clear:both;margin-top:28px;"><button class="btn-primary" ${
+            sec.cta_linkType === 'internal' ? `onclick="showPage('${escAttr(sec.cta_linkUrl || 'contact')}','${escAttr(sec.cta_anchorId||'')}')"` :
+            (sec.cta_linkType === 'external' || sec.cta_linkType === 'file') ? `onclick="openSmartLink('${escAttr(sec.cta_linkType)}','${escAttr(sec.cta_linkUrl)}')"` :
+            `onclick="showPage('contact')"`
+          }>${sec.cta_linkLabel || sec.ctaLabel} →</button></div>` : ''}
         </div>
       </div>`;
       break;

@@ -289,7 +289,7 @@ const SITE_CONFIG = {
           "items": [
             {
               "date": "Bubble Brigade Clan",
-              "dot": "",
+              "dot": "🫧",
               "title": "Oblivious of others, Loves social media, One perspective",
               "body": "Watch for them carefully because they aren't watching for anyone in their world on one.",
               "linkLabel": "Bubble Brigade Villains",
@@ -299,7 +299,7 @@ const SITE_CONFIG = {
             },
             {
               "date": "Decepticars Clan",
-              "dot": "",
+              "dot": "🚘",
               "title": "Deceiving appearance, Sudden driving changes",
               "body": "Never trust your eyes, only your instincts and make sure you have thought through all of your avoidance scenarios.",
               "linkLabel": "Decepticars Villains",
@@ -309,7 +309,7 @@ const SITE_CONFIG = {
             },
             {
               "date": "Junkyard Dawgs Clan",
-              "dot": "",
+              "dot": "🦴",
               "title": "Older model, Parts falling off, Re-engineered components, Rust",
               "body": "Leave plenty of space to dodge car parts, and oil slicks or splatter from other various fluids.",
               "linkLabel": "Junkyard Dawgs Villains",
@@ -319,7 +319,7 @@ const SITE_CONFIG = {
             },
             {
               "date": "Grand Pricks Clan",
-              "dot": "",
+              "dot": "💨",
               "title": "Excessive acceleration, In a hurry, Negotiating traffic terribly, Not courteous",
               "body": "Don't make any sudden decelerations/stops, leave space for diving, check the shoulder before making any turns",
               "linkLabel": "Grand Pricks Villains",
@@ -329,7 +329,7 @@ const SITE_CONFIG = {
             },
             {
               "date": "KinEvils Clan",
-              "dot": "",
+              "dot": "💀",
               "title": "Aggressive, Redefines roadway use, Unfazed by Weather",
               "body": "Just because you'd never do it, doesn't mean they won't...THEY WILL...so be ready for anything!",
               "linkLabel": "KinEvils Villains",
@@ -339,7 +339,7 @@ const SITE_CONFIG = {
             },
             {
               "date": "OMGs Clan",
-              "dot": "",
+              "dot": "👩‍🎤",
               "title": "Focuses on anything but driving, No perception of driving concepts, Female",
               "body": "They are so cute and innocent looking, until they begin to move, then you'd better keep a safe distance.",
               "linkLabel": "OMGs Villains",
@@ -349,7 +349,7 @@ const SITE_CONFIG = {
             },
             {
               "date": "Showtime Clan",
-              "dot": "",
+              "dot": "🎬",
               "title": "Loud terrible music, Flashing lights, Lots of bling,",
               "body": "Roll up your windows, put on some sun shades, maybe turn up your tunes a little.",
               "linkLabel": "Showtime Villains",
@@ -359,7 +359,7 @@ const SITE_CONFIG = {
             },
             {
               "date": "Slow Moes Clan",
-              "dot": "",
+              "dot": "🦥",
               "title": "Moves slowly, Loves brakes, seems lost, Lane changing issues, Fear",
               "body": "Early detection is paramount, so that you don't get stuck behind them.",
               "linkLabel": "Slow Moes Villains",
@@ -370,14 +370,18 @@ const SITE_CONFIG = {
           ]
         },
         {
-          "type": "link",
+          "type": "button",
           "label": "",
           "background": "light",
-          "anchorId": "link",
-          "linkType": "internal",
-          "linkLabel": "Identify An Affliction",
-          "linkUrl": "afflictions",
-          "link_anchorId": ""
+          "anchorId": "button",
+          "primary_linkType": "none",
+          "primary_linkLabel": "",
+          "primary_linkUrl": "",
+          "primary_anchorId": "",
+          "secondary_linkType": "internal",
+          "secondary_linkLabel": "Identify an Affliction",
+          "secondary_linkUrl": "afflictions",
+          "secondary_anchorId": ""
         },
         {
           "type": "marquee",
@@ -606,9 +610,9 @@ const SITE_CONFIG = {
           "items": [
             {
               "name": "Anti-Flasher",
-              "tagline": "This villain doesn't want anyone to know their travel plans..",
-              "price": "",
-              "period": "",
+              "tagline": "An asphalt secret agent operating under a self-imposed communications blackout, treating basic automotive indicators like a leaked government secret. He navigates the highway gridlock with the absolute certainty that using a blinker is giving material comfort, aid, and intelligence to the surrounding enemy lanes.",
+              "price": "35",
+              "period": "/ ☢️ HAZARD",
               "icon": "",
               "imagePath": "villains/anti-flasher.jpg",
               "imageSize": "sq",
@@ -628,7 +632,27 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Masking turns and lane changes with ease",
+                  "label": "Phantom Drift: The supernatural talent to phase across three lanes of congested traffic simultaneously without ever disturbing the dust on his blinker stalk.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Silent Veer: Executing sharp, aggressive maneuvers with zero physical or visual foreshadowing, completely resetting the reaction times of the vehicles around him.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Decoy Drift: A tactical maneuver where he subtly positions his front tires toward the left line, triggering panic-braking from rival villains on his left, only to immediately snap hard to the right.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Blinker Amputation Vibe: A localized psychological aura that makes surrounding villains second-guess their own mirrors, wondering if his vehicle is moving sideways due to a lane change or an unannounced lateral drift.",
                   "status": "",
                   "isGroup": false
                 },
@@ -638,12 +662,22 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "",
+                  "label": "Parallel Commuter: If a rival villain matches his exact pace in his blind spot, his operational security collapses, forcing him into a state of structural paralysis.",
                   "status": "",
                   "isGroup": false
                 },
                 {
-                  "label": "Turn lanes",
+                  "label": "Mechanical Callback: An accidental bump of his indicator stalk can induce total existential panic, forcing him to immediately pull over to deactivate the \"traitorous\" blinking light.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "If you find yourself sharing asphalt space with Anti-Flasher, abandon all attempts to read his intentions through his taillights—treat them like broken household appliances. Expect every single movement he makes to be an unannounced, high-stakes tactical ambush. Maintain an extra car length of distance, never attempt to pass him on the side he is leaning toward, and give his front fenders a wide berth before he decides your front bumper is his next unlisted destination.",
                   "status": "",
                   "isGroup": false
                 }
@@ -651,9 +685,9 @@ const SITE_CONFIG = {
             },
             {
               "name": "the Blinder",
-              "tagline": "Unable to understand the meaning of the little blue light on the dashboard, this villain with its headlamps on maximum power, can see for miles...too bad you can't see anything!",
-              "price": "",
-              "period": "",
+              "tagline": "A clueless high-beam maximalist who treats the roadway like a fully illuminated sports stadium. Operating under the blissful assumption that the glowing blue icon on their dashboard means \"Extra Safe Mode,\" they can see into the next time zone while melting the retinas of every other oncoming villain on the road.",
+              "price": "30",
+              "period": "/ 🚧 OBSTACLE",
               "icon": "",
               "imagePath": "villains/the-blinder.jpg",
               "imageSize": "sq",
@@ -673,7 +707,27 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Blinding other villains with a single flick of the wrist.",
+                  "label": "Phantom Supernova: Artificially warps the space-time continuum, turning a midnight traffic jam into a bright, blinding supernova sun scenario exclusively inside the cabin .",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "X-Ray Commute: The supernatural power to peer straight through the trunk, rear seats, and existential dread of the villain ahead of them, making their car interior look like an active operating room.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Retinal Wipeout: A passive-aggressive aura of 20-million-lumen high-intensity discharge beams that instantly strips away the peripheral vision, depth perception, and lane alignment of opposing and trailing villains alike.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Afterimage Anchor: The residual blinding spots left behind on your eyes, forcing you to navigate by memory and pure survival instinct for up to three miles after they pass.",
                   "status": "",
                   "isGroup": false
                 },
@@ -683,42 +737,22 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Daylight",
+                  "label": "Mirror Reflex: If a frustrated rival villain adjusts their side mirrors into a precise geometric counter-angle, The Blinder can inadvertently flash-bang themselves via the villains adjusted mirrored array field.",
                   "status": "",
                   "isGroup": false
                 },
                 {
-                  "label": "Auto-dimming Rearview Mirror",
+                  "label": "Ambient Streetlights: Whenever they enter a well-lit downtown area, their brain short-circuits due to light-pollution overload, causing them to drive 15 mph under the limit while trying to locate their actual headlights.",
                   "status": "",
                   "isGroup": false
                 },
                 {
-                  "label": "At least, One blown bulb",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Special Weapon",
+                  "label": "Suggested Defense",
                   "status": "",
                   "isGroup": true
                 },
                 {
-                  "label": "Rack mounted LED floods",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Nemesis",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "the Ghost",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "LED Ed",
+                  "label": "When The Blinder approaches from behind, do not try to activate your hazard lights or gesture wildly—they will simply assume you are waving to admire their beautiful, bright setup. Immediately shift your gaze downward and toward the white line on the right edge of your lane to maintain your path. Flip your rearview mirror into night-mode, let them pass your position, and let their blinding light show become some other villain's problem farther down the concrete. If the Blinder approaches you going the opposite direction, grip the wheel, crush your lids together, drive by feel, and pray.",
                   "status": "",
                   "isGroup": false
                 }
@@ -726,9 +760,9 @@ const SITE_CONFIG = {
             },
             {
               "name": "Captain Speedo-Chango",
-              "tagline": "This villain attempts to slow another villain down on long journeys...again & again. Accelerates to catch and pass its victim villain, then slows down in front of its victim often trapping them. It then repeats this tactic over and over, on the same villain",
-              "price": "",
-              "period": "",
+              "tagline": "An unstable, rubber-banding highway parasite who turns long-distance travel into an unwanted game of automotive leapfrog. Driven by a pathological obsession with a single target, they will aggressively overtake a rival villain only to drop their speed to a crawl, repeating the torturous cycle until their victim questions reality.",
+              "price": "39",
+              "period": "/ ☢️ HAZARD",
               "icon": "",
               "imagePath": "villains/captain-speedo-chango.jpg",
               "imageSize": "sq",
@@ -748,22 +782,12 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "To annoy and agitate a it's various speed adjustments.",
+                  "label": "Rubber-Band Snap: The uncanny mechanical ability to accelerate from 50 to 90 mph in seconds solely to pass a target, immediately followed by an anchor-dropping deceleration once they take the lead.",
                   "status": "",
                   "isGroup": false
                 },
                 {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Cruise control",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Passing lanes",
+                  "label": "Target Lock-On: A terrifying psychological focus that tethers their vehicle to one specific rival villain, rendering them oblivious to all other traffic patterns on the open road.",
                   "status": "",
                   "isGroup": false
                 },
@@ -773,7 +797,37 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "",
+                  "label": "Momentum Black Hole: Pulling directly in front of a rival villain on an incline and cutting power, forcing the trailing vehicle to lose all forward momentum and burn out its transmission trying to recover.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Phantom Horizon: A deceptive driving pattern where they speed up the exact moment their victim signals to change lanes, blocking the escape route, only to drop back into position a mile later.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Sudden Exit: If their locked-on victim pulls a last-second, un-signaled dive into a rest stop or exit ramp, Captain Speedo-Chango suffers an existential tracking error, forcing them to wander aimlessly down the highway until a new target appears.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Steady Cruisers: A pack of heavy semi-trucks driving at a perfectly uniform pace completely breaks their rhythm, trapping them in an environment where speed-cycling is physically impossible.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "If Captain Speedo-Chango locks onto your rear bumper, do not engage in the rubber-band war. The moment they pass you and drop their speed, immediately turn on your signal, move over two full lanes, and hide behind a large commercial vehicle or match pace with a completely different pack of villains. If they refuse to break the tether, your best defensive play is a phantom deceleration—drop your speed drastically to force them miles ahead, or fake an exit strategy to scramble their target lock.",
                   "status": "",
                   "isGroup": false
                 }
@@ -5439,9 +5493,9 @@ const SITE_CONFIG = {
           "type": "two-col",
           "label": "We Clear the Road",
           "background": "dark",
-          "anchorId": "hero",
+          "anchorId": "hero-info",
           "heading": "Handling Extreme Roadway Offenders",
-          "body": "Handling Extreme Roadway Offenders (HERO) is the precision enforcement machinery of the highway, an elite syndicate of high-speed structural purists who refuse to let the asphalt descend into permanent gridlock. While villainous drivers treat the roadway like a personal playground or a rolling scrap heap, HERO relies on mechanical dominance and a strict geometric philosophy that forces order back into the concrete. To them, a bottleneck isn't an inevitability; it’s a failure of civil discipline that must be forcefully corrected.\n\nHERO are the architects of automotive efficiency, maintaining perfect structural pacing on the road with an uncompromising refusal to tolerate traffic-clogging sins. As part of the expanding Rush Hour universe, they represent the tactical defense against mechanical entropy and chaotic driving styles. While they aren't seeking to cause destruction, their aggressive pacing enforcement turns every commute into a synchronized, high-stakes blueprint for flawless traffic flow, clearing the path exactly the way it was designed to be driven.",
+          "body": "Handling Extreme Roadway Offenders (HERO) is the precision enforcement machinery of the highway, an elite syndicate of high-speed structural purists who refuse to let the asphalt descend into permanent gridlock. While villainous drivers treat the roadway like a personal playground or a rolling scrap heap, HERO relies on mechanical dominance and a strict geometric philosophy that forces order back into the concrete. To them, a bottleneck isn't an inevitability; it's a failure of civil discipline that must be forcefully corrected.\n\nHERO are the architects of automotive efficiency, maintaining perfect structural pacing on the road with an uncompromising refusal to tolerate traffic-clogging sins. As part of the expanding Rush Hour universe, they represent the tactical defense against mechanical entropy and chaotic driving styles. While they aren't seeking to cause destruction, their aggressive pacing enforcement turns every commute into a synchronized, high-stakes blueprint for flawless traffic flow, clearing the path exactly the way it was designed to be driven.",
           "imagePath": "hero/hero.png",
           "imagePosition": "left",
           "imageMaxWidth": "300",
@@ -6846,7 +6900,7 @@ const SITE_CONFIG = {
     "cp-14": "public",
     "cp-15": "public"
   },
-  "_savedAt": 1779215179880,
+  "_savedAt": 1779249523803,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""
