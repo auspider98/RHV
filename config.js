@@ -2335,6 +2335,81 @@ const SITE_CONFIG = {
                   "isGroup": false
                 }
               ]
+            },
+            {
+              "name": "Murder Van",
+              "tagline": "The physical manifestation of a blank question mark on four wheels. Is he rushing to fix a leaky faucet, or is he looking for a place to hide a body? The world will never know, because this windowless, dented monolith of pure suspense refuses to give up its secrets. He has no logos, no branding, and absolutely no rearview visibility, making him the ultimate psychological weapon on the asphalt. He doesn’t even need to cut you off to ruin your day—just parking next to you in an empty lot is enough to make you double-check your door locks and question your life choices.",
+              "price": "22",
+              "period": "/ 🚧 OBSTACLE",
+              "icon": "",
+              "imagePath": "villains/murder-van.jpg",
+              "imageSize": "sq",
+              "ribbon": "Decepticars",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "The Inexplicable Cloak: Despite being the size of a small tool shed, he can completely disappear into your blind spot, only to materialize inches from your bumper like a jumpscare in a low-budget horror flick.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Brake-Light Mystery: One of his brake lights is permanently out, and the other flashes randomly like a strobe light, keeping you in a perpetual state of guessing whether he’s stopping or is a victim sending out an SOS.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Looming Presence: A devastating psychological attack. By simply existing in a rearview mirror, he forces trailing drivers to ponder their own mortality and ask themselves if he's following them. What exactly is sliding around in the back of that cargo bay?!",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Mystery Smell: Emissions that alternate between burnt transmission fluid, cheap primer, and whatever left-over fast food or body has been trapped inside the walls of his wagon this past week. It acts as a localized chemical deterrent.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Zero Lateral Vision: With no side windows, his lane changes are entirely based on faith, spatial memory, and the sound of other cars honking in terror.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Low-Clearance Parking Garages: His true Kryptonite. The structural integrity of his ladder rack is constantly threatened by anything under 7 feet.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "If you encounter the Murder Van, do not make eye contact through his cracked side mirrors. Maintain a safe distance of at least three car lengths—not just for traffic safety, but to ensure you aren't framed for whatever tools, ladders, or loose drywall screws inevitably fly off his roof rack when he hits a pothole. If he parks next to you, accept that your car belongs to the van now. Walk away calmly.",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
             }
           ]
         },
@@ -6995,7 +7070,7 @@ const SITE_CONFIG = {
     "cp-14": "public",
     "cp-15": "public"
   },
-  "_savedAt": 1779291325111,
+  "_savedAt": 1779308051700,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""
