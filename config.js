@@ -835,9 +835,9 @@ const SITE_CONFIG = {
             },
             {
               "name": "Cell Toney",
-              "tagline": "Only two people exist in this villain's world.",
-              "price": "",
-              "period": "",
+              "tagline": "Cell Toney operates under the absolute conviction that the highway is merely his personal private lounge and that he is the only person currently in the world—or, at best, the only person that matters. He treats the morning commute as the perfect backdrop for deeply personal, soul-baring phone calls that require his undivided, hypnotic attention. To Cell Toney, traffic signals, speed limits, and the existence of other commuters are merely background noise, like static on a radio, to be ignored until he reaches the climax of his one-sided conversation.",
+              "price": "22",
+              "period": "/ 🚧 OBSTACLE",
               "icon": "",
               "imagePath": "villains/cell-toney.jpg",
               "imageSize": "sq",
@@ -857,17 +857,12 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Stacking up traffic with one call.",
+                  "label": "Conversational Anchor: Can instantly decelerate his vehicle to a crawl because his call just reached a \"really good part,\" forcing every driver behind him to match his glacial, meditative pace.",
                   "status": "",
                   "isGroup": false
                 },
                 {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "No bars",
+                  "label": "Blind-Spot Blocker: Has the supernatural ability to drift into the middle lane and stay there, completely unaware of their surroundings, while gesticulating wildly with a smartphone.",
                   "status": "",
                   "isGroup": false
                 },
@@ -877,7 +872,37 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Call Waiting",
+                  "label": "Ambient Drone: A high-volume, speakerphone-enabled conversation about their mundane drama that is loud enough to be heard by cars three lanes over, creating a sonic barrier of pure boredom.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "\"I Can't Hear You\" Honk-Deflector: A smug, dismissive flick of the wrist at anyone daring to honk, signaling that the phone call is clearly more important than the literal traffic jam they are manifesting.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Dead Zones: If he enters a tunnel or a remote stretch of highway where his signal drops, Cell Toney suffers an immediate, catastrophic personality collapse and has to actually focus on the road (which he hates).",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Low Battery: When his phone drops below 5%, he loses his primary navigational utility and becomes erratic, panicky, and terrifyingly dangerous as he searches for a charger.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "If you see Cell Toney approaching, avoid the middle lane at all costs. If you get stuck behind him, do not bother honking—he literally cannot hear you over the sound of his own importance. Your best bet is to change lanes and hope he hasn't decided to wander into your path while he’s describing his brunch.",
                   "status": "",
                   "isGroup": false
                 }
@@ -4991,9 +5016,9 @@ const SITE_CONFIG = {
             },
             {
               "name": "Count Stackula",
-              "tagline": "This speed sucking, non-mirror using villain will come out of its slumber from a slower moving lane at the first sign of flowing traffic in another lanes.",
-              "price": "",
-              "period": "",
+              "tagline": "This apex predator of the interstate is a creature who feeds not on blood, but on the kinetic energy of momentum. Slumbering for miles in the safety of the slow lane, this pale-faced menace waits in a state of suspended animation until the exact moment the fast lane begins to flow. Like a phantom, Stackula will lurch into the high-speed lane with zero signal, instantly turning a brisk 70 mph cruise into a collective 15 mph crawl. Once the traffic behind him has sufficiently lost the will to live, he vanishes back into the slow lane, his hunger sated for another three exits. Mirrors are strictly forbidden in his lair, as he refuses to acknowledge the existence of the peasants he just inconvenienced.",
+              "price": "27",
+              "period": "/ 🚧 OBSTACLE",
               "icon": "",
               "imagePath": "villains/count-stackula.jpg",
               "imageSize": "sq",
@@ -5013,17 +5038,12 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Effortlessly changing lanes from the slower moving lane to the faster move lane without a care in the world, slowing all villains who reside in this lane until it is decided that they must repossess the slower lane again.",
+                  "label": "Phantom Merge: Stackula executes lane changes with zero signaling. Operating a vehicle without the use of mirrors, he also lacks spatial awareness, effectively \"sucking\" the speed out of a fast-moving lane by forcing everyone to slam on their brakes.",
                   "status": "",
                   "isGroup": false
                 },
                 {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Multiple open lanes",
+                  "label": "Kinetic Stasis: By maintaining a speed exactly 5 mph slower than the rest of traffic, he creates an unbreakable, rolling blockade that leaves victims trapped in a state of suspended frustration.",
                   "status": "",
                   "isGroup": false
                 },
@@ -5033,7 +5053,37 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Rear view mirror dimmer",
+                  "label": "Fog of Indifference: An aura of pure apathy emitted from his cabin that causes surrounding drivers to lose their focus, resulting in a hypnotic, sluggish driving pace for everyone within a three-car radius.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Mirror-Delete Mod: Having removed his side mirrors in order to protect his identity and his secret attack, he weaponizes his \"blind spot\" to force merging traffic to choose between hitting him or driving off the shoulder.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Vacuum Void: When faced with an entirely empty stretch of road, Stackula’s powers fail; without a flow of traffic to disrupt, he becomes bored and instinctively drifts off at the next exit in search of a fresh cluster of commuters.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Heavy Hauler Echo: The deep, rumbling air-horn blast from a semi-truck is the only sound capable of piercing his trance, temporarily startling him into accelerating or vacating the lane.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "If you encounter Count Stackula, do not attempt to flash your lights or perform a dramatic overtake. He cannot see you; he only senses the flow of traffic. The only way to survive a Stackula event is to preemptively switch lanes before he executes his \"Phantom Merge.\" If you are already stuck behind him, practice deep breathing—your road rage is exactly what he feeds on.",
                   "status": "",
                   "isGroup": false
                 }
@@ -5041,9 +5091,9 @@ const SITE_CONFIG = {
             },
             {
               "name": "Kut 'N' King",
-              "tagline": "When entering traffic from a side road or lot, this villain's depth perception is in great need of calibration.",
-              "price": "",
-              "period": "",
+              "tagline": "Kut 'N' King is the self-appointed monarch of the roadside entry. He operates on the firm, delusional belief that his car is invisible to oncoming traffic, allowing him to pull out into the main flow of vehicles whenever the mood strikes. With depth perception that can best be described as \"non-existent,\" he treats highway speed limits as mere suggestions and oncoming commuters as stationary obstacles to be gently nudged aside. He doesn’t just merge; he conquers the right-of-way with the grace of a shopping cart in a hurricane.",
+              "price": "39",
+              "period": "/ ☢️ HAZARD",
               "icon": "",
               "imagePath": "villains/kut-n-king.jpg",
               "imageSize": "sq",
@@ -5063,7 +5113,27 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Causing other villains brake rotors to glow red as this villain makes its terribly timed turn onto the main drag.",
+                  "label": "Brake-Glow Catalyst: Possesses an uncanny ability to turn any high-speed lane into a parking lot. By pulling out just as a group of cars approaches, he forces every driver behind him to stand on their brakes, instantly turning their rotors a glorious, stressed-out neon red.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "\"I'm Going to Make It\" Gamble: Can calculate the exact distance between two moving vehicles to be \"plenty of room,\" regardless of the fact that it is actually 4 feet and everyone is traveling at 65 MPH.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Phantom Pull-Out: A signature maneuver where he waits for a car to be exactly 10 feet away before slowly, agonizingly easing his massive SUV into their lane at a lazy 5 MPH.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Oblivious Waving: A high-speed, calm hand wave directed at the screaming, terrified driver he just cut off, as if he’s doing them a favor by forcing them to practice their emergency stopping.",
                   "status": "",
                   "isGroup": false
                 },
@@ -5073,7 +5143,22 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Traffic signal with no turn on red lights.",
+                  "label": "Actual Visibility: If the road is straight and clear, his entire strategy collapses because there’s no challenge—he needs the element of surprise to thrive.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Loud Truck Horns: The sound of a 18-wheeler air horn at close range is the only thing capable of piercing his bubble of delusion, briefly causing him to freeze in the middle of the lane.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "If you see Kut 'N' King idling at a side-road stop sign, do not maintain your speed! Slow down early, hover your foot over the brake, and prepare for a maneuver that defies physics and common sense. If you do manage to pass him, do not make eye contact; he will take it as an invitation to engage in a low-speed duel of \"who can be more stubborn.\"",
                   "status": "",
                   "isGroup": false
                 }
@@ -5081,7 +5166,7 @@ const SITE_CONFIG = {
             },
             {
               "name": "Lame Changer",
-              "tagline": "This is a driver paralyzed by the terrifying prospect of the automotive social contract. Lame Changer spends their entire morning commute in a state of terminal politeness, desperately wishing to switch lanes but refusing to do so without a formal, notarized invitation from a fellow commuter. They float down the highway like a timid ghost, trapped behind a slow-moving garbage truck for miles because nobody explicitly rolled down their window and waved them over with a golden scepter.",
+              "tagline": "Paralyzed by the terrifying prospect of encountering anyone on the road, Lame Changer spends their entire morning commute in a state of terminal politeness, desperately wishing to switch lanes but refusing to do so without a formal, notarized invitation from a fellow commuter. They float down the highway like a timid ghost, trapped behind a slow-moving garbage truck for miles because nobody explicitly rolled down their window and waved them over with a golden scepter.",
               "price": "17",
               "period": "/ 🦟 NUISANCE",
               "icon": "",
@@ -5108,7 +5193,7 @@ const SITE_CONFIG = {
                   "isGroup": false
                 },
                 {
-                  "label": "Passive-Aggressive Paralysis: Can slow down an entire active lane to a agonizing 12 MPH while drifting longingly toward the dotted white line, waiting for someone to stop and give them a turn.",
+                  "label": "Passive-Aggressive Paralysis: Can slow down an entire active lane to a agonizing 12 MPH while drifting longingly toward the dotted white line, waiting for someone to wave them into the lane, despite their being a gap in traffic large enough to land a 747.",
                   "status": "",
                   "isGroup": false
                 },
@@ -5297,8 +5382,8 @@ const SITE_CONFIG = {
             {
               "name": "Miss Guided",
               "tagline": "A human \"spinning loading icon\" who views the daily commute as an unplanned scavenger hunt. They treat every green light like a philosophical question and considers a highway exit sign to be merely a \"suggestion\" that requires at least three miles of internal debate.",
-              "price": "47",
-              "period": "/ CATASTROPHE",
+              "price": "28",
+              "period": "/ 🚧 OBSTACLE",
               "icon": "",
               "imagePath": "villains/miss-guided.jpg",
               "imageSize": "sq",
@@ -5433,7 +5518,7 @@ const SITE_CONFIG = {
               "name": "Pack Rat",
               "tagline": "A master of \"Automotive Tetris\" who views a vehicle’s maximum payload capacity as a personal insult. He operates on the firm belief that with enough twine, prayer, and a single \"that ain't goin' nowhere\" pat, a three-bedroom house can be successfully transported on the roof of a 2004 compact sedan.",
               "price": "38",
-              "period": "/ HAZARD",
+              "period": "/ ☢️ HAZARD",
               "icon": "",
               "imagePath": "villains/pack-rat.jpg",
               "imageSize": "sq",
@@ -5508,7 +5593,7 @@ const SITE_CONFIG = {
               "name": "Sir Brakes-A-Lot",
               "tagline": "A nervous Morse Code enthusiast who communicates with the world through a rhythmic, non-stop light show of red LEDs. He views every leaf, shadow, and distant cloud as a reason to panic-tap his pedal into oblivion.",
               "price": "32",
-              "period": "/ HAZARD",
+              "period": "/ ☢️ HAZARD",
               "icon": "",
               "imagePath": "villains/sir-brakes-a-lot.jpg",
               "imageSize": "sq",
@@ -7039,7 +7124,7 @@ const SITE_CONFIG = {
     "backLabel": "← Back to Home",
     "maxAttempts": 3,
     "welcomeMsg": "Welcome back, {name}",
-    "commissionerMsg": "Commissioner Access Granted",
+    "commissionerMsg": "RHV Access Granted",
     "welcomeDuration": 2,
     "showImposter": true,
     "imposterHeadline": "ACCESS DENIED",
@@ -7075,7 +7160,7 @@ const SITE_CONFIG = {
     "cp-14": "public",
     "cp-15": "public"
   },
-  "_savedAt": 1779337181717,
+  "_savedAt": 1779392767988,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""
