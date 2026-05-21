@@ -960,9 +960,9 @@ const SITE_CONFIG = {
             },
             {
               "name": "the Flasher",
-              "tagline": "The turn has been completed...or has it?",
-              "price": "",
-              "period": "",
+              "tagline": "The Flasher is the ultimate master of traffic-based psychological warfare. He operates with a singular, persistent mission: to make everyone around him doubt the very fabric of road safety. He initiates a lane change, moves into position, and then... simply forgets. His turn signal continues to click, rhythmically flashing like a SOS beacon meant to signal help from other villains, for miles on end. He is the personification of \"did they mean to do that, or are they lost forever?\"",
+              "price": "14",
+              "period": "/ 🦟 NUISANCE",
               "icon": "",
               "imagePath": "villains/the-flasher.jpg",
               "imageSize": "sq",
@@ -982,7 +982,27 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Can roll for miles with the turn signal flashing like its trying to wave down help from fellow villains",
+                  "label": "Endless Indicator: His blinker possesses a hypnotic, high-frequency \"tick-tock\" rhythm that can induce mild road hypnosis in trailing drivers, causing them to miss their own exits.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Decoy Maneuver: By leaving a blinker on for 10+ miles, he keeps surrounding drivers in a state of high-alert paralysis, never knowing if he will suddenly veer into them, speed up, or just continue existing in the wrong lane.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "\"Blinker-Bait\" Trap: He deliberately leaves the left signal on while staying perfectly centered in the right lane, baiting impatient commuters into passing him on the \"safe\" side, only to block them at the very last second.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Hypnotic Beacon: By leaving his turn signal active for miles, he transforms the rhythmic, amber flash into a literal psychological weapon. This \"trance-inducing pulse\" drains their aggression and replaces it with a vacant fugue state, effectively wiping their short-term memory causing them to miss their intended turns, and drift aimlessly, paralyzed by the monotonous click-clack of his signal.",
                   "status": "",
                   "isGroup": false
                 },
@@ -992,27 +1012,22 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "An opposite turn (temporary weakness)",
+                  "label": "Self-Canceling Tech: Modern cars with automatic signal shut-offs are his natural enemy; he is forced to manually re-activate his signal every 30 seconds, leading to a frantic, visible struggle that gives him away.",
                   "status": "",
                   "isGroup": false
                 },
                 {
-                  "label": "Burnt out bulb from overuse",
+                  "label": "Automotive Technicians: If a friendly Samaritan pulls up alongside him and frantically points at his blinker, the Flasher experiences a brief moment of shame, which is the only known way to deactivate his light.",
                   "status": "",
                   "isGroup": false
                 },
                 {
-                  "label": "Melted wiring",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Rival",
+                  "label": "Suggested Defense",
                   "status": "",
                   "isGroup": true
                 },
                 {
-                  "label": "Anti-Flasher",
+                  "label": "If you are driving behind The Flasher, do not try to \"guide\" him. He knows. He doesn't care. Treat him like a sentient construction cone: move around him, avoid his orbit, and never look at his turn signal—it is a trap designed to keep you from paying attention to your own lane!",
                   "status": "",
                   "isGroup": false
                 }
@@ -1192,7 +1207,7 @@ const SITE_CONFIG = {
               "name": "the Ghost",
               "tagline": "A lightless phantom who glides through torrential downpours, pitch-black nights, and overcast skies with absolutely zero illumination. He manages to preserve the pristine, factory-fresh lifespan of his headlight bulbs by months while simultaneously boosting his chances of a catastrophic multi-car pileup by roughly four hundred percent.",
               "price": "23",
-              "period": "/ 🦟 NUISANCE",
+              "period": "/ 🚧 OBSTACLE",
               "icon": "",
               "imagePath": "villains/the-ghost.jpg",
               "imageSize": "sq",
@@ -6559,12 +6574,12 @@ const SITE_CONFIG = {
               "cell3": "These villains represent a tangible disruption. They force you to actively change your driving behavior—such as switching lanes or riding your brakes—to maintain your commute."
             },
             {
-              "cell1": "31-45",
+              "cell1": "31-40",
               "cell2": "☢️  HAZARD",
               "cell3": "These are high-threat villains that demand immediate defensive driving. Their presence introduces physical danger (falling objects, mechanical failure) or extreme mental exhaustion. vehicle is a rolling safety violation; keep your distance."
             },
             {
-              "cell1": "46-50",
+              "cell1": "41-50",
               "cell2": "💣  CATASTROPHE",
               "cell3": "This is the \"Legendary\" tier. These villains possess the rare ability to shut down multiple lanes of traffic simultaneously or cause a \"localized vacuum of movement\" that can be felt for miles."
             }
@@ -7160,7 +7175,7 @@ const SITE_CONFIG = {
     "cp-14": "public",
     "cp-15": "public"
   },
-  "_savedAt": 1779392767988,
+  "_savedAt": 1779396958444,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""
