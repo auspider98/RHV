@@ -7007,25 +7007,6 @@ const SITE_CONFIG = {
               ]
             },
             {
-              "name": "Exit Panic",
-              "tagline": "Usually occurring when a driver is zoned out in the fast lane, this affliction triggers a realization that an exit is only seconds away. Instead of missing it, they initiate a catastrophic, four-lane swerve across traffic to hit the ramp at a dangerous angle, followed by an immediate acceleration to escape the scene of the crime.",
-              "price": "",
-              "period": "",
-              "icon": "",
-              "imagePath": "",
-              "imageSize": "sq",
-              "ribbon": "Afflictions",
-              "note": "",
-              "details": "",
-              "cardStyle": "light",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": []
-            },
-            {
               "name": "Holey Moley",
               "tagline": "A peculiar affliction rooted in a decreased sensation of pain. These villains seem to possess a strange attraction to road hazards, often steering their rigs directly into the deepest potholes as if they have a personal vendetta against their own suspension.",
               "price": "",
@@ -7234,6 +7215,25 @@ const SITE_CONFIG = {
                   "isGroup": false
                 }
               ]
+            },
+            {
+              "name": "Turd Cutter",
+              "tagline": "Usually occurring when a driver is zoned out in the fast lane, this affliction triggers a realization that an exit is only seconds away. Instead of missing it, they initiate a catastrophic, four-lane swerve across traffic to hit the ramp at a dangerous angle, followed by an immediate acceleration to escape the scene of the crime.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "afflictions/turd-cutter.jpg",
+              "imageSize": "sq",
+              "ribbon": "Afflictions",
+              "note": "",
+              "details": "",
+              "cardStyle": "light",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": []
             },
             {
               "name": "Wheeler Dealer",
@@ -8251,7 +8251,7 @@ const SITE_CONFIG = {
     "cp-14": "public",
     "cp-15": "public"
   },
-  "_savedAt": 1779998869772,
+  "_savedAt": 1779999138654,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""
