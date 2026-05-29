@@ -7226,14 +7226,65 @@ const SITE_CONFIG = {
               "imageSize": "sq",
               "ribbon": "Afflictions",
               "note": "",
-              "details": "",
+              "details": "PATH Breakdown",
               "cardStyle": "light",
               "featured": true,
               "cta_linkLabel": "",
               "cta_linkType": "none",
               "cta_linkUrl": "",
               "cta_anchorId": "",
-              "features": []
+              "features": [
+                {
+                  "label": "Level 1: The Nuisance",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "The driver realizes the exit late, slows down significantly in the middle lane, and waits for a gap to slowly drift over. Annoying, but keeps everyone mostly intact.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 2: The Hazard",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "The driver realizes the exit late and swerves abruptly across two lanes without signaling. Causes a chain reaction of hard braking behind them.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 3: The Menace",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "The \"Turd Cutter\" proper. They see the exit, decide they must make it, and dive across three or four lanes of high-speed traffic, forcing everyone else to hit their ABS or risk a collision.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 4: The Apex Rogue",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "The legend of the freeway. They execute the four-lane cut with such violent precision that they clip the plastic gore point barriers, send a trash can flying, and drift onto the ramp sideways, all while eating a breakfast burrito and maintaining eye contact with a terrified trucker.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Do not engage. If you see a Turd Cutter’s eyes widen while they stare at the overhead signs, you are already in the \"Danger Zone.\" Assume they will swerve. Back off, create a massive buffer, and let them take their exit. They’re a problem for the local authorities and the barrier wall now, not you.",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
             },
             {
               "name": "Wheeler Dealer",
@@ -8193,6 +8244,7 @@ const SITE_CONFIG = {
       ]
     }
   ],
+  "mapsApiKey": "",
   "footerBio": "Surviving Your Drive, One Villain at a Time",
   "animateStats": true,
   "contactSubmitLabel": "Update Villain Database",
@@ -8251,8 +8303,7 @@ const SITE_CONFIG = {
     "cp-14": "public",
     "cp-15": "public"
   },
-  "_savedAt": 1780014629836,
-  "mapsApiKey": "",
   "fontDisplayCustom": "",
-  "fontBodyCustom": ""
+  "fontBodyCustom": "",
+  "_savedAt": 1780026178047
 };
