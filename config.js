@@ -1211,7 +1211,7 @@ const SITE_CONFIG = {
             {
               "name": "General Oblivious",
               "tagline": "​General Oblivious is the living embodiment of the \"Main Character Syndrome\" on the asphalt. He genuinely believes that the highway is a vast, empty stage constructed solely for his convenience. When he drifts into the middle lane at 45 mph, he isn't being rude—he’s just cruising, and it simply never occurs to him that anyone else exists or has somewhere to be. Whether he's parked diagonally across three handicap spots or merging into a blind spot with the grace of a sleepy manatee, he remains entirely, blissfully, infuriatingly unaware of the chaos he leaves in his wake.",
-              "price": "30",
+              "price": "22",
               "period": "/ 🚧 OBSTACLE",
               "icon": "",
               "imagePath": "villains/general-oblivious.jpg",
@@ -1286,8 +1286,8 @@ const SITE_CONFIG = {
             {
               "name": "the Ghost",
               "tagline": "A lightless phantom who glides through torrential downpours, pitch-black nights, and overcast skies with absolutely zero illumination. He manages to preserve the pristine, factory-fresh lifespan of his headlight bulbs by months while simultaneously boosting his chances of a catastrophic multi-car pileup by roughly four hundred percent.",
-              "price": "23",
-              "period": "/ 🦟 NUISANCE",
+              "price": "31",
+              "period": "/ ☢️ HAZARD",
               "icon": "",
               "imagePath": "villains/the-ghost.jpg",
               "imageSize": "sq",
@@ -1436,8 +1436,8 @@ const SITE_CONFIG = {
             {
               "name": "OnRamp Pacer",
               "tagline": "OnRamp Pacer is a master of psychological warfare played out at 65 mph. This villain views the highway merge not as a cooperative necessity, but as a gladiator arena where they have decided you shall not pass. Even when the adjacent lane is wide open for a quarter-mile, the Pacer will position their vehicle with scientific precision to ensure your bumper is perpetually trapped in a \"mirror-match\" stalemate as your merging lane rapidly runs out of asphalt.",
-              "price": "31",
-              "period": "/ ☢️ HAZARD",
+              "price": "29",
+              "period": "/ 🚧 OBSTACLE",
               "icon": "",
               "imagePath": "villains/onramp-pacer.jpg",
               "imageSize": "sq",
@@ -1909,8 +1909,8 @@ const SITE_CONFIG = {
             {
               "name": "Handiscammer",
               "tagline": "A aggressively lazy parking lot pirate who treats the universal symbol of accessibility like a VIP pass to the front row of the asphalt arena. This completely capable, non-disabled rogue hoards spaces meant for those with genuine struggles, completely oblivious to the cosmic bad karma they are generating.",
-              "price": "25",
-              "period": "/ 🚧 OBSTACLE",
+              "price": "15",
+              "period": "/ 🦟 NUISANCE",
               "icon": "",
               "imagePath": "villains/handiscammer.jpg",
               "imageSize": "sq",
@@ -2059,8 +2059,8 @@ const SITE_CONFIG = {
             {
               "name": "Mini-Dan",
               "tagline": "A compromised sports-car enthusiast trapped in a suburban family pod, treating a dual-overhead-cam minivan like an absolute Formula 1 machine. Fueled by cold brew, soccer schedule anxiety, and a total refusal to accept his domestic reality, he will aggressively slide-tackle three lanes of gridlock to avoid being late for the school carpool line.",
-              "price": "28",
-              "period": "/ 🚧 OBSTACLE",
+              "price": "33",
+              "period": "/ ☢️ HAZARD",
               "icon": "",
               "imagePath": "villains/mini-dan.jpg",
               "imageSize": "sq",
@@ -2209,8 +2209,8 @@ const SITE_CONFIG = {
             {
               "name": "Shake N Bake",
               "tagline": "An ego-driven highway trap artist masquerading as a slow, passive obstacle. This vehicular shapeshifter perfectly mimics the low-speed crawl of casual traffic until a rival fellow villain draws parallel to pass—at which point its fragile pride erupts, instantly turning it into a hyper-aggressive land rocket that refuses to let anyone by.",
-              "price": "37",
-              "period": "/ ☢️ HAZARD",
+              "price": "26",
+              "period": "/ 🚧 OBSTACLE",
               "icon": "",
               "imagePath": "villains/shake-n-bake.jpg",
               "imageSize": "sq",
@@ -2359,7 +2359,7 @@ const SITE_CONFIG = {
             {
               "name": "Wheels",
               "tagline": "A hyper-aggressive speed demon who treats the ISA wheelchair emblem on their license plate like an official motorsport sponsorship and a permanent license to fly. This villain operates on a plane of pure asphalt confidence, absolutely refusing to give a single flip about mechanical or physical limits as they weave through traffic like they're charging hard on the final lap at Daytona.",
-              "price": "34",
+              "price": "39",
               "period": "/ ☢️ HAZARD",
               "icon": "",
               "imagePath": "villains/wheels.jpg",
@@ -2622,8 +2622,8 @@ const SITE_CONFIG = {
             {
               "name": "Larry Towncar",
               "tagline": "The absolute Original Gangster of gridlock, Larry operates a vehicle that doesn’t require a routine maintenance check—it requires a localized demolition permit. He is a master of weaponized kinetic resistance, single-handedly crippling entire multi-lane highway systems using nothing but pure mechanical friction and an intentional trail of structural debris.",
-              "price": "36",
-              "period": "/ ☢️ HAZARD",
+              "price": "28",
+              "period": "/ 🚧 OBSTACLE",
               "icon": "",
               "imagePath": "villains/larry-towncar.jpg",
               "imageSize": "sq",
@@ -2697,7 +2697,7 @@ const SITE_CONFIG = {
             {
               "name": "Muff-Oh-Lord",
               "tagline": "The loudest entity on four wheels, Muff-Oh-Lord commands a vehicle equipped with a heavily weathered, battle-scarred tailpipe that chokes out toxic exhaust clouds. His entire existence is an auditory assault, using a thunderous, low-frequency roar to project a psychological illusion of overwhelming vehicular dominance.",
-              "price": "27",
+              "price": "13",
               "period": "/ 🦟 NUISANCE",
               "icon": "",
               "imagePath": "villains/muff-oh-lord.jpg",
@@ -4003,7 +4003,7 @@ const SITE_CONFIG = {
             {
               "name": "Michelin Man",
               "tagline": "A delusionally bold highway speedster who treats monsoon rains, black ice, and blinding blizzards like a perfectly dry day at the track. Operating under the unflappable belief that his generic, bald tires possess supernatural grip far beyond manufacturer limits, he screams down the slick highway as if riding on invisible steel rails.",
-              "price": "33",
+              "price": "38",
               "period": "/ ☢️ HAZARD",
               "icon": "",
               "imagePath": "villains/michelin-man.jpg",
@@ -4819,8 +4819,8 @@ const SITE_CONFIG = {
             {
               "name": "De-Car-ator",
               "tagline": "De-Car-ator is the ultimate minimalist’s nightmare. He views the interior of his vehicle as a blank canvas, but instead of painting, he uses it as a repository for every \"As Seen on TV\" trinket, fuzzy dice set, suction-cup window ornament, and oversized bobblehead he has ever impulse-bought. He is a mobile hoarder, navigating the highway while peering through a tiny, keyhole-sized patch of windshield, blissfully unaware of the traffic chaos he causes by driving like a parade float that got lost in rush hour.",
-              "price": "32",
-              "period": "/ ☢️ HAZARD",
+              "price": "24",
+              "period": "/ 🚧 OBSTACLE",
               "icon": "",
               "imagePath": "villains/de-car-ator.jpg",
               "imageSize": "sq",
@@ -4894,8 +4894,8 @@ const SITE_CONFIG = {
             {
               "name": "Excessorizer",
               "tagline": "Excessorizer is the ultimate cautionary tale of what happens when you spend too much time at an auto-parts clearance sale. He has transformed his vehicle into a rolling architectural disaster, bolting on every non-compatible accessory in existence. We're talking fender flares that don’t fit, spoilers that act as parachutes, and mud flaps that are technically just rubber sheets dangling by duct tape. He doesn’t drive so much as he \"clatters\" through traffic, shedding cheap plastic bits like a shedding reptile.",
-              "price": "32",
-              "period": "/ ☢️ HAZARD",
+              "price": "21",
+              "period": "/ 🚧 OBSTACLE",
               "icon": "",
               "imagePath": "villains/excessorizer.jpg",
               "imageSize": "sq",
@@ -4969,8 +4969,8 @@ const SITE_CONFIG = {
             {
               "name": "GI Joker",
               "tagline": "GI Joker is the ultimate \"mall-crawler\" gone rogue. He’s driving a lifted, camo-painted, off-road monstrosity that has seen more speed bumps than dirt trails. He treats the daily commute like a tactical military operation, constantly engaging his four-wheel-drive low range to climb over median strips just to skip a few spots in line. He’s loud (Free Bird), he’s aggressive, and he’s convinced that his massive mud tires are a status symbol, even when the only thing they’ve ever crushed are tossed out soda cans and fast food bags.",
-              "price": "33",
-              "period": "/ ☢️ HAZARD",
+              "price": "22",
+              "period": "/ 🚧 OBSTACLE",
               "icon": "",
               "imagePath": "villains/gi-joker.jpg",
               "imageSize": "sq",
@@ -5044,7 +5044,7 @@ const SITE_CONFIG = {
             {
               "name": "the Messenger",
               "tagline": "The Messenger is the automotive equivalent of a soapbox preacher who realized that captive audiences in traffic are the best way to spread \"the word.\" Their vehicle is a rolling billboard of cryptic stickers, aggressive bumper decals, and hand-painted political manifestos. They don’t just drive; they proselytize. They’ll pull up alongside you, hold up a single-word sign that makes zero sense, and then speed off, leaving you to ponder your entire existence while you’re stuck in second gear.",
-              "price": "22",
+              "price": "12",
               "period": "/ 🦟 NUISANCE",
               "icon": "",
               "imagePath": "villains/the-messenger.jpg",
@@ -5757,7 +5757,7 @@ const SITE_CONFIG = {
             {
               "name": "Lame Changer",
               "tagline": "This is a driver paralyzed by the terrifying prospect of the automotive social contract. Lame Changer spends their entire morning commute in a state of terminal politeness, desperately wishing to switch lanes but refusing to do so without a formal, notarized invitation from a fellow commuter. They float down the highway like a timid ghost, trapped behind a slow-moving garbage truck for miles because nobody explicitly rolled down their window and waved them over with a golden scepter.",
-              "price": "17",
+              "price": "15",
               "period": "/ 🦟 NUISANCE",
               "icon": "",
               "imagePath": "villains/lame-changer.jpg",
@@ -6183,7 +6183,7 @@ const SITE_CONFIG = {
               "name": "Sir Brakes-A-Lot",
               "tagline": "A nervous Morse Code enthusiast who communicates with the world through a rhythmic, non-stop light show of red LEDs. He views every leaf, shadow, and distant cloud as a reason to panic-tap his pedal into oblivion.",
               "price": "32",
-              "period": "/ HAZARD",
+              "period": "/ ☢️ HAZARD",
               "icon": "",
               "imagePath": "villains/sir-brakes-a-lot.jpg",
               "imageSize": "sq",
@@ -6363,6 +6363,146 @@ const SITE_CONFIG = {
           "maxCols": 2,
           "items": [
             {
+              "name": "Brake-Thru",
+              "tagline": "Unlike the chaotic instigators that plague our highways, Brake-Thru is the absolute authority of traffic flow. He is the only commuter capable of parting the most aggressive, bumper-to-bumper gridlock simply by raising a hand. When the road reaches a standstill, he steps out, commands the lanes to widen, and creates a clear, miraculous path for the stranded. He doesn't just drive; he creates order out of absolute, vehicular anarchy.",
+              "price": "9",
+              "period": "/ 🦟 NUISANCE",
+              "icon": "",
+              "imagePath": "hero/brake-thru.jpg",
+              "imageSize": "sq",
+              "ribbon": "H.E.R.O.",
+              "note": "",
+              "details": "",
+              "cardStyle": "gold",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilitites",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Parting Maneuver: Can instantly force the most stubborn, aggressive commuters to yield, creating a perfectly clear lane out of thin air.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Gridlock Calm: Radiates a field of \"Zen-Commuting\" that instantly dissolves the fury of road-raging drivers, rendering them docile and obedient.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Parting Brakes:\n​Applying equal parts brakes and equal parts patience, cars on either side of his lane are forced to slow and pull even with him, leaving a straight, unobstructed path for the weary to pass through.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "High Maintenance: His \"Parting\" maneuver is physically and mentally exhausting, meaning he can only use it sparingly per commute.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Villain Magnet: Every road villain in a 5-mile radius, sensing his calm order, will desperately try to cut him off or block his path out of pure, spiteful jealousy.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "If you see Brake-Thru, do not honk. Do not try to cut him off. Simply stay in your lane, salute respectfully as he parts the sea of madness for you, and savor the rare, fleeting sensation of driving through traffic without wanting to scream.",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Green Horn-It",
+              "tagline": "A self-appointed mercenary of mechanical justice who patrols the asphalt to aggressively shatter the digital trance of intersection idling. Operating out of a battered pickup truck rigged with an industrial soundscape, this rogue vigilante targets phone-obsessed villains whose brains completely lock up the moment a red light goes green.",
+              "price": "14",
+              "period": "/ 🦟 NUISANCE",
+              "icon": "",
+              "imagePath": "hero/green-horn-it.jpg",
+              "imageSize": "sq",
+              "ribbon": "H.E.R.O.",
+              "note": "",
+              "details": "",
+              "cardStyle": "gold",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilities",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Vigilante Standoff: Positions his vehicle precisely one car length behind distracted villains at traffic lights, monitoring their windshield silhouettes for the telltale, downward glow of an illuminated smartphone.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Lightning-Fast Reflex Threshold: Operates on an absolute fraction-of-a-second trigger, tracking the precise millisecond an intersection signal switches to green with the accuracy of an Olympic drag racer.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Decibel Shockwave: If an idling villain remains stationary for more than 0.2 seconds after a light changes, he drops the hammer on his horn, unleashing a sonic wallop loud enough to rattle a smartphone straight out of a villain's hands and vibrate their entire chassis into immediate motion.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Air Compressor Recharge Lag: His devastating sonic blasts consume massive amounts of pressurized air; if forced to clear an entire gridlocked boulevard of phone-gazers consecutively, his horns will temporarily drop in pitch from a terrifying locomotive roar to a sad, wheezing duck call.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "If you wind up trapped at a red light directly in front of Green Horn-It, treat your dashboard like a bomb defusal sequence. Put the smartphone down, lock your eyes onto the traffic signal overhead, and keep your foot hovered over the gas pedal. The millisecond that light turns green, you move—otherwise, your eardrums are going to be forcibly relocated to the backseat of your car.",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
               "name": "Half-Nelson",
               "tagline": "A self-appointed \"guardian angel\" of construction zones who believes the highway is his personal chess board. While he fancies himself a righteous hero holding the line against queue-jumping rogues, his signature maneuver—straddling two lanes at a glacial pace—makes him the ultimate bottlenecking force on the road.",
               "price": "19",
@@ -6502,146 +6642,6 @@ const SITE_CONFIG = {
                 },
                 {
                   "label": "If you are cruising down the highway and your cabin suddenly starts vibrating to the sound of a phantom freight train, do not look back. You have stepped into Slow Plow's crosshairs. Do not attempt to tap your brakes or assert dominance. Hit your turn signal immediately, migrate to the right-hand lane among the lesser villains, and let this high-speed locomotive of justice sweep the pavement clean!",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            },
-            {
-              "name": "Green Horn-It",
-              "tagline": "A self-appointed mercenary of mechanical justice who patrols the asphalt to aggressively shatter the digital trance of intersection idling. Operating out of a battered pickup truck rigged with an industrial soundscape, this rogue vigilante targets phone-obsessed villains whose brains completely lock up the moment a red light goes green.",
-              "price": "14",
-              "period": "/ 🦟 NUISANCE",
-              "icon": "",
-              "imagePath": "hero/green-horn-it.jpg",
-              "imageSize": "sq",
-              "ribbon": "H.E.R.O.",
-              "note": "",
-              "details": "",
-              "cardStyle": "gold",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": [
-                {
-                  "label": "Abilities",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Vigilante Standoff: Positions his vehicle precisely one car length behind distracted villains at traffic lights, monitoring their windshield silhouettes for the telltale, downward glow of an illuminated smartphone.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Lightning-Fast Reflex Threshold: Operates on an absolute fraction-of-a-second trigger, tracking the precise millisecond an intersection signal switches to green with the accuracy of an Olympic drag racer.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Special Weapons",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Decibel Shockwave: If an idling villain remains stationary for more than 0.2 seconds after a light changes, he drops the hammer on his horn, unleashing a sonic wallop loud enough to rattle a smartphone straight out of a villain's hands and vibrate their entire chassis into immediate motion.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Air Compressor Recharge Lag: His devastating sonic blasts consume massive amounts of pressurized air; if forced to clear an entire gridlocked boulevard of phone-gazers consecutively, his horns will temporarily drop in pitch from a terrifying locomotive roar to a sad, wheezing duck call.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Suggested Defense",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "If you wind up trapped at a red light directly in front of Green Horn-It, treat your dashboard like a bomb defusal sequence. Put the smartphone down, lock your eyes onto the traffic signal overhead, and keep your foot hovered over the gas pedal. The millisecond that light turns green, you move—otherwise, your eardrums are going to be forcibly relocated to the backseat of your car.",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            },
-            {
-              "name": "Brake-Thru",
-              "tagline": "Unlike the chaotic instigators that plague our highways, Brake-Thru is the absolute authority of traffic flow. He is the only commuter capable of parting the most aggressive, bumper-to-bumper gridlock simply by raising a hand. When the road reaches a standstill, he steps out, commands the lanes to widen, and creates a clear, miraculous path for the stranded. He doesn't just drive; he creates order out of absolute, vehicular anarchy.",
-              "price": "9",
-              "period": "/ 🦟 NUISANCE",
-              "icon": "",
-              "imagePath": "hero/brake-thru.jpg",
-              "imageSize": "sq",
-              "ribbon": "H.E.R.O.",
-              "note": "",
-              "details": "",
-              "cardStyle": "gold",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": [
-                {
-                  "label": "Abilitites",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Parting Maneuver: Can instantly force the most stubborn, aggressive commuters to yield, creating a perfectly clear lane out of thin air.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Gridlock Calm: Radiates a field of \"Zen-Commuting\" that instantly dissolves the fury of road-raging drivers, rendering them docile and obedient.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Special Weapons",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Parting Brakes:\n​Applying equal parts brakes and equal parts patience, cars on either side of his lane are forced to slow and pull even with him, leaving a straight, unobstructed path for the weary to pass through.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "High Maintenance: His \"Parting\" maneuver is physically and mentally exhausting, meaning he can only use it sparingly per commute.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Villain Magnet: Every road villain in a 5-mile radius, sensing his calm order, will desperately try to cut him off or block his path out of pure, spiteful jealousy.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Suggested Defense",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "If you see Brake-Thru, do not honk. Do not try to cut him off. Simply stay in your lane, salute respectfully as he parts the sea of madness for you, and savor the rare, fleeting sensation of driving through traffic without wanting to scream.",
                   "status": "",
                   "isGroup": false
                 }
@@ -8251,7 +8251,7 @@ const SITE_CONFIG = {
     "cp-14": "public",
     "cp-15": "public"
   },
-  "_savedAt": 1779999138654,
+  "_savedAt": 1780014629836,
   "mapsApiKey": "",
   "fontDisplayCustom": "",
   "fontBodyCustom": ""
