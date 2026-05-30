@@ -1286,7 +1286,7 @@ const SITE_CONFIG = {
             {
               "name": "the Ghost",
               "tagline": "A lightless phantom who glides through torrential downpours, pitch-black nights, and overcast skies with absolutely zero illumination. He manages to preserve the pristine, factory-fresh lifespan of his headlight bulbs by months while simultaneously boosting his chances of a catastrophic multi-car pileup by roughly four hundred percent.",
-              "price": "31",
+              "price": "34",
               "period": "/ ☢️ HAZARD",
               "icon": "",
               "imagePath": "villains/the-ghost.jpg",
@@ -1361,7 +1361,7 @@ const SITE_CONFIG = {
             {
               "name": "LED Ed",
               "tagline": "LED Ed is the king of unnecessary thrift. He is the guy who navigates pitch-black country roads at midnight using only his decorative, low-wattage Daytime Running Lights (DRLs), firmly convinced that he is \"saving the environment\" (and his wallet) by not using his actual headlights. He exists in a perpetual state of \"twilight visibility,\" where he can barely see the road, and absolutely no one else can see him.",
-              "price": "33",
+              "price": "31",
               "period": "/ ☢️ HAZARD",
               "icon": "",
               "imagePath": "villains/led-ed.jpg",
@@ -8455,5 +8455,5 @@ const SITE_CONFIG = {
   },
   "fontDisplayCustom": "",
   "fontBodyCustom": "",
-  "_savedAt": 1780116127710
+  "_savedAt": 1780172674823
 };
