@@ -480,16 +480,6 @@ const SITE_CONFIG = {
           "subtitle": "",
           "items": [
             {
-              "title": "Junkyard Dawgs",
-              "body": "The Junkyard Dawgs are the immortal iron of the highway, a clan of rust-covered relics that refuse to go gently into that good scrap heap.",
-              "linkLabel": "Junkyard Dawgs",
-              "linkType": "internal",
-              "linkUrl": "junkyard-dawgs",
-              "anchorId": "",
-              "imagePath": "clans/junkyarddawgs.png",
-              "imageSize": "sm"
-            },
-            {
               "title": "Bubble Brigade",
               "body": "The Bubble Brigade is a specialized clan of road rogues who operate under a single, unwavering philosophy: \"I am the only person currently in existence.\"",
               "linkLabel": "Bubble Brigade",
@@ -507,6 +497,16 @@ const SITE_CONFIG = {
               "linkUrl": "decepticars",
               "anchorId": "",
               "imagePath": "clans/decepticars.png",
+              "imageSize": "sm"
+            },
+            {
+              "title": "Junkyard Dawgs",
+              "body": "The Junkyard Dawgs are the immortal iron of the highway, a clan of rust-covered relics that refuse to go gently into that good scrap heap.",
+              "linkLabel": "Junkyard Dawgs",
+              "linkType": "internal",
+              "linkUrl": "junkyard-dawgs",
+              "anchorId": "",
+              "imagePath": "clans/junkyarddawgs.png",
               "imageSize": "sm"
             },
             {
@@ -8530,5 +8530,5 @@ const SITE_CONFIG = {
   },
   "fontDisplayCustom": "",
   "fontBodyCustom": "",
-  "_savedAt": 1780269883330
+  "_savedAt": 1780272102363
 };
