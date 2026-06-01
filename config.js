@@ -6280,6 +6280,81 @@ const SITE_CONFIG = {
               ]
             },
             {
+              "name": "Lazy Susan",
+              "tagline": "Lazy Susan views a green turn arrow light not as a prompt to move, but as an invitation to engage in deep contemplation, completely indifferent to the line of frustrated commuters waiting for their turn behind them.",
+              "price": "15",
+              "period": "/ 🦟",
+              "icon": "",
+              "imagePath": "villains/lazy-susan.jpg",
+              "imageSize": "sq",
+              "ribbon": "Slow Moes",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilitites",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Turn-Signal Stagnation: Master of the \"timed-out turn,\" where they intentionally delay moving through a turn arrow signal, ensuring that only they (or perhaps no one) make it through the light.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Mass Inconvenience: Has an unmatched ability to trap other drivers, forcing them to endure another full sequence of light changes simply because they couldn't be bothered to accelerate.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Total Indifference: Their calm, unhurried demeanor is the perfect weapon to escalate the irritation of everyone stuck in the lane behind them.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "U Turn: This extra slow turn is so procedural that they easily clog the turn lane up for hours as a dominoing effect of this premeditated assault on the asphalt.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Flashing Adaptations: Their influence is neutralized by arrow lights that transition to flashing signals, allowing the trapped line of cars to proceed without waiting for a full cycle.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Lazy Bottleneck: They are vulnerable to their own kind; if a Lazy Susan finds themselves stuck behind another Lazy Susan, they can become trapped in the very cycle they so often inflict upon others.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "​If you find yourself behind a Lazy Susan at a turning arrow, prepare for a long wait. Do not expect them to hurry. The best strategy is to maintain your composure, as their lack of awareness is a permanent feature of their driving style, not a temporary lapse.",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
               "name": "Leftie",
               "tagline": "Leftie is convinced that the entire global automotive industry has been lying to us for a century. Operating under the terrifying delusion that using only one foot to drive is \"dangerous and confusing,\" he tackles the highway using the forbidden two-footed technique. By constantly keeping his left foot planted firmly on the brake pedal while his right stomps the gas, Leftie completely breaks the laws of standard kinetic motion, masterfully dragging his brakes to turn acceleration and deceleration into one long, smoky, agonizingly slow physics experiment.",
               "price": "15",
@@ -8825,5 +8900,5 @@ const SITE_CONFIG = {
   },
   "fontDisplayCustom": "",
   "fontBodyCustom": "",
-  "_savedAt": 1780288322796
+  "_savedAt": 1780337460312
 };
