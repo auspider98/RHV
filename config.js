@@ -4366,6 +4366,81 @@ const SITE_CONFIG = {
               ]
             },
             {
+              "name": "Whipper Snapper",
+              "tagline": "The Whipper Snapper is a high-strung, trailer-towing menace who views the rules of the road as obstacles to their destination, whether they are racing to a fishing tournament, desperately trying to make a landscaping job, or simply lacking the spatial awareness required for towing heavy equipment, this villain is the roadway’s most anxious architect of trailer-related turbulence",
+              "price": "46",
+              "period": "/ 💣 CATASTROPHE",
+              "icon": "",
+              "imagePath": "villains/whipper-snapper.jpg",
+              "imageSize": "sq",
+              "ribbon": "KinEvils",
+              "note": "",
+              "details": "",
+              "cardStyle": "dark",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Abilitites",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Tail-Swing Terror: Master of the \"jackknife drift,\" utilizing their trailer to widen their turning radius and unpredictably sweep through adjacent lanes.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaving Wizardry: Possesses the reckless, misguided talent of weaving through highway traffic while hauling an oversized, swaying trailer, treating the entire road like a slalom course.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Special Weapons",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Unanchored Cargo: Anything not strapped down perfectly—be it lawn debris, fishing gear, or miscellaneous tools—becomes a high-speed projectile for the vehicles behind them.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "\"I’m Late\" Aura: Their extreme impatience and visible panic behind the wheel signal to everyone around them that they are about to make an incredibly poor driving decision.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Weaknesses",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Inherent Impatience: Their desperate need to arrive quickly prevents them from driving with the caution and reduced speed required when towing a trailer.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Spatial Blindness: A complete inability to judge the length and handling dynamics of their vehicle-trailer combination makes them a hazard to themselves and every commuter in their vicinity.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "If you see a vehicle struggling to manage a trailer while aggressively changing lanes, do not attempt to pass them. The Whipper Snapper is operating on a deadline, and their lack of control means they are liable to swerve at any moment. Increase your following distance until they have cleared your area of the highway.",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
               "name": "Wrongabout",
               "tagline": "Completely baffled by modern infrastructure, this directional dissident treats roundabout traffic circles like a philosophical suggestion. He has a terrifyingly casual talent for pulling a clockwise shortcut through a counter-clockwise zone, looking as relaxed as a man taking a Sunday stroll through a minefield.",
               "price": "37",
@@ -4430,81 +4505,6 @@ const SITE_CONFIG = {
                 },
                 {
                   "label": "If you spot Wrongabout entering a roundabout, abort your flight path immediately and treat the center concrete island like high ground during a flash flood. Do not try to claim your right-of-way; physics does not care about your traffic laws, and neither does he. Pull onto the shoulder or take the nearest emergency exit out of the circle, go find a nice, safe rectangular parking lot, and wait for the screeching metal to stop echoing.",
-                  "status": "",
-                  "isGroup": false
-                }
-              ]
-            },
-            {
-              "name": "Whipper Snapper",
-              "tagline": "The Whipper Snapper is a high-strung, trailer-towing menace who views the rules of the road as obstacles to their destination, whether they are racing to a fishing tournament, desperately trying to make a landscaping job, or simply lacking the spatial awareness required for towing heavy equipment, this villain is the roadway’s most anxious architect of trailer-related turbulence",
-              "price": "46",
-              "period": "/ 💣 CATASTROPHE",
-              "icon": "",
-              "imagePath": "villain/whipper-snapper.jpg",
-              "imageSize": "sq",
-              "ribbon": "KinEvils",
-              "note": "",
-              "details": "",
-              "cardStyle": "dark",
-              "featured": true,
-              "cta_linkLabel": "",
-              "cta_linkType": "none",
-              "cta_linkUrl": "",
-              "cta_anchorId": "",
-              "features": [
-                {
-                  "label": "Abilitites",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Tail-Swing Terror: Master of the \"jackknife drift,\" utilizing their trailer to widen their turning radius and unpredictably sweep through adjacent lanes.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Weaving Wizardry: Possesses the reckless, misguided talent of weaving through highway traffic while hauling an oversized, swaying trailer, treating the entire road like a slalom course.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Special Weapons",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Unanchored Cargo: Anything not strapped down perfectly—be it lawn debris, fishing gear, or miscellaneous tools—becomes a high-speed projectile for the vehicles behind them.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "\"I’m Late\" Aura: Their extreme impatience and visible panic behind the wheel signal to everyone around them that they are about to make an incredibly poor driving decision.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Weaknesses",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "Inherent Impatience: Their desperate need to arrive quickly prevents them from driving with the caution and reduced speed required when towing a trailer.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Spatial Blindness: A complete inability to judge the length and handling dynamics of their vehicle-trailer combination makes them a hazard to themselves and every commuter in their vicinity.",
-                  "status": "",
-                  "isGroup": false
-                },
-                {
-                  "label": "Suggested Defense",
-                  "status": "",
-                  "isGroup": true
-                },
-                {
-                  "label": "If you see a vehicle struggling to manage a trailer while aggressively changing lanes, do not attempt to pass them. The Whipper Snapper is operating on a deadline, and their lack of control means they are liable to swerve at any moment. Increase your following distance until they have cleared your area of the highway.",
                   "status": "",
                   "isGroup": false
                 }
@@ -8900,5 +8900,5 @@ const SITE_CONFIG = {
   },
   "fontDisplayCustom": "",
   "fontBodyCustom": "",
-  "_savedAt": 1780337460312
+  "_savedAt": 1780340113134
 };
