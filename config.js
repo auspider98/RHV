@@ -7812,6 +7812,76 @@ const SITE_CONFIG = {
               ]
             },
             {
+              "name": "Hub-Capeica",
+              "tagline": "Hub-Capecia is the tragic, thinning hairline of a villains world. It begins with the loss of a single hubcap, often discarded in a pothole as if to say, \"I’m tired of this circular existence.\" Left untreated, it progresses into a full-blown case of \"rim-baldness,\" leaving your vehicle’s steel wheels exposed to the cruel, judgemental gaze of every other driver on the highway. It’s not just a mechanical failure; it’s a mid-life crisis for your tires.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "afflictions/hub-capeica.jpg",
+              "imageSize": "sq",
+              "ribbon": "Afflictions",
+              "note": "",
+              "details": "PATH Breakdown",
+              "cardStyle": "light",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Level 1: The Nuisance",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "The Sparse Spot: A single hubcap goes missing, usually after a run-in with a jagged pothole. The car looks perfectly normal from one side but carries a secret of vulnerability on the other.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 2: The Hazard",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "The Patchy Phase: Known as Hub-Capecia Areata, the vehicle begins to shed its plastic skin in inconsistent patterns. You’re left with a jagged aesthetic of two plastic covers remaining and two wheels feeling the breeze of the open road.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 3: The Menace",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "The Exposed Rim: The remaining hubcaps have become loose, rattling with a rhythmic clack-clack-clack that serves as a warning to all nearby pedestrians. The metal underneath is starting to show signs of oxidation and embarrassment.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 4: The Apex Rogue",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Hub-Capecia Totalis: Complete rim baldness. All four hubcaps have been surrendered to the asphalt gods. The car is now rocking the \"raw industrial\" look, effectively announcing to the world that maintenance is a suggestion rather than a priority.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "If you encounter a vehicle suffering from Hub-Capecia, keep your distance. That \"clack-clack\" noise is actually the sound of a projectile preparing for takeoff; a loose hubcap is essentially a plastic frisbee waiting to find your windshield. If you own a vehicle with this condition, a liberal application of heavy-duty zip ties can provide a temporary, albeit unsightly, structural bandage until you can afford a new set of covers.",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
               "name": "Lane Envy",
               "tagline": "Driven by the belief that the asphalt is smoother on the other side of those double yellow lines, villains with this affliction will often dip at least 2 of their wheels into the opposing lane, especially around curves. Suffering from tunnel vision and crippled depth perception, these afflicted villains are unable to stay content with the side of the road they currently occupy.",
               "price": "",
@@ -9021,5 +9091,5 @@ const SITE_CONFIG = {
   },
   "fontDisplayCustom": "",
   "fontBodyCustom": "",
-  "_savedAt": 1780373851043
+  "_savedAt": 1780414096009
 };
