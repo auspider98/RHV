@@ -7333,12 +7333,26 @@ const SITE_CONFIG = {
       "hiddenFromNav": false,
       "sections": [
         {
-          "type": "flip-cards",
+          "type": "two-col",
           "label": "Contagious",
           "background": "dark",
           "anchorId": "afflictions",
           "heading": "Afflictions",
-          "subtitle": "Villains are no different than anyone else; they, too, are susceptible to the siren song of bad habits, poor trends, and total lapses in judgment. These, Afflictions, are the erratic psychological behaviors that transform a routine drive into a masterclass of highway misery. Highly volatile and notoriously unpredictable, an affliction can manifest in any villain at a moment’s notice, and it is entirely possible to cycle through multiple conditions in a single day. Whether you are tracking a local menace or documenting your own commute, understand this: these afflictions are the true engines of chaos on our asphalt, spreading one bad decision at a time. Afflictions can turn even a nuisance villain into a catastrophic villain in the blink of a tiktok video.\n\nTo identity the severity of the affliction, we use the Pathological Affliction Tracking Hierarchy (PATH), to categorize the progression of a villain’s behavior from a minor annoyance into a full-blown traffic catastrophe.\n\nPATH Breakdown:\nLevel 1: The Nuisance (The \"Initial Symptom\")  -  Minor, quirky, or slightly distracted habits.\nLevel 2: The Hazard (The \"Behavioral Shift\")  -  Consistent, distracting behavior interfering with others.\nLevel 3: The Menace (The \"Public Threat\")  -  Reality-detached, extreme, or \"necessary\" behavior.\nLevel 4: The Apex Rogue (The \"Gridlock Legend\")  -  Fully identity-defined, terminal chaos.",
+          "body": "Villains are no different than anyone else; they, too, are susceptible to the siren song of bad habits, poor trends, and total lapses in judgment. These, Afflictions, are the erratic psychological behaviors that transform a routine drive into a masterclass of highway misery. Highly volatile and notoriously unpredictable, an affliction can manifest in any villain at a moment’s notice, and it is entirely possible to cycle through multiple conditions in a single day. \n\nTo identity the severity of the affliction, we use the Pathological Affliction Tracking Hierarchy (PATH), to categorize the progression of a villain’s behavior from a minor annoyance into a full-blown traffic catastrophe.\n\nLevel 1: The Nuisance (The \"Initial Symptom\")  -  Minor, quirky, or slightly distracted habits.\nLevel 2: The Hazard (The \"Behavioral Shift\")  -  Consistent, distracting behavior interfering with others.\nLevel 3: The Menace (The \"Public Threat\")  -  Reality-detached, extreme, or \"necessary\" behavior.\nLevel 4: The Apex Rogue (The \"Gridlock Legend\")  -  Fully identity-defined, terminal chaos.",
+          "imagePath": "afflictions/afflictions.png",
+          "imagePosition": "left",
+          "imageMaxWidth": "300",
+          "cta_linkType": "none",
+          "cta_linkUrl": "home",
+          "cta_linkLabel": ""
+        },
+        {
+          "type": "flip-cards",
+          "label": "",
+          "background": "dark",
+          "anchorId": "afflictions-chart",
+          "heading": "",
+          "subtitle": "",
           "maxCols": 2,
           "items": [
             {
@@ -7365,7 +7379,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The vehicle has a minor, cosmetic \"boo-boo\"—a slightly loose bumper or a cracked turn signal cover held on by a single, hopeful piece of duct tape.",
+                  "label": "The villain has a minor, cosmetic \"boo-boo\"—a slightly loose bumper or a cracked turn signal cover held on by a single, hopeful piece of duct tape.",
                   "status": "",
                   "isGroup": false
                 },
@@ -7385,7 +7399,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The vehicle is essentially a structural suggestion. Entire doors have been replaced by garbage bags or missing, and the car leaves a permanent wake of nuts, bolts, and mystery metal on the road.",
+                  "label": "The villain is essentially a structural suggestion. Entire doors have been replaced by garbage bags or missing, and the car leaves a permanent wake of nuts, bolts, and mystery metal on the road.",
                   "status": "",
                   "isGroup": false
                 },
@@ -7395,7 +7409,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The \"Ghost Ship\" state. The vehicle is barely held together by rust and sheer stubbornness. It is literally falling apart in real-time, shedding parts like a molting reptile, yet the villain drives on with total, terrifying confidence.",
+                  "label": "The \"Ghost Ship\" state. The villain is barely held together by rust and sheer stubbornness. It is literally falling apart in real-time, shedding parts like a molting reptile, yet the villain drives on with total, terrifying confidence.",
                   "status": "",
                   "isGroup": false
                 },
@@ -7468,6 +7482,16 @@ const SITE_CONFIG = {
                   "label": "The pet has a custom seat, the driver has modified the controls to be \"pet-friendly,\" and the vehicle is essentially a moving, chaotic, high-speed pet playground.",
                   "status": "",
                   "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "If you encounter Co-Pet, immediately remove yourself from the area with a quick exit, or a right turn onto whatever street, or break in the cement curb comes next. There's no defense, except escape.",
+                  "status": "",
+                  "isGroup": false
                 }
               ]
             },
@@ -7533,7 +7557,7 @@ const SITE_CONFIG = {
             },
             {
               "name": "Ear Buddy",
-              "tagline": "Common among drivers of convertibles suffering from a deep sense of inferiority. They cling to their phone as a status symbol, acting as if they are constantly needed, even when the device is neither charged nor functioning.",
+              "tagline": "Common among convertible villains suffering from a deep sense of inferiority. They cling to their phone as a status symbol, acting as if they are constantly needed, even when the device is neither charged nor functioning.",
               "price": "",
               "period": "",
               "icon": "",
@@ -7555,7 +7579,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The driver begins carrying their phone or an empty headset, clutching it as a status symbol to feel \"important.\"",
+                  "label": "The villain begins carrying their phone or an empty headset, clutching it as a status symbol to feel \"important.\"",
                   "status": "",
                   "isGroup": false
                 },
@@ -7575,7 +7599,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The driver stops looking at the road entirely, completely consumed by the performance of being \"needed.\" They may even stop in the middle of a lane to \"take a call\" on their uncharged device.",
+                  "label": "The villain stops looking at the road entirely, completely consumed by the performance of being \"needed.\" They may even stop in the middle of a lane to \"take a call\" on their uncharged device.",
                   "status": "",
                   "isGroup": false
                 },
@@ -7603,7 +7627,7 @@ const SITE_CONFIG = {
             },
             {
               "name": "ER Blockage",
-              "tagline": "Emergency Road Blockage is a condition that leaves the villain in a dreamy, dissociative state characterized by severe hearing loss and a total lack of spatial awareness. They effectively become a living nightmare for emergency vehicles by stubbornly refusing to acknowledge their surroundings, and get out of the $@!? way.",
+              "tagline": "Emergency Road Blockage is a condition that leaves the villain in a dreamy, dissociative state characterized by severe hearing loss and a total lack of spatial awareness. They effectively become a living nightmare for emergency vehicles by stubbornly refusing to acknowledge their surroundings, and getting $@!? out of the way.",
               "price": "",
               "period": "",
               "icon": "",
@@ -7625,7 +7649,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The driver displays minor, intermittent gaps in spatial awareness, perhaps failing to notice a merging lane or a slow-moving vehicle ahead.",
+                  "label": "The villain displays minor, intermittent gaps in spatial awareness, perhaps failing to notice a merging lane or a slow-moving vehicle ahead.",
                   "status": "",
                   "isGroup": false
                 },
@@ -7645,7 +7669,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The driver enters a total state of auditory and spatial detachment. They become a literal obstacle, often halting in traffic lanes or blocking access points, acting as a nightmare for other drivers and emergency vehicles.",
+                  "label": "The villain enters a total state of auditory and spatial detachment. They become a literal obstacle, often halting in traffic lanes or blocking access points, acting as a nightmare for other drivers and emergency vehicles.",
                   "status": "",
                   "isGroup": false
                 },
@@ -7673,7 +7697,7 @@ const SITE_CONFIG = {
             },
             {
               "name": "Fendertitus",
-              "tagline": "Fendertitus is the automotive equivalent of wearing a tuxedo jacket with mismatched gym shorts. It occurs when a vehicle suffers a minor \"oopsie\" and is \"repaired\" using whatever spare parts were lying around the salvage yard—regardless of color, year, or aesthetic dignity. The result is a mechanical Frankenstein’s monster that screams, \"I gave up on life three fender-benders ago!\"",
+              "tagline": "Fendertitus is the villains equivalent of wearing a tuxedo jacket with mismatched gym shorts. It occurs when a villain suffers a minor \"oopsie\" and is \"repaired\" using whatever spare parts were lying around the salvage yard—regardless of color, year, or aesthetic dignity. The result is a mechanical Frankenstein’s monster that screams, \"I gave up on life three fender-benders ago!\"",
               "price": "",
               "period": "",
               "icon": "",
@@ -7695,7 +7719,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The Mismatch: One panel—usually the front passenger fender—is a slightly different shade of \"off-white\" than the rest of the car. It’s barely noticeable unless you’re an automotive purist with too much time on your hands.",
+                  "label": "The Mismatch: One panel—usually the front passenger fender—is a slightly different shade of \"off-white\" than the rest of the villain. It’s barely noticeable unless you’re an automotive purist with too much time on your hands.",
                   "status": "",
                   "isGroup": false
                 },
@@ -7705,7 +7729,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The Multi-Tone: The car now features three distinct colors of body panels. The driver’s side door is missing its molding, and the trunk lid clearly came from a donor vehicle with a permanent sticker residue outline.",
+                  "label": "The Multi-Tone: The villain now features three distinct colors of body panels. The driver’s side door is missing its molding, and the trunk lid clearly came from a donor vehicle with a permanent sticker residue outline.",
                   "status": "",
                   "isGroup": false
                 },
@@ -7715,7 +7739,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The Junkyard Chic: The vehicle is a symphony of conflicting era-specific parts. You might see a 1998 bumper bolted onto a 2012 frame with zip ties acting as the primary structural support. It rattles with the fury of a thousand maracas.",
+                  "label": "The Junkyard Chic: The villain is a symphony of conflicting era-specific parts. You might see a 1998 bumper bolted onto a 2012 frame with zip ties acting as the primary structural support. It rattles with the fury of a thousand maracas.",
                   "status": "",
                   "isGroup": false
                 },
@@ -7725,7 +7749,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Total Automotive Incoherence: The car has lost all sense of its original manufacturer. It is now a vibrant, swirling vortex of rusted steel, mismatched plastic, and mystery parts that shouldn't exist in the same dimension, let alone the same vehicle.",
+                  "label": "Total Automotive Incoherence: The villain has lost all sense of its original manufacturer. It is now a vibrant, swirling vortex of rusted steel, mismatched plastic, and mystery parts that shouldn't exist in the same dimension, let alone the same vehicle.",
                   "status": "",
                   "isGroup": false
                 },
@@ -7735,7 +7759,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "If you encounter a case of Fendertitus on the road, give it a wide berth. The structural integrity of these vehicles is purely theoretical. If the driver attempts to signal, they are likely just shaking a loose piece of trim that is about to fall off. Do not challenge them at a stoplight; they have absolutely nothing to lose.",
+                  "label": "If you encounter a case of Fendertitus on the road, give it a wide berth. The structural integrity of these villains is purely theoretical. If the villain attempts to signal, they are likely just shaking a loose piece of trim that is about to fall off. Do not challenge them at a stoplight; they have absolutely nothing to lose.",
                   "status": "",
                   "isGroup": false
                 }
@@ -7765,7 +7789,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The driver begins to show a casual indifference to small road imperfections, often nudging their tires into minor ruts or bumps on the shoulder.",
+                  "label": "The villain begins to show a casual indifference to small road imperfections, often nudging their tires into minor ruts or bumps on the shoulder.",
                   "status": "",
                   "isGroup": false
                 },
@@ -7805,7 +7829,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "If you encounter a Holey Moley, do not follow them closely—they are unpredictable and their vehicle is likely shedding parts due to constant impact. Treat them as a mechanical hazard and maintain significant distance until you can safely pass them.",
+                  "label": "If you encounter a Holey Moley, do not follow them closely—they are unpredictable and they are likely shedding parts due to constant impact. Treat them as a mechanical hazard and maintain significant distance until you can safely pass them.",
                   "status": "",
                   "isGroup": false
                 }
@@ -7813,7 +7837,7 @@ const SITE_CONFIG = {
             },
             {
               "name": "Hub-Capeica",
-              "tagline": "Hub-Capecia is the tragic, thinning hairline of a villains world. It begins with the loss of a single hubcap, often discarded in a pothole as if to say, \"I’m tired of this circular existence.\" Left untreated, it progresses into a full-blown case of \"rim-baldness,\" leaving your vehicle’s steel wheels exposed to the cruel, judgemental gaze of every other driver on the highway. It’s not just a mechanical failure; it’s a mid-life crisis for your tires.",
+              "tagline": "Hub-Capecia is the tragic, thinning hairline of a villains world. It begins with the loss of a single hubcap, often discarded in a pothole as if to say, \"I’m tired of this circular existence.\" Left untreated, it progresses into a full-blown case of \"rim-baldness,\" leaving the villains steel wheels exposed to the cruel, judgmental gaze of every other driver on the highway. It’s not just a mechanical failure; it’s a mid-life crisis for your tires.",
               "price": "",
               "period": "",
               "icon": "",
@@ -7845,7 +7869,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The Patchy Phase: Known as Hub-Capecia Areata, the vehicle begins to shed its plastic skin in inconsistent patterns. You’re left with a jagged aesthetic of two plastic covers remaining and two wheels feeling the breeze of the open road.",
+                  "label": "The Patchy Phase: Known as Hub-Capecia Areata, the villain begins to shed its plastic skin in inconsistent patterns. You’re left with a jagged aesthetic of two plastic covers remaining and two wheels feeling the breeze of the open road.",
                   "status": "",
                   "isGroup": false
                 },
@@ -7865,7 +7889,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Hub-Capecia Totalis: Complete rim baldness. All four hubcaps have been surrendered to the asphalt gods. The car is now rocking the \"raw industrial\" look, effectively announcing to the world that maintenance is a suggestion rather than a priority.",
+                  "label": "Hub-Capecia Totalis: Complete rim baldness. All four hubcaps have been surrendered to the asphalt gods. The villain is now rocking the \"raw industrial\" look, effectively announcing to the world that maintenance is a suggestion rather than a priority.",
                   "status": "",
                   "isGroup": false
                 },
@@ -7905,7 +7929,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The driver displays minor lane discipline issues, frequently nudging their tires over the lane markers while constantly eyeing adjacent lanes for better flow.",
+                  "label": "The villain displays minor lane discipline issues, frequently nudging their tires over the lane markers while constantly eyeing adjacent lanes for better flow.",
                   "status": "",
                   "isGroup": false
                 },
@@ -7925,7 +7949,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "Tunnel vision takes over. The driver ignores any oncoming traffic entirely, focusing only on the \"nicer\" pavement of the oncoming lane. They have no desire to pull their wheels back to their side of those double yellow lines.",
+                  "label": "Tunnel vision takes over. The villain ignores any oncoming traffic entirely, focusing only on the \"nicer\" pavement of the oncoming lane. They have no desire to pull their wheels back to their side of those double yellow lines.",
                   "status": "",
                   "isGroup": false
                 },
@@ -7953,7 +7977,7 @@ const SITE_CONFIG = {
             },
             {
               "name": "Turd Cutter",
-              "tagline": "Usually occurring when a driver is zoned out in the fast lane, this affliction triggers a realization that an exit is only seconds away. Instead of missing it, they initiate a catastrophic, four-lane swerve across traffic to hit the ramp at a dangerous angle, followed by an immediate acceleration to escape the scene of the crime.",
+              "tagline": "Usually occurring when a villain is zoned out in the fast lane, this affliction triggers a realization that an exit is only seconds away. Instead of missing it, they initiate a catastrophic, four-lane swerve across traffic to hit the ramp at a dangerous angle, followed by an immediate acceleration to escape the scene of the crime.",
               "price": "",
               "period": "",
               "icon": "",
@@ -7975,7 +7999,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The driver realizes the exit late, slows down significantly in the middle lane, and waits for a gap to slowly drift over. Annoying, but keeps everyone mostly intact.",
+                  "label": "The villain realizes the exit late, slows down significantly in the middle lane, and waits for a gap to slowly drift over. Annoying, but keeps everyone mostly intact.",
                   "status": "",
                   "isGroup": false
                 },
@@ -7985,7 +8009,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The driver realizes the exit late and swerves abruptly across two lanes without signaling. Causes a chain reaction of hard braking behind them.",
+                  "label": "The villain realizes the exit late and swerves abruptly across two lanes without signaling. Causes a chain reaction of hard braking behind them.",
                   "status": "",
                   "isGroup": false
                 },
@@ -8045,7 +8069,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The driver adds minor, branded touches—such as a dealership-logo license plate frame or a small, easily removable sticker on the bumper.",
+                  "label": "The villain adds minor, branded touches—such as a dealership-logo license plate frame or a small, easily removable sticker on the bumper.",
                   "status": "",
                   "isGroup": false
                 },
@@ -8055,7 +8079,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The obsession expands to the front of the vehicle, adding an official dealership-logo plate. The driver becomes defensive about their \"dealership loyalty,\" often slowing down to show off their ride to other commuters.",
+                  "label": "The obsession expands to the front, adding an official dealership-logo license plate. The villain becomes defensive about their \"dealership loyalty,\" often slowing down to show off their ride to other commuters.",
                   "status": "",
                   "isGroup": false
                 },
@@ -8065,7 +8089,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The vehicle has become a full-scale mobile billboard. The driver adds oversized decals, custom wrap advertisements, and multiple branded accessories that obscure windows or reflect sunlight, creating a distraction for everyone nearby.",
+                  "label": "The villain has become a full-scale mobile billboard. The villain adds oversized decals, custom wrap advertisements, and multiple branded accessories that obscure windows or reflect sunlight, creating a distraction for everyone nearby.",
                   "status": "",
                   "isGroup": false
                 },
@@ -8075,7 +8099,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "The affliction is total. The vehicle is plastered with promotional materials so aggressively that it functionally obstructs the driver's own visibility. They now act as a rolling traffic obstruction, intentionally weaving through lanes to ensure their \"ad\" is seen by the maximum number of people.",
+                  "label": "The affliction is total. The villain is plastered with promotional materials so aggressively that it functionally obstructs the villains own visibility. They now act as a rolling traffic obstruction, intentionally weaving through lanes to ensure their \"ad\" is seen by the maximum number of people.",
                   "status": "",
                   "isGroup": false
                 },
@@ -8085,7 +8109,7 @@ const SITE_CONFIG = {
                   "isGroup": true
                 },
                 {
-                  "label": "If you encounter a Wheeler Dealer, maintain a safe distance and do not look directly at their vehicle’s branding, as the glare and overwhelming advertising can cause significant distraction. Treat them as a visual hazard and pass them as quickly and safely as possible; do not attempt to engage in conversation, as they are likely auditioning for a salesperson role that doesn't exist.",
+                  "label": "If you encounter a Wheeler Dealer, maintain a safe distance and do not look directly at their villains branding, as the glare and overwhelming advertising can cause significant distraction. Treat them as a visual hazard and pass them as quickly and safely as possible; do not attempt to engage in conversation, as they are likely auditioning for a salesperson role that doesn't exist.",
                   "status": "",
                   "isGroup": false
                 }
@@ -9042,7 +9066,7 @@ const SITE_CONFIG = {
     "resultsPerPage": 5,
     "excludedPages": []
   },
-  "siteAccess": "pin",
+  "siteAccess": "public",
   "sessionDays": 7,
   "pinPad": {
     "headline": "Members Only",
@@ -9091,5 +9115,5 @@ const SITE_CONFIG = {
   },
   "fontDisplayCustom": "",
   "fontBodyCustom": "",
-  "_savedAt": 1780414451806
+  "_savedAt": 1780436526078
 };
