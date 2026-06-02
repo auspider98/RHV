@@ -7672,6 +7672,76 @@ const SITE_CONFIG = {
               ]
             },
             {
+              "name": "Fendertitus",
+              "tagline": "Fendertitus is the automotive equivalent of wearing a tuxedo jacket with mismatched gym shorts. It occurs when a vehicle suffers a minor \"oopsie\" and is \"repaired\" using whatever spare parts were lying around the salvage yard—regardless of color, year, or aesthetic dignity. The result is a mechanical Frankenstein’s monster that screams, \"I gave up on life three fender-benders ago!\"",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "afflictions/fendertitus.jpg",
+              "imageSize": "sq",
+              "ribbon": "Afflictions",
+              "note": "",
+              "details": "PATH Breakdown",
+              "cardStyle": "light",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Level 1: The Nuisance",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "The Mismatch: One panel—usually the front passenger fender—is a slightly different shade of \"off-white\" than the rest of the car. It’s barely noticeable unless you’re an automotive purist with too much time on your hands.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 2: The Hazard",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "The Multi-Tone: The car now features three distinct colors of body panels. The driver’s side door is missing its molding, and the trunk lid clearly came from a donor vehicle with a permanent sticker residue outline.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 3: The Menace",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "The Junkyard Chic: The vehicle is a symphony of conflicting era-specific parts. You might see a 1998 bumper bolted onto a 2012 frame with zip ties acting as the primary structural support. It rattles with the fury of a thousand maracas.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 4: The Apex Rogue",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Total Automotive Incoherence: The car has lost all sense of its original manufacturer. It is now a vibrant, swirling vortex of rusted steel, mismatched plastic, and mystery parts that shouldn't exist in the same dimension, let alone the same vehicle.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "If you encounter a case of Fendertitus on the road, give it a wide berth. The structural integrity of these vehicles is purely theoretical. If the driver attempts to signal, they are likely just shaking a loose piece of trim that is about to fall off. Do not challenge them at a stoplight; they have absolutely nothing to lose.",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
               "name": "Holey Moley",
               "tagline": "A peculiar affliction rooted in a decreased sensation of pain. These villains seem to possess a strange attraction to road hazards, often steering their rigs directly into the deepest potholes as if they have a personal vendetta against their own suspension.",
               "price": "",
@@ -8900,5 +8970,5 @@ const SITE_CONFIG = {
   },
   "fontDisplayCustom": "",
   "fontBodyCustom": "",
-  "_savedAt": 1780340113134
+  "_savedAt": 1780360063462
 };
