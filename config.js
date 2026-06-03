@@ -7988,6 +7988,76 @@ const SITE_CONFIG = {
               ]
             },
             {
+              "name": "Shoulder Pox",
+              "tagline": "Exclusively contracted by vehicles that have \"retired\" to the breakdown lane, those colorful, mismatched stickers slapped on the windshield or door by highway patrol aren't just notifications; they are the festering pustules of a vehicle that has officially given up on reaching its destination.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "afflictions/shoulder-pox.jpg",
+              "imageSize": "sq",
+              "ribbon": "Afflictions",
+              "note": "",
+              "details": "PATH Breakdown",
+              "cardStyle": "light",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Level 1: The Nuisance",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Initial Diagnosis: A single, lonely orange or yellow \"Notice to Move\" sticker is slapped on the villain’s side window. It’s fresh, it’s legible, and it’s a warning that the villain’s clock is ticking.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 2: The Hazard",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Pox Spreads: The villain has been there long enough for the first sticker to fade. A second, larger red \"Abandoned\" notice appears, often overlapping the first. The villain is now officially a landmark.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 3: The Menace",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Blistering Stage: Multiple notices from different agencies have begun to accumulate like a mosaic of municipal failure. The villain's glass is partially obscured by layers of adhesive grime and varying shades of bright, cautionary colors.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 4: The Apex Rogue",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Advanced Carcass: The villain is completely covered in a chaotic, multicolored crust of expired warnings, police tape, and weather-beaten citations. At this stage, the villain has become one with the shoulder and is likely being reclaimed by the local flora.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
               "name": "Skidmarks",
               "tagline": "Skidmarks is the villains equivalent of a \"brown-trouser moment\" permanently etched into your undercarriage or bumper. It’s the visual record of a split-second decision between disaster and survival, serving as a constant, lingering reminder that your driving skills are occasionally outmatched by the laws of physics. Whether you’ve tangoed with a concrete barrier or narrowly avoided a squirrel, those tell-tale streaks are the scars of a near-miss that everyone—especially your insurance agent—can see. Luckily, the washing machine made quick work of all the other skidmarks!",
               "price": "",
@@ -7997,7 +8067,7 @@ const SITE_CONFIG = {
               "imageSize": "sq",
               "ribbon": "Afflictions",
               "note": "",
-              "details": "",
+              "details": "PATH Breakdown",
               "cardStyle": "light",
               "featured": true,
               "cta_linkLabel": "",
@@ -9197,5 +9267,5 @@ const SITE_CONFIG = {
   },
   "fontDisplayCustom": "",
   "fontBodyCustom": "",
-  "_savedAt": 1780493970274
+  "_savedAt": 1780501139031
 };
