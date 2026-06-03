@@ -8198,6 +8198,76 @@ const SITE_CONFIG = {
               ]
             },
             {
+              "name": "Villablutophobia",
+              "tagline": "Villablutophobia is a persistent, pathological refusal to let a single drop of water or soap touch the exterior of its armour. Villains suffering from this obnoxious disorder believe that \"patina\" is just a fancy word for \"not having to visit the car wash,\" and they wear their accumulated road grime like a suit of armor. To them, a shiny shell is a target, while a being covered in three years of dried mud, salt, and mystery highway residue is a masterclass in protective camouflage.",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "afflictions/villablutophobia.jpg",
+              "imageSize": "sq",
+              "ribbon": "Afflictions",
+              "note": "",
+              "details": "PATH Breakdown",
+              "cardStyle": "light",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Level 1: The Nuisance",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Dust Layer: The villain has developed a matte finish due to a thick, consistent layer of road dust. They still use the wipers, but only to clear a small \"periscope\" in front of their face.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 2: The Hazard",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Caked Crust: Rain has interacted with the dust to create a permanent, textured mud-caking on the lower panels. The villain is no longer a specific color; it is \"industrial grey\" with streaks of dried puddle-splash.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 3: The Menace",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Winterized Shield: After a harsh winter, the villain is completely encapsulated in a white, chalky crust of dried road salt. The license plate is barely legible, and the door handles are gritty to the touch.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 4: The Apex Rogue",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "Mobile Biosphere: The villain is so heavily coated in organic debris, moss-like grime, and solidified grime-pustules that it has its own tiny ecosystem. It hasn't seen a bucket of water since the late nineties, and the paint underneath is effectively a myth.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "If you see a villain suffering from advanced Villablutophobia, do not—under any circumstances—attempt to help by wiping off a \"wash me\" sign. The layer of grime is likely the only thing holding the body panels together. If you get too close, you risk contracting a localized dust storm; just maintain a safe distance and let the \"mobile mountain\" continue its journey undisturbed.",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
               "name": "Wheeler Dealer",
               "tagline": "A commercial marketing sickness contracted directly from the dealerships these villains promote. It manifests in an excessive display of vehicle tattoos, branded license plate covers, and dealership-logo front plates, turning the car into a mobile billboard.",
               "price": "",
@@ -9267,5 +9337,5 @@ const SITE_CONFIG = {
   },
   "fontDisplayCustom": "",
   "fontBodyCustom": "",
-  "_savedAt": 1780501139031
+  "_savedAt": 1780511795106
 };
