@@ -7338,7 +7338,7 @@ const SITE_CONFIG = {
           "background": "dark",
           "anchorId": "afflictions",
           "heading": "Afflictions",
-          "body": "Villains are no different than anyone else; they, too, are susceptible to the siren song of bad habits, poor trends, and total lapses in judgment. These, Afflictions, are the erratic psychological behaviors that transform a routine drive into a masterclass of highway misery. Highly volatile and notoriously unpredictable, an affliction can manifest in any villain at a moment’s notice, and it is entirely possible to cycle through multiple conditions in a single day. \n\nTo identity the severity of the affliction, we use the Pathological Affliction Tracking Hierarchy (PATH), to categorize the progression of a villain’s behavior from a minor annoyance into a full-blown traffic catastrophe.\n\nLevel 1: The Nuisance (The \"Initial Symptom\")  -  Minor, quirky, or slightly distracted habits.\nLevel 2: The Hazard (The \"Behavioral Shift\")  -  Consistent, distracting behavior interfering with others.\nLevel 3: The Menace (The \"Public Threat\")  -  Reality-detached, extreme, or \"necessary\" behavior.\nLevel 4: The Apex Rogue (The \"Gridlock Legend\")  -  Fully identity-defined, terminal chaos.",
+          "body": "Villains are no different than anyone else; they, too, are susceptible to the siren song of bad habits, poor trends, and total lapses in judgment. These, Afflictions, are the erratic psychological behaviors that transform a routine drive into a masterclass of highway misery. Highly volatile and notoriously unpredictable, an affliction can manifest in any villain at a moment’s notice, and it is entirely possible to cycle through multiple conditions in a single day. \n\nTo identity the severity of the affliction, we use the Pathological Affliction Tracking Hierarchy (PATH), to categorize the progression of a villain’s behavior from a minor annoyance into a full-blown traffic catastrophe.\n\nLevel 1: The Nuisance (The \"Initial Symptom\")\n- Minor, quirky, or slightly distracted habits.\nLevel 2: The Hazard (The \"Behavioral Shift\")\n- Consistent, distracting behavior interfering with others.\nLevel 3: The Menace (The \"Public Threat\")\n- Reality-detached, extreme, or \"necessary\" behavior.\nLevel 4: The Apex Rogue (The \"Gridlock Legend\")\n- Fully identity-defined, terminal chaos.",
           "imagePath": "afflictions/afflictions.png",
           "imagePosition": "left",
           "imageMaxWidth": "300",
@@ -7970,6 +7970,76 @@ const SITE_CONFIG = {
                 },
                 {
                   "label": "If you spot a Lane Envy driver, treat them as an unstable element. They have zero situational awareness regarding their blind spots. Do not speed up to block them, as this only fuels their frustration; simply create distance and let them pass so they can become someone else's problem.",
+                  "status": "",
+                  "isGroup": false
+                }
+              ]
+            },
+            {
+              "name": "Skidmarks",
+              "tagline": "Skidmarks is the villains equivalent of a \"brown-trouser moment\" permanently etched into your undercarriage or bumper. It’s the visual record of a split-second decision between disaster and survival, serving as a constant, lingering reminder that your driving skills are occasionally outmatched by the laws of physics. Whether you’ve tangoed with a concrete barrier or narrowly avoided a squirrel, those tell-tale streaks are the scars of a near-miss that everyone—especially your insurance agent—can see. Luckily, the washing machine made quick work of all the other skidmarks!",
+              "price": "",
+              "period": "",
+              "icon": "",
+              "imagePath": "afflictions/skidmarks.jpg",
+              "imageSize": "sq",
+              "ribbon": "Afflictions",
+              "note": "",
+              "details": "",
+              "cardStyle": "light",
+              "featured": true,
+              "cta_linkLabel": "",
+              "cta_linkType": "none",
+              "cta_linkUrl": "",
+              "cta_anchorId": "",
+              "features": [
+                {
+                  "label": "Level 1: The Nuisance",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "The Light Scuff: A faint, superficial black streak on the corner of your bumper. It’s the automotive \"oops,\" usually acquired after misjudging the distance to a concrete pillar in a parking garage.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 2: The Hazard",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "The Panic Patch: The streak is wider and darker, accompanied by a slight dent that suggests you didn't quite clear that guardrail. It looks like the vehicle tried to fight a wall and the wall won by a hair.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 3: The Menace",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "The Full-Slide Signature: The skidmark now spans across multiple body panels, often accompanied by the smell of burnt rubber and pure, unadulterated terror. The vehicle is essentially a rolling witness report of a very bad day.",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Level 4: The Apex Rogue",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "The Total Evasion: The entire side of the vehicle is painted in a charcoal-colored streak of shame. The car no longer has a paint color; it has a \"near-death experience\" aesthetic,",
+                  "status": "",
+                  "isGroup": false
+                },
+                {
+                  "label": "Suggested Defense",
+                  "status": "",
+                  "isGroup": true
+                },
+                {
+                  "label": "If you see a vehicle sporting heavy Skidmarks, do not engage. This driver has already cheated death and is likely still vibrating from the adrenaline of their last close call. Give them extra space, as their depth perception may currently be compromised by the lingering trauma of their most recent \"near-collision.\"",
                   "status": "",
                   "isGroup": false
                 }
@@ -9115,5 +9185,5 @@ const SITE_CONFIG = {
   },
   "fontDisplayCustom": "",
   "fontBodyCustom": "",
-  "_savedAt": 1780436526078
+  "_savedAt": 1780456259202
 };
