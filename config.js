@@ -8183,7 +8183,7 @@ const SITE_CONFIG = {
             },
             {
               "name": "Hub-Capeica",
-              "tagline": "Hub-Capecia is the tragic, thinning hairline of a villains world. It begins with the loss of a single hubcap, often discarded in a pothole as if to say, \"I’m tired of this circular existence.\" Left untreated, it progresses into a full-blown case of \"rim-baldness,\" leaving the villains steel wheels exposed to the cruel, judgmental gaze of every other driver on the highway. It’s not just a mechanical failure; it’s a mid-life crisis for your tires.",
+              "tagline": "Hub-Capecia is the tragic, thinning hairline of a villains world. It begins with the loss of a single hubcap, often discarded in a pothole as if to say, \"I’m tired of this circular existence.\" Left untreated, it progresses into a full-blown case of \"rim-baldness,\" leaving the villains steel wheels exposed to the cruel, judgmental gaze of every other villain on the highway. It’s not just a mechanical failure; it’s a mid-life crisis for your tires.",
               "price": "",
               "period": "",
               "icon": "",
@@ -9751,5 +9751,5 @@ const SITE_CONFIG = {
   },
   "fontDisplayCustom": "",
   "fontBodyCustom": "",
-  "_savedAt": 1780579099658
+  "_savedAt": 1780592240067
 };
