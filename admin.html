@@ -6603,39 +6603,55 @@ function buildCpSectionTypeFields(sec, pi, si) {
           </div>
         </div>`;
       }).join('');
-      const logoRows = items.map((it, ii) => `<div class="cp-sub-item" data-sub-idx="${ii}">
-        ${cpSubItemHeader('Logo #' + (ii+1), pi, si, 'items', ii)}
-        <div class="form-row-2">
-          <div class="field-group" style="margin:0;"><label>Image Path</label>
-            <input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="imagePath" value="${escHtml(it.imagePath||'')}" placeholder="images/logo.png"/></div>
-          <div class="field-group" style="margin:0;"><label>Alt Text</label>
-            <input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="alt" value="${escHtml(it.alt||'')}" placeholder="Logo name"/></div>
-        </div>
-        <div class="field-group" style="margin-top:4px;margin-bottom:4px;"><label>Link Type</label>
-            <select data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="linkType" onchange="onMqItemLinkTypeChange(${typeof pi==='string'?('\''+pi+'\''):pi},${si},${ii},this)">
-              <option value="none"     ${(it.linkType||'none')==='none'    ?'selected':''}>None</option>
-              <option value="internal" ${(it.linkType||'none')==='internal'?'selected':''}>Internal Page</option>
-              <option value="external" ${(it.linkType||'none')==='external'?'selected':''}>External URL</option>
-              <option value="file"     ${(it.linkType||'none')==='file'    ?'selected':''}>File / Document</option>
-            </select></div>
-        <div class="field-group" id="cp-mq-internal-${pi}-${si}-${ii}" style="margin-bottom:4px;${(it.linkType||'none')==='internal'?'':'display:none;'}">
-          <label>Internal Page</label>
-          <select data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="linkUrl"
-            onchange="updateAnchorSelect(document.getElementById('cp-mq-anchor-sel-${pi}-${si}-${ii}'),this.value,'')">
-            ${getInternalPageOptions(it.linkUrl||'')}
-          </select>
-          <div class="field-group cp-anchor-select" id="cp-mq-anchor-${pi}-${si}-${ii}" style="margin-top:6px;margin-bottom:0;">
-            <label>Scroll to Section (optional)</label>
-            <select data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="anchorId" id="cp-mq-anchor-sel-${pi}-${si}-${ii}">
-              ${getAnchorOptions(it.linkUrl||'', it.anchorId||'')}
-            </select>
+      const logoRows = items.map((it, ii) => {
+        const mqlLabel = it.alt ? it.alt.substring(0,40) : ('Logo #' + (ii+1));
+        return `<div class="cp-sub-item" data-sub-idx="${ii}" data-mq-logo>
+          <div class="cp-sub-item-header" style="cursor:pointer;" onclick="const b=this.nextElementSibling;b.style.display=b.style.display===''?'none':'';this.querySelector('.mqi-chev').textContent=b.style.display==='none'?'&#9656;':'&#9662;';">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="cp-sub-item-drag-handle" title="Drag to reorder" onclick="event.stopPropagation();">&#8903;</span>
+              <span class="cp-sub-item-label">${escHtml(mqlLabel)}</span>
+              <span class="mqi-chev" style="font-size:10px;color:var(--muted);margin-left:2px;">&#9656;</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:4px;">
+              <button class="cp-move-btn" onclick="moveCpSubItem(${mqiPiArg},${si},'items',${ii},-1);event.stopPropagation();" title="Move up">&#8593;</button>
+              <button class="cp-move-btn" onclick="moveCpSubItem(${mqiPiArg},${si},'items',${ii},1);event.stopPropagation();" title="Move down">&#8595;</button>
+              <button class="btn-remove" onclick="removeCpSubItem(${mqiPiArg},${si},'items',${ii});event.stopPropagation();">&#215;</button>
+            </div>
           </div>
-        </div>
-        <div class="field-group" id="cp-mq-url-${pi}-${si}-${ii}" style="margin-bottom:4px;${(it.linkType==='external'||it.linkType==='file')?'':'display:none;'}">
-          <label>${it.linkType==='file'?'File Path / URL':'External URL'}</label>
-          <input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="linkUrl" value="${escHtml(it.linkUrl||'')}" placeholder="${it.linkType==='file'?'files/doc.pdf':'https://'}"/>
-        </div>
-      </div>`).join('');
+          <div class="cp-sub-item-body" style="display:none;">
+            <div class="form-row-2">
+              <div class="field-group" style="margin:0;"><label>Image Path</label>
+                <input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="imagePath" value="${escHtml(it.imagePath||'')}" placeholder="images/logo.png"/></div>
+              <div class="field-group" style="margin:0;"><label>Alt Text</label>
+                <input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="alt" value="${escHtml(it.alt||'')}" placeholder="Logo name" oninput="const lbl=this.closest('.cp-sub-item').querySelector('.cp-sub-item-label');lbl.textContent=this.value.trim()||'Logo #${ii+1}';"/></div>
+            </div>
+            <div class="field-group" style="margin-top:4px;margin-bottom:4px;"><label>Link Type</label>
+              <select data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="linkType" onchange="onMqItemLinkTypeChange(${mqiPiArg},${si},${ii},this)">
+                <option value="none"     ${(it.linkType||'none')==='none'    ?'selected':''}>None</option>
+                <option value="internal" ${(it.linkType||'none')==='internal'?'selected':''}>Internal Page</option>
+                <option value="external" ${(it.linkType||'none')==='external'?'selected':''}>External URL</option>
+                <option value="file"     ${(it.linkType||'none')==='file'    ?'selected':''}>File / Document</option>
+              </select></div>
+            <div class="field-group" id="cp-mq-internal-${pi}-${si}-${ii}" style="margin-bottom:4px;${(it.linkType||'none')==='internal'?'':'display:none;'}">
+              <label>Internal Page</label>
+              <select data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="linkUrl"
+                onchange="updateAnchorSelect(document.getElementById('cp-mq-anchor-sel-${pi}-${si}-${ii}'),this.value,'')">
+                ${getInternalPageOptions(it.linkUrl||'')}
+              </select>
+              <div class="field-group cp-anchor-select" id="cp-mq-anchor-${pi}-${si}-${ii}" style="margin-top:6px;margin-bottom:0;">
+                <label>Scroll to Section (optional)</label>
+                <select data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="anchorId" id="cp-mq-anchor-sel-${pi}-${si}-${ii}">
+                  ${getAnchorOptions(it.linkUrl||'', it.anchorId||'')}
+                </select>
+              </div>
+            </div>
+            <div class="field-group" id="cp-mq-url-${pi}-${si}-${ii}" style="margin-bottom:4px;${(it.linkType==='external'||it.linkType==='file')?'':'display:none;'}">
+              <label>${it.linkType==='file'?'File Path / URL':'External URL'}</label>
+              <input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="linkUrl" value="${escHtml(it.linkUrl||'')}" placeholder="${it.linkType==='file'?'files/doc.pdf':'https://'}"/>
+            </div>
+          </div>
+        </div>`;
+      }).join('');
       return `
         <div class="field-group"><label>Heading (optional)</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
         <div class="field-group"><label>Subtitle (optional)</label><textarea rows="1" style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;font-family:inherit;font-size:13px;" ${p} data-field="subtitle">${v('subtitle')}</textarea></div>
