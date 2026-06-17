@@ -758,7 +758,7 @@ nav.main-nav { display: none !important; }
   animation: heroReveal 0.8s var(--ease-out) 2.7s forwards;
 }
 .btn-primary {
-  display: inline-flex; align-items: center; gap: 10px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
   background: var(--gold);
   color: var(--navy);
   font-size: 13px;
@@ -777,7 +777,7 @@ nav.main-nav { display: none !important; }
   box-shadow: 0 8px 30px rgba(var(--gold-rgb),0.3);
 }
 .btn-outline {
-  display: inline-flex; align-items: center; gap: 10px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
   background: rgba(255,255,255,0.15);
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
@@ -901,6 +901,7 @@ nav.main-nav { display: none !important; }
    ============================================= */
 .section { padding: calc(var(--section-pad) / 2) 0; }
 .section-after-banner { padding-top: clamp(32px, 4vw, 48px); }
+#contact.section-after-banner { padding-top: 8px; }
 .section-alt { background: var(--cream); }
 .section-dark { background: var(--navy); }
 
@@ -1274,6 +1275,7 @@ h2.section-title {
 .page-banner-dark {
   background: var(--navy);
   border-bottom: none;
+  padding-bottom: 8px;
 }
 .page-banner-title {
   font-family: var(--font-display);
@@ -1832,13 +1834,13 @@ h2.section-title {
 .contact-detail-text strong { display: block; color: #fff; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
 .contact-hours { margin-top: 32px; }
 .hours-row {
-  display: flex; justify-content: space-between;
+  display: flex; justify-content: flex-start; gap: 16px;
   padding: 10px 0;
   border-bottom: 1px solid rgba(255,255,255,0.08);
   font-size: 13px;
 }
 .hours-row:last-child { border-bottom: none; }
-.hours-days { color: rgba(255,255,255,0.7); }
+.hours-days { color: rgba(255,255,255,0.7); min-width: 90px; }
 .hours-time { color: var(--gold); font-weight: 500; }
 
 /* Form */
@@ -1871,7 +1873,7 @@ h2.section-title {
   color: rgba(255,255,255,0.5);
   margin-bottom: 8px;
 }
-.form-group input,
+.form-group input:not([type="radio"]):not([type="checkbox"]),
 .form-group select,
 .form-group textarea {
   width: 100%;
@@ -1885,6 +1887,18 @@ h2.section-title {
   transition: border-color 0.2s, background 0.2s;
   outline: none;
   -webkit-appearance: none;
+}
+.form-group input[type="radio"],
+.form-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--gold);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.form-group .cps-form-radio-group label,
+.form-group .cps-form-checkbox-wrap label {
+  color: rgba(255,255,255,0.8);
 }
 .form-group input:focus,
 .form-group select,
@@ -1902,6 +1916,7 @@ h2.section-title {
 }
 .btn-submit {
   width: 100%;
+  text-align: center;
   margin-top: 20px;
   padding: 16px;
   background: var(--gold);
@@ -2858,7 +2873,7 @@ footer {
 
 /* Outline button variant for light/alt section backgrounds */
 .btn-outline-dark {
-  display: inline-flex; align-items: center; gap: 10px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
   background: transparent;
   color: var(--navy);
   font-size: 13px; font-weight: 500;
@@ -3600,6 +3615,8 @@ footer {
 .cps-section-dark .cps-loc-feature-info .cps-loc-hours { border-top-color: rgba(255,255,255,0.1); }
 .cps-section-dark .cps-loc-feature-info .cps-loc-hours-label { color: var(--gold-light); }
 .cps-section-dark .cps-loc-feature-info .cps-loc-hours-row { color: rgba(255,255,255,0.75); }
+.cps-loc-feature-info .cps-loc-hours-row { justify-content: flex-start; gap: 16px; }
+.cps-loc-feature-info .cps-loc-hours-row span:first-child { min-width: 90px; }
 .cps-section-dark .cps-loc-map-btn { border-color: var(--gold-light); color: var(--gold-light); }
 .cps-section-dark .cps-loc-map-btn:hover { background: var(--gold-light); color: var(--navy); }
 
@@ -5343,10 +5360,21 @@ function buildPageHeaders() {
   }, CFG.pageHeaders || {});
 
   const set = (id, val) => { const el = document.getElementById(id); if (el && val !== undefined) el.textContent = val; };
+  const setLabel = (id, val) => {
+    const el = document.getElementById(id);
+    if (!el || val === undefined) return;
+    const wrap = el.closest('.section-label');
+    if (val) {
+      el.textContent = val;
+      if (wrap) wrap.style.display = '';
+    } else if (wrap) {
+      wrap.style.display = 'none';
+    }
+  };
 
-  set("about-label",   h.about?.label);
+  setLabel("about-label",   h.about?.label);
   set("about-title",   h.about?.title);
-  set("contact-label", h.contact?.label);
+  setLabel("contact-label", h.contact?.label);
 }
 
 function buildHeader() {
@@ -6441,7 +6469,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
             sec.cta_linkType === 'internal' ? `onclick="showPage('${escAttr(sec.cta_linkUrl || 'contact')}','${escAttr(sec.cta_anchorId||'')}')"` :
             (sec.cta_linkType === 'external' || sec.cta_linkType === 'file') ? `onclick="openSmartLink('${escAttr(sec.cta_linkType)}','${escAttr(sec.cta_linkUrl)}')"` :
             `onclick="showPage('contact')"`
-          }>${sec.cta_linkLabel || sec.ctaLabel} →</button></div>` : ''}
+          }>${sec.cta_linkLabel || sec.ctaLabel}</button></div>` : ''}
         </div>
       </div>`;
       break;
@@ -6521,7 +6549,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
               ? `onclick="showPage('${escAttr(item.linkUrl)}','${escAttr(item.anchorId||'')}')" style="cursor:pointer;"`
               : `onclick="openSmartLink('${escAttr(item.linkType)}','${escAttr(item.linkUrl)}')" style="cursor:pointer;"`)
           : '';
-        const arrow = hasLink ? `<span class="cps-bullet-arrow">→</span>` : '';
+        const arrow = '';
         return `
         <div class="cps-bullet-item reveal${hasLink ? ' cps-bullet-linked' : ''}" ${clickAttr}>
           <div class="cps-bullet-icon">${item.icon || '✓'}</div>
@@ -6569,7 +6597,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
           ${svcBodyOpen}
           <h3 class="service-title">${s.title}</h3>
           <p class="service-desc">${s.desc}</p>
-          ${s.detail ? `<div class="service-more">Learn More <span>→</span></div>` : ''}
+          ${s.detail ? `<div class="service-more">Learn More</div>` : ''}
           ${svcBodyClose}
         </div>`;
       }).join('');
@@ -6660,7 +6688,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
         ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
         <div class="testimonials-track" style="margin-top:40px;">${items}</div>
-        ${showBtn ? `<div style="text-align:center;margin-top:40px;"><button class="btn-primary" onclick="showPage('${testiSourceSlug}')" style="margin:0 auto;">${btnLabel} →</button></div>` : ''}
+        ${showBtn ? `<div style="text-align:center;margin-top:40px;"><button class="btn-primary" onclick="showPage('${testiSourceSlug}')" style="margin:0 auto;">${btnLabel}</button></div>` : ''}
       </div>`;
       break;
     }
@@ -6695,7 +6723,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       const secClick  = secType === 'internal'
         ? `onclick="showPage('${escAttr(secUrl)}','${escAttr(sec.cta_secondary_anchorId||'')}')" `
         : `onclick="openSmartLink('${escAttr(secType)}','${escAttr(secUrl)}')" `;
-      const primBtn   = primLabel ? `<button class="btn-primary" ${primClick}>${escAttr(primLabel)} →</button>` : '';
+      const primBtn   = primLabel ? `<button class="btn-primary" ${primClick}>${escAttr(primLabel)}</button>` : '';
       const secBtn    = secLabel  ? `<button class="btn-outline" ${secClick}>${escAttr(secLabel)}</button>` : '';
       wrapper.classList.add('cps-cta-wrapper');
       wrapper.innerHTML = `<div class="cps-cta-banner">
@@ -6862,8 +6890,9 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       const showArrows   = sec.showArrows !== false;
       const autoplay     = sec.autoplay === true;
       const autoplaySpd  = (parseInt(sec.autoplaySpeed) || 4) * 1000;
+      const showPeek     = sec.showPeek !== false;
       const gap          = 16; // px between cards
-      const peek         = 48; // px of next card showing
+      const peek         = showPeek ? 48 : 0; // px of next card showing
       const isMulti      = items.length > 1;
 
       wrapper.classList.add('cps-section-rc');
@@ -7225,7 +7254,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
           <form class="cps-form" id="${formId}">
             ${fieldsHtml}
             <div class="cps-form-submit">
-              <button type="submit" class="btn-primary">${submitLabel} →</button>
+              <button type="submit" class="btn-primary">${submitLabel}</button>
             </div>
           </form>
           <div class="cps-form-success" id="${formId}-success">
@@ -7250,8 +7279,8 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       wrapper.innerHTML = `<div class="container">
         <div class="cps-link-block reveal">
           ${hasLink
-            ? `<span class="cps-link-anchor cpsl-anchor">${linkText} →</span>`
-            : `<span class="cps-link-anchor" style="opacity:0.4;cursor:default;">${linkText} →</span>`}
+            ? `<span class="cps-link-anchor cpsl-anchor">${linkText}</span>`
+            : `<span class="cps-link-anchor" style="opacity:0.4;cursor:default;">${linkText}</span>`}
         </div>
       </div>`;
       const anchor = wrapper.querySelector('.cpsl-anchor');
@@ -7302,7 +7331,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       const hasPrimary   = sec.primary_linkType   && sec.primary_linkType   !== 'none' && sec.primary_linkUrl;
       const hasSecondary = sec.secondary_linkType  && sec.secondary_linkType !== 'none' && sec.secondary_linkUrl;
       const primaryBtn   = (hasPrimary || sec.primary_linkLabel)
-        ? `<button class="btn-primary cpsb-primary">${sec.primary_linkLabel || 'Learn More'} →</button>`
+        ? `<button class="btn-primary cpsb-primary">${sec.primary_linkLabel || 'Learn More'}</button>`
         : '';
       const secondaryBtn = (hasSecondary || sec.secondary_linkLabel)
         ? `<button class="btn-outline-dark cpsb-secondary">${sec.secondary_linkLabel || 'Learn More'}</button>`
@@ -7342,7 +7371,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
               (sec.cta_linkType === 'internal'
                 ? 'showPage(\'' + escAttr(sec.cta_linkUrl) + '\',\'' + escAttr(sec.cta_anchorId||'') + '\')'
                 : 'openSmartLink(\'' + escAttr(sec.cta_linkType) + '\',\'' + escAttr(sec.cta_linkUrl) + '\')') +
-            '">' + sec.cta_linkLabel + ' →</button></div>'
+            '">' + sec.cta_linkLabel + '</button></div>'
           : '';
         const textCol  = '<div class="cps-video-col cps-video-text reveal">' +
           (sec.heading ? '<' + headTag + ' class="' + headClass + ' cps-heading">' + sec.heading + '</' + headTag + '>' : '') +
@@ -7422,13 +7451,11 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
 
         // CTA
         const hasLink = card.cta_linkType && card.cta_linkType !== 'none' && card.cta_linkUrl && card.cta_linkLabel;
-        const ctaClick = hasLink
-          ? (card.cta_linkType === 'internal'
-              ? 'onclick="showPage(\'' + escAttr(card.cta_linkUrl) + '\',\'' + escAttr(card.cta_anchorId || '') + '\')"'
-              : 'onclick="openSmartLink(\'' + escAttr(card.cta_linkType) + '\',\'' + escAttr(card.cta_linkUrl) + '\')"')
+        const ctaDataAttrs = hasLink
+          ? ' data-cta-type="' + escAttr(card.cta_linkType) + '" data-cta-url="' + escAttr(card.cta_linkUrl) + '" data-cta-anchor="' + escAttr(card.cta_anchorId || '') + '"'
           : '';
         const ctaHtml = hasLink
-          ? '<div class="cps-tier-cta"><button class="btn-primary" style="width:100%;" ' + ctaClick + '>' + card.cta_linkLabel + ' →</button></div>'
+          ? '<div class="cps-tier-cta"><button class="btn-primary cps-tier-cta-btn" style="width:100%;"' + ctaDataAttrs + '>' + card.cta_linkLabel + '</button></div>'
           : '';
 
         const noteHtml = card.note ? '<div class="cps-tier-note">' + card.note + '</div>' : '';
@@ -7458,6 +7485,13 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
         '<div class="cps-tier-grid" data-cols="' + cols + '"' + (cols===1&&!sec.colFullWidth?' style="max-width:420px;margin-left:auto;margin-right:auto;"':'') + '>' + cardHtml + '</div>' +
       '</div>';
+      wrapper.querySelectorAll('.cps-tier-cta-btn').forEach(btn => {
+        const t = btn.dataset.ctaType, u = btn.dataset.ctaUrl, a = btn.dataset.ctaAnchor;
+        btn.addEventListener('click', () => {
+          if (t === 'internal') showPage(u, a || '');
+          else openSmartLink(t, u);
+        });
+      });
       break;
     }
 
@@ -7528,13 +7562,11 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
 
         // CTA button — stopPropagation so click doesn't re-flip
         const hasLink = card.cta_linkType && card.cta_linkType !== 'none' && card.cta_linkUrl && card.cta_linkLabel;
-        const ctaClick = hasLink
-          ? (card.cta_linkType === 'internal'
-              ? 'onclick="event.stopPropagation();showPage(\'' + escAttr(card.cta_linkUrl) + '\',\'' + escAttr(card.cta_anchorId || '') + '\')"'
-              : 'onclick="event.stopPropagation();openSmartLink(\'' + escAttr(card.cta_linkType) + '\',\'' + escAttr(card.cta_linkUrl) + '\')"')
+        const ctaDataAttrs = hasLink
+          ? ' data-cta-type="' + escAttr(card.cta_linkType) + '" data-cta-url="' + escAttr(card.cta_linkUrl) + '" data-cta-anchor="' + escAttr(card.cta_anchorId || '') + '"'
           : '';
         const ctaHtml = hasLink
-          ? '<div class="cps-flip-cta"><button class="btn-primary" style="width:100%;" ' + ctaClick + '>' + card.cta_linkLabel + ' →</button></div>'
+          ? '<div class="cps-flip-cta"><button class="btn-primary cps-flip-cta-btn" style="width:100%;"' + ctaDataAttrs + '>' + card.cta_linkLabel + '</button></div>'
           : '';
 
         const noteHtml = card.note ? '<div class="cps-flip-note">' + card.note + '</div>' : '';
@@ -7564,6 +7596,14 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
         '<div class="cps-flip-grid" data-cols="' + flipCols + '"' + (flipCols===1&&!sec.colFullWidth?' style="max-width:420px;margin-left:auto;margin-right:auto;"':'') + '>' + flipCardHtml + '</div>' +
       '</div>';
+      wrapper.querySelectorAll('.cps-flip-cta-btn').forEach(btn => {
+        const t = btn.dataset.ctaType, u = btn.dataset.ctaUrl, a = btn.dataset.ctaAnchor;
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+          if (t === 'internal') showPage(u, a || '');
+          else openSmartLink(t, u);
+        });
+      });
       break;
     }
 
