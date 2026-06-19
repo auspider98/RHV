@@ -2037,6 +2037,9 @@ footer {
   .services-grid[data-cols="4"] .service-card { flex: 1 1 calc(50% - 2px); }
   .about-top-grid { grid-template-columns: 1fr 1.5fr; gap: 40px; }
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+  .contact-info.contact-location { text-align: center; }
+  .contact-detail { justify-content: center; }
+  .hours-row { justify-content: center; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
   .faq-grid { grid-template-columns: 1fr; gap: 0; }
   .stat-cell { width: 33.333%; min-width: 140px; }
@@ -2565,15 +2568,33 @@ footer {
   background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
   z-index: 1;
 }
-/* Standard (non-full-bleed) image — takes remaining space above body */
-.cps-rc-card-img-std {
-  width: 100%;
-  flex: 1 1 auto;
-  min-height: 0;
-  object-fit: cover;
-  display: block;
-  position: relative;
-  z-index: 0;
+.cps-rc-zoom-hint {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-in;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s;
+}
+.cps-rc-card:hover .cps-rc-zoom-hint { opacity: 1; }
+.cps-rc-zoom-hint:hover { background: rgba(0,0,0,0.65); }
+@media (hover: none) and (pointer: coarse) {
+  .cps-rc-zoom-hint {
+    opacity: 1;
+    width: 44px;
+    height: 44px;
+    top: 8px;
+    right: 8px;
+  }
 }
 .cps-rc-card-body {
   padding: 20px 24px 24px;
@@ -2593,7 +2614,6 @@ footer {
   height: 100%;
   box-sizing: border-box;
 }
-/* Standard cards no longer need ::after pseudo gradient */
 .cps-rc-card-title {
   font-family: var(--font-display);
   font-size: 1.5rem;
@@ -3176,10 +3196,27 @@ footer {
   justify-content: center;
   align-items: center;
   gap: 32px;
-  margin-top: 32px;
+  margin-top: 20px;
 }
-/* Strip mode (no heading) — no top margin, full vertical centering handled by section padding */
+/* Strip mode (no caption) — no top margin */
 .logo-strip-mode .cps-logo-strip { margin-top: 0; }
+/* Section-level caption — small caps, centered, muted */
+.cps-logo-strip-caption {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 4px;
+}
+.cps-section-dark .cps-logo-strip-caption { color: rgba(255,255,255,0.45); }
+/* When caption is below the strip, flip margins */
+.cps-logo-strip + .cps-logo-strip-caption {
+  margin-top: 20px;
+  margin-bottom: 0;
+}
 .cps-logo-item {
   display: flex;
   flex-direction: column;
@@ -3373,6 +3410,159 @@ footer {
     grid-template-columns: 1fr;
   }
   .cps-video-layout--two-col.video-right .cps-video-col { order: -1; }
+}
+
+/* ── IMAGE SECTION ────────────────────────────────────────────── */
+.cps-img-outer {
+  width: 100%;
+}
+.cps-img-frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.cps-img-frame img {
+  width: 100%;
+  display: block;
+}
+/* Before / After slider */
+.cps-img-ba-wrap {
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  cursor: default;
+}
+.cps-img-ba-wrap.cps-img-ba-vert { cursor: row-resize; }
+.cps-img-ba-img-before {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* When a fixed aspect ratio is applied the before image fills the wrap */
+.cps-img-ba-wrap[style*="aspect-ratio"] .cps-img-ba-img-before {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  object-fit: cover;
+}
+.cps-img-ba-after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.cps-img-ba-after img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Horizontal handle — vertical bar */
+.cps-img-ba-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #fff;
+  transform: translateX(-50%);
+  z-index: 4;
+  cursor: col-resize;
+  touch-action: none;
+  box-shadow: 0 0 6px rgba(0,0,0,0.4);
+}
+/* Vertical handle — horizontal bar */
+.cps-img-ba-vert .cps-img-ba-handle {
+  top: unset;
+  bottom: unset;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 3px;
+  transform: translateY(-50%);
+  cursor: row-resize;
+}
+.cps-img-ba-handle-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+.cps-img-ba-label {
+  position: absolute;
+  top: 12px;
+  z-index: 5;
+  padding: 3px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  border-radius: 4px;
+  pointer-events: none;
+}
+.cps-img-ba-label-before { left: 12px; }
+.cps-img-ba-label-after  { right: 12px; }
+/* Vertical slider — labels move to top-center / bottom-center */
+.cps-img-ba-vert .cps-img-ba-label-before {
+  left: 50%; right: unset;
+  transform: translateX(-50%);
+  top: 12px;
+}
+.cps-img-ba-vert .cps-img-ba-label-after {
+  left: 50%; right: unset;
+  transform: translateX(-50%);
+  top: unset; bottom: 12px;
+}
+.cps-img-section-caption {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 10px;
+  font-style: italic;
+  line-height: 1.5;
+}
+.cps-section-dark .cps-img-section-caption { color: rgba(255,255,255,0.5); }
+/* Two-column layout with text */
+.cps-img-with-text {
+  display: grid;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+}
+.cps-img-with-text.text-right { grid-template-columns: var(--img-col-w, 500px) 1fr; }
+.cps-img-with-text.text-left  { grid-template-columns: 1fr var(--img-col-w, 500px); }
+.cps-img-text-col { min-width: 0; }
+.cps-img-text-heading {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.5vw, 30px);
+  font-weight: 500;
+  color: var(--text-head);
+  line-height: 1.2;
+  margin: 0 0 16px;
+}
+.cps-section-dark .cps-img-text-heading { color: #fff; }
+.cps-img-text-body { font-size: clamp(14px, 1.4vw, 16px); line-height: 1.75; color: var(--text-body); }
+.cps-section-dark .cps-img-text-body { color: rgba(255,255,255,0.75); }
+.cps-img-text-body p { margin: 0 0 0.85em; }
+.cps-img-text-body p:last-child { margin-bottom: 0; }
+@media (max-width: 800px) {
+  .cps-img-with-text { grid-template-columns: 1fr !important; }
+  /* text-left: image col is last in DOM, bring it first on mobile */
+  .cps-img-with-text.text-left .cps-img-col { order: -1; }
 }
 
 /* ── IMAGE GALLERY ───────────────────────────────────────────── */
@@ -3628,6 +3818,9 @@ footer {
   .cps-loc-feature-row { grid-template-columns: 1fr; direction: ltr !important; gap: 24px; }
   .cps-loc-feature-row.reverse { direction: ltr; }
   .cps-loc-feature-media iframe { height: 200px; }
+  .cps-loc-feature-info { align-items: center; text-align: center; }
+  .cps-loc-feature-info .cps-loc-detail { justify-content: center; }
+  .cps-loc-feature-info .cps-loc-hours-row { justify-content: center; }
 }
 .cps-lightbox {
   position: fixed;
@@ -4278,7 +4471,7 @@ footer {
         <div class="footer-heading">Contact</div>
         <div class="footer-links" id="footer-contact-links"></div>
         <div id="footer-cta-wrap" style="margin-top:24px;">
-          <button class="btn-primary" id="footer-cta-btn" onclick="showPage('contact')" style="font-size:12px;padding:12px 20px;">Free Consultation →</button>
+          <button class="btn-primary" id="footer-cta-btn" style="font-size:12px;padding:12px 20px;">Free Consultation →</button>
         </div>
       </div>
     </div>
@@ -4979,10 +5172,10 @@ function buildContact() {
         : '';
       return `<div class="contact-info contact-location">
         ${loc.name ? `<div class="contact-location-name">${loc.name}</div>` : `<h3>${CFG.firmName}</h3>`}
-        ${loc.phone ? `<div class="contact-detail"><div class="contact-detail-icon">📞</div><div class="contact-detail-text"><strong>Phone</strong><a href="tel:${loc.phoneRaw||loc.phone}" style="color:var(--gold)">${loc.phone}</a></div></div>` : ''}
-        ${loc.fax   ? `<div class="contact-detail"><div class="contact-detail-icon">📠</div><div class="contact-detail-text"><strong>Fax</strong><span>${loc.fax}</span></div></div>` : ''}
-        ${loc.email ? `<div class="contact-detail"><div class="contact-detail-icon">✉️</div><div class="contact-detail-text"><strong>Email</strong><a href="mailto:${loc.email}" style="color:var(--gold)">${loc.email}</a></div></div>` : ''}
-        ${addrParts.length ? `<div class="contact-detail"><div class="contact-detail-icon">📍</div><div class="contact-detail-text"><strong>Address</strong><span>${addrParts.join('<br>')}</span></div></div>` : ''}
+        ${addrParts.length ? `<div class="contact-detail"><div class="contact-detail-text">${addrParts.join('<br>')}</div></div>` : ''}
+        ${loc.phone ? `<div class="contact-detail"><div class="contact-detail-text"><strong>Phone</strong><a href="tel:${loc.phoneRaw||loc.phone}" style="color:var(--gold)">${loc.phone}</a></div></div>` : ''}
+        ${loc.fax   ? `<div class="contact-detail"><div class="contact-detail-text"><strong>Fax</strong><span>${loc.fax}</span></div></div>` : ''}
+        ${loc.email ? `<div class="contact-detail"><div class="contact-detail-text"><strong>Email</strong><a href="mailto:${loc.email}" style="color:var(--gold)">${loc.email}</a></div></div>` : ''}
         ${hoursHtml}
       </div>`;
     }).join('');
@@ -5136,6 +5329,12 @@ function buildFooter() {
 /* =============================================
    NAV BUILDER — respects page toggles
    ============================================= */
+function _navHiddenMain(p) {
+  return p.hiddenFromMainNav !== undefined ? !!p.hiddenFromMainNav : !!p.hiddenFromNav;
+}
+function _navHiddenFooter(p) {
+  return p.hiddenFromFooterNav !== undefined ? !!p.hiddenFromFooterNav : !!p.hiddenFromNav;
+}
 function buildNav() {
   const pt = CFG.pageToggles || {};
   const nav = document.getElementById('drawer-links');
@@ -5163,14 +5362,14 @@ function buildNav() {
 
   // Custom pages — group by parent
   const pages = CFG.customPages || [];
-  const topLevel = pages.filter(cp => !cp.parent && cp.enabled !== false && !cp.hiddenFromNav);
+  const topLevel = pages.filter(cp => !cp.parent && cp.enabled !== false && !_navHiddenMain(cp));
   topLevel.forEach((cp, _) => {
     const pi = pages.indexOf(cp);
-    const children = pages.filter(p => p.parent === cp.slug && p.enabled !== false && !p.hiddenFromNav);
+    const children = pages.filter(p => p.parent === cp.slug && p.enabled !== false && !_navHiddenMain(p));
     if (children.length) {
       // Render as expandable group — label navigates, chevron toggles
       const group = document.createElement('div');
-      group.className = 'nav-group';
+      group.className = 'nav-group' + (CFG.navDefaultOpen === true ? ' open' : '');
       group.dataset.slug = cp.slug;
 
       const toggle = document.createElement('div');
@@ -5225,11 +5424,11 @@ function buildNav() {
   parts.push(div);
 
   // Contact CTA
-  if (pt.contact !== false) {
+  if (pt.contact !== false && CFG.ctaLinkType !== 'none') {
     const btn = document.createElement('button');
     btn.className = 'btn-nav-cta';
     btn.textContent = CFG.ctaLabel || 'Free Consultation';
-    btn.onclick = () => { showPage('contact'); toggleMobileNav(); };
+    btn.onclick = () => { ctaButtonAction(); toggleMobileNav(); };
     parts.push(btn);
   }
 
@@ -5292,7 +5491,7 @@ function buildFooterNav() {
   });
 
   // Custom pages — group children under their parent
-  const customPages = (CFG.customPages || []).filter(cp => cp.enabled !== false && !cp.hiddenFromNav);
+  const customPages = (CFG.customPages || []).filter(cp => cp.enabled !== false && !_navHiddenFooter(cp));
   const topLevel    = customPages.filter(cp => !cp.parent);
 
   topLevel.forEach(cp => {
@@ -5311,9 +5510,10 @@ function buildFooterNav() {
     const parentLink = makeLink(cp.navLabel || cp.slug, cp.slug);
     row.appendChild(parentLink);
 
+    const startOpen = CFG.footerNavDefaultOpen === true;
     const chev = document.createElement('button');
     chev.className = 'footer-nav-chev';
-    chev.textContent = '▸';
+    chev.textContent = startOpen ? '▾' : '▸';
     chev.setAttribute('aria-label', 'Expand ' + (cp.navLabel || cp.slug));
     chev.onclick = () => {
       const childList = group.querySelector('.footer-nav-children');
@@ -5324,7 +5524,7 @@ function buildFooterNav() {
     group.appendChild(row);
 
     const childList = document.createElement('div');
-    childList.className = 'footer-nav-children';
+    childList.className = 'footer-nav-children' + (startOpen ? ' open' : '');
     children.forEach(child => {
       childList.appendChild(makeLink(child.navLabel || child.slug, child.slug));
     });
@@ -5334,9 +5534,13 @@ function buildFooterNav() {
 
   // Contact CTA button
   const ctaWrap = document.getElementById('footer-cta-wrap');
-  if (ctaWrap) ctaWrap.style.display = pt.contact === false ? 'none' : '';
+  const hideCta = pt.contact === false || CFG.ctaLinkType === 'none';
+  if (ctaWrap) ctaWrap.style.display = hideCta ? 'none' : '';
   const footerCtaBtn = document.getElementById('footer-cta-btn');
-  if (footerCtaBtn) footerCtaBtn.textContent = (CFG.ctaLabel || 'Free Consultation') + ' →';
+  if (footerCtaBtn) {
+    footerCtaBtn.textContent = (CFG.ctaLabel || 'Free Consultation') + ' →';
+    footerCtaBtn.onclick = () => { ctaButtonAction(); };
+  }
   // Footer bottom contact link
   const bottomContact = document.getElementById('footer-bottom-contact');
   if (bottomContact) bottomContact.style.display = pt.contact === false ? 'none' : '';
@@ -5438,6 +5642,13 @@ function buildHeader() {
   document.getElementById('metaDesc').content = CFG.metaDescription;
   document.getElementById('metaKeys').content = CFG.metaKeywords;
 }
+function ctaButtonAction() {
+  const linkType = CFG.ctaLinkType || 'internal';
+  const linkUrl  = CFG.ctaLinkType ? (CFG.ctaLinkUrl || '') : 'contact';
+  if (linkType === 'none') return;
+  if (linkType === 'internal') showPage(linkUrl || 'contact');
+  else openSmartLink(linkType, linkUrl);
+}
 function applyCTALabel() {
   // ctaLabel is used for nav/footer CTA buttons; hero button is controlled by heroPrimaryLabel in buildHero
 }
@@ -5536,9 +5747,9 @@ function showPage(name, anchor) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Header solid on non-home pages
+  // Header solid on non-home pages (or always, if headerAlwaysSolid is enabled)
   const header = document.getElementById('site-header');
-  if (name !== 'home') {
+  if (CFG.headerAlwaysSolid === true || name !== 'home') {
     const _chr = getComputedStyle(document.documentElement).getPropertyValue('--chrome').trim() || '#060f1d';
     const _rgb = _chr.replace('#','').match(/.{2}/g).map(h=>parseInt(h,16)).join(',');
     header.style.background = `rgba(${_rgb}, 0.97)`;
@@ -5605,6 +5816,7 @@ function toggleMobileNav() {
    SCROLL HEADER — smooth fade-in bg on home only
    ============================================= */
 window.addEventListener('scroll', () => {
+  if (CFG.headerAlwaysSolid === true) return; // stays solid regardless of scroll/page
   if (currentPage !== 'home') return; // non-home pages stay solid (set by showPage)
   const header = document.getElementById('site-header');
   const scrollY = window.scrollY;
@@ -5782,7 +5994,7 @@ function renderSearchResults(query) {
     const pages = [
       { key:'home', label:'Home' },
       { key:'about', label:'About Us' },
-      ...(CFG.customPages||[]).filter(p=>p.enabled!==false && !p.hiddenFromNav).map((p,i)=>({ key:'cp-'+i, label: p.navLabel||p.slug||'Page '+i }))
+      ...(CFG.customPages||[]).filter(p=>p.enabled!==false && !_navHiddenMain(p)).map((p,i)=>({ key:'cp-'+i, label: p.navLabel||p.slug||'Page '+i }))
     ];
     const excluded = (srchCfg.excludedPages || []);
     const chips = pages.filter(p => !excluded.includes(p.key)).map(p =>
@@ -6900,15 +7112,29 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       // Unique ID for this carousel instance
       const rcId = 'rc-' + Math.random().toString(36).slice(2,8);
 
+      // Build the navigable set of zoom-enabled cards (only cards with zoom on + an image)
+      const zoomItems = [];
+      const zoomIndexMap = new Map();
+      items.forEach((it) => {
+        const wantsZoom = it.zoomEnabled === true || it.zoomEnabled === 'true' || it.zoomEnabled === 'on';
+        if (wantsZoom && it.imagePath) {
+          zoomIndexMap.set(it, zoomItems.length);
+          zoomItems.push({ src: it.imagePath, alt: it.title || '', title: it.title || '', caption: '' });
+        }
+      });
+      const zoomItemsJson = escAttr(JSON.stringify(zoomItems));
+
       // Build card HTML (we'll clone first/last for infinite loop)
       const cardHtml = (it) => {
-        const isFullBleed = it.fullBleed === true || it.fullBleed === 'true' || it.fullBleed === 'on';
+        const showOverlay = it.fullBleed === true || it.fullBleed === 'true' || it.fullBleed === 'on';
         const tc = it.textColor || 'dark';
         const bodyClass = 'cps-rc-card-body text-' + tc;
         const imgTag = it.imagePath
-          ? (isFullBleed
-              ? '<img class="cps-rc-card-img" src="' + escAttr(it.imagePath) + '" alt="' + escAttr(it.title||'') + '" loading="lazy"/><div class="cps-rc-card-overlay"></div>'
-              : '<img class="cps-rc-card-img-std" src="' + escAttr(it.imagePath) + '" alt="' + escAttr(it.title||'') + '" loading="lazy"/>')
+          ? '<img class="cps-rc-card-img" src="' + escAttr(it.imagePath) + '" alt="' + escAttr(it.title||'') + '" loading="lazy"/>' + (showOverlay ? '<div class="cps-rc-card-overlay"></div>' : '')
+          : '';
+        const zoomIdx = zoomIndexMap.has(it) ? zoomIndexMap.get(it) : -1;
+        const zoomHint = zoomIdx >= 0
+          ? '<div class="cps-rc-zoom-hint" onclick="rcCardZoomClick(this,' + zoomIdx + ')" title="View larger"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:52%;height:52%;"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></div>'
           : '';
         const btnOnclick = it.btnLinkType === 'internal'
           ? 'showPage(\'' + escAttr(it.btnLinkUrl) + '\',\'' + escAttr(it.btnAnchorId||'') + '\')'
@@ -6917,8 +7143,9 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
           ? '<button class="cps-rc-card-btn" onclick="' + btnOnclick + '">' + it.btnLabel + '</button>'
           : '';
         const bgStyle = (!it.imagePath && it.bgColor) ? ' style="background:' + escAttr(it.bgColor) + ';"' : '';
-        return '<div class="cps-rc-card' + (isFullBleed ? ' full-bleed' : '') + '"' + bgStyle + '>'
+        return '<div class="cps-rc-card full-bleed"' + bgStyle + '>'
           + imgTag
+          + zoomHint
           + '<div class="' + bodyClass + '">'
           + (it.title ? '<div class="cps-rc-card-title">' + it.title + '</div>' : '')
           + (it.body  ? '<p class="cps-rc-card-text">' + it.body + '</p>' : '')
@@ -6955,7 +7182,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
           + labelHTML
           + (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '')
           + (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '')
-          + '<div class="cps-rc-outer" style="--rc-gap:' + gap + 'px;--rc-peek:' + peek + 'px;">'
+          + '<div class="cps-rc-outer" data-zoom-items="' + zoomItemsJson + '" style="--rc-gap:' + gap + 'px;--rc-peek:' + peek + 'px;">'
             + arrowsHtml
             + '<div class="cps-rc-track-wrap" id="' + rcId + '-wrap">'
               + '<div class="cps-rc-track" id="' + rcId + '-track">' + trackInner + '</div>'
@@ -7094,10 +7321,12 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         }
 
         // Drag/swipe
-        wrap.addEventListener('mousedown', e => { if (isSnapping) return; isDragging = true; dragStartX = e.clientX; track.style.transition = 'none'; });
+        wrap._rcSuppressClick = false;
+        wrap.addEventListener('mousedown', e => { if (isSnapping) return; isDragging = true; dragStartX = e.clientX; track.style.transition = 'none'; wrap._rcSuppressClick = false; });
         window.addEventListener('mousemove', e => {
           if (!isDragging) return;
           dragDelta = e.clientX - dragStartX;
+          if (Math.abs(dragDelta) > 5) wrap._rcSuppressClick = true;
           track.style.transform = 'translateX(' + (-getOffset(current) + dragDelta) + 'px)';
         });
         window.addEventListener('mouseup', () => {
@@ -7107,10 +7336,12 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
           else if (dragDelta > 50) prev();
           else goTo(current, true);
           dragDelta = 0;
+          if (wrap._rcSuppressClick) setTimeout(() => { wrap._rcSuppressClick = false; }, 0);
         });
-        wrap.addEventListener('touchstart', e => { if (isSnapping) return; dragStartX = e.touches[0].clientX; track.style.transition = 'none'; }, { passive: true });
+        wrap.addEventListener('touchstart', e => { if (isSnapping) return; dragStartX = e.touches[0].clientX; track.style.transition = 'none'; wrap._rcSuppressClick = false; }, { passive: true });
         wrap.addEventListener('touchmove', e => {
           dragDelta = e.touches[0].clientX - dragStartX;
+          if (Math.abs(dragDelta) > 5) wrap._rcSuppressClick = true;
           track.style.transform = 'translateX(' + (-getOffset(current) + dragDelta) + 'px)';
         }, { passive: true });
         wrap.addEventListener('touchend', () => {
@@ -7118,6 +7349,7 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
           else if (dragDelta > 50) prev();
           else goTo(current, true);
           dragDelta = 0;
+          if (wrap._rcSuppressClick) setTimeout(() => { wrap._rcSuppressClick = false; }, 0);
         });
 
         // Autoplay
@@ -7665,9 +7897,142 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
       break;
     }
 
+    // ── IMAGE SECTION ─────────────────────────────────────────────
+    case 'image': {
+      const imgPath  = sec.imagePath  || '';
+      const img2Path = sec.imagePath2 || '';
+      const rounded  = sec.roundedCorners === true;
+      const ar       = sec.aspectRatio || 'auto';
+      const objPos   = sec.objectPosition || 'center';
+      const caption  = sec.captionText || '';
+      const baEnabled  = sec.beforeAfter === true && !!imgPath && !!img2Path;
+      const sliderDir  = sec.sliderDir || 'horizontal';
+      const sliderStart = Math.min(100, Math.max(0, parseInt(sec.sliderStart) || 50));
+      const showLabels  = sec.showLabels !== false;
+      const labelBefore = sec.labelBefore || 'Before';
+      const labelAfter  = sec.labelAfter  || 'After';
+      const isHoriz = sliderDir !== 'vertical';
+      const bodyHeading = sec.bodyHeading || '';
+      const bodyText    = sec.bodyText    || '';
+      const textSide    = sec.textSide    || 'right';
+      const imageWidth  = parseInt(sec.imageWidth) || 0;
+      const hasText     = !!(bodyHeading || bodyText);
+
+      if (!imgPath) break;
+
+      // Width constraint — applies to single image and grid column
+      const outerStyle = (!hasText && imageWidth) ? 'max-width:' + imageWidth + 'px;margin:0 auto;' : '';
+
+      // Aspect ratio + rounding
+      const arMap = { '16:9': '16/9', '4:3': '4/3', '1:1': '1/1', '3:4': '3/4' };
+      const arVal = arMap[ar] || '';
+      const hasAR = !!arVal;
+      const frameStyles = [
+        arVal ? 'aspect-ratio:' + arVal : '',
+        rounded ? 'border-radius:16px' : '',
+      ].filter(Boolean).join(';');
+
+      const captionHtml = caption
+        ? '<div class="cps-img-section-caption">' + caption + '</div>'
+        : '';
+
+      // Build image/slider block
+      let innerHtml;
+      if (baEnabled) {
+        const baClass = 'cps-img-ba-wrap' + (isHoriz ? '' : ' cps-img-ba-vert');
+        const baStyle = [
+          arVal ? 'aspect-ratio:' + arVal : '',
+          rounded ? 'border-radius:16px' : '',
+        ].filter(Boolean).join(';');
+        const handleStyle = isHoriz ? 'left:' + sliderStart + '%' : 'top:' + sliderStart + '%';
+        const afterClip   = isHoriz
+          ? 'clip-path:inset(0 0 0 ' + sliderStart + '%)'
+          : 'clip-path:inset(' + sliderStart + '% 0 0 0)';
+        const beforeImgStyle = hasAR
+          ? 'width:100%;height:100%;object-fit:cover;object-position:' + objPos + ';display:block;'
+          : 'width:100%;height:auto;object-fit:cover;object-position:' + objPos + ';display:block;';
+        const labelsHtml = showLabels
+          ? '<span class="cps-img-ba-label cps-img-ba-label-before">' + labelBefore + '</span>'
+          + '<span class="cps-img-ba-label cps-img-ba-label-after">' + labelAfter + '</span>'
+          : '';
+        const handleIcon = isHoriz ? '◀ ▶' : '▲ ▼';
+        innerHtml = '<div class="' + baClass + '"' + (baStyle ? ' style="' + baStyle + '"' : '') + '>'
+          + '<img class="cps-img-ba-img-before" src="' + escAttr(imgPath) + '" alt="' + escAttr(labelBefore) + '" loading="lazy" style="' + beforeImgStyle + '"/>'
+          + '<div class="cps-img-ba-after" style="' + afterClip + '">'
+            + '<img src="' + escAttr(img2Path) + '" alt="' + escAttr(labelAfter) + '" loading="lazy" style="object-position:' + objPos + ';"/>'
+          + '</div>'
+          + labelsHtml
+          + '<div class="cps-img-ba-handle" style="' + handleStyle + '">'
+            + '<div class="cps-img-ba-handle-btn">' + handleIcon + '</div>'
+          + '</div>'
+        + '</div>';
+      } else {
+        const imgStyle = 'object-position:' + objPos + ';' + (hasAR ? 'width:100%;height:100%;object-fit:cover;' : 'width:100%;height:auto;');
+        innerHtml = '<div class="cps-img-frame"' + (frameStyles ? ' style="' + frameStyles + '"' : '') + '>'
+          + '<img src="' + escAttr(imgPath) + '" alt="" loading="lazy" style="' + imgStyle + '"/>'
+        + '</div>';
+      }
+
+      // Build full layout — two-column with text, or single image
+      let layoutHtml;
+      if (hasText) {
+        const gridStyle = '--img-col-w:' + (imageWidth || 500) + 'px;';
+        const textColHtml = '<div class="cps-img-text-col">'
+          + (bodyHeading ? '<h3 class="cps-img-text-heading">' + bodyHeading + '</h3>' : '')
+          + (bodyText ? '<div class="cps-img-text-body">' + formatBody(bodyText) + '</div>' : '')
+          + '</div>';
+        const imgColHtml = '<div class="cps-img-col">' + innerHtml + captionHtml + '</div>';
+        const cols = textSide === 'left'
+          ? textColHtml + imgColHtml
+          : imgColHtml + textColHtml;
+        layoutHtml = '<div class="cps-img-with-text text-' + textSide + '" style="' + gridStyle + '">' + cols + '</div>';
+      } else {
+        layoutHtml = '<div class="cps-img-outer reveal"' + (outerStyle ? ' style="' + outerStyle + '"' : '') + '>'
+          + innerHtml + captionHtml
+        + '</div>';
+      }
+
+      wrapper.innerHTML = '<div class="container">' + layoutHtml + '</div>';
+
+      // Wire up before/after slider
+      if (baEnabled) {
+        const baWrap = wrapper.querySelector('.cps-img-ba-wrap');
+        const handle = wrapper.querySelector('.cps-img-ba-handle');
+        const afterEl = wrapper.querySelector('.cps-img-ba-after');
+        if (baWrap && handle && afterEl) {
+          let dragging = false;
+          const getPos = (e) => {
+            const r = baWrap.getBoundingClientRect();
+            const cx = (e.touches ? e.touches[0].clientX : e.clientX);
+            const cy = (e.touches ? e.touches[0].clientY : e.clientY);
+            return isHoriz
+              ? Math.min(100, Math.max(0, (cx - r.left) / r.width * 100))
+              : Math.min(100, Math.max(0, (cy - r.top) / r.height * 100));
+          };
+          const setPos = (pct) => {
+            if (isHoriz) {
+              handle.style.left = pct + '%';
+              afterEl.style.clipPath = 'inset(0 0 0 ' + pct + '%)';
+            } else {
+              handle.style.top = pct + '%';
+              afterEl.style.clipPath = 'inset(' + pct + '% 0 0 0)';
+            }
+          };
+          handle.addEventListener('mousedown', e => { dragging = true; e.preventDefault(); });
+          handle.addEventListener('touchstart', () => { dragging = true; }, { passive: true });
+          window.addEventListener('mousemove',  e => { if (dragging) setPos(getPos(e)); });
+          window.addEventListener('touchmove',  e => { if (dragging) setPos(getPos(e)); }, { passive: true });
+          window.addEventListener('mouseup',    () => { dragging = false; });
+          window.addEventListener('touchend',   () => { dragging = false; });
+        }
+      }
+      break;
+    }
+
     // ── LOGO STRIP ───────────────────────────────────────────────
     case 'logo-strip': {
       const logoSize = sec.logoSize || 'medium';
+      const captionPos = sec.captionPos || 'above';
       const logos = (sec.items || []).map(logo => {
         const imgTag = logo.imagePath ? '<img src="' + escAttr(logo.imagePath) + '" alt="' + escAttr(logo.alt || logo.caption || '') + '" loading="lazy"/>' : '';
         const inner = '<div class="cps-logo-img-wrap">' + imgTag + '</div>' + (logo.caption ? '<div class="cps-logo-caption">' + logo.caption + '</div>' : '');
@@ -7677,13 +8042,13 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
         return '<div class="cps-logo-item">' + inner + '</div>';
       }).join('');
       wrapper.classList.add('cps-section-logo-strip');
-      const hasHeader = sec.label || sec.heading || sec.subtitle;
-      if (!hasHeader) wrapper.classList.add('logo-strip-mode');
+      if (!sec.subtitle) wrapper.classList.add('logo-strip-mode');
+      const captionHtml = sec.subtitle
+        ? '<div class="cps-logo-strip-caption reveal">' + sec.subtitle + '</div>'
+        : '';
+      const stripHtml = '<div class="cps-logo-strip cps-logo-strip--' + logoSize + ' reveal reveal-delay-1">' + logos + '</div>';
       wrapper.innerHTML = '<div class="container">' +
-        labelHTML +
-        (sec.heading ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
-        (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
-        '<div class="cps-logo-strip cps-logo-strip--' + logoSize + ' reveal reveal-delay-1">' + logos + '</div>' +
+        (captionPos === 'below' ? stripHtml + captionHtml : captionHtml + stripHtml) +
       '</div>';
       break;
     }
@@ -7820,16 +8185,16 @@ function renderCustomSection(sec, idx, isFirst, allSections) {
 
       const locDetails = (loc) => {
         const addrParts = [loc.address, [loc.city, loc.stateAbbr, loc.zip].filter(Boolean).join(', ')].filter(Boolean);
-        const phone  = loc.phone  ? '<div class="cps-loc-detail"><span class="cps-loc-detail-icon">📞</span><span><a href="tel:' + (loc.phoneRaw||loc.phone) + '">' + loc.phone + '</a></span></div>' : '';
-        const fax    = loc.fax    ? '<div class="cps-loc-detail"><span class="cps-loc-detail-icon">📠</span><span>' + loc.fax + '</span></div>' : '';
-        const email  = loc.email  ? '<div class="cps-loc-detail"><span class="cps-loc-detail-icon">✉️</span><span><a href="mailto:' + loc.email + '">' + loc.email + '</a></span></div>' : '';
-        const addr   = addrParts.length ? '<div class="cps-loc-detail"><span class="cps-loc-detail-icon">📍</span><span>' + addrParts.join('<br>') + '</span></div>' : '';
+        const addr   = addrParts.length ? '<div class="cps-loc-detail"><span>' + addrParts.join('<br>') + '</span></div>' : '';
+        const phone  = loc.phone  ? '<div class="cps-loc-detail"><span><strong>Phone:</strong> <a href="tel:' + (loc.phoneRaw||loc.phone) + '">' + loc.phone + '</a></span></div>' : '';
+        const fax    = loc.fax    ? '<div class="cps-loc-detail"><span><strong>Fax:</strong> ' + loc.fax + '</span></div>' : '';
+        const email  = loc.email  ? '<div class="cps-loc-detail"><span><strong>Email:</strong> <a href="mailto:' + loc.email + '">' + loc.email + '</a></span></div>' : '';
         let hoursHtml = '';
         if (showHours && (loc.hours||[]).length) {
           const rows = loc.hours.map(h => '<div class="cps-loc-hours-row"><span>' + h.days + '</span><span>' + h.hours + '</span></div>').join('');
           hoursHtml = '<div class="cps-loc-hours"><div class="cps-loc-hours-label">Office Hours</div>' + rows + '</div>';
         }
-        return phone + fax + email + addr + hoursHtml;
+        return addr + phone + fax + email + hoursHtml;
       }
 
       const locMap = (loc) => {
@@ -8077,6 +8442,16 @@ function closeLightbox() {
   document.body.style.overflow = '';
 }
 
+function rcCardZoomClick(iconEl, idx) {
+  const wrap = iconEl.closest('.cps-rc-track-wrap');
+  if (wrap && wrap._rcSuppressClick) return;
+  const outer = iconEl.closest('.cps-rc-outer');
+  if (!outer) return;
+  let zoomItems = [];
+  try { zoomItems = JSON.parse(outer.dataset.zoomItems || '[]'); } catch(e) {}
+  if (zoomItems.length) openLightbox(zoomItems, idx);
+}
+
 document.addEventListener('keydown', e => {
   const lb = document.getElementById('cpsLightbox');
   if (!lb || !lb.classList.contains('open')) return;
@@ -8194,10 +8569,19 @@ document.addEventListener('DOMContentLoaded', () => {
   _run(buildHero,         'buildHero');
 
   // Start header fully transparent — scroll handler fades it in on home page
+  // (unless headerAlwaysSolid is enabled, in which case it starts solid)
   try {
     const header = document.getElementById('site-header');
-    header.style.background = 'rgba(9, 20, 38, 0)';
-    header.style.backdropFilter = '';
+    if (CFG.headerAlwaysSolid === true) {
+      const _chr = getComputedStyle(document.documentElement).getPropertyValue('--chrome').trim() || '#060f1d';
+      const _rgb = _chr.replace('#','').match(/.{2}/g).map(h=>parseInt(h,16)).join(',');
+      header.style.background = `rgba(${_rgb}, 0.97)`;
+      header.style.backdropFilter = 'blur(12px)';
+      header.classList.add('solid');
+    } else {
+      header.style.background = 'rgba(9, 20, 38, 0)';
+      header.style.backdropFilter = '';
+    }
   } catch(e) {}
 
   _run(buildStats,        'buildStats');

@@ -966,6 +966,57 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
       </div>
       <div class="panel">
         <div class="panel-header" onclick="togglePanel(this)">
+          <div class="panel-title"><span class="panel-title-icon">🧭</span> Navigation</div>
+          <span class="panel-chevron">▼</span>
+        </div>
+        <div class="panel-body">
+          <div class="field-group" style="margin:0;">
+            <div class="switch-row" style="margin:0;">
+              <span class="switch-label">Default subpages open in main navigation</span>
+              <label class="switch"><input type="checkbox" id="f_navDefaultOpen"/><span class="switch-slider"></span></label>
+            </div>
+          </div>
+          <div class="field-group" style="margin-top:10px;">
+            <div class="switch-row" style="margin:0;">
+              <span class="switch-label">Default subpages open in footer navigation</span>
+              <label class="switch"><input type="checkbox" id="f_footerNavDefaultOpen"/><span class="switch-slider"></span></label>
+            </div>
+          </div>
+          <div class="field-group" style="margin-top:10px;margin-bottom:14px;">
+            <div class="switch-row" style="margin:0;">
+              <span class="switch-label">Always solid header (no transparent-over-hero effect)</span>
+              <label class="switch"><input type="checkbox" id="f_headerAlwaysSolid"/><span class="switch-slider"></span></label>
+            </div>
+          </div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin:14px 0 8px;">Nav / Footer CTA Button</div>
+          <div class="form-row-2" style="margin-bottom:8px;">
+            <div class="field-group" style="margin:0;">
+              <label>Label</label>
+              <input type="text" id="f_ctaLabel" placeholder="Free Consultation"/>
+            </div>
+            <div class="field-group" style="margin:0;">
+              <label>Link Type</label>
+              <select id="f_ctaLinkType" onchange="onCtaLinkTypeChange(this)">
+                <option value="none">None (hide button)</option>
+                <option value="internal">Internal Page</option>
+                <option value="external">External URL</option>
+                <option value="file">File / Document</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-group" id="f_cta_internal" style="display:none;">
+            <label>Page</label>
+            <select id="f_ctaInternalPage"></select>
+          </div>
+          <div class="field-group" id="f_cta_url" style="display:none;">
+            <label id="f_ctaUrlLabel">URL</label>
+            <input type="text" id="f_ctaUrl" placeholder="https://"/>
+          </div>
+          <div class="field-hint">Used by the nav and footer call-to-action button.</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header" onclick="togglePanel(this)">
           <div class="panel-title"><span class="panel-title-icon">📊</span> Stats Bar</div>
           <div style="display:flex;align-items:center;gap:10px;margin-left:auto;margin-right:12px;" onclick="event.stopPropagation()">
             <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;color:var(--muted);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;">
@@ -1005,7 +1056,6 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
           <div class="field-group"><label>Label</label><input type="text" id="ph_contact_label"/></div>
           <div class="field-group"><label>Contact Headline</label><input type="text" id="f_contactHeadline"/></div>
           <div class="field-group"><label>Contact Subline</label><textarea id="f_contactSubline" style="min-height:60px;"></textarea></div>
-          <div class="field-group"><label>CTA Button Label</label><input type="text" id="f_ctaLabel" placeholder="Free Consultation"/><div class="field-hint">Text used on the nav and footer call-to-action button.</div></div>
         </div>
       </div>
       <!-- Locations list -->
@@ -1807,7 +1857,8 @@ let DATA = {
     {type:'textarea', label:'Message',    placeholder:'', required:false, halfWidth:false, options:[]}
   ],
   services:[], faqs:[], testimonials:[], blogPosts:[], processSteps:[], processRequirements:[],
-  ctaLabel:"",
+  ctaLabel:"", ctaLinkType:"internal", ctaLinkUrl:"contact",
+  navDefaultOpen:false, footerNavDefaultOpen:false, headerAlwaysSolid:false,
   pageToggles:{about:true,contact:true},
   homeToggles:{stats:true,why:true,testimonials:true},
   customPages:[],
@@ -2217,6 +2268,13 @@ function loadForm() {
   setVal('f_copyrightText', DATA.copyrightText||'');
   const animEl = document.getElementById('f_animateStats');
   if (animEl) animEl.checked = DATA.animateStats === true;
+  const navOpenEl = document.getElementById('f_navDefaultOpen');
+  if (navOpenEl) navOpenEl.checked = DATA.navDefaultOpen === true;
+  const footerNavOpenEl = document.getElementById('f_footerNavDefaultOpen');
+  if (footerNavOpenEl) footerNavOpenEl.checked = DATA.footerNavDefaultOpen === true;
+  const headerSolidEl = document.getElementById('f_headerAlwaysSolid');
+  if (headerSolidEl) headerSolidEl.checked = DATA.headerAlwaysSolid === true;
+  loadCtaField(DATA.ctaLinkType || 'internal', DATA.ctaLinkUrl || 'contact');
   setVal('f_preloaderTagline', DATA.preloaderTagline||'');
   setVal('f_logoPrimary',      DATA.logoPrimary      || '');
   setVal('f_logoAlternate',    DATA.logoAlternate    || '');
@@ -2704,6 +2762,16 @@ function collectData() {
   DATA.copyrightText = getVal('f_copyrightText');
   const _animEl = document.getElementById('f_animateStats');
   DATA.animateStats = _animEl ? _animEl.checked : false;
+  const _navOpenEl = document.getElementById('f_navDefaultOpen');
+  DATA.navDefaultOpen = _navOpenEl ? _navOpenEl.checked : false;
+  const _footerNavOpenEl = document.getElementById('f_footerNavDefaultOpen');
+  DATA.footerNavDefaultOpen = _footerNavOpenEl ? _footerNavOpenEl.checked : false;
+  const _headerSolidEl = document.getElementById('f_headerAlwaysSolid');
+  DATA.headerAlwaysSolid = _headerSolidEl ? _headerSolidEl.checked : false;
+  DATA.ctaLinkType = getVal('f_ctaLinkType') || 'internal';
+  DATA.ctaLinkUrl  = DATA.ctaLinkType === 'internal'
+    ? (document.getElementById('f_ctaInternalPage')?.value || '')
+    : (getVal('f_ctaUrl') || '');
   DATA.preloaderTagline = getVal('f_preloaderTagline');
   DATA.logoPrimary       = getVal('f_logoPrimary');
   DATA.logoAlternate     = getVal('f_logoAlternate');
@@ -4062,6 +4130,50 @@ function onHeroBtnLinkTypeChange(which, sel) {
   autosave();
 }
 
+function loadCtaField(linkType, linkUrl) {
+  const ltEl   = document.getElementById('f_ctaLinkType');
+  const intEl  = document.getElementById('f_cta_internal');
+  const urlEl  = document.getElementById('f_cta_url');
+  const urlLbl = document.getElementById('f_ctaUrlLabel');
+  const intSel = document.getElementById('f_ctaInternalPage');
+  const urlInp = document.getElementById('f_ctaUrl');
+  if (ltEl)   ltEl.value = linkType || 'internal';
+  if (intEl)  intEl.style.display  = linkType === 'internal' ? '' : 'none';
+  if (urlEl)  urlEl.style.display  = (linkType === 'external' || linkType === 'file') ? '' : 'none';
+  if (urlLbl) urlLbl.textContent   = linkType === 'file' ? 'File Path / URL' : 'External URL';
+  if (intSel) intSel.innerHTML     = getInternalPageOptions(linkType === 'internal' ? (linkUrl||'') : '');
+  if (urlInp) urlInp.value         = (linkType === 'external' || linkType === 'file') ? (linkUrl||'') : '';
+}
+
+function onImgBeforeAfterToggle(cb) {
+  const card = cb.closest('.cp-section-card');
+  if (!card) return;
+  const baFields = card.querySelector('.cps-img-ba-fields');
+  if (baFields) baFields.style.display = cb.checked ? '' : 'none';
+  autosave();
+}
+
+function onImgShowLabelsToggle(cb) {
+  const card = cb.closest('.cp-section-card');
+  if (!card) return;
+  const lblFields = card.querySelector('.cps-img-label-fields');
+  if (lblFields) lblFields.style.display = cb.checked ? '' : 'none';
+  autosave();
+}
+
+function onCtaLinkTypeChange(sel) {
+  const val = sel.value;
+  const intEl  = document.getElementById('f_cta_internal');
+  const urlEl  = document.getElementById('f_cta_url');
+  const urlLbl = document.getElementById('f_ctaUrlLabel');
+  const intSel = document.getElementById('f_ctaInternalPage');
+  if (intEl)  intEl.style.display  = val === 'internal' ? '' : 'none';
+  if (urlEl)  urlEl.style.display  = (val === 'external' || val === 'file') ? '' : 'none';
+  if (urlLbl) urlLbl.textContent   = val === 'file' ? 'File Path / URL' : 'External URL';
+  if (intSel && val === 'internal') intSel.innerHTML = getInternalPageOptions(intSel.value || '');
+  autosave();
+}
+
 function onFeatureCardLinkTypeChange(pi, si, ii, sel) {
   const val = sel.value;
   const intEl = document.getElementById('cp-fc-internal-' + pi + '-' + si + '-' + ii);
@@ -4374,6 +4486,7 @@ const CP_SECTION_TYPES = [
   { value:'jurisdiction',   label:'📊 Jurisdiction Notice' },
   // 🎬 Media
   { value:'gallery',        label:'🎬 Image Gallery' },
+  { value:'image',          label:'🎬 Image / Before & After' },
   { value:'video',          label:'🎬 Video Embed' },
   { value:'logo-strip',     label:'🎬 Logo / Partner Strip' },
   { value:'marquee',        label:'🎬 Marquee / Ticker' },
@@ -4459,9 +4572,10 @@ function addHomeSection() {
   if (type === 'button') { defaults.primary_linkType = 'none'; defaults.primary_linkUrl = ''; defaults.primary_linkLabel = ''; defaults.secondary_linkType = 'none'; defaults.secondary_linkUrl = ''; defaults.secondary_linkLabel = ''; }
   if (type === 'richtext') { defaults.background = 'inherit'; defaults.richContent = ''; defaults.imagePath = ''; defaults.imagePos = 'none'; defaults.imageSize = 'md'; defaults.imageCaption = ''; defaults.fullWidth = false; }
   if (type === 'accordion') defaults.items = [];
-  if (type === 'logo-strip') { defaults.items = []; defaults.logoSize = 'medium'; }
+  if (type === 'logo-strip') { defaults.items = []; defaults.logoSize = 'medium'; defaults.captionPos = 'above'; }
   if (type === 'marquee') { defaults.items = []; defaults.mqMode = 'text'; defaults.mqSpeed = 'medium'; defaults.mqDir = 'left'; defaults.mqPause = true; defaults.mqText = ''; defaults.mqSeparator = '·'; defaults.mqFadeEdges = true; defaults.mqFadeWidth = 'normal'; defaults.mqTickerHold = 3; defaults.mqTickerSpeed = 'normal'; }
   if (type === 'video') { defaults.videoLayout = 'contained'; defaults.videoPosition = 'left'; defaults.embedUrl = ''; defaults.mp4Url = ''; }
+  if (type === 'image') { defaults.imagePath = ''; defaults.imageWidth = 0; defaults.aspectRatio = 'auto'; defaults.objectPosition = 'center'; defaults.roundedCorners = false; defaults.beforeAfter = false; defaults.captionText = ''; defaults.sliderDir = 'horizontal'; defaults.sliderStart = 50; defaults.showLabels = true; defaults.labelBefore = 'Before'; defaults.labelAfter = 'After'; defaults.bodyHeading = ''; defaults.bodyText = ''; defaults.textSide = 'right'; }
   if (type === 'gallery') { defaults.items = []; defaults.galleryCols = 3; }
   if (type === 'pricing') { defaults.items = []; }
   if (type === 'locations') { defaults.items = []; defaults.displayMode = 'cards'; defaults.layoutMode = 'top'; defaults.mapMode = 'linkout'; defaults.maxCols = 2; defaults.showHours = true; }
@@ -4528,9 +4642,10 @@ function addAboutSection() {
   if (type === 'button') { defaults.primary_linkType = 'none'; defaults.primary_linkUrl = ''; defaults.primary_linkLabel = ''; defaults.secondary_linkType = 'none'; defaults.secondary_linkUrl = ''; defaults.secondary_linkLabel = ''; }
   if (type === 'richtext') { defaults.background = 'inherit'; defaults.richContent = ''; defaults.imagePath = ''; defaults.imagePos = 'none'; defaults.imageSize = 'md'; defaults.imageCaption = ''; defaults.fullWidth = false; }
   if (type === 'accordion') defaults.items = [];
-  if (type === 'logo-strip') { defaults.items = []; defaults.logoSize = 'medium'; }
+  if (type === 'logo-strip') { defaults.items = []; defaults.logoSize = 'medium'; defaults.captionPos = 'above'; }
   if (type === 'marquee') { defaults.items = []; defaults.mqMode = 'text'; defaults.mqSpeed = 'medium'; defaults.mqDir = 'left'; defaults.mqPause = true; defaults.mqText = ''; defaults.mqSeparator = '·'; defaults.mqFadeEdges = true; defaults.mqFadeWidth = 'normal'; defaults.mqTickerHold = 3; defaults.mqTickerSpeed = 'normal'; }
   if (type === 'video') { defaults.videoLayout = 'contained'; defaults.videoPosition = 'left'; defaults.embedUrl = ''; defaults.mp4Url = ''; }
+  if (type === 'image') { defaults.imagePath = ''; defaults.imageWidth = 0; defaults.aspectRatio = 'auto'; defaults.objectPosition = 'center'; defaults.roundedCorners = false; defaults.beforeAfter = false; defaults.captionText = ''; defaults.sliderDir = 'horizontal'; defaults.sliderStart = 50; defaults.showLabels = true; defaults.labelBefore = 'Before'; defaults.labelAfter = 'After'; defaults.bodyHeading = ''; defaults.bodyText = ''; defaults.textSide = 'right'; }
   if (type === 'gallery') { defaults.items = []; defaults.galleryCols = 3; }
   if (type === 'pricing') { defaults.items = []; }
   if (type === 'locations') { defaults.items = []; defaults.displayMode = 'cards'; defaults.layoutMode = 'top'; defaults.mapMode = 'linkout'; defaults.maxCols = 2; defaults.showHours = true; }
@@ -4624,7 +4739,7 @@ function collectHomeSingleSection_forPi(secCard, pi, si, existing) {
     team: ['name','title','photo','bio'],
     locations: ['locationIndex','imagePath'],
     table: ['cell1','cell2','cell3'],
-    'rotating-cards': ['title','body','imagePath','bgColor','fullBleed','textColor','btnLabel','btnLinkType','btnLinkUrl','btnAnchorId'],
+    'rotating-cards': ['title','body','imagePath','bgColor','fullBleed','zoomEnabled','textColor','btnLabel','btnLinkType','btnLinkUrl','btnAnchorId'],
   };
   if (arrTypes[type]) {
     sec.items = Array.from(secCard.querySelectorAll('.cp-sub-item')).map(item => {
@@ -4776,7 +4891,7 @@ function collectHomeSingleSection_forPi(secCard, pi, si, existing) {
     sec.showPeek      = secCard.querySelector('[data-field="showPeek"]')?.checked !== false;
     sec.autoplay      = secCard.querySelector('[data-field="autoplay"]')?.checked === true;
     sec.autoplaySpeed = parseInt(get('autoplaySpeed')) || 4;
-    sec.items         = collectCpSubItems(secCard, pi, si, ['title','body','imagePath','bgColor','fullBleed','textColor','btnLabel','btnLinkType','btnLinkUrl','btnAnchorId']);
+    sec.items         = collectCpSubItems(secCard, pi, si, ['title','body','imagePath','bgColor','fullBleed','zoomEnabled','textColor','btnLabel','btnLinkType','btnLinkUrl','btnAnchorId']);
   }
 
   // Jurisdiction
@@ -4839,9 +4954,29 @@ function collectHomeSingleSection_forPi(secCard, pi, si, existing) {
     });
   }
 
+  // Image Section
+  if (type === 'image') {
+    sec.imagePath      = get('imagePath') || '';
+    sec.imagePath2     = get('imagePath2') || '';
+    sec.imageWidth     = parseInt(get('imageWidth')) || 0;
+    sec.aspectRatio    = get('aspectRatio') || 'auto';
+    sec.objectPosition = get('objectPosition') || 'center';
+    sec.captionText    = get('captionText') || '';
+    sec.roundedCorners = secCard.querySelector('[data-field="roundedCorners"]')?.checked === true;
+    sec.beforeAfter    = secCard.querySelector('[data-field="beforeAfter"]')?.checked === true;
+    sec.sliderDir      = get('sliderDir') || 'horizontal';
+    sec.sliderStart    = parseInt(get('sliderStart')) || 50;
+    sec.showLabels     = secCard.querySelector('[data-field="showLabels"]')?.checked !== false;
+    sec.labelBefore    = get('labelBefore') || 'Before';
+    sec.labelAfter     = get('labelAfter')  || 'After';
+    sec.bodyHeading    = get('bodyHeading') || '';
+    sec.bodyText       = get('bodyText')    || '';
+    sec.textSide       = get('textSide')    || 'right';
+    sec.imageWidth     = parseInt(get('imageWidth')) || 500;
+  }
+
   // Gallery
   if (type === 'gallery') {
-    sec.galleryCols = parseInt(get('galleryCols')) || 3;
     sec.items = Array.from(secCard.querySelectorAll('.cp-sub-item')).map(item => ({
       imagePath: item.querySelector('[data-field="imagePath"]')?.value.trim() || '',
       alt:       item.querySelector('[data-field="alt"]')?.value.trim()       || '',
@@ -4862,6 +4997,8 @@ function collectHomeSingleSection_forPi(secCard, pi, si, existing) {
 
   // Logo Strip
   if (type === 'logo-strip') {
+    sec.subtitle = get('subtitle') || '';
+    sec.captionPos = get('captionPos') || 'above';
     sec.logoSize = get('logoSize') || 'medium';
     sec.items = Array.from(secCard.querySelectorAll('.cp-sub-item')).map(item => ({
       imagePath: item.querySelector('[data-field="imagePath"]')?.value.trim() || '',
@@ -4990,7 +5127,7 @@ function buildCustomPagesList() {
         '<span class="cp-nav-item-link" onclick="showCpSection(' + pi + ')">' +
           '<span class="cp-nav-item-emoji">' + emoji + '</span>' +
           '<span class="cp-nav-item-label">' + escHtml(label) + '</span>' +
-          (page.hiddenFromNav ? '<span class="cp-nav-hidden-badge" title="Hidden from navigation">🚫</span>' : '') +
+          ((page.hiddenFromMainNav !== undefined ? page.hiddenFromMainNav : page.hiddenFromNav) ? '<span class="cp-nav-hidden-badge" title="Hidden from navigation">🚫</span>' : '') +
         '</span>' +
         addSubBtn +
         '<span class="cp-nav-arrows">' +
@@ -5193,6 +5330,8 @@ function buildCustomSectionHtml(sec, pi, si) {
   const typeLabel = CP_SECTION_TYPES.find(t => t.value === sec.type)?.label || sec.type;
   const isAppendage = sec.type === 'link' || sec.type === 'button';
   const isRichtext  = sec.type === 'richtext';
+  const isLogoStrip = sec.type === 'logo-strip';
+  const isImageSection = sec.type === 'image';
   const bgOpts = CP_BG_OPTIONS
     .filter(bg => isAppendage ? bg.value !== 'inherit' : true)
     .map(bg =>
@@ -5200,7 +5339,7 @@ function buildCustomSectionHtml(sec, pi, si) {
         onclick="setCpSecBg(${typeof pi==='string'?("'"+pi+"'"):pi},${si},'${bg.value}',this)">${bg.label}</div>`
     ).join('');
 
-  const commonFields = (isAppendage || isRichtext) ? '' : `
+  const commonFields = (isAppendage || isRichtext || isLogoStrip || isImageSection) ? '' : `
     <div class="form-row-2" style="margin-bottom:12px;">
       <div class="field-group">
         <label>Section Label (small gold text)</label>
@@ -5218,12 +5357,24 @@ function buildCustomSectionHtml(sec, pi, si) {
       <div class="cp-bg-selector">${bgOpts}</div>
     </div>` : '';
 
+  const logoStripBgRow = isLogoStrip ? `
+    <div class="field-group" style="margin-bottom:12px;">
+      <label>Background</label>
+      <div class="cp-bg-selector">${bgOpts}</div>
+    </div>` : '';
+
+  const imageSectionBgRow = isImageSection ? `
+    <div class="field-group" style="margin-bottom:12px;">
+      <label>Background</label>
+      <div class="cp-bg-selector">${bgOpts}</div>
+    </div>` : '';
+
   let typeFields = buildCpSectionTypeFields(sec, pi, si);
 
   return `<div class="cp-section-card" data-pi="${pi}" data-si="${si}">
     <div class="cp-section-header" onclick="toggleCpSection(this)">
       <span class="cp-section-type-badge">${typeLabel}${sec.label ? ' — ' + escHtml(sec.label) : ''}</span>
-      ${!isAppendage && !isRichtext ? `<div class="cp-anchor-field" onclick="event.stopPropagation()">
+      ${!isAppendage && !isRichtext && !isLogoStrip && !isImageSection ? `<div class="cp-anchor-field" onclick="event.stopPropagation()">
         <label>#</label>
         <input type="text" data-cp="${pi}" data-sec="${si}" data-field="anchorId" value="${escHtml(sec.anchorId||'')}" placeholder="auto-generated on save" title="Anchor ID — used for section links and search"/>
       </div>` : ''}
@@ -5247,6 +5398,8 @@ function buildCustomSectionHtml(sec, pi, si) {
     <div class="cp-section-body">
       ${commonFields}
       ${richtextBgRow}
+      ${logoStripBgRow}
+      ${imageSectionBgRow}
       ${typeFields}
     </div>
   </div>`;
@@ -6313,7 +6466,8 @@ function buildCpSectionTypeFields(sec, pi, si) {
         const selInt  = lt === 'internal' ? ' selected' : '';
         const selExt  = lt === 'external' ? ' selected' : '';
         const selFile = lt === 'file'     ? ' selected' : '';
-        const isFullBleed = it.fullBleed === true || it.fullBleed === 'true';
+        const showOverlay = it.fullBleed === true || it.fullBleed === 'true';
+        const isZoomEnabled = it.zoomEnabled === true || it.zoomEnabled === 'true';
         const selLight = (it.textColor || 'dark') === 'light' ? ' selected' : '';
         const selDark  = (it.textColor || 'dark') === 'dark'  ? ' selected' : '';
         return `<div class="cp-sub-item" data-sub-idx="${ii}">
@@ -6343,12 +6497,18 @@ function buildCpSectionTypeFields(sec, pi, si) {
                 <input type="text" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="bgColor" value="${escHtml(it.bgColor||'')}" placeholder="#f5f0e8"/></div>
               <div class="field-group" style="margin:0;">
                 <div class="switch-row" style="margin:0;padding-top:22px;">
-                  <span class="switch-label">Full bleed image (text overlay)</span>
-                  <label class="switch"><input type="checkbox" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="fullBleed" ${isFullBleed?'checked':''}/><span class="switch-slider"></span></label>
+                  <span class="switch-label">Image overlay (for text readability)</span>
+                  <label class="switch"><input type="checkbox" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="fullBleed" ${showOverlay?'checked':''}/><span class="switch-slider"></span></label>
                 </div>
               </div>
             </div>
-            <div class="field-group" style="margin-bottom:6px;"><label>Text Color (for overlay mode)</label>
+            <div class="field-group" style="margin-bottom:6px;">
+              <div class="switch-row" style="margin:0;">
+                <span class="switch-label">Click to zoom (view image larger)</span>
+                <label class="switch"><input type="checkbox" data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="zoomEnabled" ${isZoomEnabled?'checked':''}/><span class="switch-slider"></span></label>
+              </div>
+            </div>
+            <div class="field-group" style="margin-bottom:6px;"><label>Text Color</label>
               <select data-cp="${pi}" data-sec="${si}" data-arr="items" data-idx="${ii}" data-field="textColor">
                 <option value="dark"${selDark}>Dark (navy)</option>
                 <option value="light"${selLight}>Light (white)</option>
@@ -6432,7 +6592,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
           </div>
         </div>
         <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${rows}</div>
-        <button class="btn-add" onclick="addCpSubItem(${piArg},${si},'items',{title:'',body:'',imagePath:'',bgColor:'',fullBleed:false,textColor:'dark',btnLabel:'',btnLinkType:'none',btnLinkUrl:''})">+ Add Card</button>`;
+        <button class="btn-add" onclick="addCpSubItem(${piArg},${si},'items',{title:'',body:'',imagePath:'',bgColor:'',fullBleed:true,zoomEnabled:false,textColor:'dark',btnLabel:'',btnLinkType:'none',btnLinkUrl:''})">+ Add Card</button>`;
     }
 
 
@@ -6904,6 +7064,90 @@ function buildCpSectionTypeFields(sec, pi, si) {
         <button class="btn-add" onclick="addCpSubItem(${typeof pi==='string'?("'"+pi+"'"):pi},${si},'items',{name:'',tagline:'',price:'',period:'',icon:'',imagePath:'',imageSize:'md',ribbon:'',cardStyle:'light',featured:false,details:'',features:[],cta_linkType:'none',cta_linkLabel:'',cta_linkUrl:'',cta_anchorId:'',note:''})">+ Add Card</button>`;
     }
 
+    case 'image': {
+      const ar       = sec.aspectRatio    || 'auto';
+      const objPos   = sec.objectPosition || 'center';
+      const sliderDir   = sec.sliderDir    || 'horizontal';
+      const sliderStart = sec.sliderStart  !== undefined ? sec.sliderStart : 50;
+      const baEnabled   = sec.beforeAfter  === true;
+      const showLabels  = sec.showLabels   !== false;
+      const rounded  = sec.roundedCorners === true;
+      const baDisplay    = baEnabled  ? '' : 'display:none;';
+      const lblDisplay   = (baEnabled && showLabels) ? '' : 'display:none;';
+      return `
+        <div class="field-group" style="margin-bottom:8px;"><label>Image Path</label>
+          <input type="text" ${p} data-field="imagePath" value="${v('imagePath')}" placeholder="images/photo.jpg"/></div>
+        <div class="form-row-2" style="margin-bottom:8px;">
+          <div class="field-group" style="margin:0;"><label>Image Width (px, blank = full)</label>
+            <input type="number" min="100" max="1400" ${p} data-field="imageWidth" value="${sec.imageWidth||''}" placeholder="Full width"/></div>
+          <div class="field-group" style="margin:0;"><label>Aspect Ratio</label>
+            <select ${p} data-field="aspectRatio">
+              <option value="auto" ${ar==='auto'?'selected':''}>Auto (natural)</option>
+              <option value="16:9" ${ar==='16:9'?'selected':''}>16:9 Landscape</option>
+              <option value="4:3"  ${ar==='4:3' ?'selected':''}>4:3 Standard</option>
+              <option value="1:1"  ${ar==='1:1' ?'selected':''}>1:1 Square</option>
+              <option value="3:4"  ${ar==='3:4' ?'selected':''}>3:4 Portrait</option>
+            </select></div>
+        </div>
+        <div class="form-row-2" style="margin-bottom:12px;">
+          <div class="field-group" style="margin:0;"><label>Object Position</label>
+            <select ${p} data-field="objectPosition">
+              <option value="center" ${objPos==='center'?'selected':''}>Center</option>
+              <option value="top"    ${objPos==='top'   ?'selected':''}>Top</option>
+              <option value="bottom" ${objPos==='bottom'?'selected':''}>Bottom</option>
+              <option value="left"   ${objPos==='left'  ?'selected':''}>Left</option>
+              <option value="right"  ${objPos==='right' ?'selected':''}>Right</option>
+            </select></div>
+          <div class="field-group" style="margin:0;"><label>Caption (optional)</label>
+            <input type="text" ${p} data-field="captionText" value="${v('captionText')}" placeholder="Photo caption…"/></div>
+        </div>
+        <div class="form-row-2" style="margin-bottom:12px;">
+          <div class="field-group" style="margin:0;">
+            <div class="switch-row" style="margin:0;"><span class="switch-label">Rounded corners</span>
+              <label class="switch"><input type="checkbox" ${p} data-field="roundedCorners" ${rounded?'checked':''}/><span class="switch-slider"></span></label></div>
+          </div>
+          <div class="field-group" style="margin:0;">
+            <div class="switch-row" style="margin:0;"><span class="switch-label">Before / After slider</span>
+              <label class="switch"><input type="checkbox" ${p} data-field="beforeAfter" ${baEnabled?'checked':''} onchange="onImgBeforeAfterToggle(this)"/><span class="switch-slider"></span></label></div>
+          </div>
+        </div>
+        <div class="cps-img-ba-fields" style="${baDisplay}border-top:1px solid rgba(0,0,0,0.08);padding-top:12px;margin-top:4px;">
+          <div class="field-group" style="margin-bottom:8px;"><label>After Image Path</label>
+            <input type="text" ${p} data-field="imagePath2" value="${v('imagePath2')}" placeholder="images/after.jpg"/></div>
+          <div class="form-row-2" style="margin-bottom:8px;">
+            <div class="field-group" style="margin:0;"><label>Slider Direction</label>
+              <select ${p} data-field="sliderDir">
+                <option value="horizontal" ${sliderDir==='horizontal'?'selected':''}>Horizontal (left / right)</option>
+                <option value="vertical"   ${sliderDir==='vertical'  ?'selected':''}>Vertical (up / down)</option>
+              </select></div>
+            <div class="field-group" style="margin:0;"><label>Start Position (%)</label>
+              <input type="number" min="5" max="95" ${p} data-field="sliderStart" value="${sliderStart}" style="width:80px;"/></div>
+          </div>
+          <div class="field-group" style="margin-bottom:8px;">
+            <div class="switch-row" style="margin:0;"><span class="switch-label">Show Before / After labels</span>
+              <label class="switch"><input type="checkbox" ${p} data-field="showLabels" ${showLabels?'checked':''} onchange="onImgShowLabelsToggle(this)"/><span class="switch-slider"></span></label></div>
+          </div>
+          <div class="cps-img-label-fields form-row-2" style="${lblDisplay}margin-bottom:4px;">
+            <div class="field-group" style="margin:0;"><label>Before Label</label>
+              <input type="text" ${p} data-field="labelBefore" value="${v('labelBefore')}" placeholder="Before"/></div>
+            <div class="field-group" style="margin:0;"><label>After Label</label>
+              <input type="text" ${p} data-field="labelAfter" value="${v('labelAfter')}" placeholder="After"/></div>
+          </div>
+        </div>
+        <div style="border-top:1px solid rgba(0,0,0,0.08);margin-top:14px;padding-top:14px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">Text Column (optional)</div>
+          <div class="field-group" style="margin-bottom:8px;"><label>Heading</label>
+            <input type="text" ${p} data-field="bodyHeading" value="${v('bodyHeading')}" placeholder="12-Week Results"/></div>
+          <div class="field-group" style="margin-bottom:8px;"><label>Body Text</label>
+            <textarea rows="4" style="width:100%;box-sizing:border-box;resize:vertical;font-family:inherit;font-size:13px;" ${p} data-field="bodyText" placeholder="Supporting copy…">${v('bodyText')}</textarea></div>
+          <div class="field-group" style="margin-bottom:0;"><label>Text Side</label>
+              <select ${p} data-field="textSide">
+                <option value="right" ${(sec.textSide||'right')==='right'?'selected':''}>Right of image</option>
+                <option value="left"  ${(sec.textSide||'right')==='left' ?'selected':''}>Left of image</option>
+              </select></div>
+        </div>`;
+    }
+
     case 'gallery': {
       const cols = sec.galleryCols || 3;
       const items = sec.items || [];
@@ -6996,6 +7240,7 @@ function buildCpSectionTypeFields(sec, pi, si) {
 
     case 'logo-strip': {
       const logoSize = sec.logoSize || 'medium';
+      const captionPos = sec.captionPos || 'above';
       const items = (sec.items || []);
       const rows = items.map((it, ii) => `<div class="cp-sub-item" data-sub-idx="${ii}">
         ${cpSubItemHeader('Logo #' + (ii+1), pi, si, 'items', ii)}
@@ -7013,14 +7258,21 @@ function buildCpSectionTypeFields(sec, pi, si) {
         </div>
       </div>`).join('');
       return `
-        <div class="field-group"><label>Heading (optional)</label><input type="text" ${p} data-field="heading" value="${v('heading')}"/></div>
-        <div class="field-group"><label>Subtitle (optional)</label><textarea rows="1" style="width:100%;box-sizing:border-box;resize:vertical;min-height:32px;overflow:hidden;font-family:inherit;font-size:13px;" ${p} data-field="subtitle">${v('subtitle')}</textarea></div>
-        <div class="field-group"><label>Logo Size</label>
-          <select ${p} data-field="logoSize">
-            <option value="small"  ${logoSize==='small' ?'selected':''}>Small (80px)</option>
-            <option value="medium" ${logoSize==='medium'?'selected':''}>Medium (120px)</option>
-            <option value="large"  ${logoSize==='large' ?'selected':''}>Large (160px)</option>
-          </select></div>
+        <div class="field-group" style="margin-bottom:8px;"><label>Caption (optional)</label>
+          <input type="text" ${p} data-field="subtitle" value="${v('subtitle')}" placeholder="As seen in · Our partners"/></div>
+        <div class="form-row-2" style="margin-bottom:8px;">
+          <div class="field-group" style="margin:0;"><label>Caption Position</label>
+            <select ${p} data-field="captionPos">
+              <option value="above" ${captionPos==='above'?'selected':''}>Above logos</option>
+              <option value="below" ${captionPos==='below'?'selected':''}>Below logos</option>
+            </select></div>
+          <div class="field-group" style="margin:0;"><label>Logo Size</label>
+            <select ${p} data-field="logoSize">
+              <option value="small"  ${logoSize==='small' ?'selected':''}>Small (80px)</option>
+              <option value="medium" ${logoSize==='medium'?'selected':''}>Medium (120px)</option>
+              <option value="large"  ${logoSize==='large' ?'selected':''}>Large (160px)</option>
+            </select></div>
+        </div>
         <div class="cp-sub-items" data-cp-drag="${pi}-${si}-items">${rows}</div>
         <button class="btn-add" onclick="addCpSubItem(${typeof pi==='string'?("'"+pi+"'"):pi},${si},'items',{imagePath:'',alt:'',caption:'',linkUrl:''})">+ Add Logo</button>`;
     }
@@ -7696,7 +7948,8 @@ function openPageSettings(pi) {
 
   // Populate fields
   document.getElementById('psm-enabled').checked = page.enabled !== false;
-  document.getElementById('psm-hidden').checked  = !!page.hiddenFromNav;
+  document.getElementById('psm-hidden-main').checked   = page.hiddenFromMainNav   !== undefined ? !!page.hiddenFromMainNav   : !!page.hiddenFromNav;
+  document.getElementById('psm-hidden-footer').checked = page.hiddenFromFooterNav !== undefined ? !!page.hiddenFromFooterNav : !!page.hiddenFromNav;
   document.getElementById('psm-emoji').value      = page.emoji || '';
   document.getElementById('psm-label').value      = page.navLabel || '';
   document.getElementById('psm-slug').value       = page.slug || '';
@@ -7739,7 +7992,8 @@ function savePageSettings() {
   const page = DATA.customPages[pi];
 
   page.enabled      = document.getElementById('psm-enabled').checked;
-  page.hiddenFromNav = document.getElementById('psm-hidden').checked;
+  page.hiddenFromMainNav   = document.getElementById('psm-hidden-main').checked;
+  page.hiddenFromFooterNav = document.getElementById('psm-hidden-footer').checked;
   page.emoji        = document.getElementById('psm-emoji').value.trim() || '📄';
   page.navLabel     = document.getElementById('psm-label').value.trim();
   const newSlug     = document.getElementById('psm-slug').value.trim();
@@ -7812,9 +8066,10 @@ function addCpSection(pi) {
   if (type === 'button') { defaults.primary_linkType = 'none'; defaults.primary_linkUrl = ''; defaults.primary_linkLabel = ''; defaults.secondary_linkType = 'none'; defaults.secondary_linkUrl = ''; defaults.secondary_linkLabel = ''; }
   if (type === 'richtext') { defaults.background = 'inherit'; defaults.richContent = ''; defaults.imagePath = ''; defaults.imagePos = 'none'; defaults.imageSize = 'md'; defaults.imageCaption = ''; defaults.fullWidth = false; }
   if (type === 'accordion') defaults.items = [];
-  if (type === 'logo-strip') { defaults.items = []; defaults.logoSize = 'medium'; }
+  if (type === 'logo-strip') { defaults.items = []; defaults.logoSize = 'medium'; defaults.captionPos = 'above'; }
   if (type === 'marquee') { defaults.items = []; defaults.mqMode = 'text'; defaults.mqSpeed = 'medium'; defaults.mqDir = 'left'; defaults.mqPause = true; defaults.mqText = ''; defaults.mqSeparator = '·'; defaults.mqFadeEdges = true; defaults.mqFadeWidth = 'normal'; defaults.mqTickerHold = 3; defaults.mqTickerSpeed = 'normal'; }
   if (type === 'video') { defaults.videoLayout = 'contained'; defaults.videoPosition = 'left'; defaults.embedUrl = ''; defaults.mp4Url = ''; }
+  if (type === 'image') { defaults.imagePath = ''; defaults.imageWidth = 0; defaults.aspectRatio = 'auto'; defaults.objectPosition = 'center'; defaults.roundedCorners = false; defaults.beforeAfter = false; defaults.captionText = ''; defaults.sliderDir = 'horizontal'; defaults.sliderStart = 50; defaults.showLabels = true; defaults.labelBefore = 'Before'; defaults.labelAfter = 'After'; defaults.bodyHeading = ''; defaults.bodyText = ''; defaults.textSide = 'right'; }
   if (type === 'gallery') { defaults.items = []; defaults.galleryCols = 3; }
   if (type === 'pricing') { defaults.items = []; }
   if (type === 'locations') { defaults.items = []; defaults.displayMode = 'cards'; defaults.layoutMode = 'top'; defaults.mapMode = 'linkout'; defaults.maxCols = 2; defaults.showHours = true; }
@@ -8520,6 +8775,8 @@ function collectCustomPages() {
       enabled: panel.querySelector('input[type="checkbox"][onchange*="toggleCpPageEnabled"]')?.checked ?? page.enabled,
       parent: page.parent || null,
       hiddenFromNav: page.hiddenFromNav || false,
+      hiddenFromMainNav: page.hiddenFromMainNav,
+      hiddenFromFooterNav: page.hiddenFromFooterNav,
       sections: collectCpSections(panel, pi, page.sections||[])
     };
     return newPage;
@@ -8646,7 +8903,7 @@ function collectCpSections(card, pi, existingSections) {
         sec.showPeek      = secCard.querySelector('[data-field="showPeek"]')?.checked !== false;
         sec.autoplay      = secCard.querySelector('[data-field="autoplay"]')?.checked === true;
         sec.autoplaySpeed = parseInt(get('autoplaySpeed')) || 4;
-        sec.items         = collectCpSubItems(secCard, pi, si, ['title','body','imagePath','bgColor','fullBleed','textColor','btnLabel','btnLinkType','btnLinkUrl','btnAnchorId']); break;
+        sec.items         = collectCpSubItems(secCard, pi, si, ['title','body','imagePath','bgColor','fullBleed','zoomEnabled','textColor','btnLabel','btnLinkType','btnLinkUrl','btnAnchorId']); break;
       case 'jurisdiction':
         sec.icon = get('icon'); sec.title = get('title');
         sec.heading = get('heading'); sec.body = get('body');
@@ -8747,6 +9004,24 @@ function collectCpSections(card, pi, existingSections) {
           };
         });
         break;
+      case 'image':
+        sec.imagePath      = get('imagePath') || '';
+        sec.imagePath2     = get('imagePath2') || '';
+        sec.imageWidth     = parseInt(get('imageWidth')) || 0;
+        sec.aspectRatio    = get('aspectRatio') || 'auto';
+        sec.objectPosition = get('objectPosition') || 'center';
+        sec.captionText    = get('captionText') || '';
+        sec.roundedCorners = secCard.querySelector('[data-field="roundedCorners"]')?.checked === true;
+        sec.beforeAfter    = secCard.querySelector('[data-field="beforeAfter"]')?.checked === true;
+        sec.sliderDir      = get('sliderDir') || 'horizontal';
+        sec.sliderStart    = parseInt(get('sliderStart')) || 50;
+        sec.showLabels     = secCard.querySelector('[data-field="showLabels"]')?.checked !== false;
+        sec.labelBefore    = get('labelBefore') || 'Before';
+        sec.labelAfter     = get('labelAfter')  || 'After';
+        sec.bodyHeading    = get('bodyHeading') || '';
+        sec.bodyText       = get('bodyText')    || '';
+        sec.textSide       = get('textSide')    || 'right';
+        sec.imageWidth     = parseInt(get('imageWidth')) || 500; break;
       case 'gallery':
         sec.heading = get('heading'); sec.subtitle = get('subtitle');
         sec.galleryCols = parseInt(get('galleryCols')) || 3;
@@ -8755,7 +9030,7 @@ function collectCpSections(card, pi, existingSections) {
         sec.heading = get('heading'); sec.subtitle = get('subtitle');
         sec.items = collectCpSubItems(secCard, pi, si, ['title','body','imagePath','imagePos']); break;
       case 'logo-strip':
-        sec.heading = get('heading'); sec.subtitle = get('subtitle');
+        sec.subtitle = get('subtitle'); sec.captionPos = get('captionPos') || 'above';
         sec.logoSize = get('logoSize') || 'medium';
         sec.items = collectCpSubItems(secCard, pi, si, ['imagePath','alt','caption','linkUrl']); break;
       case 'marquee':
@@ -9523,9 +9798,9 @@ window.addEventListener('DOMContentLoaded', () => {
     <div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px;">⚙️ Page Settings</div>
     <div style="font-size:12px;color:var(--muted);margin-bottom:20px;">Configure page identity, hierarchy, and access.</div>
 
-    <!-- Enabled + Hide from nav row -->
-    <div style="display:flex;gap:12px;margin-bottom:18px;">
-      <div style="flex:1;display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--navy);border-radius:6px;">
+    <!-- Enabled row -->
+    <div style="margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--navy);border-radius:6px;">
         <label class="switch" style="flex-shrink:0;">
           <input type="checkbox" id="psm-enabled"/>
           <span class="switch-slider"></span>
@@ -9535,14 +9810,28 @@ window.addEventListener('DOMContentLoaded', () => {
           <div class="section-toggle-hint">Off = hidden &amp; redirects home.</div>
         </div>
       </div>
+    </div>
+
+    <!-- Hide from main nav / footer nav row -->
+    <div style="display:flex;gap:12px;margin-bottom:18px;">
       <div style="flex:1;display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--navy);border-radius:6px;">
         <label class="switch" style="flex-shrink:0;">
-          <input type="checkbox" id="psm-hidden"/>
+          <input type="checkbox" id="psm-hidden-main"/>
           <span class="switch-slider"></span>
         </label>
         <div>
-          <div style="color:#fff;font-size:13px;font-weight:600;">Hide from nav</div>
-          <div class="section-toggle-hint">Page exists but won't appear in menus.</div>
+          <div style="color:#fff;font-size:13px;font-weight:600;">Hide from main nav</div>
+          <div class="section-toggle-hint">Page exists but won't appear in the main menu.</div>
+        </div>
+      </div>
+      <div style="flex:1;display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--navy);border-radius:6px;">
+        <label class="switch" style="flex-shrink:0;">
+          <input type="checkbox" id="psm-hidden-footer"/>
+          <span class="switch-slider"></span>
+        </label>
+        <div>
+          <div style="color:#fff;font-size:13px;font-weight:600;">Hide from footer</div>
+          <div class="section-toggle-hint">Page exists but won't appear in the footer.</div>
         </div>
       </div>
     </div>
