@@ -2084,6 +2084,13 @@ footer {
   .form-row { grid-template-columns: 1fr; }
   .stat-cell { width: 50%; min-width: 120px; }
   .footer-grid { grid-template-columns: 1fr; }
+  .footer-grid > * { text-align: center; }
+  .footer-brand p { max-width: none; }
+  #footer-logo { display: block; margin: 0 auto 8px; }
+  .footer-social-row { justify-content: center; }
+  .footer-links { align-items: center; }
+  .footer-nav-group-row { justify-content: center; }
+  .footer-bottom { justify-content: center; text-align: center; }
   .why-badge-wrap { flex-direction: column; }
   .process-timeline::before { display: none; }
 }
@@ -5094,7 +5101,7 @@ function buildAbout() {
     const socials = (a.socialLinks||[]).filter(s => s.url).map(s =>
       `<a class="about-social-icon" onclick="openSmartLink('external','${escAttr(s.url)}')" title="${escAttr(s.platform)}">${SOCIAL_SVGS[s.platform]||SOCIAL_SVGS.custom}</a>`
     ).join('');
-    const bios = [a.bio1, a.bio2].filter(Boolean).map(b => `<p>${b}</p>`).join('');
+    const bios = [a.bio1, a.bio2].filter(Boolean).map(b => formatBody(b)).join('');
     const btnLT  = a.btnLinkType || 'none';
     const btnUrl = a.btnLinkUrl  || '';
     const btnLabel = a.btnLabel || '';

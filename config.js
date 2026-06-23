@@ -10143,8 +10143,8 @@ const SITE_CONFIG = {
       "visibleCards": 3,
       "cardHeight": 350,
       "showDots": true,
-      "showArrows": true,
-      "showPeek": true,
+      "showArrows": false,
+      "showPeek": false,
       "autoplay": true,
       "autoplaySpeed": 4
     }
@@ -10211,5 +10211,5 @@ const SITE_CONFIG = {
   },
   "fontDisplayCustom": "",
   "fontBodyCustom": "",
-  "_savedAt": 1782149222068
+  "_savedAt": 1782185237114
 };
