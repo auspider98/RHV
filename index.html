@@ -27,6 +27,14 @@
   --chrome:     #000000;
   --cream:      #f9f6f0;
   --warm-white: #fffdf9;
+  /* Image Grid missing-image fallback shades — computed at runtime in
+     applyColors() as a darker version of each section mode's own background,
+     or a lighter version if that background is at/near pure black (see
+     igFallbackShade). These defaults are just a close approximation for
+     before JS runs, using the default palette above. */
+  --ig-fallback-light: #ebe9e5;
+  --ig-fallback-alt:   #e5e2dd;
+  --ig-fallback-dark:  #0e203b;
   --text-body:  #4a4740;
   --text-muted: #7a7670;
   --text-head:  #0f2340;
@@ -1133,15 +1141,22 @@ h2.section-title {
   margin-top: 4px;
 }
 /* ============ IMAGE GRID ============ */
-/* Tiles are a fixed size (set via --ig-tile) rather than N-per-row columns —
-   auto-fit + justify-content:center means the browser fits as many
+/* Tiles are a fixed size (width/height set via --ig-tile-w/--ig-tile-h,
+   computed per-section in the renderer) rather than N-per-row columns —
+   flex-wrap + justify-content:center means the browser fits as many
    same-sized tiles per row as the available width allows, wrapping to fewer
    (down to one) as the screen narrows, with no breakpoints or column-count
-   special-casing needed at all. Tile size never changes, only how many sit
-   side by side. */
+   special-casing needed at all. Tile Size always pins the SMALLER of the two
+   ratio numbers (e.g. the 3 in both 3:4 and 4:3) so "Large" always means the
+   same visual scale regardless of orientation — the other side scales up
+   from it, rather than Tile Size always mapping onto literal CSS width.
+   Tiles only shrink (flex-shrink + aspect-ratio, rather than a fixed height)
+   in the edge case where even a single tile doesn't fit the viewport width
+   (e.g. a wide/large tile on a narrow phone) — normal multi-per-row layout
+   never needs to shrink, since wrapping handles that instead. */
 .cps-ig-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, var(--ig-tile, 220px));
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   margin-top: 56px;
 }
@@ -1151,17 +1166,22 @@ h2.section-title {
 .cps-ig-grid--rounded .cps-ig-tile { border-radius: 12px; }
 .cps-ig-tile {
   position: relative;
-  width: var(--ig-tile, 220px);
-  aspect-ratio: 1 / 1;
+  flex: 0 1 var(--ig-tile-w, 220px);
+  min-width: 0;
+  width: var(--ig-tile-w, 220px);
+  max-width: 100%;
+  aspect-ratio: var(--ig-tile-ratio, 1 / 1);
   overflow: hidden;
   background: var(--cream);
   z-index: 1;
   transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
 }
-/* Missing/broken image fallback color, matched to the section's own background mode */
-.cps-section-light .cps-ig-tile { background: var(--cream); }
-.cps-section-alt .cps-ig-tile { background: var(--warm-white); }
-.cps-section-dark .cps-ig-tile { background: #3a3a3a; }
+/* Missing/broken image fallback color: a darker shade of the section's own
+   background (lighter instead, if that background is at/near pure black —
+   see igFallbackShade in applyColors()) */
+.cps-section-light .cps-ig-tile { background: var(--ig-fallback-light); }
+.cps-section-alt .cps-ig-tile { background: var(--ig-fallback-alt); }
+.cps-section-dark .cps-ig-tile { background: var(--ig-fallback-dark); }
 .cps-ig-tile img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
@@ -1173,7 +1193,7 @@ h2.section-title {
   position: absolute; inset: 0;
   display: flex; flex-direction: column; justify-content: flex-end;
   padding: clamp(14px, 4%, 24px);
-  transition: opacity 0.5s var(--ease-out);
+  transition: opacity 0.3s var(--ease-out);
 }
 .cps-ig-initial-scrim {
   position: absolute; inset: 0;
@@ -1194,7 +1214,7 @@ h2.section-title {
   -webkit-backdrop-filter: blur(0px);
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out), backdrop-filter 0.5s var(--ease-out);
+  transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out), backdrop-filter 0.35s var(--ease-out);
   text-align: left;
 }
 .cps-ig-grid--align-center .cps-ig-overlay { align-items: center; text-align: center; }
@@ -1208,32 +1228,28 @@ h2.section-title {
 }
 .cps-ig-subtitle p { margin: 0 0 0.5em; }
 .cps-ig-subtitle p:last-child { margin-bottom: 0; }
-/* Desktop: real hover lifts the tile immediately; .cps-ig-blur-on (added by JS
-   after a short delay — see initImageGridReveal) drives the blur/text swap,
-   since many mobile browsers don't reliably honor transition-delay on
-   backdrop-filter and will snap it instantly regardless of CSS timing. */
-@media (hover: hover) {
-  .cps-ig-tile.cps-ig-blur-on .cps-ig-initial { opacity: 0; }
-  .cps-ig-tile.cps-ig-blur-on .cps-ig-overlay {
-    opacity: 1;
-    transform: translateY(0);
-    backdrop-filter: blur(var(--ig-blur, 16px));
-    -webkit-backdrop-filter: blur(var(--ig-blur, 16px));
-  }
-  .cps-ig-grid .cps-ig-tile:hover { transform: scale(1.13); box-shadow: 0 18px 40px rgba(0,0,0,0.34); z-index: 2; }
+/* Four-stage reveal sequence — lift, then blur, then text, then shadow —
+   driven entirely by JS-scheduled classes (see igScheduleReveal in
+   initImageGridReveal) so desktop hover and touch scroll-reveal share
+   identical timing on every device. This replaces the old (hover: hover) /
+   (hover: none) split: neither the lift nor the shadow depend on native
+   :hover or a scroll-toggled .cps-ig-revealed class anymore, since
+   backdrop-filter's transition-delay isn't reliable on mobile — timing every
+   stage via setTimeout keeps all four consistent with each other instead of
+   mixing CSS-delay and JS-delay. Selectors stay scoped through .cps-ig-grid
+   to keep specificity above the generic .reveal.visible scroll-entrance
+   class elsewhere in the codebase, which also animates `transform` on this
+   same element and would otherwise silently win via source order. */
+.cps-ig-grid .cps-ig-tile.cps-ig-lift-on { transform: scale(1.13); z-index: 2; }
+.cps-ig-grid .cps-ig-tile.cps-ig-shadow-on { box-shadow: 0 18px 40px rgba(0,0,0,0.34); }
+.cps-ig-tile.cps-ig-blur-on .cps-ig-overlay {
+  backdrop-filter: blur(var(--ig-blur, 16px));
+  -webkit-backdrop-filter: blur(var(--ig-blur, 16px));
 }
-/* Touch: JS toggles .cps-ig-revealed (lift) as tiles pass through the center
-   band while scrolling, and separately schedules .cps-ig-blur-on after the
-   same short delay used on desktop. */
-@media (hover: none) {
-  .cps-ig-tile.cps-ig-blur-on .cps-ig-initial { opacity: 0; }
-  .cps-ig-tile.cps-ig-blur-on .cps-ig-overlay {
-    opacity: 1;
-    transform: translateY(0);
-    backdrop-filter: blur(var(--ig-blur, 16px));
-    -webkit-backdrop-filter: blur(var(--ig-blur, 16px));
-  }
-  .cps-ig-grid .cps-ig-tile.cps-ig-revealed { transform: scale(1.13); box-shadow: 0 18px 40px rgba(0,0,0,0.34); z-index: 2; }
+.cps-ig-tile.cps-ig-text-on .cps-ig-initial { opacity: 0; }
+.cps-ig-tile.cps-ig-text-on .cps-ig-overlay {
+  opacity: 1;
+  transform: translateY(0);
 }
 /* "Blurred, Clear on Reveal" mode — the reverse of the default: the resting
    state carries the frosted look (same treatment the default mode's revealed
@@ -5461,6 +5477,31 @@ function applyColors() {
   const goldRgb = hexToRgb(c.gold);
   if (navyRgb) document.documentElement.style.setProperty('--navy-rgb', navyRgb);
   if (goldRgb) document.documentElement.style.setProperty('--gold-rgb', goldRgb);
+  // Image Grid missing-image fallback shades: a darker version of each
+  // section mode's own background, or lighter if that background is at/near
+  // pure black (darkening black further wouldn't read as a visible tile).
+  document.documentElement.style.setProperty('--ig-fallback-light', igFallbackShade(c.warmWhite || '#fffdf9'));
+  document.documentElement.style.setProperty('--ig-fallback-alt',   igFallbackShade(c.cream || '#f9f6f0'));
+  document.documentElement.style.setProperty('--ig-fallback-dark',  igFallbackShade(c.navy));
+}
+
+function shadeHex(hex, amount) {
+  // amount: -1..1 — negative blends toward black (darken), positive toward white (lighten)
+  const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex || '');
+  if (!m) return hex;
+  const target = amount < 0 ? 0 : 255;
+  const t = Math.abs(amount);
+  const blend = v => Math.round(v + (target - v) * t);
+  const [r, g, b] = [m[1], m[2], m[3]].map(h => blend(parseInt(h, 16)));
+  return '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');
+}
+
+function igFallbackShade(hex) {
+  const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex || '');
+  if (!m) return hex;
+  const [r, g, b] = [m[1], m[2], m[3]].map(h => parseInt(h, 16));
+  const isNearBlack = (r + g + b) / 3 < 20;
+  return shadeHex(hex, isNearBlack ? 0.12 : -0.08);
 }
 
 function hexToRgb(hex) {
@@ -6774,29 +6815,35 @@ function initProcessObserver() {
   document.querySelectorAll('.process-step').forEach(s => obs.observe(s));
 }
 
-// Shared blur-delay helpers for Image Grid, used by both desktop hover and
-// touch scroll-reveal. The lift (scale/shadow) is driven by plain CSS
-// (:hover / .cps-ig-revealed) and starts immediately — but many mobile
+// Four-stage reveal timeline for Image Grid — lift, then blur, then text,
+// then shadow — used by both desktop hover and touch scroll-reveal so
+// timing/behavior is identical on every device. Every stage is scheduled
+// with setTimeout rather than CSS transition-delay, since many mobile
 // browsers don't reliably honor transition-delay on backdrop-filter (some
-// snap it to the new value instantly no matter what the CSS says), so the
-// blur/text swap's timing is instead enforced explicitly here with
-// setTimeout, guaranteeing the lift always gets a head start.
-const _igBlurTimers = new WeakMap();
-const IG_BLUR_DELAY = 130;
-function igScheduleBlur(tile) {
-  if (_igBlurTimers.has(tile)) return;
-  const t = setTimeout(() => {
-    tile.classList.add('cps-ig-blur-on');
-    _igBlurTimers.delete(tile);
-  }, IG_BLUR_DELAY);
-  _igBlurTimers.set(tile, t);
+// snap it to the new value instantly no matter what the CSS says) — timing
+// all four stages the same way keeps them consistent with each other
+// instead of mixing CSS-delay and JS-delay.
+const _igTimers = new WeakMap();
+const IG_STAGES = [
+  { cls: 'cps-ig-lift-on',   delay: 0   },
+  { cls: 'cps-ig-blur-on',   delay: 100 },
+  { cls: 'cps-ig-shadow-on', delay: 150 },
+  { cls: 'cps-ig-text-on',   delay: 200 },
+];
+function igScheduleReveal(tile) {
+  if (_igTimers.has(tile)) return;
+  const timers = IG_STAGES.map(stage =>
+    setTimeout(() => tile.classList.add(stage.cls), stage.delay)
+  );
+  _igTimers.set(tile, timers);
 }
-function igCancelBlur(tile) {
-  if (_igBlurTimers.has(tile)) {
-    clearTimeout(_igBlurTimers.get(tile));
-    _igBlurTimers.delete(tile);
+function igCancelReveal(tile) {
+  const timers = _igTimers.get(tile);
+  if (timers) {
+    timers.forEach(clearTimeout);
+    _igTimers.delete(tile);
   }
-  tile.classList.remove('cps-ig-blur-on');
+  IG_STAGES.forEach(stage => tile.classList.remove(stage.cls));
 }
 
 function initImageGridReveal() {
@@ -6805,11 +6852,9 @@ function initImageGridReveal() {
   if (!tiles.length) return;
 
   if (window.matchMedia('(hover: hover)').matches) {
-    // Desktop: the lift itself still uses plain CSS :hover. mouseenter/
-    // mouseleave separately schedule/cancel the delayed blur.
     tiles.forEach(tile => {
-      tile.addEventListener('mouseenter', () => igScheduleBlur(tile));
-      tile.addEventListener('mouseleave', () => igCancelBlur(tile));
+      tile.addEventListener('mouseenter', () => igScheduleReveal(tile));
+      tile.addEventListener('mouseleave', () => igCancelReveal(tile));
     });
     return;
   }
@@ -6824,8 +6869,7 @@ function initImageGridReveal() {
       const rect = tile.getBoundingClientRect();
       const tileMid = rect.top + rect.height / 2;
       const inBand = Math.abs(tileMid - mid) < band;
-      tile.classList.toggle('cps-ig-revealed', inBand);
-      if (inBand) igScheduleBlur(tile); else igCancelBlur(tile);
+      if (inBand) igScheduleReveal(tile); else igCancelReveal(tile);
     });
   };
 
@@ -8243,8 +8287,20 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
       const igRounded = sec.roundedCorners !== false;
       const igBlur = { light: 8, medium: 16, strong: 24 }[sec.blurStrength || 'medium'] || 16;
       const igTile = { small: 160, medium: 220, large: 300 }[sec.tileSize || 'medium'] || 220;
+      const igRatioParts = { square: [1,1], landscape: [4,3], portrait: [3,4], wide: [16,9] }[sec.tileRatio || 'square'] || [1,1];
+      const [igRw, igRh] = igRatioParts;
+      // Tile Size pins whichever side corresponds to the smaller ratio
+      // number, so "Large" reads as the same visual scale across every
+      // ratio — e.g. Landscape's smaller number (3) is its height, so
+      // height gets the tile size and width scales up from it, while
+      // Portrait's smaller number (3) is its width, so width gets the tile
+      // size instead. Without this, the side that happens to land on CSS
+      // width would silently determine the tile's actual footprint.
+      let igTileW, igTileH;
+      if (igRw <= igRh) { igTileW = igTile; igTileH = Math.round(igTile * igRh / igRw); }
+      else { igTileH = igTile; igTileW = Math.round(igTile * igRw / igRh); }
       const igReveal = (sec.revealStyle === 'clear-first' || sec.revealStyle === 'no-blur') ? sec.revealStyle : 'blur-first';
-      const igStyle = `--ig-blur:${igBlur}px;--ig-tile:${igTile}px;`;
+      const igStyle = `--ig-blur:${igBlur}px;--ig-tile-w:${igTileW}px;--ig-tile-h:${igTileH}px;--ig-tile-ratio:${igTileW} / ${igTileH};`;
 
       const igTiles = igItems.map((it, i) => {
         const hasText = !!(it.title || it.subtitle);
@@ -8268,7 +8324,7 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
           </div>` : '';
         return `
         <div class="cps-ig-tile reveal reveal-delay-${(i % 4) + 1}" data-has-text="${hasText}" ${clickAttr}>
-          <img src="${escAttr(it.imagePath||'')}" alt="${escAttr(it.alt||it.title||it.initialTitle||'')}" loading="lazy"/>
+          ${it.imagePath ? `<img src="${escAttr(it.imagePath)}" alt="${escAttr(it.alt||'')}" loading="lazy" onerror="this.style.display='none'"/>` : ''}
           ${initialHtml}
           ${overlayHtml}
         </div>`;
