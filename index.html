@@ -47,19 +47,143 @@
 
   --section-pad: clamp(48px, 6vw, 80px);
   --container:   1240px;
-  --gutter:      clamp(20px, 5vw, 60px);
+  --gutter:      clamp(15px, 3.75vw, 45px);
+
+  /* ===========================================================
+     INDEX-WEB THEME TOKENS
+     Static defaults below (spacing/radii/shadows/type-scale are
+     fixed — not derived from admin colors). Color tokens are live
+     aliases/color-mix() derivations of the same --navy/--gold/etc
+     the original theme uses, so they follow whatever applyColors()
+     sets from CFG.colors/CFG.fontColors — no separate function
+     needed to keep them in sync.
+  ============================================================ */
+  /* Direct aliases — follow admin's base colors automatically since
+     var() references stay live when applyColors() updates --navy/etc. */
+  --color-bg:            var(--navy);
+  --color-bg-dark-card:  var(--navy-mid);
+  --color-card-light:    var(--warm-white);
+  --color-card-alt:      var(--cream);
+  --color-card-dark:     var(--navy);
+  --color-accent:        var(--gold);
+  --color-accent-strong: var(--gold-light);
+  --color-ink:           var(--text-head);
+  --color-ink-muted:     var(--text-muted);
+  --color-on-dark:       var(--warm-white);
+
+  /* Derived/stepped tokens — computed live via color-mix() from the
+     same admin-set base colors, so they stay in sync with no extra
+     JS needed (mirrors the intent of shadeHex()/igFallbackShade(),
+     just resolved by the browser instead of at runtime in JS). */
+  --color-card-light-alt: color-mix(in srgb, var(--warm-white) 92%, white 8%);
+  --color-card-alt-step:  color-mix(in srgb, var(--cream) 88%, var(--navy) 12%);
+  --color-card-dark-step: color-mix(in srgb, var(--navy) 88%, white 12%);
+  --color-ink-faint:      color-mix(in srgb, var(--text-muted) 75%, white 25%);
+  --color-on-dark-muted:  color-mix(in srgb, var(--warm-white) 75%, transparent 25%);
+  --color-border-light:   color-mix(in srgb, var(--navy) 12%, transparent 88%);
+  --color-border-on-dark: color-mix(in srgb, var(--warm-white) 35%, transparent 65%);
+  --color-glass-highlight:  color-mix(in srgb, var(--warm-white) 50%, transparent 50%);
+  --color-glass-border-lit: color-mix(in srgb, var(--gold) 45%, transparent 55%);
+  --color-glass-bg:       color-mix(in srgb, var(--warm-white) 16%, transparent 84%);
+  --color-glass-bg-light: color-mix(in srgb, var(--navy) 35%, transparent 65%);
+  --color-glass-bg-strong:color-mix(in srgb, var(--navy) 75%, transparent 25%);
+
+  --text-eyebrow: 13px;
+  --text-xs: 15px;
+  --text-sm: 17px;
+  --text-md: 24px;
+  --text-lg: 32px;
+  --text-xl: 40px;
+  --text-hero: 52px;
+
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --space-12: 48px;--space-14: 56px;--space-16: 64px;--space-18: 72px;
+
+  --radius-outer: 28px;
+  --radius-card:  20px;
+  --radius-item:  16px;
+  --radius-pill:  999px;
+
+  --shadow-card:      0 20px 60px -20px rgba(0,0,0,0.35);
+  --shadow-card-soft: 0 12px 30px -14px rgba(0,0,0,0.5);
+  --shadow-nav:       0 12px 30px -10px rgba(0,0,0,0.45);
+
+  /* ===========================================================
+     AURA THEME TOKENS
+     Page bg = admin "chrome" color (slight gradient, see .site-bg).
+     Sections = frosted glass cards gently tinted with the section's
+     assigned light/alt/dark color. The glass rgba() values below are
+     static pre-JS approximations of the default palette — applyColors()
+     recomputes them (and the per-mode ink colors, via composite
+     luminance) from the live CFG.colors at runtime.
+  ============================================================ */
+  --aura-nav-h: 80px;
+  --aura-shell-inset: 10px;
+  --aura-glass-light: rgba(255,253,249,0.95);
+  --aura-glass-alt:   rgba(249,246,240,0.95);
+  --aura-glass-dark:  rgba(15,35,64,0.42);
+  /* Inherit-mode shade offsets: lighter glass when the inherited bg is
+     dark, darker glass when it's light — layered over the base tint. */
+  --aura-inherit-lighten: linear-gradient(0deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05));
+  --aura-inherit-darken:  linear-gradient(0deg, rgba(0,0,0,0.10), rgba(0,0,0,0.10));
+  /* Subtle top-sheen gradient inside every glass card */
+  --aura-card-sheen: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0) 55%);
+  /* Slide-down nav shade background */
+  --aura-shade-bg: color-mix(in srgb, var(--chrome) 74%, transparent 26%);
+  /* Per-mode ink — recomputed in applyColors() from each mode's actual
+     composite (tint over chrome) luminance; white defaults suit the
+     default near-black chrome. */
+  --aura-head-light: #ffffff; --aura-body-light: rgba(255,255,255,0.74);
+  --aura-head-alt:   #ffffff; --aura-body-alt:   rgba(255,255,255,0.74);
+  --aura-head-dark:  #ffffff; --aura-body-dark:  rgba(255,255,255,0.74);
+  --aura-btn-radius: 12px;
+  /* Card-to-card gap within a page — was piggybacking on --space-4 (used
+     by many unrelated things: nav grid gap, drawer offsets, hero sizing).
+     Own token so it can move independently. */
+  --aura-section-gap: 8px;
 }
+
+/* AURA: page background is the admin "chrome" color with a slight vertical
+   gradient (a touch lighter at the top, settling into pure chrome). Kept as
+   a live color-mix() of --chrome so admin color edits flow through with no
+   extra JS. Fixed attachment so the gradient doesn't visibly slide under
+   the translucent cards while scrolling. */
+.site-bg {
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--chrome) 88%, white 12%) 0%,
+      color-mix(in srgb, var(--chrome) 96%, white 4%) 38%,
+      var(--chrome) 72%) fixed,
+    var(--chrome);
+  min-height: 100vh;
+}
+/* AURA: near-full-bleed shell — cards run edge to edge minus a small inset
+   per side (matching the reference layout); inner content is still capped
+   by .container's max-width inside each card. */
+.page-shell {
+  max-width: none;
+  margin: 0 auto;
+  padding: 0 var(--aura-shell-inset) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.card { border-radius: var(--radius-card); font-family: var(--font-body); }
+.card--light { background: var(--color-card-light); }
+.card--alt   { background: var(--color-card-alt); }
+.card--dark  { background: var(--color-card-dark); }
 
 /* =============================================
    RESET & BASE
    ============================================= */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
+html { scroll-behavior: smooth; font-size: 16px; overflow-x: clip; }
 body {
   font-family: var(--font-body);
   color: var(--text-body);
-  background: var(--warm-white);
-  overflow-x: hidden;
+  background: var(--chrome); /* AURA: overscroll/edges match the page background */
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
 a { color: inherit; text-decoration: none; }
@@ -137,7 +261,8 @@ img { display: block; max-width: 100%; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
 /* Logo images */
-#header-logo {
+#header-logo,
+#shade-logo {
   display: none;
   height: var(--header-logo-h, 40px);
   width: auto;
@@ -163,58 +288,194 @@ img { display: block; max-width: 100%; }
 }
 
 /* =============================================
-   HEADER / NAV — hamburger-only, scroll-fade bg
+   HEADER / NAV — sticky floating pill (index-web theme)
+   Desktop (≥860px): brand + horizontal links w/ hover dropdowns.
+   Mobile (<860px): brand + hamburger, same full-screen drawer as before.
    ============================================= */
+/* AURA: static header bar — sits directly on the page background at the
+   very top of the shell (no card, no border, no blur). Scrolls away with
+   the page; the fixed #nav-shade below handles the scroll-up reveal. */
 #site-header {
-  position: fixed; top: 0; left: 0; right: 0;
-  z-index: 1000;
-  /* background fades in based on scroll via JS inline style */
-  transition: background 0.4s var(--ease-out),
-              box-shadow 0.4s var(--ease-out);
+  /* AURA: must sit in its own stacking context above #hero (position:relative)
+     and the rest of the shell. Without a z-index, a static element paints in
+     the browser's earliest layer regardless of DOM order — #hero, being
+     positioned, would then hit-test ABOVE the header's dropdown submenu
+     wherever they visually overlap (the -12px hero pull-up plus an open
+     submenu's height reaches into hero's territory on the home page only,
+     since custom pages never render #hero). relative + no offset keeps
+     normal-flow layout identical while making the z-index take effect. */
+  position: relative;
+  z-index: 950; /* above #hero and page content; below the drawer (998/999)
+                   and overlays (2000+); never overlaps the shade (900) on
+                   screen in practice, but 950 > 900 keeps the order sane */
+  height: var(--aura-nav-h);
+  display: flex;
+  align-items: stretch;
+  margin: 0;
+  width: 100%;
 }
-#site-header.scrolled {
-  box-shadow: 0 1px 0 rgba(255,255,255,0.07);
-}
-.header-inner {
-  display: flex; align-items: center; justify-content: space-between;
-  height: 88px;
+.nav-pill {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0 var(--space-3) 0 var(--space-4);
+  box-shadow: none;
 }
 
-/* Logo */
-.site-logo {
+/* Scroll-up shade — fixed to the top edge, 4px wider than the card shell,
+   80px tall, frosted glass, rounded bottom corners matching the section
+   cards. Hidden by sliding fully above the viewport; .visible slides it
+   down. Transform lives on the inner bar so the fixed wrapper can stay a
+   simple full-width centering flexbox. */
+#nav-shade {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 900; /* above page content; below drawer backdrop (998), drawer (999), overlays (2000+) */
+  pointer-events: none;
+}
+.nav-shade-bar {
+  pointer-events: auto;
+  width: calc(100% - (var(--aura-shell-inset) * 2) + 4px);
+  height: var(--aura-nav-h);
+  border-radius: 0 0 var(--radius-card) var(--radius-card);
+  background: var(--aura-shade-bg);
+  backdrop-filter: blur(20px) saturate(1.15);
+  -webkit-backdrop-filter: blur(20px) saturate(1.15);
+  box-shadow: var(--shadow-nav);
+  transform: translateY(-102%);
+  transition: transform 0.38s var(--ease-out);
+  padding: 0 var(--space-4);
+}
+#nav-shade.visible .nav-shade-bar { transform: translateY(0); }
+
+/* Logo / brand */
+.nav-pill__brand.site-logo {
+  justify-self: start;
   display: flex; flex-direction: column; gap: 2px;
   cursor: pointer;
 }
 .logo-name {
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
-  color: #fff;
+  color: var(--color-on-dark);
   letter-spacing: 0.01em;
   line-height: 1.1;
 }
 .logo-tagline {
-  font-size: 11px;
-  letter-spacing: 0.22em;
+  font-size: 10px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--color-accent);
   line-height: 1;
-  opacity: 0;
-  transition: opacity 0.4s var(--ease-out);
-}
-/* Show tagline once header has background (scrolled or non-home page) */
-#site-header.scrolled .logo-tagline,
-#site-header.solid .logo-tagline {
-  opacity: 1;
 }
 
-/* Hide old desktop nav — always hamburger now */
-nav.main-nav { display: none !important; }
-.btn-nav-cta { display: none !important; }
+/* Desktop link row */
+.nav-pill__links {
+  display: flex; align-items: center; justify-content: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.nav-pill__links > * { flex: 1 1 0; }
+.nav-pill__links .nav-link {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  font: 500 14px var(--font-body);
+  color: var(--color-on-dark-muted);
+  cursor: pointer;
+  transition: color 0.18s;
+  white-space: nowrap;
+}
+.nav-pill__links .nav-link:hover,
+.nav-pill__links .nav-link.active {
+  color: var(--color-on-dark);
+}
 
-/* Hamburger button — always visible */
+/* Hover dropdown — reuses .nav-group/.nav-group-children (shared with the
+   mobile drawer's accordion) for active-state JS compatibility, but shown
+   here via hover instead of a click-toggled max-height accordion.
+
+   Direction: opens UPWARD by default (nav at rest, hero/content below it),
+   flips to open DOWNWARD once #site-header has .nav-stuck — set once the
+   pill crosses the vertical midpoint of the viewport while scrolling, not
+   only once it's fully pinned at the top — see the scroll listener above. */
+.nav-item-dropdown { position: relative; display: flex; justify-content: center; }
+/* AURA: nav lives at the very top of the page (static bar and slide-down
+   shade alike), so submenus always open downward — no nav-stuck flip. */
+/* Outer wrapper — pure positioning + hover hit-box, no visible chrome of
+   its own. The "gap" below the trigger is padding-top, not margin: margin
+   is empty space that belongs to no element (moving the cursor through it
+   drops :hover on the whole group before the panel is ever reached, which
+   is exactly what kept happening with the previous margin + separate
+   bridge pseudo-element — two things that had to be kept in perfect sync).
+   Padding IS part of this element's own box for hover purposes, so the
+   trigger-to-panel path is now one continuous hoverable region with zero
+   dead pixels, with no second element to keep synchronized. */
+.nav-pill__links .nav-group-children.nav-submenu {
+  position: absolute; left: 0;
+  top: 100%; bottom: auto;
+  min-width: 200px;
+  margin: 0;
+  padding-top: var(--space-2);
+  max-height: none;
+  opacity: 0; visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+}
+/* Inner panel — carries the actual visible frosted-glass card. Sized
+   smaller than the outer hit-box (starts below its padding-top), so the
+   gap above it reads as empty space exactly as before, but is now real,
+   hoverable territory rather than a blind spot. */
+.nav-submenu-panel {
+  padding: var(--space-2);
+  background: color-mix(in srgb, var(--chrome) 82%, transparent 18%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-item);
+  box-shadow: var(--shadow-nav);
+}
+/* Trigger + submenu treated as one hover region so crossing the gap
+   between them doesn't close the panel prematurely. */
+.nav-item-dropdown:hover .nav-group-children.nav-submenu {
+  opacity: 1; visibility: visible; transform: translateY(0);
+}
+.nav-pill__links .nav-child-link.nav-submenu__link {
+  display: block;
+  padding: 10px 14px;
+  border-radius: var(--radius-item);
+  font: 500 13.5px var(--font-body);
+  color: var(--color-on-dark-muted);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.nav-pill__links .nav-child-link.nav-submenu__link:hover,
+.nav-pill__links .nav-child-link.nav-submenu__link.active {
+  color: var(--color-on-dark);
+}
+
+/* Utility icons (search + hamburger) */
+.nav-pill__utility { grid-column: 3; justify-self: end; display: flex; align-items: center; gap: 4px; }
+
+/* Breakpoint: link row on desktop, hamburger on mobile — see README's
+   "Mobile nav toggle" note; drawer/backdrop below are unchanged either way. */
+.hamburger { display: none; }
+@media (max-width: 860px) {
+  .nav-pill__links { display: none; }
+  .hamburger { display: flex; }
+}
+
+/* Hamburger button */
 .hamburger {
-  display: flex;
   flex-direction: column; gap: 5px;
   cursor: pointer; padding: 8px;
   background: none; border: none;
@@ -224,7 +485,7 @@ nav.main-nav { display: none !important; }
 .hamburger span {
   display: block;
   width: 26px; height: 1.5px;
-  background: #fff;
+  background: var(--color-on-dark);
   transition: all 0.35s var(--ease-out);
   transform-origin: center;
 }
@@ -535,7 +796,7 @@ nav.main-nav { display: none !important; }
 
 .nav-backdrop {
   position: fixed; inset: 0;
-  background: rgba(9,20,38,0.55);
+  background: rgba(var(--navy-rgb), 0.6);
   backdrop-filter: blur(3px);
   z-index: 998;
   opacity: 0; pointer-events: none;
@@ -544,15 +805,22 @@ nav.main-nav { display: none !important; }
 .nav-backdrop.visible { opacity: 1; pointer-events: all; }
 
 .mobile-nav {
-  position: fixed; top: 0; right: 0; bottom: 0;
-  width: min(320px, 85vw);
-  background: var(--chrome);
-  border-left: 1px solid rgba(var(--gold-rgb),0.25);
+  position: fixed;
+  top: var(--space-4); /* AURA: header is static in-flow — nothing fixed to clear */
+  right: var(--space-4); bottom: var(--space-4);
+  width: min(340px, 85vw);
+  background: var(--color-glass-bg-strong);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--color-border-on-dark);
+  border-radius: var(--radius-outer);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
   z-index: 999;
   display: flex;
   flex-direction: column;
   padding: 0 0 32px;
-  transform: translateX(100%);
+  transform: translateX(calc(100% + var(--space-6)));
   transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
   pointer-events: none;
 }
@@ -566,7 +834,7 @@ nav.main-nav { display: none !important; }
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 88px 0 0;
+  padding: var(--space-10) 0 0;
   overflow-y: auto;
 }
 .mobile-nav .nav-link {
@@ -577,9 +845,9 @@ nav.main-nav { display: none !important; }
   letter-spacing: 0.12em;
   text-transform: uppercase;
   font-weight: 500;
-  color: rgba(255,255,255,0.6);
+  color: var(--color-on-dark-muted);
   padding: 15px 28px;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid var(--color-border-on-dark);
   cursor: pointer;
   transition: color 0.2s, background 0.2s, padding-left 0.2s;
   opacity: 0;
@@ -595,64 +863,64 @@ nav.main-nav { display: none !important; }
 .mobile-nav.open .nav-link:nth-child(6) { transition-delay: 0.30s; }
 .mobile-nav.open .nav-link:nth-child(7) { transition-delay: 0.35s; }
 .mobile-nav .nav-link:hover,
-.mobile-nav .nav-link.active { color: #fff; background: rgba(255,255,255,0.04); padding-left: 36px; }
+.mobile-nav .nav-link.active { color: var(--color-on-dark); background: var(--color-border-on-dark); padding-left: 36px; }
 .mobile-nav .nav-link .nav-arrow { font-size: 11px; opacity: 0.35; transition: opacity 0.2s, transform 0.2s; }
 .mobile-nav .nav-link:hover .nav-arrow { opacity: 1; transform: translateX(4px); }
 
 /* Sub-page nav group */
-.nav-group { border-bottom: 1px solid rgba(255,255,255,0.05); }
-.nav-group-toggle {
+.mobile-nav .nav-group { border-bottom: 1px solid var(--color-border-on-dark); }
+.mobile-nav .nav-group-toggle {
   display: flex; align-items: center;
   opacity: 0; transform: translateX(16px);
   transition: opacity 0.3s, transform 0.3s;
 }
 .mobile-nav.open .nav-group-toggle { opacity: 1; transform: translateX(0); }
-.nav-group-toggle.active .nav-group-label { color: #fff; }
+.nav-group-toggle.active .nav-group-label { color: var(--color-on-dark); }
 .nav-group-label {
   flex: 1;
   display: flex; align-items: center;
   font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
-  color: rgba(255,255,255,0.6);
+  color: var(--color-on-dark-muted);
   padding: 15px 8px 15px 28px;
   cursor: pointer;
   transition: color 0.2s, background 0.2s, padding-left 0.2s;
 }
-.nav-group-label:hover { color: #fff; background: rgba(255,255,255,0.04); padding-left: 36px; }
+.nav-group-label:hover { color: var(--color-on-dark); background: var(--color-border-on-dark); padding-left: 36px; }
 .nav-group-chevron-btn {
   flex-shrink: 0;
   width: 44px; height: 100%;
   min-height: 48px;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
-  color: rgba(255,255,255,0.35);
+  color: var(--color-on-dark-muted);
   font-size: 13px;
   transition: color 0.2s, background 0.2s;
-  border-left: 1px solid rgba(255,255,255,0.05);
+  border-left: 1px solid var(--color-border-on-dark);
 }
-.nav-group-chevron-btn:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.nav-group-chevron-btn:hover { color: var(--color-on-dark); background: var(--color-border-on-dark); }
 .nav-group-chevron {
   transition: transform 0.25s;
   display: inline-block;
 }
 .nav-group.open .nav-group-chevron { transform: rotate(90deg); }
-.nav-group-children {
+.mobile-nav .nav-group-children {
   max-height: 0; overflow: hidden;
   transition: max-height 0.3s cubic-bezier(0.4,0,0.2,1);
   background: rgba(0,0,0,0.15);
 }
-.nav-group.open .nav-group-children { max-height: 400px; }
-.nav-child-link {
+.mobile-nav .nav-group.open .nav-group-children { max-height: 400px; }
+.mobile-nav .nav-child-link {
   display: flex; align-items: center; justify-content: space-between;
   font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500;
-  color: rgba(255,255,255,0.45);
+  color: var(--color-on-dark-muted);
   padding: 12px 28px 12px 40px;
   cursor: pointer;
   transition: color 0.2s, background 0.2s, padding-left 0.2s;
-  border-bottom: 1px solid rgba(255,255,255,0.03);
+  border-bottom: 1px solid var(--color-border-on-dark);
 }
-.nav-child-link:last-child { border-bottom: none; }
-.nav-child-link:hover { color: #fff; background: rgba(255,255,255,0.04); padding-left: 48px; }
-.nav-child-link.active { color: var(--gold); }
+.mobile-nav .nav-child-link:last-child { border-bottom: none; }
+.mobile-nav .nav-child-link:hover { color: var(--color-on-dark); background: var(--color-border-on-dark); padding-left: 48px; }
+.mobile-nav .nav-child-link.active { color: var(--color-accent); }
 
 .mobile-nav-divider { display: none; }
 
@@ -663,11 +931,11 @@ nav.main-nav { display: none !important; }
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--navy);
-  background: var(--gold);
+  color: var(--color-ink);
+  background: var(--color-accent);
   padding: 15px 28px;
   margin: 16px 24px 0;
-  border-radius: 3px;
+  border-radius: var(--radius-pill);
   cursor: pointer;
   border: none;
   text-align: center;
@@ -676,27 +944,28 @@ nav.main-nav { display: none !important; }
   transition: background 0.2s, opacity 0.3s 0.4s;
 }
 .mobile-nav.open .btn-nav-cta { opacity: 1; }
-.mobile-nav .btn-nav-cta:hover { background: var(--gold-light); }
+.mobile-nav .btn-nav-cta:hover { background: var(--color-accent-strong); }
 
 /* =============================================
    HERO
    ============================================= */
 #hero {
   position: relative;
-  height: 100vh; min-height: 600px;
+  height: clamp(545px, calc(100svh - 55px), 845px);
+  border-radius: var(--radius-outer);
+  box-shadow: var(--shadow-card-soft);
   overflow: hidden;
 }
 #hero > .container {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  position: absolute; inset: 0;
   z-index: 2;
   width: 100%;
-  max-width: var(--container);
-  padding: 88px var(--gutter) clamp(60px, 10vh, 100px);
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: var(--space-14) 24px var(--space-10);
   box-sizing: border-box;
-  max-height: 100%;
   overflow: visible;
 }
 .hero-slides {
@@ -737,27 +1006,35 @@ nav.main-nav { display: none !important; }
 .hero-overlay {
   position: absolute; inset: 0;
   background: linear-gradient(
-    to top,
-    rgba(9,20,38,0.92) 0%,
-    rgba(9,20,38,0.55) 50%,
-    rgba(9,20,38,0.2) 100%
+    to bottom,
+    rgba(9,20,38,0.78) 0%,
+    rgba(9,20,38,0.35) 30%,
+    rgba(9,20,38,0.15) 55%,
+    rgba(9,20,38,0.55) 100%
   );
   z-index: 1;
 }
 .hero-content {
   position: relative; z-index: 2;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  flex: 1;
+}
+.glass-panel {
+  max-width: 720px;
 }
 
 .hero-headline {
   font-family: var(--font-display);
-  font-size: clamp(38px, 6vw, 76px);
+  font-size: clamp(32px, 4.5vw, 56px);
   font-weight: 500;
-  color: #fff;
+  color: var(--color-on-dark);
   line-height: 1.1;
   letter-spacing: -0.01em;
-  max-width: 780px;
-  margin-bottom: 28px;
+  max-width: 100%;
+  margin-bottom: var(--space-4);
 }
 .hero-headline .line {
   display: block; overflow: hidden; padding-bottom: 0.15em; margin-bottom: -0.15em;
@@ -772,11 +1049,11 @@ nav.main-nav { display: none !important; }
 .hero-headline .line:nth-child(3) span { animation-delay: 2.24s; }
 
 .hero-subline {
-  font-size: clamp(15px, 2vw, 18px);
-  color: rgba(255,255,255,0.75);
+  font-size: clamp(15px, 1.6vw, 17px);
+  color: var(--color-on-dark-muted);
   line-height: 1.7;
-  max-width: 540px;
-  margin-bottom: clamp(16px, 3vh, 36px);
+  max-width: 100%;
+  margin-bottom: 0;
   opacity: 0;
   animation: heroReveal 0.8s var(--ease-out) 2.5s forwards;
 }
@@ -786,8 +1063,11 @@ nav.main-nav { display: none !important; }
 /* ============ HERO SEARCH BAR ============ */
 .hero-search-bar {
   position: relative;
-  max-width: 520px;
-  margin-bottom: clamp(16px, 3vh, 36px);
+  max-width: 100%;
+  margin-top: var(--space-5);
+  margin-bottom: 0;
+  opacity: 0;
+  animation: heroReveal 0.8s var(--ease-out) 2.6s forwards;
 }
 .hero-search-input-wrap { position: relative; }
 .hero-search-icon {
@@ -801,7 +1081,7 @@ nav.main-nav { display: none !important; }
   padding: 13px 42px 13px 44px;
   font-family: var(--font-body); font-size: 14px;
   border: 1px solid rgba(255,255,255,0.28);
-  border-radius: 9px;
+  border-radius: var(--radius-pill);
   background: rgba(255,255,255,0.10);
   color: #fff;
   outline: none;
@@ -920,9 +1200,28 @@ nav.main-nav { display: none !important; }
 
 .hero-actions {
   display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
-  margin-bottom: clamp(24px, 4vh, 48px);
   opacity: 0;
   animation: heroReveal 0.8s var(--ease-out) 2.7s forwards;
+}
+#hero .btn-primary,
+#hero .btn-outline { border-radius: var(--radius-pill); }
+#hero .btn-primary {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+#hero .btn-primary:hover {
+  background: var(--color-accent-strong);
+}
+#hero .btn-outline {
+  background: var(--color-glass-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: var(--color-on-dark);
+  border: 1px solid var(--color-border-on-dark);
+}
+#hero .btn-outline:hover {
+  border-color: var(--color-on-dark);
+  background: color-mix(in srgb, var(--color-glass-bg) 60%, white 10%);
 }
 .btn-primary {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
@@ -961,14 +1260,23 @@ nav.main-nav { display: none !important; }
 }
 .btn-outline:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); }
 
+/* Any button inside a flattened section becomes a pill automatically —
+   part of the flat-design language (Tier/Flip/CTA/etc. all rely on this
+   instead of individual overrides). Hero Section and other non-flattened
+   contexts keep the default rounded-rectangle look untouched. */
+.cps-split-blocks .btn-primary,
+.cps-split-blocks .btn-outline {
+  border-radius: var(--radius-pill);
+}
+
 .hero-trust-strip {
   display: flex;
   justify-content: space-between;
   gap: clamp(12px, 2vw, 32px);
-  border-top: 1px solid rgba(255,255,255,0.15);
-  padding-top: clamp(16px, 2vh, 28px);
+  margin-top: calc(-1 * var(--space-14) / 2);
+  margin-bottom: clamp(16px, 2vh, 28px);
   opacity: 0;
-  animation: heroReveal 0.8s var(--ease-out) 2.9s forwards;
+  animation: heroReveal 0.8s var(--ease-out) 0.1s forwards;
   animation-fill-mode: forwards;
 }
 .trust-item {
@@ -977,15 +1285,28 @@ nav.main-nav { display: none !important; }
 .trust-dot {
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: var(--gold);
+  background: var(--color-accent);
   flex-shrink: 0;
 }
 .trust-text {
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.65);
+  color: var(--color-on-dark-muted);
 }
+/* Full-width row, first bullet flush left and last flush right (matches
+   SpiderWeb v1's hero-trust-strip spacing), with the remaining bullets
+   evenly distributed between them regardless of count or text length.
+   :empty guard means a site with no trust bullets configured leaves no
+   orphan gap above the grid. */
+.footer-trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: clamp(12px, 2vw, 32px);
+  margin-bottom: 40px;
+}
+.footer-trust-strip:empty { margin-bottom: 0; }
 
 /* Slide dots */
 .hero-dots {
@@ -1000,7 +1321,7 @@ nav.main-nav { display: none !important; }
   cursor: pointer;
   transition: background 0.3s, width 0.3s;
 }
-.hero-dot.active { background: var(--gold); width: 40px; }
+.hero-dot.active { background: var(--color-accent); width: 40px; }
 
 /* Scroll indicator */
 .scroll-indicator {
@@ -1044,10 +1365,8 @@ nav.main-nav { display: none !important; }
   min-width: 160px;
   padding: 36px 24px;
   text-align: center;
-  transition: background 0.3s;
   box-sizing: border-box;
 }
-.stat-cell:hover { background: rgba(255,255,255,0.04); }
 .stat-num {
   font-family: var(--font-display);
   font-size: clamp(24px, 3vw, 38px);
@@ -1066,38 +1385,72 @@ nav.main-nav { display: none !important; }
 /* =============================================
    SECTION COMMONS
    ============================================= */
-.section { padding: calc(var(--section-pad) / 2) 0; }
+.section {
+  padding: calc(var(--section-pad) / 2) 0;
+  /* Floating-card treatment (index-web theme). bgToClass() and every
+     nested component's .cps-section-light/alt/dark color-adaptation
+     rule below are untouched — this only changes the section's own
+     container decoration, not the theming contract components rely on. */
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  margin-bottom: var(--aura-section-gap);
+  background: var(--color-card-light);
+}
+.section:last-of-type { margin-bottom: 0; }
 .section-after-banner { padding-top: clamp(32px, 4vw, 48px); }
+/* About page team members — Standalone Cards: outer section becomes a
+   transparent pass-through (its own margin-bottom still applies normally,
+   giving the standard gap to whatever follows), and each rich bio block
+   becomes its own independent floating card instead of being grouped
+   under one shared card with divider lines between members. */
+.about-team-section {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  margin-bottom: var(--space-8) !important;
+}
+#about-members {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--gutter) * 2);
+  width: 100%;
+}
+.about-member {
+  background: var(--color-card-light);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: clamp(24px, 4vw, 36px);
+}
 #contact.section-after-banner { padding-top: 8px; }
-.section-alt { background: var(--cream); }
-.section-dark { background: var(--navy); }
+.section-alt { background: var(--color-card-alt); }
+.section-dark { background: var(--color-card-dark); }
 
 .section-label {
   display: flex; align-items: center; gap: 12px;
   margin-bottom: 20px;
 }
-.section-label-line { width: 32px; height: 1px; background: var(--gold-light); }
+.section-label-line { width: 32px; height: 1px; background: var(--color-accent-strong); }
 .section-label-text {
   font-size: 11px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--gold-light);
+  color: var(--color-accent-strong);
 }
-.section-dark .section-label-text { color: var(--gold-light); }
+.section-dark .section-label-text { color: var(--color-accent-strong); }
 
 h2.section-title {
   font-family: var(--font-display);
   font-size: clamp(30px, 4vw, 52px);
   font-weight: 500;
-  color: var(--text-head);
+  color: var(--color-ink);
   line-height: 1.15;
   letter-spacing: -0.01em;
 }
-.section-dark h2.section-title { color: #fff; }
+.section-dark h2.section-title { color: var(--color-on-dark); }
 
 .section-subtitle {
   font-size: clamp(15px, 1.5vw, 17px);
-  color: var(--text-muted);
+  color: var(--color-ink-muted);
   line-height: 1.75;
   width: 100%;
   max-width: 900px;
@@ -1110,25 +1463,18 @@ h2.section-title {
 /* =============================================
    CUSTOM PAGE — FEATURE CARDS
    ============================================= */
-.cps-fc-header {
-  display: flex; align-items: flex-start; gap: 56px;
-  flex-wrap: wrap;
-  margin-bottom: 64px;
-}
-.cps-fc-header-text { flex: 1; min-width: 280px; }
 .cps-fc-badge {
-  flex-shrink: 0;
-  width: 160px; height: 160px;
-  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 28px;
+  border-radius: var(--radius-pill);
   border: 1px solid var(--gold);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center;
-  margin-top: 8px;
+  margin: 20px 0;
 }
 .cps-fc-badge-num {
   font-family: var(--font-display);
-  font-size: 42px;
+  font-size: 28px;
   font-weight: 600;
   color: var(--navy);
   line-height: 1;
@@ -1138,7 +1484,6 @@ h2.section-title {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin-top: 4px;
 }
 /* ============ IMAGE GRID ============ */
 /* Tiles are a fixed size (width/height set via --ig-tile-w/--ig-tile-h,
@@ -1158,12 +1503,29 @@ h2.section-title {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 56px;
 }
 .cps-ig-grid--gap-tight  { gap: 4px;  padding-left: 4px;  padding-right: 4px; }
 .cps-ig-grid--gap-normal { gap: 16px; padding-left: 16px; padding-right: 16px; }
 .cps-ig-grid--gap-loose  { gap: 32px; padding-left: 32px; padding-right: 32px; }
 .cps-ig-grid--rounded .cps-ig-tile { border-radius: 12px; }
+/* Fill Row: tiles on each line stretch in width to consume any leftover
+   space instead of staying fixed-size — kills dead space on a row that's
+   short a tile or two. Height stays fixed/uniform across the row (an
+   explicit height overrides the aspect-ratio used elsewhere, since
+   aspect-ratio only computes an "auto" dimension — with both width and
+   height now definite, it has nothing left to do), so images crop wider via
+   object-fit:cover rather than the tile growing taller to match its widened
+   shape. Note this is a per-line effect of flex-wrap itself, not something
+   explicitly targeting "the last row" — a genuinely solitary trailing tile
+   will grow to fill the entire row width on its own at the normal fixed
+   height, which can look like a wide banner rather than its usual shape.
+   Worth knowing, especially on tall (Portrait) ratios. */
+.cps-ig-grid--fill .cps-ig-tile { flex-grow: 1; height: var(--ig-tile-h, 220px); }
+/* Set by initImageGridFillStack once the grid narrows to one tile per row —
+   reverts that row to the normal fixed size/centered look instead of the
+   single tile stretching to fill the entire (now much wider, relatively
+   speaking) row on its own. */
+.cps-ig-grid--fill.cps-ig-grid--stacked .cps-ig-tile { flex-grow: 0; max-width: var(--ig-tile-w, 220px); }
 .cps-ig-tile {
   position: relative;
   flex: 0 1 var(--ig-tile-w, 220px);
@@ -1240,7 +1602,12 @@ h2.section-title {
    to keep specificity above the generic .reveal.visible scroll-entrance
    class elsewhere in the codebase, which also animates `transform` on this
    same element and would otherwise silently win via source order. */
-.cps-ig-grid .cps-ig-tile.cps-ig-lift-on { transform: scale(1.13); z-index: 2; }
+/* Lift uses translateY rather than scale() — scale grows a tile by more
+   absolute pixels the wider it is, which looked inconsistent once Fill Row
+   introduced tiles of varying widths on the same row; translateY rises by a
+   fixed pixel amount regardless of tile width, so every tile (fixed-size or
+   Fill Row) lifts by the same visible amount. */
+.cps-ig-grid .cps-ig-tile.cps-ig-lift-on { transform: translateY(-8px); z-index: 2; }
 .cps-ig-grid .cps-ig-tile.cps-ig-shadow-on { box-shadow: 0 18px 40px rgba(0,0,0,0.34); }
 .cps-ig-tile.cps-ig-blur-on .cps-ig-overlay {
   backdrop-filter: blur(var(--ig-blur, 16px));
@@ -1282,6 +1649,143 @@ h2.section-title {
   -webkit-backdrop-filter: none;
 }
 
+/* ============ BENTO CARDS ============ */
+/* Deliberately separate from Image Grid (own cps-bento-* classes/vars, own
+   JS timer functions) rather than sharing code — the two sections work on
+   genuinely different layout models (uniform fixed tiles vs. variable-size
+   cards), and keeping them decoupled means changes to one can't regress the
+   other. CSS Grid + grid-auto-flow:dense does the actual bento packing —
+   the browser fills gaps left by bigger cards automatically, so no custom
+   JS packing algorithm is needed the way true masonry would require. Card
+   Size sets the base 1x1 unit; each item's own Size (Small/Wide/Tall/
+   Large/Featured) is expressed as a column/row span multiple of that unit,
+   assigned inline per-tile in the renderer since — unlike Image Grid — size
+   lives on the item, not the section. */
+.cps-bento-grid {
+  display: grid;
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(auto-fill, var(--bento-cell, 220px));
+  grid-auto-rows: var(--bento-cell, 220px);
+  justify-content: center;
+}
+.cps-bento-grid--gap-tight  { gap: 4px;  padding-left: 4px;  padding-right: 4px; }
+.cps-bento-grid--gap-normal { gap: 16px; padding-left: 16px; padding-right: 16px; }
+.cps-bento-grid--gap-loose  { gap: 32px; padding-left: 32px; padding-right: 32px; }
+.cps-bento-grid--rounded .cps-bento-tile { border-radius: 12px; }
+.cps-bento-tile {
+  position: relative;
+  overflow: hidden;
+  background: var(--cream);
+  z-index: 1;
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+}
+/* Reuses the same fallback-shade vars Image Grid computes in applyColors()
+   — both sections want the identical "darker shade of this section's own
+   background (lighter if near-black)" treatment for a missing image, so
+   there's no reason to compute it twice. */
+.cps-section-light .cps-bento-tile { background: var(--ig-fallback-light); }
+.cps-section-alt .cps-bento-tile { background: var(--ig-fallback-alt); }
+.cps-section-dark .cps-bento-tile { background: var(--ig-fallback-dark); }
+.cps-bento-tile img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s var(--ease-out);
+}
+/* Initial title — shown on the image at all times until revealed. Bento
+   captions are always left/bottom-aligned (no Text Alignment toggle like
+   Image Grid) since that reads consistently across every card shape from
+   Small up to Featured, whereas centered text can look odd on very wide or
+   very tall spans. */
+.cps-bento-initial {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: clamp(14px, 4%, 24px);
+  transition: opacity 0.3s var(--ease-out);
+}
+.cps-bento-initial-scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0) 65%);
+}
+.cps-bento-initial-title {
+  position: relative;
+  font-family: var(--font-display); font-weight: 700; font-size: clamp(15px, 2vw, 19px);
+  color: #fff; line-height: 1.3;
+}
+.cps-bento-overlay {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: clamp(14px, 4%, 24px);
+  background: rgba(var(--navy-rgb), 0.4);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out), backdrop-filter 0.35s var(--ease-out);
+  text-align: left;
+}
+.cps-bento-title {
+  font-family: var(--font-display); font-weight: 700; font-size: clamp(15px, 2vw, 19px);
+  color: #fff; line-height: 1.3;
+}
+.cps-bento-subtitle {
+  font-size: clamp(12px, 1.4vw, 14px); color: rgba(255,255,255,0.8);
+  margin-top: 4px; line-height: 1.5;
+}
+.cps-bento-subtitle p { margin: 0 0 0.5em; }
+.cps-bento-subtitle p:last-child { margin-bottom: 0; }
+/* Same four-stage reveal timeline as Image Grid (own JS functions, see
+   bentoScheduleReveal in initBentoReveal) — lift, blur, text, shadow, all
+   via setTimeout-scheduled classes rather than CSS transition-delay, since
+   backdrop-filter's delay isn't reliably honored on mobile. */
+.cps-bento-grid .cps-bento-tile.cps-bento-lift-on { transform: translateY(-8px); z-index: 2; }
+.cps-bento-grid .cps-bento-tile.cps-bento-shadow-on { box-shadow: 0 18px 40px rgba(0,0,0,0.34); }
+.cps-bento-tile.cps-bento-blur-on .cps-bento-overlay {
+  backdrop-filter: blur(var(--bento-blur, 16px));
+  -webkit-backdrop-filter: blur(var(--bento-blur, 16px));
+}
+.cps-bento-tile.cps-bento-text-on .cps-bento-initial { opacity: 0; }
+.cps-bento-tile.cps-bento-text-on .cps-bento-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+.cps-bento-grid--reveal-blur-first .cps-bento-initial {
+  background: rgba(var(--navy-rgb), 0.4);
+  backdrop-filter: blur(var(--bento-blur, 16px));
+  -webkit-backdrop-filter: blur(var(--bento-blur, 16px));
+}
+.cps-bento-grid--reveal-blur-first .cps-bento-initial-scrim { display: none; }
+.cps-bento-grid--reveal-blur-first .cps-bento-overlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0) 65%);
+}
+.cps-bento-grid--reveal-blur-first .cps-bento-tile.cps-bento-blur-on .cps-bento-overlay {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.cps-bento-grid--reveal-no-blur .cps-bento-overlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0) 65%);
+}
+.cps-bento-grid--reveal-no-blur .cps-bento-tile.cps-bento-blur-on .cps-bento-overlay {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+/* Below this width, force a single column and reset every card to a
+   uniform 1x1 square — deliberately simple/predictable rather than trying
+   to preserve size hierarchy in a single-column stack. A fixed breakpoint
+   is fine here (unlike Fill Row's per-instance ResizeObserver check),
+   since this isn't trying to hit an exact per-section fit threshold — it's
+   just "is this clearly a phone." grid-auto-rows must also switch to auto
+   here: the section's Cell Size still fixes row track height otherwise
+   (e.g. 220px), but a card forced to aspect-ratio:1/1 at full (much wider)
+   column width renders taller than that — with grid-auto-rows still fixed,
+   the tile's own box overflows past its row track straight into the next
+   card's space, visually overlapping it. auto row height lets each row
+   size itself to whatever the now-square card actually needs. */
+@media (max-width: 600px) {
+  .cps-bento-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+  .cps-bento-tile { grid-column: span 1 !important; grid-row: span 1 !important; aspect-ratio: 1 / 1; }
+}
+
 .cps-fc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1315,8 +1819,6 @@ h2.section-title {
 .cps-fc-card:hover { background: var(--gold-pale); }
 .cps-fc-card:hover::after { width: 100%; }
 .cps-fc-card:nth-child(2n) { border-right: none; }
-.cps-fc-grid--full { grid-template-columns: 1fr; }
-.cps-fc-grid--full .cps-fc-card { border-right: none; }
 .cps-fc-num {
   font-family: var(--font-display);
   font-size: 52px;
@@ -1385,61 +1887,58 @@ h2.section-title {
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  margin-top: 56px;
-  border: 1px solid #e8e3d8;
+  gap: var(--space-6);
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0 var(--space-8);
 }
 .services-grid[data-cols="1"] { grid-template-columns: 1fr; }
 .services-grid[data-cols="2"] { grid-template-columns: repeat(2, 1fr); }
 .services-grid[data-cols="3"] { grid-template-columns: repeat(3, 1fr); }
 .services-grid[data-cols="4"] { grid-template-columns: repeat(4, 1fr); }
 .service-card {
-  border-right: 1px solid #e8e3d8;
-  border-bottom: 1px solid #e8e3d8;
-  padding: clamp(28px, 4vw, 44px);
+  background: var(--color-card-light-alt);
+  border: 1px solid var(--color-bg);
+  border-radius: var(--radius-item);
+  padding: clamp(28px, 4vw, 40px);
   cursor: pointer;
-  transition: background 0.3s, transform 0.3s;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
   position: relative;
   overflow: hidden;
 }
-.services-grid[data-cols="1"] .service-card { border-right: none; }
-.services-grid[data-cols="2"] .service-card:nth-child(2n) { border-right: none; }
-.services-grid[data-cols="3"] .service-card:nth-child(3n) { border-right: none; }
-.services-grid[data-cols="4"] .service-card:nth-child(4n) { border-right: none; }
-.service-card::after {
-  content: '';
-  position: absolute; bottom: 0; left: 0;
-  height: 2px; width: 0;
-  background: var(--gold);
-  transition: width 0.4s var(--ease-out);
-}
-.service-card:hover { background: var(--gold-pale); transform: translateY(-2px); }
-.service-card:hover::after { width: 100%; }
+.service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-soft); }
+/* Nested-card contrast when the section itself is alt/dark */
+.cps-section-alt .service-card { background: var(--color-card-alt-step); }
+.cps-section-dark .service-card { background: var(--color-card-dark-step); }
+.cps-section-dark .service-title { color: var(--color-on-dark); }
+.cps-section-dark .service-desc { color: var(--color-on-dark-muted); }
 .service-icon {
-  font-size: 28px;
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--color-accent) 18%, transparent 82%);
   margin-bottom: 18px;
   transition: transform 0.3s;
-  transform-origin: left center;
-  display: inline-block;
 }
-.service-card:hover .service-icon { transform: scale(1.1); }
-.service-img--thumb { width: 48px; height: 48px; object-fit: cover; border-radius: 6px; margin-bottom: 18px; display: block; }
-.service-img--sm    { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-bottom: 18px; display: block; }
-.service-img--full  { width: 100%; height: 160px; object-fit: cover; border-radius: 6px 6px 0 0; margin-bottom: 0; display: block; }
-.service-card.has-full-img { padding-top: 0; overflow: hidden; }
+.service-card:hover .service-icon { transform: scale(1.08); }
+.service-img--thumb { width: 48px; height: 48px; object-fit: cover; border-radius: var(--radius-item); margin-bottom: 18px; display: block; }
+.service-img--sm    { width: 80px; height: 80px; object-fit: cover; border-radius: var(--radius-item); margin-bottom: 18px; display: block; }
+.service-img--full  { width: 100%; height: 160px; object-fit: cover; border-radius: var(--radius-item) var(--radius-item) 0 0; margin-bottom: 0; display: block; }
+.service-card.has-full-img { padding: 0; overflow: hidden; }
 .service-card.has-full-img .service-card-body { padding: 20px; }
 .service-title {
   font-family: var(--font-display);
   font-size: 18px;
   font-weight: 500;
-  color: var(--text-head);
+  color: var(--color-ink);
   margin-bottom: 10px;
   transition: color 0.3s;
 }
 .service-desc {
   font-size: 13.5px;
   line-height: 1.7;
-  color: var(--text-muted);
+  color: var(--color-ink-muted);
   transition: color 0.3s;
 }
 .service-desc p { margin: 0 0 0.75em; }
@@ -1450,14 +1949,11 @@ h2.section-title {
   font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--gold-light);
+  color: var(--color-accent-strong);
   font-weight: 600;
-  transition: gap 0.2s;
+  transition: gap 0.2s, color 0.2s;
 }
-.service-card:hover .service-more { gap: 10px; }
-.service-card:hover .service-more { color: var(--gold); }
-.cps-section-alt .service-card:hover { background: rgba(var(--navy-rgb),0.06); }
-.cps-section-alt .services-grid { border-color: #ddd8cc; }
+.service-card:hover .service-more { gap: 10px; color: var(--color-accent); }
 .cps-section-alt .service-card { border-color: #ddd8cc; }
 .cps-section-dark .services-grid { border-color: rgba(255,255,255,0.12); }
 .cps-section-dark .service-card { background: transparent; border-color: rgba(255,255,255,0.12); }
@@ -1515,25 +2011,28 @@ h2.section-title {
    PAGE BANNERS (inner pages)
    ============================================= */
 .page-banner {
-  background: var(--cream);
-  padding: 100px var(--gutter) 20px;
-  border-bottom: 1px solid #e8e3d8;
+  background: transparent;
+  box-shadow: none;
+  text-align: center;
+  margin-top: 0; /* AURA: static header above provides all clearance */
+  margin-bottom: var(--space-4);
+  padding: 24px var(--gutter) 32px;
 }
+.page-banner .section-label { justify-content: center; }
+.page-banner .section-label-line { display: none; }
 .page-banner-dark {
-  background: var(--navy);
-  border-bottom: none;
-  padding-bottom: 8px;
+  padding-bottom: 24px;
 }
 .page-banner-title {
   font-family: var(--font-display);
   font-size: clamp(32px, 5vw, 58px);
   font-weight: 500;
-  color: var(--text-head);
+  color: var(--flat-header-heading);
   line-height: 1.12;
   letter-spacing: -0.01em;
   margin-top: 8px;
 }
-.page-banner-title-light { color: #fff; }
+.page-banner-title-light { color: var(--color-on-dark); }
 
 /* =============================================
    ABOUT — new 1/3 + 2/3 layout
@@ -1571,13 +2070,14 @@ h2.section-title {
   display: flex; align-items: center; justify-content: center;
   color: var(--gold);
   border: 1px solid rgba(var(--gold-rgb),0.4);
-  border-radius: 2px;
+  border-radius: 50%;
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
 .about-social-icon:hover { color: var(--navy); background: var(--gold); border-color: var(--gold); }
 .about-social-icon svg { width: 16px; height: 16px; }
-.about-member-btn { margin-top: 24px; }
+.about-member-btn { margin-top: 32px; text-align: center; }
+.about-member-btn .btn-primary { border-radius: var(--radius-pill); }
 .about-photo-wrap {
   position: relative;
   width: 100%;
@@ -1598,17 +2098,6 @@ h2.section-title {
   object-fit: cover;
   object-position: center top;
   display: block;
-}
-.about-photo-accent {
-  position: absolute;
-  bottom: -20px;
-  right: -20px;
-  width: 100px;
-  height: 100px;
-  border: 1px solid var(--gold);
-  border-radius: 2px;
-  z-index: 0;
-  pointer-events: none;
 }
 .about-identity { padding-top: 8px; }
 .about-attorney-name {
@@ -1640,7 +2129,7 @@ h2.section-title {
   color: var(--gold);
   border: 1px solid var(--gold);
   padding: 5px 14px;
-  border-radius: 2px;
+  border-radius: var(--radius-pill);
 }
 .about-bio-full {
   display: flex; flex-direction: column; gap: 20px;
@@ -1783,12 +2272,12 @@ h2.section-title {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  margin-top: 56px;
+  padding: 0 var(--space-8);
 }
 .testimonial-card {
   background: var(--warm-white);
   padding: clamp(28px, 4vw, 40px);
-  border-radius: 2px;
+  border-radius: var(--radius-item);
   border: 1px solid #e8e3d8;
   position: relative;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -1861,7 +2350,6 @@ h2.section-title {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0 80px;
-  margin-top: 56px;
 }
 .faq-grid.faq-grid-full { grid-template-columns: 1fr; gap: 0; max-width: 780px; }
 .faq-item {
@@ -1941,13 +2429,13 @@ h2.section-title {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  margin-top: 56px;
+  padding: 0 var(--space-8);
 }
 .blog-card {
-  background: var(--warm-white);
-  border-radius: 2px;
+  background: var(--color-card-light-alt);
+  border-radius: var(--radius-item);
   overflow: hidden;
-  border: 1px solid #e8e3d8;
+  border: 1px solid var(--color-border-light);
   transition: transform 0.3s, box-shadow 0.3s;
   cursor: default;
   display: flex;
@@ -1956,7 +2444,7 @@ h2.section-title {
 .blog-card.has-link { cursor: pointer; }
 .blog-card.has-link:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(15,35,64,0.1);
+  box-shadow: var(--shadow-card-soft);
 }
 /* Featured card spans full width with horizontal layout */
 .blog-card.blog-featured {
@@ -1980,7 +2468,7 @@ h2.section-title {
   margin-bottom: 14px;
 }
 .blog-card-top {
-  background: var(--navy);
+  background: var(--color-card-dark);
   padding: 28px;
   display: flex; align-items: center; justify-content: space-between;
   position: relative;
@@ -1995,17 +2483,17 @@ h2.section-title {
 }
 .blog-card-top-overlay {
   position: absolute; inset: 0;
-  background: rgba(15,35,64,0.45);
+  background: color-mix(in srgb, var(--navy) 45%, transparent 55%);
 }
 .blog-emoji { font-size: 32px; }
 .blog-tag {
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gold);
-  border: 1px solid rgba(var(--gold-rgb),0.4);
+  color: var(--color-accent);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent 60%);
   padding: 4px 10px;
-  border-radius: 2px;
+  border-radius: var(--radius-pill);
 }
 .blog-card-body {
   padding: 24px 28px 28px;
@@ -2017,11 +2505,11 @@ h2.section-title {
   font-family: var(--font-display);
   font-size: 17px;
   font-weight: 500;
-  color: var(--text-head);
+  color: var(--color-ink);
   line-height: 1.4;
   margin-bottom: 10px;
 }
-.blog-excerpt { font-size: 13px; line-height: 1.75; color: var(--text-muted); }
+.blog-excerpt { font-size: 13px; line-height: 1.75; color: var(--color-ink-muted); }
 .blog-excerpt p { margin: 0 0 0.5em; }
 .blog-excerpt p:last-child { margin-bottom: 0; }
 .blog-card-meta {
@@ -2033,12 +2521,12 @@ h2.section-title {
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--color-ink-muted);
 }
 .blog-read-time {
   font-size: 11px;
   letter-spacing: 0.08em;
-  color: var(--text-muted);
+  color: var(--color-ink-muted);
   margin-left: auto;
 }
 .blog-cta {
@@ -2051,20 +2539,20 @@ h2.section-title {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--gold);
-  border-bottom: 1px solid rgba(var(--gold-rgb),0.35);
+  color: var(--color-accent-strong);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-accent-strong) 35%, transparent 65%);
   padding-bottom: 2px;
   transition: color 0.2s, border-color 0.2s;
 }
-.blog-card.has-link:hover .blog-cta { color: var(--gold-light); border-color: var(--gold-light); }
+.blog-card.has-link:hover .blog-cta { color: var(--color-accent); border-color: var(--color-accent); }
 /* Dark section overrides */
-.cps-section-dark .blog-card { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1); }
-.cps-section-dark .blog-card.has-link:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
-.cps-section-dark .blog-title { color: #fff; }
-.cps-section-dark .blog-excerpt { color: rgba(255,255,255,0.65); }
-.cps-section-dark .blog-card-meta { border-top-color: rgba(255,255,255,0.1); color: rgba(255,255,255,0.4); }
+.cps-section-dark .blog-card { background: var(--color-card-dark-step); border-color: var(--color-border-on-dark); }
+.cps-section-dark .blog-card.has-link:hover { box-shadow: var(--shadow-card); }
+.cps-section-dark .blog-title { color: var(--color-on-dark); }
+.cps-section-dark .blog-excerpt { color: var(--color-on-dark-muted); }
+.cps-section-dark .blog-card-meta { border-top-color: var(--color-border-on-dark); color: var(--color-on-dark-muted); }
 .cps-section-dark .blog-date,
-.cps-section-dark .blog-read-time { color: rgba(255,255,255,0.4); }
+.cps-section-dark .blog-read-time { color: var(--color-on-dark-muted); }
 @media (max-width: 900px) {
   .blog-grid { grid-template-columns: 1fr 1fr; }
   .blog-card.blog-featured { flex-direction: column; }
@@ -2232,7 +2720,7 @@ h2.section-title {
    ============================================= */
 footer {
   background: var(--chrome);
-  padding: 60px 0 32px;
+  padding: 30px 0 32px;
   color: rgba(255,255,255,0.5);
 }
 .footer-grid {
@@ -2344,11 +2832,8 @@ footer {
 }
 @media (orientation: landscape) and (max-height: 480px) {
   #hero > .container {
-    bottom: 0;
-    top: auto;
-    transform: translateX(-50%);
-    padding-top: 88px;
-    padding-bottom: 32px;
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-4);
   }
   .hero-headline { margin-bottom: 24px; }
   .hero-subline  { margin-bottom: 24px; }
@@ -2364,7 +2849,13 @@ footer {
       "right"
       "socbtn";
   }
-  .about-left-col { max-width: 380px; }
+  .about-left-col { max-width: none; }
+  .about-photo-wrap {
+    max-width: none;
+    margin: calc(-1 * clamp(24px, 4vw, 36px)) calc(-1 * clamp(24px, 4vw, 36px)) 0;
+    width: calc(100% + clamp(48px, 8vw, 72px));
+  }
+  .about-photo-frame { border-radius: var(--radius-card) var(--radius-card) 0 0; }
   .about-right-col { padding-top: 0; }
   .about-social-btn-col { padding-top: 0; }
   .cps-fc-grid,
@@ -2374,8 +2865,6 @@ footer {
   .cps-fc-card,
   .cps-fc-grid[data-cols="3"] .cps-fc-card:nth-child(2n),
   .cps-fc-grid[data-cols="4"] .cps-fc-card:nth-child(2n) { border-right: none; }
-  .cps-fc-header { flex-direction: column; }
-  .cps-fc-badge { display: none; }
   .services-grid[data-cols="2"],
   .services-grid[data-cols="3"],
   .services-grid[data-cols="4"] { grid-template-columns: 1fr; }
@@ -2390,6 +2879,7 @@ footer {
   .footer-grid { grid-template-columns: 1fr; }
   .footer-grid > * { text-align: center; }
   .footer-brand p { max-width: none; }
+  .footer-trust-strip { flex-direction: column; align-items: center; gap: 12px; }
   #footer-logo { display: block; margin: 0 auto 8px; }
   .footer-social-row { justify-content: center; }
   .footer-links { align-items: center; }
@@ -2422,14 +2912,14 @@ footer {
   font-family: var(--font-display);
   font-size: clamp(24px, 3vw, 38px);
   font-weight: 500;
-  color: var(--text-head);
+  color: var(--color-ink);
   margin-bottom: 20px;
   line-height: 1.2;
 }
 .cps-text-block .cps-body {
   font-size: 15px;
   line-height: 1.9;
-  color: var(--text-body);
+  color: var(--color-ink-muted);
   max-width: 780px;
 }
 .cps-text-block .cps-body p { margin-bottom: 16px; }
@@ -2437,10 +2927,11 @@ footer {
 /* Two Column */
 .cps-two-col { overflow: hidden; }  /* clearfix for floated image */
 .cps-two-col-img {
-  border-radius: 2px;
+  border-radius: var(--radius-item);
   overflow: hidden;
   position: relative;
   max-width: 100%;
+  box-shadow: var(--shadow-card-soft);
 }
 .cps-two-col-img img {
   width: 100%;
@@ -2449,23 +2940,23 @@ footer {
   min-height: 200px;
 }
 .cps-two-col-img-placeholder {
-  background: var(--navy);
+  background: var(--color-card-dark);
   min-height: 320px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255,255,255,0.2);
+  color: color-mix(in srgb, var(--color-on-dark) 20%, transparent 80%);
   font-size: 48px;
 }
 .cps-two-col p {
   font-size: 15px;
   line-height: 1.85;
-  color: var(--text-body);
+  color: var(--color-ink-muted);
   margin-bottom: 14px;
 }
 .cps-two-col p:last-of-type { margin-bottom: 0; }
-.cps-section-dark .cps-two-col p { color: rgba(255,255,255,0.75); }
-.cps-section-alt .cps-two-col p { color: var(--text-body); }
+.cps-section-dark .cps-two-col p { color: var(--color-on-dark-muted); }
+.cps-section-alt .cps-two-col p { color: var(--color-ink-muted); }
 .cps-two-col-heading { margin-bottom: 28px; }
 @media (max-width: 768px) {
   .cps-two-col-img {
@@ -2476,21 +2967,37 @@ footer {
 }
 
 /* Stats Bar (custom) */
-.cps-stats-bar { padding: 0; }
-.cps-stats-bar .stats-inner { }
+/* Stats Bar container is always a transparent pass-through — inherit mode
+   sits flush on whatever's behind it, carded mode puts each stat in its
+   own individually-carded tile on the page background. */
+.section.cps-stats-bar { padding: 0; background: transparent; box-shadow: none; border-radius: 0; }
 
-/* Stats bar light/alt section theming */
-.cps-section-light .stat-cell:hover { background: var(--gold-pale); }
-.cps-section-alt .stat-cell:hover { background: rgba(var(--navy-rgb),0.06); }
+/* Carded mode: each stat is its own card, like a Services card */
+.cps-stats-bar--carded .stats-inner { gap: var(--space-6); }
+.cps-stats-bar--carded .stat-cell {
+  border-radius: var(--radius-item);
+  box-shadow: var(--shadow-card-soft);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.cps-stats-bar--carded.cps-section-light .stat-cell { background: var(--color-card-light); }
+.cps-stats-bar--carded.cps-section-alt   .stat-cell { background: var(--color-card-alt); }
+.cps-stats-bar--carded.cps-section-dark  .stat-cell { background: var(--color-card-dark); }
+.cps-stats-bar--carded .stat-cell:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
 .cps-section-light .stat-label,
 .cps-section-alt .stat-label { color: var(--text-muted); }
+
+/* Inherit mode: no card, no hover — text sits directly on whatever's
+   behind it, so it needs the same computed contrast color as flat headers. */
+.cps-stats-bar--inherit .stat-label { color: var(--flat-header-subtitle); }
 
 /* Bullet / Checklist */
 .cps-bullets-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0;
-  margin-top: 40px;
   border: 1px solid currentColor;
 }
 .cps-bullet-item {
@@ -2550,46 +3057,29 @@ footer {
 /* Alt Bullets border inherits from base rule via currentColor */
 
 /* CTA Banner */
-.cps-cta-banner {
-  background: var(--navy);
-  padding: clamp(48px, 7vw, 80px) var(--gutter);
-  text-align: center;
-}
-.cps-section-light .cps-cta-banner { background: var(--cream); }
-.cps-section-alt .cps-cta-banner { background: var(--gold-pale); border: 1px solid #ddd8cc; }
-.cps-cta-banner .cps-heading {
+.cps-cta-flat .cps-block-header .cps-heading {
   font-family: var(--font-display);
   font-size: clamp(26px, 3.5vw, 44px);
   font-weight: 500;
-  color: #fff;
-  margin-bottom: 16px;
   line-height: 1.2;
+  margin-bottom: 0;
 }
-.cps-section-light .cps-cta-banner .cps-heading,
-.cps-section-alt .cps-cta-banner .cps-heading { color: var(--text-head); }
-.cps-cta-banner .cps-body {
+.cps-cta-flat .cps-block-content {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0;
+  text-align: center;
+}
+.cps-cta-flat .cps-block-content .cps-body {
   font-size: 16px;
-  color: rgba(255,255,255,0.65);
   line-height: 1.7;
   max-width: 560px;
   margin: 0 auto 32px;
+  color: var(--flat-header-subtitle);
 }
-.cps-cta-banner .cps-body p { margin: 0 0 0.75em; }
-.cps-cta-banner .cps-body p:last-child { margin-bottom: 0; }
-.cps-section-light .cps-cta-banner .cps-body,
-.cps-section-alt .cps-cta-banner .cps-body { color: var(--text-muted); }
-.cps-section-light .cps-cta-banner .btn-outline,
-.cps-section-alt .cps-cta-banner .btn-outline {
-  background: transparent;
-  color: var(--navy);
-  border-color: var(--navy);
-}
-.cps-section-light .cps-cta-banner .btn-outline:hover,
-.cps-section-alt .cps-cta-banner .btn-outline:hover {
-  background: rgba(15,35,64,0.06);
-  border-color: var(--navy);
-}
-.cps-cta-banner .cps-actions {
+.cps-cta-flat .cps-block-content .cps-body p { margin: 0 0 0.75em; }
+.cps-cta-flat .cps-block-content .cps-body p:last-child { margin-bottom: 0; }
+.cps-cta-flat .cps-block-content .cps-actions {
   display: flex;
   gap: 16px;
   justify-content: center;
@@ -2768,7 +3258,6 @@ footer {
 .cps-fee-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 32px;
   font-size: 14px;
 }
 .cps-fee-wrap { overflow-x: auto; }
@@ -2808,7 +3297,6 @@ footer {
 .cps-tbl {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 32px;
   font-size: 14px;
 }
 .cps-tbl thead tr {
@@ -3151,6 +3639,7 @@ footer {
   background: var(--gold-pale);
   border-radius: 2px;
   padding: clamp(24px, 3vw, 36px);
+  text-align: center;
 }
 .cps-jurisdiction-icon { font-size: 28px; margin-bottom: 12px; }
 .cps-jurisdiction-title {
@@ -3169,7 +3658,6 @@ footer {
 .cps-jurisdiction-link {
   display: block;
   margin-top: 10px;
-  margin-left: 12px;
   padding-bottom: 12px;
   font-size: 13px;
   font-weight: 600;
@@ -3190,7 +3678,8 @@ footer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  margin-top: 40px;
+  width: 100%;
+  padding: 0 var(--space-8);
 }
 .cps-team-grid[data-cols="1"] { grid-template-columns: 1fr; }
 .cps-team-grid[data-cols="2"] { grid-template-columns: repeat(2, 1fr); }
@@ -3207,47 +3696,49 @@ footer {
   .cps-team-grid[data-cols="3"],
   .cps-team-grid[data-cols="4"] { grid-template-columns: 1fr; }
 }.cps-team-card {
-  border: 1px solid currentColor;
-  border-radius: 2px;
+  border: 1px solid var(--color-bg);
+  border-radius: var(--radius-item);
   overflow: hidden;
+  background: var(--color-card-light-alt);
   transition: transform 0.3s, box-shadow 0.3s;
 }
-.cps-team-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(15,35,64,0.1); }
+.cps-team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-soft); }
 .cps-team-photo {
   width: 100%;
   height: 260px;
   object-fit: cover;
   object-position: center top;
   display: block;
-  background: var(--navy);
+  background: var(--color-card-dark);
 }
 .cps-team-photo-placeholder {
   width: 100%;
   height: 260px;
-  background: var(--navy);
+  background: var(--color-card-dark);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255,255,255,0.15);
+  color: color-mix(in srgb, var(--color-on-dark) 15%, transparent 85%);
   font-size: 56px;
 }
-.cps-team-info { padding: 24px; }
+.cps-team-info { padding: clamp(24px, 4vw, 36px); }
 .cps-team-name {
   font-family: var(--font-display);
   font-size: 18px;
   font-weight: 500;
-  color: var(--text-head);
+  color: var(--color-ink);
   margin-bottom: 4px;
 }
-.cps-team-title { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; display: flex; flex-direction: column; gap: 3px; }
-.cps-team-bio { font-size: 13.5px; line-height: 1.7; color: var(--text-muted); }
+.cps-team-title { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent-strong); margin-bottom: 12px; display: flex; flex-direction: column; gap: 3px; }
+.cps-team-bio { font-size: 13.5px; line-height: 1.7; color: var(--color-ink-muted); }
 .cps-team-bio p { margin: 0 0 0.5em; }
 .cps-team-bio p:last-child { margin-bottom: 0; }
 
-
-/* Team dark/alt section theming */
-.cps-section-dark .cps-team-card { border-color: rgba(255,255,255,0.12); }
-.cps-section-dark .cps-team-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+/* Nested-card contrast when the section itself is alt/dark */
+.cps-section-alt .cps-team-card { background: var(--color-card-alt-step); }
+.cps-section-dark .cps-team-card { background: var(--color-card-dark-step); }
+.cps-section-dark .cps-team-name { color: var(--color-on-dark); }
+.cps-section-dark .cps-team-bio { color: var(--color-on-dark-muted); }
 .cps-section-dark .cps-team-info { background: rgba(255,255,255,0.04); }
 .cps-section-dark .cps-team-name { color: #fff; }
 .cps-section-dark .cps-team-bio { color: rgba(255,255,255,0.65); }
@@ -3255,7 +3746,34 @@ footer {
 
 /* Section wrapper bg variants */
 .cps-first-section {
-  padding-top: 100px !important;
+  margin-top: calc(-1 * var(--space-6));
+  padding-top: calc(var(--header-h, 76px) + 32px) !important;
+}
+/* Split-blocks sections (services, team) have a transparent outer .section
+   — pulling that box up does nothing visible. Retarget the same "touch the
+   page top, clear the pill" treatment to .cps-block-header instead, since
+   that's the element that actually has a background. */
+.cps-first-section.cps-split-blocks {
+  margin-top: 0;
+  padding-top: 0 !important;
+}
+.cps-first-section.cps-split-blocks .cps-block-header {
+  margin-top: calc(-1 * var(--space-6));
+  padding-top: calc(var(--header-h, 76px) + 32px);
+}
+/* First home section tucks 50px up behind whatever precedes it (stats bar
+   if visible, hero directly if not) — same overlap principle as the custom
+   page's first section, just a fixed depth instead of clearing page-shell
+   padding since it's tucking into a sibling, not the page's own edge. */
+#home-sections > *:first-child { margin-top: -50px; }
+/* Split-blocks sections (services, team) have a transparent outer box —
+   the -50px above still shifts their flex container (dragging the visible
+   .cps-block-header up with it as a side effect), but with no compensating
+   padding, which is what was causing the collision. Add that padding here. */
+#home-sections > .cps-split-blocks:first-child { margin-top: 0; }
+#home-sections > .cps-split-blocks:first-child .cps-block-header {
+  margin-top: -50px;
+  padding-top: calc(50px + var(--space-6));
 }
 /* Image sections: match bottom padding to top so content looks centered */
 section.cps-img-section { padding-bottom: 8px; }
@@ -3269,13 +3787,118 @@ section.cps-img-section { padding-bottom: 8px; }
   letter-spacing: -0.01em;
   margin-top: 8px;
 }
-.cps-section-light { background: var(--warm-white); }
-.cps-section-alt { background: var(--cream); }
-.cps-section-dark { background: var(--navy); }
+.cps-section-light { background: var(--color-card-light); }
+.cps-section-alt { background: var(--color-card-alt); }
+.cps-section-dark { background: var(--color-card-dark); }
+
+/* ===========================================================
+   SPLIT-BLOCKS PATTERN
+   Opt-in per section type: instead of the section's label/heading and its
+   content sharing one card (the normal .section treatment), they render as
+   two separate floating cards stacked with a gap. The outer .section
+   becomes a transparent pass-through so it doesn't triple-nest as a card
+   inside a card. Reusable — add 'cps-split-blocks' to a section's wrapper
+   class list and wrap its content in .cps-block-header / .cps-block-content
+   to opt any section type into this, without touching any other section.
+============================================================ */
+.section.cps-split-blocks {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cps-split-blocks .cps-block-header,
+.cps-split-blocks .cps-block-content {
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-8);
+  background: var(--color-card-light);
+}
+/* Each block follows the section's own light/alt/dark background choice,
+   same as a normal (non-split) section would. */
+.cps-section-alt.cps-split-blocks .cps-block-header,
+.cps-section-alt.cps-split-blocks .cps-block-content { background: var(--color-card-alt); }
+.cps-section-dark.cps-split-blocks .cps-block-header,
+.cps-section-dark.cps-split-blocks .cps-block-content { background: var(--color-card-dark); }
+
+/* FLAT-HEADER MODIFIER (index-flat theme only)
+   Renders the header block transparent/shadowless — text sits directly on
+   the page background — while reusing the exact same split-blocks padding
+   and gap scaffold so spacing stays identical to the carded version. Add
+   'cps-flat-header' alongside 'cps-split-blocks' to opt a section type in.
+   The header's bottom padding (part of the shared card-padding rule above)
+   is dead space now that there's no visible card edge below it, so it's
+   zeroed out here and replaced with a deliberate, smaller container gap. */
+.cps-split-blocks.cps-flat-header {
+  gap: var(--space-6);
+}
+/* Tier/Flip Cards' ribbon pill straddles the top edge of the first row too —
+   needs the same doubled clearance the row-gap gives between rows. */
+.cps-split-blocks.cps-flat-header:has(> .cps-tier-grid),
+.cps-split-blocks.cps-flat-header:has(> .cps-flip-grid) {
+  gap: calc(var(--space-6) * 2);
+}
+.cps-split-blocks.cps-flat-header .cps-block-header {
+  background: transparent;
+  box-shadow: none;
+  padding-bottom: 0;
+}
+.cps-split-blocks.cps-flat-header.cps-no-header .cps-block-header {
+  display: none;
+}
+/* Text here sits on the page background, not a card, so it needs the
+   computed --flat-header-* colors (see applyColors) rather than whatever
+   the section's own light/alt/dark card variant would otherwise apply. */
+.cps-split-blocks.cps-flat-header .cps-block-header h1.page-banner-title,
+.cps-split-blocks.cps-flat-header .cps-block-header h2.section-title {
+  color: var(--flat-header-heading) !important;
+}
+.cps-split-blocks.cps-flat-header .cps-block-header .section-subtitle {
+  color: var(--flat-header-subtitle) !important;
+}
+/* Centered, line-free label treatment — flat-header only. The subtitle has
+   its own max-width cap, so it needs explicit auto margins to center as a
+   box; the label row and heading just need justify-content/text-align since
+   they already span the full header width. */
+.cps-split-blocks.cps-flat-header .cps-block-header {
+  text-align: center;
+}
+.cps-split-blocks.cps-flat-header .cps-block-header .section-label {
+  justify-content: center;
+}
+.cps-split-blocks.cps-flat-header .cps-block-header .section-label-line {
+  display: none;
+}
+.cps-split-blocks.cps-flat-header .cps-block-header .section-subtitle {
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Text Block goes fully flat — content card removed too, so the body copy
+   sits on the page background same as the header. Scoped to cps-text-block
+   only; FAQ/Locations/etc. keep their content card. */
+.cps-text-block.cps-flat-header .cps-block-content {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+.cps-text-block.cps-flat-header .cps-block-content .cps-body {
+  color: var(--flat-header-subtitle) !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cps-text-block.cps-flat-header .cps-block-header .cps-heading {
+  margin-bottom: 0;
+}
+.cps-split-blocks.cps-flat-header .cps-block-header .cps-two-col-heading {
+  margin-bottom: 0;
+}
+
 .cps-section-dark .cps-heading { color: #fff !important; }
 .cps-section-dark .cps-body { color: rgba(255,255,255,0.65) !important; }
-.cps-section-dark .section-label-text { color: var(--gold-light); }
-.cps-section-dark .section-label-line { background: var(--gold-light); }
+.cps-section-dark .section-label-text { color: var(--color-accent-strong); }
+.cps-section-dark .section-label-line { background: var(--color-accent-strong); }
 
 /* Outline button variant for light/alt section backgrounds */
 .btn-outline-dark {
@@ -3290,10 +3913,53 @@ section.cps-img-section { padding-bottom: 8px; }
   transition: border-color 0.2s, background 0.2s, color 0.2s;
 }
 .btn-outline-dark:hover { border-color: var(--gold); color: var(--gold); background: rgba(var(--gold-rgb),0.06); }
-/* Link + Button appendage sections — inherit prior section background, moderate continuation padding */
+/* Link + Button appendage sections — designed to read as part of the
+   previous section rather than a separate card. Same background color as
+   whatever they inherit (via bgToClass()'s classes, already handled by the
+   .cps-section-light/alt/dark rules above), square top corners, and pulled
+   up by exactly --radius-card so the top edge tucks in behind the previous
+   section — filling in its rounded bottom corners' gap with matching color
+   instead of the dark page background showing through. Default DOM paint
+   order (this element comes after, so paints on top in the overlap zone)
+   is what makes the previous section's corner gap get covered — no z-index
+   needed. */
+/* Link + Button appendage sections float directly on the page background —
+   no card treatment. bgToClass() still adds cps-section-light/alt/dark for
+   other reasons (JS compatibility), so background is explicitly reset here
+   with enough specificity to beat those generic rules. */
 .cps-appendage { padding: 8px 0 32px; }
+.cps-appendage.cps-section-light,
+.cps-appendage.cps-section-alt,
+.cps-appendage.cps-section-dark { background: transparent; }
 /* Sections that inherit background from their predecessor */
 .cps-inherit-bg { padding-top: 0; padding-bottom: calc(var(--section-pad) / 2); }
+/* Seamless card continuation — the predecessor's bottom edge and the
+   inheriting section's top edge both go square, and the gap between them
+   closes, so same-background sections in a row read as one continuous
+   extended card. No shadow cleanup needed: with zero gap, the second
+   (opaque) card is painted after the first in document order and simply
+   covers any shadow trying to render into their shared boundary — the
+   visible shadow only shows on the merged shape's true outer edges.
+   :has() re-matches down the sibling chain, so 3+ in a row merge correctly. */
+.section:has(+ .cps-inherit-bg) {
+  margin-bottom: -8px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+/* Flattened sections (FAQ/Locations/Text/Two-col) keep their real card on
+   the inner .cps-block-content div — the wrapper above is transparent, so
+   squaring its corners alone has no visible effect. Reach into the actual
+   card here too. */
+.section.cps-split-blocks:has(+ .cps-inherit-bg) .cps-block-content {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.cps-inherit-bg {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  position: relative;
+  z-index: 1;
+}
 /* Sections with no label/heading/subtitle — flow tight to prior section */
 .section.cps-no-header { padding-top: 8px; }
 
@@ -3335,6 +4001,24 @@ section.cps-img-section { padding-bottom: 8px; }
 .cps-rt-clearfix::after { content:''; display:table; clear:both; }
 /* Nestling: when inheriting bg, use continuation padding */
 .cps-rt-inherit { padding: 8px 0 40px; }
+/* Consistent top spacing for Rich Text regardless of background mode —
+   matches the padding other flattened sections' cards use (var(--space-8)),
+   so content doesn't sit too tight against the top edge whether this is a
+   standalone light/alt/dark card or a merged continuation. Placed after
+   cps-rt-inherit so it wins that cascade tie for padding-top specifically. */
+.section.cps-rt-block { padding-top: var(--space-8); }
+.cps-split-blocks.cps-flat-header .cps-block-header .cps-fc-header {
+  margin-bottom: 0;
+}
+.cps-split-blocks.cps-flat-header .cps-block-header .cps-fc-badge-num {
+  color: var(--flat-header-heading) !important;
+}
+.cps-split-blocks.cps-flat-header .cps-block-header .cps-fc-badge-label {
+  color: var(--flat-header-subtitle) !important;
+}
+.cps-split-blocks.cps-flat-header .cps-rc-outer {
+  margin-top: 0;
+}
 @media (max-width: 640px) {
   .cps-rt-img-left, .cps-rt-img-right {
     float: none; width: 100% !important; margin: 0 0 20px 0;
@@ -3346,21 +4030,32 @@ section.cps-img-section { padding-bottom: 8px; }
   font-family: var(--font-display);
   font-size: clamp(16px, 2vw, 20px);
   font-weight: 500;
-  color: var(--navy);
-  border-bottom: 2px solid var(--gold);
+  color: var(--color-on-dark);
+  border-bottom: 2px solid var(--color-accent);
   padding-bottom: 4px;
   transition: color 0.2s, border-color 0.2s;
   cursor: pointer;
 }
-.cps-link-anchor:hover { color: var(--gold); border-color: var(--gold-light); }
+.cps-link-anchor:hover { color: var(--color-accent); border-color: var(--color-accent-strong); }
 .cps-section-dark .cps-link-anchor { color: #fff; border-color: var(--gold); }
 .cps-section-dark .cps-link-anchor:hover { color: var(--gold-light); }
 .cps-button-actions { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+.cps-button-actions .btn-primary,
+.cps-button-actions .btn-outline-dark { border-radius: var(--radius-pill); }
+.cps-button-actions .btn-outline-dark {
+  color: var(--color-on-dark);
+  border-color: var(--color-border-on-dark);
+}
+.cps-button-actions .btn-outline-dark:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 8%, transparent 92%);
+}
 .cps-section-dark .btn-outline-dark { color: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.4); }
 .cps-section-dark .btn-outline-dark:hover { color: #fff; border-color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.06); }
 .cps-form-wrap {
   max-width: 680px;
-  margin: 40px auto 0;
+  margin: 0 auto;
 }
 .cps-form-intro {
   font-size: 16px;
@@ -3538,9 +4233,21 @@ section.cps-img-section { padding-bottom: 8px; }
 /* Tight padding for marquee and logo strip — content doesn't need full section breathing room */
 .cps-section-marquee { padding: 12px 0; }
 /* Logo strip: tight only when no header content (strip mode); header mode uses normal section padding */
-.cps-section-logo-strip { padding: calc(var(--section-pad) / 2) 0; }
+.section.cps-section-logo-strip { padding: calc(var(--section-pad) / 2) 0; background: transparent; box-shadow: none; border-radius: 0; }
 .cps-section-logo-strip.logo-strip-mode { padding: 12px 0; }
-.cps-accordion { margin-top: 40px; }
+/* Carded mode — all logos sit together on one shared card, like Feature
+   Cards/Bullets/Table, rather than each logo getting its own card (which
+   fought with the gap-tier setting by adding padding on top of it). */
+.cps-logo-strip--carded.cps-section-light .cps-logo-strip { background: var(--color-card-light); }
+.cps-logo-strip--carded.cps-section-alt   .cps-logo-strip { background: var(--color-card-alt); }
+.cps-logo-strip--carded.cps-section-dark  .cps-logo-strip { background: var(--color-card-dark); }
+.cps-logo-strip--carded .cps-logo-strip {
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-8);
+}
+/* Inherit mode — no card, caption needs the same computed contrast as flat headers */
+.cps-logo-strip--inherit .cps-logo-strip-caption { color: var(--flat-header-subtitle); }
 .cps-acc-item {
   border-bottom: 1px solid #e8e3d8;
 }
@@ -3616,9 +4323,13 @@ section.cps-img-section { padding-bottom: 8px; }
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 32px;
   margin-top: 20px;
 }
+/* Spacing tiers — Normal matches the previous fixed 32px/24px(mobile)
+   default exactly, so existing sites don't shift; Tight/Loose are new. */
+.cps-logo-strip--gap-tight  { gap: 16px; }
+.cps-logo-strip--gap-normal { gap: 32px; }
+.cps-logo-strip--gap-loose  { gap: 48px; }
 /* Strip mode (no caption) — no top margin */
 .logo-strip-mode .cps-logo-strip { margin-top: 0; }
 /* Section-level caption — small caps, centered, muted */
@@ -3668,7 +4379,9 @@ section.cps-img-section { padding-bottom: 8px; }
 /* dark/alt theming */
 .cps-section-dark .cps-logo-caption { color: rgba(255,255,255,0.5); }
 @media (max-width: 600px) {
-  .cps-logo-strip { gap: 24px; }
+  .cps-logo-strip--gap-tight  { gap: 12px; }
+  .cps-logo-strip--gap-normal { gap: 24px; }
+  .cps-logo-strip--gap-loose  { gap: 32px; }
   .cps-logo-strip--large .cps-logo-img-wrap img { width: 120px; }
 }
 
@@ -3685,12 +4398,8 @@ section.cps-img-section { padding-bottom: 8px; }
   position: absolute; top: 0; bottom: 0; width: var(--mq-fade-w, 80px); z-index: 2;
   pointer-events: none;
 }
-.cps-marquee-outer.fade-edges::before { left: 0; background: linear-gradient(to right, var(--warm-white), transparent); }
-.cps-marquee-outer.fade-edges::after  { right: 0; background: linear-gradient(to left, var(--warm-white), transparent); }
-.cps-section-dark .cps-marquee-outer.fade-edges::before { background: linear-gradient(to right, var(--navy), transparent); }
-.cps-section-dark .cps-marquee-outer.fade-edges::after  { background: linear-gradient(to left, var(--navy), transparent); }
-.cps-section-alt  .cps-marquee-outer.fade-edges::before { background: linear-gradient(to right, var(--cream), transparent); }
-.cps-section-alt  .cps-marquee-outer.fade-edges::after  { background: linear-gradient(to left, var(--cream), transparent); }
+.cps-marquee-outer.fade-edges::before { left: 0; background: linear-gradient(to right, var(--color-bg), transparent); }
+.cps-marquee-outer.fade-edges::after  { right: 0; background: linear-gradient(to left, var(--color-bg), transparent); }
 /* Linked text items */
 .cps-mq-text-link { text-decoration: none; color: inherit; display: contents; }
 .cps-mq-text-link:hover .cps-mq-text-content { opacity: 0.7; }
@@ -3761,6 +4470,11 @@ section.cps-img-section { padding-bottom: 8px; }
   justify-content: center;
   padding: 0 var(--mq-logo-gap, 32px);
 }
+/* No card behind marquee items — content sits directly on the page
+   background regardless of the section's light/alt/dark/inherit setting,
+   so text always needs the computed contrast color, not a card-matched one. */
+.cps-mq-text-content,
+.cps-mq-logo-item { color: var(--flat-header-heading); }
 .cps-mq-logo-item img {
   display: block;
   height: var(--mq-logo-h, 48px);
@@ -3793,6 +4507,7 @@ section.cps-img-section { padding-bottom: 8px; }
 
 /* Contained layout */
 .cps-video-layout--contained {
+  width: 100%;
   max-width: 860px;
   margin: 0 auto;
 }
@@ -3821,7 +4536,7 @@ section.cps-img-section { padding-bottom: 8px; }
   color: var(--text-body);
 }
 .cps-video-text .cps-body p { margin-bottom: 14px; }
-.cps-video-text .cps-video-cta { margin-top: 28px; }
+.cps-video-text .cps-video-cta { margin-top: 28px; text-align: center; }
 
 /* Dark section overrides */
 .cps-section-dark .cps-video-text .cps-heading { color: #fff; }
@@ -3840,7 +4555,8 @@ section.cps-hero-section-wrapper {
   position: relative;
   z-index: 2;
   padding: 0 !important;
-  box-shadow: 0 9px 15px -4px rgba(0,0,0,0.45);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
 }
 .cps-hero-section--full { height: 100vh; min-height: 600px; }
 .cps-hero-section--banner { height: 60vh; min-height: 420px; max-height: 680px; }
@@ -3929,7 +4645,7 @@ section.cps-hero-section-wrapper {
 
 /* Slideshow dots */
 .cps-hero-section-dots {
-  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+  position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
   z-index: 3; display: flex; gap: 2px;
 }
 .cps-hero-section-dot {
@@ -4112,7 +4828,7 @@ section.cps-hero-section-wrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  margin-top: 40px;
+  padding: 0 var(--space-8);
 }
 .cps-gallery-grid[data-cols="2"] { grid-template-columns: repeat(2, 1fr); }
 .cps-gallery-grid[data-cols="4"] { grid-template-columns: repeat(4, 1fr); }
@@ -4203,6 +4919,10 @@ section.cps-hero-section-wrapper {
   display: grid;
   gap: 28px;
   grid-template-columns: repeat(var(--loc-cols, 2), 1fr);
+  width: 100%;
+  margin: 0 auto;
+  max-width: 880px;
+  padding: 0 var(--space-8);
 }
 .cps-loc-card {
   background: var(--warm-white);
@@ -4456,8 +5176,10 @@ section.cps-hero-section-wrapper {
 /* ── TIER CARDS ──────────────────────────────────────────────── */
 .cps-tier-grid {
   display: grid;
-  gap: var(--gutter);
-  margin: 48px auto 0;
+  column-gap: var(--gutter);
+  row-gap: calc(var(--gutter) * 2);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
   align-items: stretch;
   max-width: 880px;
 }
@@ -4484,13 +5206,20 @@ section.cps-hero-section-wrapper {
   position: relative;
   display: flex;
   flex-direction: column;
-  border-radius: 6px;
-  overflow: hidden;
+  border-radius: var(--radius-card);
   box-shadow: none;
   transition: box-shadow 0.3s;
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out), box-shadow 0.3s;
+}
+.cps-tier-card-inner {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-radius: inherit;
+  overflow: hidden;
 }
 .cps-tier-card.visible {
   opacity: 1;
@@ -4516,7 +5245,10 @@ section.cps-hero-section-wrapper {
   0%   { transform: translateX(-130%) skewX(-20deg); }
   100% { transform: translateX(230%) skewX(-20deg); }
 }
-.cps-tier-card--featured::after {
+.cps-tier-card--featured .cps-tier-card-inner {
+  position: relative;
+}
+.cps-tier-card--featured .cps-tier-card-inner::after {
   content: '';
   position: absolute;
   top: 0; left: 0;
@@ -4537,22 +5269,20 @@ section.cps-hero-section-wrapper {
 
 .cps-tier-ribbon {
   position: absolute;
-  top: 0; right: 0;
-  width: 120px; height: 120px;
-  overflow: hidden;
-  z-index: 2;
+  top: 0; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
   pointer-events: none;
 }
 .cps-tier-ribbon::before {
   content: attr(data-label);
-  position: absolute;
-  top: 22px; right: -30px;
-  width: 130px;
+  display: block;
   background: var(--gold); color: var(--navy);
-  font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 5px 0; text-align: center; line-height: 1;
-  transform: rotate(45deg);
-  white-space: nowrap; overflow: hidden;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
 }
 .cps-tier-card--dark .cps-tier-ribbon::before { background: var(--gold-light); }
 .cps-tier-card--gold .cps-tier-ribbon::before { background: var(--navy); color: var(--gold); }
@@ -4629,8 +5359,10 @@ section.cps-hero-section-wrapper {
 /* ── FLIP CARDS ─────────────────────────────────────────────── */
 .cps-flip-grid {
   display: grid;
-  gap: var(--gutter);
-  margin: 48px auto 0;
+  column-gap: var(--gutter);
+  row-gap: calc(var(--gutter) * 2);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
   align-items: stretch;
   max-width: 880px;
 }
@@ -4679,10 +5411,17 @@ section.cps-hero-section-wrapper {
   width: 100%;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  border-radius: 6px;
-  overflow: hidden;
+  border-radius: var(--radius-card);
   display: flex;
   flex-direction: column;
+}
+.cps-flip-front-inner {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-radius: inherit;
+  overflow: hidden;
 }
 
 /* Back: absolute, matches front height via inset:0, rotated */
@@ -4691,7 +5430,7 @@ section.cps-hero-section-wrapper {
   inset: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  border-radius: 6px;
+  border-radius: var(--radius-card);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -4714,7 +5453,7 @@ section.cps-hero-section-wrapper {
 
 /* Featured pulse + shimmer */
 .cps-flip-scene--featured.cps-flip-pulse .cps-flip-front { animation: tierPulse 2.8s ease-in-out infinite; }
-.cps-flip-scene--featured .cps-flip-front::after {
+.cps-flip-scene--featured .cps-flip-front-inner::after {
   content: '';
   position: absolute; top: 0; left: 0;
   width: 45%; height: 100%;
@@ -4770,22 +5509,20 @@ section.cps-hero-section-wrapper {
 /* Corner ribbon — fixed width strip centered precisely over the top-right corner */
 .cps-flip-ribbon {
   position: absolute;
-  top: 0; right: 0;
-  width: 120px; height: 120px;
-  overflow: hidden;
-  z-index: 2;
+  top: 0; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
   pointer-events: none;
 }
 .cps-flip-ribbon::before {
   content: attr(data-label);
-  position: absolute;
-  top: 22px; right: -30px;
-  width: 130px;
+  display: block;
   background: var(--gold); color: var(--navy);
-  font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 5px 0; text-align: center; line-height: 1;
-  transform: rotate(45deg);
-  white-space: nowrap; overflow: hidden;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
 }
 .cps-flip-front--dark .cps-flip-ribbon::before { background: var(--gold-light); }
 .cps-flip-front--gold .cps-flip-ribbon::before { background: var(--navy); color: var(--gold); }
@@ -4857,7 +5594,7 @@ section.cps-hero-section-wrapper {
   padding: 20px;
   pointer-events: none;
 }
-.cps-popup-overlay--toast .cps-popup-box { pointer-events: all; }
+.cps-popup-overlay--toast.open .cps-popup-box { pointer-events: all; }
 
 .cps-popup-box {
   position: relative;
@@ -4867,7 +5604,7 @@ section.cps-hero-section-wrapper {
   transform: scale(0.94);
   transition: transform 0.3s ease;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: var(--radius-card);
 }
 .cps-popup-box.cps-section-alt  { background: var(--cream); }
 .cps-popup-box.cps-section-dark { background: var(--navy); }
@@ -4942,6 +5679,8 @@ section.cps-hero-section-wrapper {
 .cps-popup-body p:last-child { margin-bottom: 0; }
 
 .cps-popup-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.cps-popup-actions .btn-primary,
+.cps-popup-actions .btn-outline { border-radius: var(--radius-pill); }
 
 .cps-popup-align-left .cps-popup-text { text-align: left; }
 .cps-popup-align-center .cps-popup-text { text-align: center; }
@@ -4996,6 +5735,224 @@ section.cps-hero-section-wrapper {
   .cps-popup-overlay--toast .cps-popup-box { max-width: 100%; }
 }
 
+/* ╔══════════════════════════════════════════════════════════════════╗
+   ║  AURA THEME OVERRIDE LAYER                                        ║
+   ║  Deliberate cross-cutting overrides of the inherited flat/web     ║
+   ║  rules above. Kept in one block, last in the stylesheet, with     ║
+   ║  !important used intentionally where pre-existing light/alt/dark  ║
+   ║  keyed rules would otherwise win on specificity (see lesson #1). ║
+   ╚══════════════════════════════════════════════════════════════════╝ */
+
+/* ── 1. SECTIONS AS FROSTED GLASS CARDS ───────────────────────────── */
+/* Every section is one frosted card gently tinted with its assigned
+   light/alt/dark color. No borders, no edging; separation comes from the
+   gap + the tint itself, with a very subtle top sheen gradient inside. */
+.section,
+.section.cps-section-light {
+  background: var(--aura-card-sheen), var(--aura-glass-light) !important;
+  backdrop-filter: blur(18px) saturate(1.1);
+  -webkit-backdrop-filter: blur(18px) saturate(1.1);
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: var(--radius-card);
+  color: var(--aura-body-light);
+}
+.section.cps-section-alt,
+.section.section-alt {
+  background: var(--aura-card-sheen), var(--aura-glass-alt) !important;
+  color: var(--aura-body-alt);
+}
+.section.cps-section-dark,
+.section.section-dark {
+  background: var(--aura-card-sheen), var(--aura-glass-dark) !important;
+  color: var(--aura-body-dark);
+}
+
+/* Inherit mode — same tint family as the section it continues, but shifted
+   one step: lighter frost over a dark inherited bg, darker frost over a
+   light/alt one. Rendered as its own distinct card (the flat theme's
+   seamless-merge treatment is neutralized below). */
+.section.cps-inherit-bg.cps-section-dark {
+  background: var(--aura-inherit-lighten), var(--aura-card-sheen), var(--aura-glass-dark) !important;
+}
+.section.cps-inherit-bg.cps-section-light {
+  background: var(--aura-inherit-darken), var(--aura-card-sheen), var(--aura-glass-light) !important;
+}
+.section.cps-inherit-bg.cps-section-alt {
+  background: var(--aura-inherit-darken), var(--aura-card-sheen), var(--aura-glass-alt) !important;
+}
+/* Neutralize flat's seamless-merge of inherit sections (negative margin +
+   squared corners) — aura inherit cards stay visually distinct. */
+.section:has(+ .cps-inherit-bg) {
+  margin-bottom: var(--aura-section-gap);
+  border-bottom-left-radius: var(--radius-card);
+  border-bottom-right-radius: var(--radius-card);
+}
+.section.cps-split-blocks:has(+ .cps-inherit-bg) .cps-block-content {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.cps-inherit-bg {
+  border-top-left-radius: var(--radius-card);
+  border-top-right-radius: var(--radius-card);
+  padding-top: calc(var(--section-pad) / 2);
+}
+
+/* ── 2. SPLIT-BLOCKS COLLAPSE BACK INTO ONE CARD ──────────────────── */
+/* Flat rendered header + content as separate surfaces (header transparent
+   on the page bg). Aura puts everything — label, heading, content — inside
+   the section's single glass card (per design decision #7). The section
+   wrapper carries the glass; header/content blocks become plain layout
+   divs. Padding moves to the wrapper; stale block padding/margins zeroed
+   (lessons #3/#4). */
+.section.cps-split-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: clamp(28px, 4vw, 44px) 0 calc(var(--section-pad) / 2);
+}
+.cps-split-blocks .cps-block-header,
+.cps-split-blocks .cps-block-content {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0;
+  padding: 0;
+  width: 100%;
+}
+.cps-split-blocks.cps-no-header .cps-block-header { display: none; margin: 0; }
+.cps-split-blocks.cps-flat-header { gap: 0; }
+.cps-split-blocks.cps-flat-header:has(> .cps-tier-grid),
+.cps-split-blocks.cps-flat-header:has(> .cps-flip-grid) { gap: 0; }
+/* On-card header text — left aligned (undo flat's centered page-bg style) */
+.cps-split-blocks.cps-flat-header .cps-block-header { text-align: left; padding-bottom: 0; }
+.cps-split-blocks.cps-flat-header .cps-block-header .section-label { justify-content: flex-start; }
+.cps-split-blocks.cps-flat-header .cps-block-header .section-label-line { display: block; }
+.cps-split-blocks.cps-flat-header .cps-block-header .section-subtitle { margin-left: 0; margin-right: 0; }
+/* Text Block content lives on the card again (flat had it transparent on
+   the page bg with its own centering) */
+.cps-text-block.cps-flat-header .cps-block-content .cps-body { margin-left: 0; margin-right: 0; }
+
+/* Header + content blocks sit inside the card — give them the container
+   gutter since the wrapper's horizontal padding is 0 (content like
+   full-bleed grids may want edge-to-edge later; per-section passes will
+   refine this). */
+.cps-split-blocks .cps-block-header,
+.cps-split-blocks .cps-block-content {
+  max-width: var(--container);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+.cps-split-blocks .cps-block-header { margin-bottom: var(--space-6); }
+
+/* ── 3. PER-MODE INK (computed in applyColors) ────────────────────── */
+/* Text sits on the glass composite, not on an opaque card — colors come
+   from JS-computed luminance of (tint over chrome), never assumptions
+   (lesson #8). Overrides flat's --flat-header-* and the section-dark
+   hardcodes; equal-specificity !important rules later in source win. */
+.cps-section-light .cps-heading,
+.cps-section-light h2.section-title,
+.cps-section-light h1.page-banner-title,
+.cps-split-blocks.cps-flat-header.cps-section-light .cps-block-header h1.page-banner-title,
+.cps-split-blocks.cps-flat-header.cps-section-light .cps-block-header h2.section-title {
+  color: var(--aura-head-light) !important;
+}
+.cps-section-alt .cps-heading,
+.cps-section-alt h2.section-title,
+.cps-section-alt h1.page-banner-title,
+.cps-split-blocks.cps-flat-header.cps-section-alt .cps-block-header h1.page-banner-title,
+.cps-split-blocks.cps-flat-header.cps-section-alt .cps-block-header h2.section-title {
+  color: var(--aura-head-alt) !important;
+}
+.cps-section-dark .cps-heading,
+.cps-section-dark h2.section-title,
+.cps-section-dark h1.page-banner-title,
+.cps-split-blocks.cps-flat-header.cps-section-dark .cps-block-header h1.page-banner-title,
+.cps-split-blocks.cps-flat-header.cps-section-dark .cps-block-header h2.section-title {
+  color: var(--aura-head-dark) !important;
+}
+.cps-section-light .cps-body,
+.cps-section-light .section-subtitle,
+.cps-split-blocks.cps-flat-header.cps-section-light .cps-block-header .section-subtitle,
+.cps-text-block.cps-flat-header.cps-section-light .cps-block-content .cps-body {
+  color: var(--aura-body-light) !important;
+}
+.cps-section-alt .cps-body,
+.cps-section-alt .section-subtitle,
+.cps-split-blocks.cps-flat-header.cps-section-alt .cps-block-header .section-subtitle,
+.cps-text-block.cps-flat-header.cps-section-alt .cps-block-content .cps-body {
+  color: var(--aura-body-alt) !important;
+}
+.cps-section-dark .cps-body,
+.cps-section-dark .section-subtitle,
+.cps-split-blocks.cps-flat-header.cps-section-dark .cps-block-header .section-subtitle,
+.cps-text-block.cps-flat-header.cps-section-dark .cps-block-content .cps-body {
+  color: var(--aura-body-dark) !important;
+}
+
+/* ── 4. BUTTONS: ROUNDED-CORNER RECTANGLES ────────────────────────── */
+.btn-primary,
+.btn-outline,
+.btn-outline-dark,
+#hero .btn-outline,
+.about-member-btn .btn-primary,
+.cps-button-actions .btn-outline-dark,
+.cps-popup-actions .btn-primary,
+.cps-popup-actions .btn-outline {
+  border-radius: var(--aura-btn-radius) !important;
+}
+
+/* ── 5. HERO CARD ─────────────────────────────────────────────────── */
+/* Same corner radius as the section cards; fills the viewport below the
+   80px static nav (minus the shell gap + bottom breathing room). */
+#hero {
+  border-radius: var(--radius-card);
+  box-shadow: none;
+  height: clamp(545px, calc(100svh - var(--aura-nav-h) - var(--space-4) - 10px), 900px);
+  /* Shell's flex gap (--space-4, 16px) spaces every child uniformly; pull
+     the hero up 12px on top of that so it starts closer to the header,
+     without touching the gap shared by every other section. */
+  margin-top: -12px;
+}
+
+/* ── 6. APPENDAGE SECTIONS (Button/Link) ──────────────────────────── */
+/* Float on the page background as before — never glass. They replace their
+   own className so .section rules don't hit them, but bgToClass()'s mode
+   classes do; keep them transparent with enough specificity. */
+.cps-appendage.cps-section-light,
+.cps-appendage.cps-section-alt,
+.cps-appendage.cps-section-dark {
+  background: transparent !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* ── 7. MISC CLEANUP ──────────────────────────────────────────────── */
+/* First section on a page: same card as any other — the static 80px header
+   above provides all top clearance. Fully neutralize flat's negative-margin
+   + pill-clearing padding hacks (they compensated for a sticky pill that no
+   longer exists). */
+.cps-first-section {
+  margin-top: 0;
+  padding-top: calc(var(--section-pad) / 2) !important;
+}
+.cps-first-section.cps-split-blocks {
+  margin-top: 0;
+  padding-top: clamp(28px, 4vw, 44px) !important;
+}
+.cps-first-section.cps-split-blocks .cps-block-header {
+  margin-top: 0;
+  padding-top: 0;
+}
+#home-sections > *:first-child { margin-top: 0; }
+#home-sections > .cps-split-blocks:first-child { margin-top: 0; }
+#home-sections > .cps-split-blocks:first-child .cps-block-header {
+  margin-top: 0;
+  padding-top: 0;
+}
+/* Page banners (core about/contact/privacy) sit on the page background */
+.page-banner { background: transparent; }
 </style>
 </head>
 <body>
@@ -5018,26 +5975,104 @@ section.cps-hero-section-wrapper {
   </div>
 </div>
 
-<!-- Header -->
+<!-- ============================================================
+     PAGE SHELL (index-web theme)
+     Solid dark background with every section/header/footer inset
+     as a floating rounded card. See applyWebTheme() for how the
+     card/accent/ink tokens below are derived from CFG.colors /
+     CFG.fontColors at runtime, and loadFonts() for --font-display/
+     --font-body (shared with the original theme).
+============================================================= -->
+<div class="site-bg">
+<div class="page-shell">
+
+<!-- ============================================================
+     HEADER (aura theme) — static bar at the very top of the shell,
+     sitting directly on the page background (no card). It scrolls
+     away with the page. The scroll-up "shade" below is a separate
+     fixed element with the same contents that slides down whenever
+     the user scrolls upward anywhere on the page.
+     ============================================================ -->
 <header id="site-header">
+  <div class="nav-pill">
+    <div class="nav-pill__brand site-logo" onclick="showPage('home')">
+      <img id="header-logo" alt="Logo" style="display:none;"/>
+      <div class="logo-name" id="header-firm-name"></div>
+      <div class="logo-tagline" id="header-tagline"></div>
+    </div>
+
+    <div class="nav-pill__links" id="nav-pill-links"></div>
+
+    <div class="nav-pill__utility">
+      <button class="search-nav-btn" id="searchNavBtn" onclick="openSearch()" aria-label="Search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Scroll-up navigation shade — fixed, slides down from the top edge on
+     upward scroll, slides back up on downward scroll. 4px wider than the
+     card shell, 80px tall, rounded bottom corners matching the cards. -->
+<div id="nav-shade" aria-hidden="true">
+  <div class="nav-shade-bar nav-pill">
+    <div class="nav-pill__brand site-logo" onclick="showPage('home')">
+      <img id="shade-logo" alt="Logo" style="display:none;"/>
+      <div class="logo-name" id="shade-firm-name"></div>
+      <div class="logo-tagline" id="shade-tagline"></div>
+    </div>
+
+    <div class="nav-pill__links" id="nav-shade-links"></div>
+
+    <div class="nav-pill__utility">
+      <button class="search-nav-btn" onclick="openSearch()" aria-label="Search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     HERO — carded, sits below the static header (home page only;
+     visibility toggled explicitly in showPage()).
+     ============================================================ -->
+<section id="hero">
+  <div class="hero-slides" id="heroSlides"></div>
+  <div class="hero-overlay" id="heroOverlay"></div>
   <div class="container">
-    <div class="header-inner">
-      <div class="site-logo" onclick="showPage('home')">
-        <img id="header-logo" alt="Logo"/>
-        <div class="logo-name" id="header-firm-name"></div>
-        <div class="logo-tagline" id="header-tagline"></div>
+    <div class="hero-content">
+      <div class="glass-panel">
+        <h1 class="hero-headline" id="hero-headline"></h1>
+        <div class="hero-subline" id="hero-subline"></div>
+        <div class="hero-search-bar" id="heroSearchBar" style="display:none;">
+          <div class="hero-search-input-wrap">
+            <span class="hero-search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+            <input type="text" id="heroSearchInput" placeholder="Search..." autocomplete="off"/>
+            <button class="hero-search-clear" id="heroSearchClear" title="Clear search" onclick="clearHeroSearch(); document.getElementById('heroSearchInput').focus();">✕</button>
+          </div>
+        </div>
       </div>
-      <div style="display:flex;align-items:center;gap:4px;">
-        <button class="search-nav-btn" id="searchNavBtn" onclick="openSearch()" aria-label="Search">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <div class="hero-actions">
+        <button class="btn-primary" id="hero-cta-btn" onclick="showPage('contact')">
+          Free Consultation <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0;"><line x1="3" y1="10" x2="16" y2="10"/><polyline points="10,4 16,10 10,16"/></svg>
         </button>
-        <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
-          <span></span><span></span><span></span>
+        <button class="btn-outline" id="hero-secondary-btn" onclick="showPage('services')">
+          Our Services
         </button>
       </div>
     </div>
   </div>
-</header>
+  <div class="hero-dots" id="heroDots"></div>
+  <div class="scroll-indicator">
+    <div class="scroll-indicator-line"></div>
+  </div>
+</section>
 
 <!-- Full-screen Nav Menu -->
 <div class="nav-clip" id="navClip">
@@ -5051,38 +6086,6 @@ section.cps-hero-section-wrapper {
      HOME PAGE
      ============================================================ -->
 <div id="page-home">
-
-  <!-- Hero -->
-  <section id="hero">
-    <div class="hero-slides" id="heroSlides"></div>
-    <div class="hero-overlay" id="heroOverlay"></div>
-    <div class="container">
-      <div class="hero-content">
-        <h1 class="hero-headline" id="hero-headline"></h1>
-        <div class="hero-subline" id="hero-subline"></div>
-        <div class="hero-search-bar" id="heroSearchBar" style="display:none;">
-          <div class="hero-search-input-wrap">
-            <span class="hero-search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-            <input type="text" id="heroSearchInput" placeholder="Search..." autocomplete="off"/>
-            <button class="hero-search-clear" id="heroSearchClear" title="Clear search" onclick="clearHeroSearch(); document.getElementById('heroSearchInput').focus();">✕</button>
-          </div>
-        </div>
-        <div class="hero-actions">
-          <button class="btn-primary" id="hero-cta-btn" onclick="showPage('contact')">
-            Free Consultation <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0;"><line x1="3" y1="10" x2="16" y2="10"/><polyline points="10,4 16,10 10,16"/></svg>
-          </button>
-          <button class="btn-outline" id="hero-secondary-btn" onclick="showPage('services')">
-            Our Services
-          </button>
-        </div>
-        <div class="hero-trust-strip" id="heroTrustStrip"></div>
-      </div>
-    </div>
-    <div class="hero-dots" id="heroDots"></div>
-    <div class="scroll-indicator">
-      <div class="scroll-indicator-line"></div>
-    </div>
-  </section>
 
   <!-- Stats Bar -->
   <section id="stats-bar">
@@ -5107,7 +6110,7 @@ section.cps-hero-section-wrapper {
       <h1 class="page-banner-title" id="about-title">Meet Our Team</h1>
     </div>
   </div>
-  <section class="section section-after-banner">
+  <section class="section section-after-banner about-team-section">
     <div class="container" id="about-members"></div>
   </section>
   <div id="about-custom-sections"></div>
@@ -5196,13 +6199,13 @@ section.cps-hero-section-wrapper {
 <!-- Footer -->
 <footer id="site-footer">
   <div class="container">
+    <div class="footer-trust-strip" id="footerTrustStrip"></div>
     <div class="footer-grid">
       <div class="footer-brand">
         <img id="footer-logo" alt="Logo" style="display:none;"/>
         <div class="logo-name" id="footer-firm-name"></div>
         <div class="logo-tagline" id="footer-tagline-foot" style="margin-top:4px;"></div>
         <div id="footer-social-icons" style="margin-top:16px;"></div>
-        <p id="footer-bio"></p>
       </div>
       <div>
         <div class="footer-heading">Navigation</div>
@@ -5225,6 +6228,9 @@ section.cps-hero-section-wrapper {
     </div>
   </div>
 </footer>
+
+</div><!-- /.page-shell -->
+</div><!-- /.site-bg -->
 
 <!-- CONFIG -->
 <script src="config.js"></script>
@@ -5483,6 +6489,57 @@ function applyColors() {
   document.documentElement.style.setProperty('--ig-fallback-light', igFallbackShade(c.warmWhite || '#fffdf9'));
   document.documentElement.style.setProperty('--ig-fallback-alt',   igFallbackShade(c.cream || '#f9f6f0'));
   document.documentElement.style.setProperty('--ig-fallback-dark',  igFallbackShade(c.navy));
+
+  // AURA: page background is the admin "chrome" color. Anything still
+  // reading the legacy --flat-header-* vars (text on the raw page bg)
+  // should key off chrome's luminance now, not navy's.
+  const pageBg = c.chrome || '#060f1d';
+  const bgIsLight = relativeLuminance(pageBg) > 0.5;
+  document.documentElement.style.setProperty('--flat-header-heading',  bgIsLight ? '#111' : '#fff');
+  document.documentElement.style.setProperty('--flat-header-subtitle', bgIsLight ? 'rgba(17,17,17,0.7)' : 'rgba(255,255,255,0.75)');
+
+  // ── AURA GLASS SYSTEM ──────────────────────────────────────────────
+  // Each section mode is frosted glass gently tinted with its assigned
+  // color, floating over the chrome page background. The tint rgba() and
+  // the ink color are both derived here so they always agree: ink is
+  // picked from the luminance of the *actual composite* the eye sees
+  // (tint blended over chrome at its alpha), never assumed (lesson #8).
+  // Alphas mirror the static :root fallbacks — single source of truth
+  // for runtime is this table.
+  const auraGlass = {
+    light: { tint: c.warmWhite || '#fffdf9', alpha: 0.95 },
+    alt:   { tint: c.cream     || '#f9f6f0', alpha: 0.95 },
+    dark:  { tint: c.navy      || '#0f2340', alpha: 0.42 },
+  };
+  const hexChannels = hx => {
+    const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hx || '');
+    return m ? [m[1], m[2], m[3]].map(h => parseInt(h, 16)) : null;
+  };
+  const bgCh = hexChannels(pageBg) || [6, 15, 29];
+  Object.entries(auraGlass).forEach(([mode, { tint, alpha }]) => {
+    const tCh = hexChannels(tint) || [255, 255, 255];
+    // Glass background itself — tint at its alpha
+    document.documentElement.style.setProperty(
+      `--aura-glass-${mode}`, `rgba(${tCh[0]},${tCh[1]},${tCh[2]},${alpha})`);
+    // Composite the eye sees: tint over chrome
+    const comp = tCh.map((v, i) => Math.round(v * alpha + bgCh[i] * (1 - alpha)));
+    const compHex = '#' + comp.map(v => v.toString(16).padStart(2, '0')).join('');
+    const compIsLight = relativeLuminance(compHex) > 0.5;
+    document.documentElement.style.setProperty(
+      `--aura-head-${mode}`, compIsLight ? '#111111' : '#ffffff');
+    document.documentElement.style.setProperty(
+      `--aura-body-${mode}`, compIsLight ? 'rgba(17,17,17,0.75)' : 'rgba(255,255,255,0.74)');
+  });
+}
+
+function relativeLuminance(hex) {
+  // WCAG relative luminance — used to decide whether a background hex reads
+  // as visually light or dark, so text color can adapt instead of assuming.
+  const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex || '');
+  if (!m) return 0;
+  const toLinear = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+  const [r, g, b] = [m[1], m[2], m[3]].map(h => toLinear(parseInt(h, 16)));
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
 function shadeHex(hex, amount) {
@@ -5839,19 +6896,6 @@ function buildHero() {
   // Subline
   const sublineEl = document.getElementById('hero-subline');
   if (sublineEl) sublineEl.innerHTML = formatBody(CFG.heroSubline || '');
-
-  // Trust strip — fall back to SITE_DEFAULTS if CFG has empty array
-  const strip = document.getElementById('heroTrustStrip');
-  if (strip) {
-    const bullets = (CFG.heroTrustBullets && CFG.heroTrustBullets.length)
-      ? CFG.heroTrustBullets
-      : (SITE_DEFAULTS.heroTrustBullets || []);
-    strip.innerHTML = bullets.map(b => `
-    <div class="trust-item">
-      <div class="trust-dot"></div>
-      <span class="trust-text">${b}</span>
-    </div>`).join('');
-  }
 }
 
 /* =============================================
@@ -6031,14 +7075,13 @@ function buildAbout() {
       : '';
     const delay = idx === 0 ? 'reveal' : 'reveal reveal-delay-1';
 
-    return `<div class="about-member ${delay}" style="${idx > 0 ? 'margin-top:12px;padding-top:12px;border-top:1px solid currentColor;' : ''}">
+    return `<div class="about-member ${delay}">
       <div class="about-top-grid">
         <div class="about-left-col">
           <div class="about-photo-wrap">
             <div class="about-photo-frame">
               <img src="${escAttr(a.photo||'')}" alt="${escAttr(a.name||'')}" onerror="this.src='https://placehold.co/400x500/' + (CFG.colors.navy||'0f2340').replace('#','') + '/' + (CFG.colors.gold||'c9a84c').replace('#','') + '?text=Photo'"/>
             </div>
-            <div class="about-photo-accent"></div>
           </div>
           ${creds ? `<div class="about-credentials" style="margin-top:24px;">${creds}</div>` : ''}
         </div>
@@ -6049,10 +7092,10 @@ function buildAbout() {
               .map(e => `<div>${e}</div>`).join('')
           }</div>
           <div class="about-bio-full">${bios}</div>
+          ${btnHtml}
         </div>
         <div class="about-social-btn-col">
           ${socials ? `<div class="about-member-socials">${socials}</div>` : ''}
-          ${btnHtml}
         </div>
       </div>
     </div>`;
@@ -6235,7 +7278,21 @@ function buildFooter() {
   }
 
   document.getElementById('footer-tagline-foot').textContent = CFG.tagline;
-  document.getElementById('footer-bio').textContent = CFG.footerBio || (CFG.aboutBio1 ? CFG.aboutBio1.substring(0,120)+'…' : '');
+
+  // Trust bullets — render as a full-width row at the very top of the
+  // footer, above the grid. Same data source as before (CFG.heroTrustBullets,
+  // falling back to SITE_DEFAULTS) — just a different render target and layout.
+  const footerStrip = document.getElementById('footerTrustStrip');
+  if (footerStrip) {
+    const bullets = (CFG.heroTrustBullets && CFG.heroTrustBullets.length)
+      ? CFG.heroTrustBullets
+      : (SITE_DEFAULTS.heroTrustBullets || []);
+    footerStrip.innerHTML = bullets.map(b => `
+    <div class="trust-item">
+      <div class="trust-dot"></div>
+      <span class="trust-text">${b}</span>
+    </div>`).join('');
+  }
 
   // Social icons
   const socialEl = document.getElementById('footer-social-icons');
@@ -6283,7 +7340,7 @@ function buildNav() {
   homeLink.className = 'nav-link';
   homeLink.textContent = 'Home';
   homeLink.dataset.pageKey = 'home';
-  homeLink.onclick = () => { showPage('home'); toggleMobileNav(); };
+  homeLink.onclick = () => { toggleMobileNav(); showPage('home'); };
   parts.push(homeLink);
 
   // About
@@ -6293,7 +7350,7 @@ function buildNav() {
     link.className = 'nav-link';
     link.textContent = CFG.aboutNavLabel || CFG.pageHeaders?.about?.label || 'About';
     link.dataset.pageKey = 'about';
-    link.onclick = () => { showPage('about'); toggleMobileNav(); };
+    link.onclick = () => { toggleMobileNav(); showPage('about'); };
     parts.push(link);
   }
 
@@ -6319,7 +7376,7 @@ function buildNav() {
       if (cp.navOnly === true) {
         label.onclick = () => { group.classList.toggle('open'); };
       } else {
-        label.onclick = () => { showPage(cp.slug); toggleMobileNav(); };
+        label.onclick = () => { toggleMobileNav(); showPage(cp.slug); };
       }
 
       const chevronBtn = document.createElement('div');
@@ -6341,7 +7398,7 @@ function buildNav() {
         childLink.dataset.pageKey = 'cp-' + ci;
         childLink.dataset.slug = child.slug;
         childLink.textContent = child.navLabel || child.slug;
-        childLink.onclick = () => { showPage(child.slug); toggleMobileNav(); };
+        childLink.onclick = () => { toggleMobileNav(); showPage(child.slug); };
         childWrap.appendChild(childLink);
       });
       group.appendChild(toggle);
@@ -6354,7 +7411,7 @@ function buildNav() {
       link.textContent = cp.navLabel || cp.header?.title || cp.slug;
       link.dataset.slug = cp.slug;
       link.dataset.pageKey = 'cp-' + pi;
-      link.onclick = () => { showPage(cp.slug); toggleMobileNav(); };
+      link.onclick = () => { toggleMobileNav(); showPage(cp.slug); };
       parts.push(link);
     }
   });
@@ -6404,6 +7461,106 @@ function buildNav() {
   parts.forEach(el => nav.appendChild(el));
   updateNavForMember();
   buildFooterNav();
+  buildNavPill('nav-pill-links');
+  buildNavPill('nav-shade-links');
+}
+
+// Desktop sticky nav-pill — same page/parent-child data as buildNav(),
+// rendered as a horizontal row with hover-triggered dropdowns instead of
+// the drawer's click-toggle accordion. Reuses .nav-link/.nav-group/
+// .nav-child-link class names so the existing active-state highlighting
+// in showPage() (which queries those classes globally) covers this too.
+// Measures the header's actual rendered height into --header-h, so the
+// backdrop shield (which needs to reach exactly to the pill's vertical
+// midpoint) stays correct regardless of content/font/breakpoint changes.
+function syncHeaderHeightVar() {
+  const header = document.getElementById('site-header');
+  if (!header) return;
+  document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+}
+
+// AURA: builds the horizontal link row into any target container — called
+// once for the static top nav (#nav-pill-links) and once for the scroll-up
+// shade (#nav-shade-links). Uses createElement + real handlers (not
+// innerHTML cloning), so both copies get working click handlers, and
+// showPage()'s global .nav-link active-state sweep updates both at once.
+function buildNavPill(targetId) {
+  const pt = CFG.pageToggles || {};
+  const nav = document.getElementById(targetId || 'nav-pill-links');
+  if (!nav) return;
+  const parts = [];
+
+  const homeLink = document.createElement('span');
+  homeLink.className = 'nav-link';
+  homeLink.textContent = 'Home';
+  homeLink.dataset.pageKey = 'home';
+  homeLink.onclick = () => showPage('home');
+  parts.push(homeLink);
+
+  const aboutPt = pt['about'];
+  if (aboutPt !== false) {
+    const link = document.createElement('span');
+    link.className = 'nav-link';
+    link.textContent = CFG.aboutNavLabel || CFG.pageHeaders?.about?.label || 'About';
+    link.dataset.pageKey = 'about';
+    link.onclick = () => showPage('about');
+    parts.push(link);
+  }
+
+  const pages = CFG.customPages || [];
+  const topLevel = pages.filter(cp => !cp.parent && cp.enabled !== false && !_navHiddenMain(cp));
+  topLevel.forEach(cp => {
+    const pi = pages.indexOf(cp);
+    const children = pages.filter(p => p.parent === cp.slug && p.enabled !== false && !_navHiddenMain(p));
+    if (children.length) {
+      const group = document.createElement('div');
+      group.className = 'nav-group nav-item-dropdown' + (CFG.navDefaultOpen === true ? ' open' : '');
+      group.dataset.slug = cp.slug;
+
+      const trigger = document.createElement('span');
+      trigger.className = 'nav-link nav-group-toggle nav-link--has-submenu';
+      trigger.dataset.pageKey = 'cp-' + pi;
+      trigger.textContent = cp.navLabel || cp.slug;
+      trigger.onclick = () => showPage(cp.slug);
+
+      const childWrap = document.createElement('div');
+      childWrap.className = 'nav-group-children nav-submenu';
+      // AURA: the visible frosted panel lives on a nested inner wrapper, not
+      // on .nav-submenu itself. .nav-submenu's own box (including its
+      // padding-top "gap") is what stays continuously hoverable together
+      // with the trigger — see the CSS comment on .nav-submenu-panel for why
+      // this replaced an earlier margin-gap + separate bridge pseudo-element
+      // approach that kept breaking.
+      const submenuPanel = document.createElement('div');
+      submenuPanel.className = 'nav-submenu-panel';
+      children.forEach(child => {
+        const ci = pages.indexOf(child);
+        const childLink = document.createElement('span');
+        childLink.className = 'nav-child-link nav-submenu__link';
+        childLink.dataset.pageKey = 'cp-' + ci;
+        childLink.dataset.slug = child.slug;
+        childLink.textContent = child.navLabel || child.slug;
+        childLink.onclick = () => showPage(child.slug);
+        submenuPanel.appendChild(childLink);
+      });
+      childWrap.appendChild(submenuPanel);
+
+      group.appendChild(trigger);
+      group.appendChild(childWrap);
+      parts.push(group);
+    } else {
+      const link = document.createElement('span');
+      link.className = 'nav-link';
+      link.textContent = cp.navLabel || cp.header?.title || cp.slug;
+      link.dataset.slug = cp.slug;
+      link.dataset.pageKey = 'cp-' + pi;
+      link.onclick = () => showPage(cp.slug);
+      parts.push(link);
+    }
+  });
+
+  nav.innerHTML = '';
+  parts.forEach(el => nav.appendChild(el));
 }
 
 function buildFooterNav() {
@@ -6540,24 +7697,35 @@ function buildHeader() {
   document.documentElement.style.setProperty('--header-logo-h', headerLogoH + 'px');
   document.documentElement.style.setProperty('--splash-logo-h', splashLogoH + 'px');
 
-  // ── Header logo ──
-  const headerLogoEl = document.getElementById('header-logo');
-  const headerNameEl = document.getElementById('header-firm-name');
-  const headerTagEl  = document.getElementById('header-tagline');
-  const headerLogoSrc = headerChoice === 'primary' ? primaryLogo
-                      : headerChoice === 'alternate' ? alternateLogo : '';
-  if (headerLogoSrc) {
-    headerLogoEl.src = headerLogoSrc;
-    headerLogoEl.style.display = 'block';
-    headerNameEl.style.display = 'none';
-    headerTagEl.style.display  = 'none';
-  } else {
-    headerLogoEl.style.display = 'none';
-    headerNameEl.style.display = '';
-    headerTagEl.style.display  = '';
-    headerNameEl.textContent = CFG.firmName;
-    headerTagEl.textContent  = CFG.tagline;
-  }
+  // ── Header + shade brand (aura) ──
+  // The nav design calls for the secondary (alternate) logo on the left, so
+  // prefer it when set; otherwise honor the admin's header logo choice;
+  // otherwise fall back to firm name + tagline text. Applied identically to
+  // the static top nav and the scroll-up shade.
+  const headerLogoSrc = alternateLogo
+    ? alternateLogo
+    : (headerChoice === 'primary' ? primaryLogo
+      : headerChoice === 'alternate' ? alternateLogo : '');
+  const applyBrand = (logoId, nameId, tagId) => {
+    const logoEl = document.getElementById(logoId);
+    const nameEl = document.getElementById(nameId);
+    const tagEl  = document.getElementById(tagId);
+    if (!logoEl || !nameEl || !tagEl) return;
+    if (headerLogoSrc) {
+      logoEl.src = headerLogoSrc;
+      logoEl.style.display = 'block';
+      nameEl.style.display = 'none';
+      tagEl.style.display  = 'none';
+    } else {
+      logoEl.style.display = 'none';
+      nameEl.style.display = '';
+      tagEl.style.display  = '';
+      nameEl.textContent = CFG.firmName;
+      tagEl.textContent  = CFG.tagline;
+    }
+  };
+  applyBrand('header-logo', 'header-firm-name', 'header-tagline');
+  applyBrand('shade-logo',  'shade-firm-name',  'shade-tagline');
 
   // ── Splash background layer ──
   applySplashBackground();
@@ -6613,6 +7781,12 @@ let _suppressHistoryPush = false;
 function showPage(name, anchor) {
   clearSearchHighlights();
 
+  // AURA: reset the scroll-up shade immediately on any navigation — before
+  // any early returns / redirects below — so a new page never starts with a
+  // stale shade covering its first card.
+  setNavShade(false);
+  _shadeUpAcc = 0;
+
   // Check page access — show PIN if locked
   const pageKey = name === 'home' ? 'home' : name === 'about' ? 'about' :
     (CFG.customPages||[]).reduce((k, p, i) => p.slug === name ? 'cp-'+i : k, null);
@@ -6642,6 +7816,11 @@ function showPage(name, anchor) {
     const el = document.getElementById(`page-${p}`);
     if (el) el.style.display = p === name ? '' : 'none';
   });
+
+  // Hero now lives outside #page-home (so the sticky nav can sit below it
+  // in DOM order) — toggle it explicitly, same rule as before: home only.
+  const heroEl = document.getElementById('hero');
+  if (heroEl) heroEl.style.display = (name === 'home') ? '' : 'none';
 
   // Hide all custom pages, show the target if custom
   customPages.forEach(cp => {
@@ -6699,22 +7878,19 @@ function showPage(name, anchor) {
       });
     }, 100);
   } else {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
-  // Header solid on non-home pages (or always, if headerAlwaysSolid is enabled)
+  // Header 'solid' state kept for parity (tagline opacity hook); background
+  // itself is now handled by .nav-pill's CSS, not JS, since the pill no
+  // longer overlays a full-bleed hero the way the old fixed header did.
   const header = document.getElementById('site-header');
   if (CFG.headerAlwaysSolid === true || name !== 'home') {
-    const _chr = getComputedStyle(document.documentElement).getPropertyValue('--chrome').trim() || '#060f1d';
-    const _rgb = _chr.replace('#','').match(/.{2}/g).map(h=>parseInt(h,16)).join(',');
-    header.style.background = `rgba(${_rgb}, 0.97)`;
-    header.style.backdropFilter = 'blur(12px)';
     header.classList.add('solid');
   } else {
-    header.style.background = 'rgba(9, 20, 38, 0)';
-    header.style.backdropFilter = '';
     header.classList.remove('solid');
   }
+  // (Shade reset happens at the top of showPage — see above.)
 
   // Page title — check custom pages first
   const customPage = customPages.find(p => p.slug === name);
@@ -6750,6 +7926,38 @@ window.addEventListener('popstate', e => {
 /* =============================================
    MOBILE NAV
    ============================================= */
+// Shared scroll lock for all overlays (drawer, search, PIN, lightbox,
+// service modal). Uses position:fixed + restoring scrollY on unlock rather
+// than overflow:hidden — overflow:hidden on body re-triggers the same
+// "rogue scroll container breaks position:sticky" issue fixed earlier via
+// overflow-x:clip (an inline style always overrides that stylesheet rule),
+// which is what was causing the sticky header to misbehave while the drawer
+// was open. Nesting-counted in case two overlays are ever open at once.
+let _scrollLockY = 0;
+let _scrollLockCount = 0;
+function lockBodyScroll() {
+  if (_scrollLockCount === 0) {
+    _scrollLockY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${_scrollLockY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+  }
+  _scrollLockCount++;
+}
+function unlockBodyScroll() {
+  _scrollLockCount = Math.max(0, _scrollLockCount - 1);
+  if (_scrollLockCount === 0) {
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    window.scrollTo(0, _scrollLockY);
+  }
+}
+
 function toggleMobileNav() {
   // If site requires PIN and user isn't authenticated, show PIN instead of nav
   if ((CFG.siteAccess === 'pin') && !getCurrentMember()) {
@@ -6757,31 +7965,59 @@ function toggleMobileNav() {
     return;
   }
   const nav = document.getElementById('mobile-nav');
-  const btn = document.getElementById('hamburger');
   const backdrop = document.getElementById('navBackdrop');
   const clip = document.getElementById('navClip');
   const isOpening = !nav.classList.contains('open');
-  nav.classList.toggle('open');
-  btn.classList.toggle('open');
-  backdrop.classList.toggle('visible');
-  clip.classList.toggle('active');
-  document.body.style.overflow = isOpening ? 'hidden' : '';
+
+  const finishToggle = () => {
+    nav.classList.toggle('open');
+    // AURA: two hamburgers exist (static nav + scroll-up shade) — keep
+    // their open/X state in sync no matter which one was tapped.
+    document.querySelectorAll('.hamburger').forEach(b => b.classList.toggle('open', isOpening));
+    backdrop.classList.toggle('visible');
+    clip.classList.toggle('active');
+    if (isOpening) lockBodyScroll(); else unlockBodyScroll();
+  };
+
+  // AURA: header is a static in-flow bar and the drawer is a full-screen
+  // overlay — no sticky-pill collision to manage anymore; toggle directly.
+  finishToggle();
 }
 /* =============================================
-   SCROLL HEADER — smooth fade-in bg on home only
+   AURA NAV SHADE CONTROLLER
+   The static header scrolls away with the page. Any upward scroll — from
+   anywhere on the page — slides the fixed frosted shade down from the top
+   edge; any downward scroll slides it back up. A small accumulated-distance
+   threshold filters out trackpad/momentum jitter so the shade doesn't
+   flicker on sub-pixel direction reversals. Near the very top of the page
+   the shade always hides, since the static nav is visible there and the
+   two would double up.
    ============================================= */
+let _shadeLastY = window.scrollY;
+let _shadeUpAcc = 0;
+
+function setNavShade(visible) {
+  const shade = document.getElementById('nav-shade');
+  if (!shade) return;
+  shade.classList.toggle('visible', visible);
+  shade.setAttribute('aria-hidden', visible ? 'false' : 'true');
+}
+
 window.addEventListener('scroll', () => {
-  if (CFG.headerAlwaysSolid === true) return; // stays solid regardless of scroll/page
-  if (currentPage !== 'home') return; // non-home pages stay solid (set by showPage)
-  const header = document.getElementById('site-header');
-  const scrollY = window.scrollY;
-  // Fade in smoothly over first 180px of scroll
-  const opacity = Math.min(scrollY / 180, 1);
-  const chr = getComputedStyle(document.documentElement).getPropertyValue('--chrome').trim() || '#060f1d';
-  const rgb = chr.replace('#','').match(/.{2}/g).map(h=>parseInt(h,16)).join(',');
-  header.style.background = `rgba(${rgb}, ${(opacity * 0.97).toFixed(3)})`;
-  header.style.backdropFilter = opacity > 0.05 ? `blur(${Math.round(opacity * 12)}px)` : '';
-  header.classList.toggle('scrolled', scrollY > 40);
+  const y = window.scrollY;
+  const dy = y - _shadeLastY;
+  _shadeLastY = y;
+
+  // Near the top: static nav is (about to be) on screen — never show the shade.
+  if (y <= 90) { setNavShade(false); _shadeUpAcc = 0; return; }
+
+  if (dy < 0) {
+    _shadeUpAcc += -dy;
+    if (_shadeUpAcc > 8) setNavShade(true);
+  } else if (dy > 0) {
+    _shadeUpAcc = 0;
+    setNavShade(false);
+  }
 }, { passive: true });
 
 /* =============================================
@@ -6870,6 +8106,98 @@ function initImageGridReveal() {
       const tileMid = rect.top + rect.height / 2;
       const inBand = Math.abs(tileMid - mid) < band;
       if (inBand) igScheduleReveal(tile); else igCancelReveal(tile);
+    });
+  };
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) update(); });
+  }, { threshold: 0.1 });
+  tiles.forEach(t => obs.observe(t));
+
+  window.addEventListener('scroll', update, { passive: true });
+}
+
+// Fill Row grows tiles to consume leftover row space — great when 2-3 tiles
+// share a row, but with only one tile per row (narrow phone) "leftover
+// space" is the entire row, so it would balloon to full container width.
+// A plain CSS breakpoint can't reliably detect this, since the width where
+// a grid drops to one-per-row depends on that section's own Tile Size +
+// Ratio + Gap (all admin-configurable, different per section) — so this
+// measures each Fill Row grid's actual container width against twice its
+// own tile width and toggles a class that disables growth for that grid
+// specifically once even two tiles no longer fit side by side.
+function initImageGridFillStack() {
+  const grids = document.querySelectorAll('.cps-ig-grid--fill');
+  if (!grids.length) return;
+
+  const check = (grid) => {
+    const cs = getComputedStyle(grid);
+    const tileW = parseFloat(cs.getPropertyValue('--ig-tile-w')) || 220;
+    const gap = parseFloat(cs.gap) || 0;
+    const fitsTwo = grid.clientWidth >= (tileW * 2 + gap);
+    grid.classList.toggle('cps-ig-grid--stacked', !fitsTwo);
+  };
+
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(entries => entries.forEach(e => check(e.target)));
+    grids.forEach(g => { check(g); ro.observe(g); });
+  } else {
+    // Fallback for browsers without ResizeObserver support
+    grids.forEach(check);
+    window.addEventListener('resize', () => grids.forEach(check), { passive: true });
+  }
+}
+
+// Four-stage reveal timeline for Bento Cards — same lift/blur/text/shadow
+// approach as Image Grid, kept as fully separate functions/classes rather
+// than shared, so changes to one section can never regress the other.
+const _bentoTimers = new WeakMap();
+const BENTO_STAGES = [
+  { cls: 'cps-bento-lift-on',   delay: 0   },
+  { cls: 'cps-bento-blur-on',   delay: 100 },
+  { cls: 'cps-bento-shadow-on', delay: 150 },
+  { cls: 'cps-bento-text-on',   delay: 200 },
+];
+function bentoScheduleReveal(tile) {
+  if (_bentoTimers.has(tile)) return;
+  const timers = BENTO_STAGES.map(stage =>
+    setTimeout(() => tile.classList.add(stage.cls), stage.delay)
+  );
+  _bentoTimers.set(tile, timers);
+}
+function bentoCancelReveal(tile) {
+  const timers = _bentoTimers.get(tile);
+  if (timers) {
+    timers.forEach(clearTimeout);
+    _bentoTimers.delete(tile);
+  }
+  BENTO_STAGES.forEach(stage => tile.classList.remove(stage.cls));
+}
+
+function initBentoReveal() {
+  // Tiles with no title/subtitle are never wired up — nothing to reveal.
+  const tiles = document.querySelectorAll('.cps-bento-tile[data-has-text="true"]');
+  if (!tiles.length) return;
+
+  if (window.matchMedia('(hover: hover)').matches) {
+    tiles.forEach(tile => {
+      tile.addEventListener('mouseenter', () => bentoScheduleReveal(tile));
+      tile.addEventListener('mouseleave', () => bentoCancelReveal(tile));
+    });
+    return;
+  }
+
+  // Touch devices have no hover — reveal whichever tile(s) sit in a band
+  // near the vertical center of the viewport as the user scrolls, releasing
+  // them again once they scroll back out (mirrors the hover metaphor).
+  const update = () => {
+    const mid = window.innerHeight / 2;
+    const band = window.innerHeight * 0.15;
+    tiles.forEach(tile => {
+      const rect = tile.getBoundingClientRect();
+      const tileMid = rect.top + rect.height / 2;
+      const inBand = Math.abs(tileMid - mid) < band;
+      if (inBand) bentoScheduleReveal(tile); else bentoCancelReveal(tile);
     });
   };
 
@@ -7499,7 +8827,7 @@ function openSearch(initialQuery) {
   const srchCfg = CFG.search || {};
   input.placeholder = srchCfg.placeholder || 'Search...';
   overlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
+  lockBodyScroll();
   const q = initialQuery || '';
   input.value = q;
   setTimeout(() => input.focus(), 100);
@@ -7550,7 +8878,7 @@ function openSearch(initialQuery) {
 function closeSearch() {
   const overlay = document.getElementById('searchOverlay');
   overlay.classList.remove('open');
-  document.body.style.overflow = '';
+  unlockBodyScroll();
   document.getElementById('searchInput').value = '';
   const sugg = document.getElementById('searchSuggestions');
   if (sugg) sugg.innerHTML = '';
@@ -7775,13 +9103,13 @@ function openPinOverlay(pendingPage) {
   _pinPendingPage = pendingPage || null;
   initPinOverlay();
   document.getElementById('pinOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  lockBodyScroll();
 }
 
 function closePinOverlay(success) {
   const overlay = document.getElementById('pinOverlay');
   overlay.classList.remove('open');
-  document.body.style.overflow = '';
+  unlockBodyScroll();
 }
 
 function updateNavForMember() {
@@ -8171,18 +9499,22 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
     ? `page-banner-title${isDark ? ' page-banner-title-light' : ''}`
     : 'section-title';
   const subtitleStyle = isFirst
-    ? `font-size:clamp(15px,1.6vw,18px);color:${isDark ? 'rgba(255,255,255,0.65)' : 'var(--text-muted)'};line-height:1.7;max-width:900px;margin-top:14px;`
+    ? `font-size:clamp(15px,1.6vw,18px);color:${isDark ? 'var(--color-on-dark-muted)' : 'var(--color-ink-muted)'};line-height:1.7;max-width:900px;margin-top:14px;`
     : '';
 
   switch (sec.type) {
 
     // ── TEXT BLOCK ──────────────────────────────────────────────
     case 'text': {
-      wrapper.innerHTML = `<div class="container cps-text-block">
-        ${labelHTML}
-        ${sec.heading ? `<${headTag} class="${headClass} cps-heading reveal">${sec.heading}</${headTag}>` : ''}
-        <div class="cps-body reveal reveal-delay-1">${formatBody(sec.body)}</div>
-      </div>`;
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header', 'cps-text-block');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">
+          ${labelHTML}
+          ${sec.heading ? `<${headTag} class="${headClass} cps-heading reveal">${sec.heading}</${headTag}>` : ''}
+        </div>
+        <div class="cps-block-content">
+          <div class="cps-body reveal reveal-delay-1">${formatBody(sec.body)}</div>
+        </div>`;
       break;
     }
 
@@ -8196,25 +9528,29 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
       const imgHTML = sec.imagePath
         ? `<div class="cps-two-col-img reveal" style="${imgStyle}"><img src="${escAttr(sec.imagePath)}" alt="${escAttr(sec.heading||'')}" loading="lazy"/></div>`
         : `<div class="cps-two-col-img reveal" style="${imgStyle}"><div class="cps-two-col-img-placeholder">🏛️</div></div>`;
-      wrapper.innerHTML = `<div class="container">
-        ${labelHTML}
-        ${sec.heading ? `<${headTag} class="${headClass} cps-heading cps-two-col-heading">${sec.heading}</${headTag}>` : ''}
-        <div class="cps-two-col reveal">
-          ${imgHTML}
-          ${formatBody(sec.body)}
-          ${(sec.cta_linkLabel || sec.ctaLabel) ? `<div style="clear:both;margin-top:28px;"><button class="btn-primary" ${
-            sec.cta_linkType === 'internal' ? `onclick="showPage('${escAttr(sec.cta_linkUrl || 'contact')}','${escAttr(sec.cta_anchorId||'')}')"` :
-            (sec.cta_linkType === 'external' || sec.cta_linkType === 'file') ? `onclick="openSmartLink('${escAttr(sec.cta_linkType)}','${escAttr(sec.cta_linkUrl)}')"` :
-            `onclick="showPage('contact')"`
-          }>${sec.cta_linkLabel || sec.ctaLabel}</button></div>` : ''}
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">
+          ${labelHTML}
+          ${sec.heading ? `<${headTag} class="${headClass} cps-heading cps-two-col-heading">${sec.heading}</${headTag}>` : ''}
         </div>
-      </div>`;
+        <div class="cps-block-content">
+          <div class="cps-two-col reveal">
+            ${imgHTML}
+            ${formatBody(sec.body)}
+            ${(sec.cta_linkLabel || sec.ctaLabel) ? `<div style="clear:both;margin-top:28px;text-align:center;"><button class="btn-primary" ${
+              sec.cta_linkType === 'internal' ? `onclick="showPage('${escAttr(sec.cta_linkUrl || 'contact')}','${escAttr(sec.cta_anchorId||'')}')"` :
+              (sec.cta_linkType === 'external' || sec.cta_linkType === 'file') ? `onclick="openSmartLink('${escAttr(sec.cta_linkType)}','${escAttr(sec.cta_linkUrl)}')"` :
+              `onclick="showPage('contact')"`
+            }>${sec.cta_linkLabel || sec.ctaLabel}</button></div>` : ''}
+          </div>
+        </div>`;
       break;
     }
 
     // ── STATS BAR ────────────────────────────────────────────────
     case 'stats': {
-      wrapper.classList.add('cps-stats-bar');
+      wrapper.classList.add('cps-stats-bar', isInheritBg ? 'cps-stats-bar--inherit' : 'cps-stats-bar--carded');
       wrapper.style.cssText = '';
       const statItems = sec.items || [];
       const items = statItems.map(s => `
@@ -8259,23 +9595,23 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
       }).join('');
       const hasBadge = sec.badgeNum && sec.badgeNum.trim();
       const badgeHtml = hasBadge ? `
-        <div class="cps-fc-badge reveal reveal-delay-3">
-          <div class="cps-fc-badge-num">${sec.badgeNum}</div>
-          <div class="cps-fc-badge-label">${sec.badgeLabel || ''}</div>
+        <div class="cps-fc-badge reveal reveal-delay-1">
+          <span class="cps-fc-badge-num">${sec.badgeNum}</span>
+          <span class="cps-fc-badge-label">${sec.badgeLabel || ''}</span>
         </div>` : '';
       const headerHtml = (sec.heading || sec.body || hasBadge) ? `
-        <div class="cps-fc-header">
-          <div class="cps-fc-header-text">
-            ${labelHTML}
-            ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-            ${sec.body ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.body)}</div>` : ''}
-          </div>
-          ${badgeHtml}
-        </div>` : labelHTML;
-      wrapper.innerHTML = `<div class="container">
-        ${headerHtml}
-        <div class="cps-fc-grid${sec.fullWidth ? ' cps-fc-grid--full' : ''}" data-cols="${Math.min(fcCards.length || 1, sec.maxCols || 2)}">${fcCards}</div>
-      </div>`;
+        ${labelHTML}
+        ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
+        ${badgeHtml}
+        ${sec.body ? `<div class="section-subtitle reveal reveal-delay-2" style="${subtitleStyle}">${formatBody(sec.body)}</div>` : ''}
+      ` : labelHTML;
+      const fcCols = Math.min(fcCards.length || 1, sec.maxCols || 2);
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">${headerHtml}</div>
+        <div class="cps-block-content">
+          <div class="cps-fc-grid" data-cols="${fcCols}"${fcCols===1&&!sec.colFullWidth?' style="max-width:420px;margin-left:auto;margin-right:auto;"':''}>${fcCards}</div>
+        </div>`;
       break;
     }
 
@@ -8330,12 +9666,66 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
         </div>`;
       }).join('');
 
-      wrapper.innerHTML = `<div class="container">
-        ${labelHTML}
-        ${sec.heading ? `<${headTag} class="${headClass} cps-heading reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.body ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.body)}</div>` : ''}
-        <div class="cps-ig-grid cps-ig-grid--gap-${igGap} cps-ig-grid--align-${igAlign} cps-ig-grid--reveal-${igReveal}${igRounded ? ' cps-ig-grid--rounded' : ''}" style="${igStyle}">${igTiles}</div>
-      </div>`;
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">
+          ${labelHTML}
+          ${sec.heading ? `<${headTag} class="${headClass} cps-heading reveal">${sec.heading}</${headTag}>` : ''}
+          ${sec.body ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.body)}</div>` : ''}
+        </div>
+        <div class="cps-ig-grid cps-ig-grid--gap-${igGap} cps-ig-grid--align-${igAlign} cps-ig-grid--reveal-${igReveal}${igRounded ? ' cps-ig-grid--rounded' : ''}${sec.fillRow ? ' cps-ig-grid--fill' : ''}" style="${igStyle}">${igTiles}</div>`;
+      break;
+    }
+
+    // ── BENTO CARDS ───────────────────────────────────────
+    case 'bento': {
+      const bentoItems = sec.items || [];
+      const bentoGap = sec.gap || 'normal';
+      const bentoRounded = sec.roundedCorners !== false;
+      const bentoBlur = { light: 8, medium: 16, strong: 24 }[sec.blurStrength || 'medium'] || 16;
+      const bentoCell = { small: 160, medium: 220, large: 300 }[sec.cellSize || 'medium'] || 220;
+      const bentoReveal = (sec.revealStyle === 'clear-first' || sec.revealStyle === 'no-blur') ? sec.revealStyle : 'blur-first';
+      const bentoStyle = `--bento-blur:${bentoBlur}px;--bento-cell:${bentoCell}px;`;
+      // Card Size → column/row span, in multiples of the section's Cell Size unit
+      const bentoSpans = { small: [1,1], wide: [2,1], tall: [1,2], large: [2,2], featured: [3,2] };
+
+      const bentoTiles = bentoItems.map((it, i) => {
+        const [spanCol, spanRow] = bentoSpans[it.size || 'small'] || [1,1];
+        const hasText = !!(it.title || it.subtitle);
+        const hasInitial = !!it.initialTitle;
+        const hasLink = it.linkType && it.linkType !== 'none' && it.linkUrl;
+        const clickAttr = hasLink
+          ? (it.linkType === 'internal'
+              ? `onclick="showPage('${escAttr(it.linkUrl)}','${escAttr(it.anchorId||'')}')" style="cursor:pointer;"`
+              : `onclick="openSmartLink('${escAttr(it.linkType)}','${escAttr(it.linkUrl)}')" style="cursor:pointer;"`)
+          : '';
+        const needsInitialLayer = hasInitial || (bentoReveal === 'blur-first' && hasText);
+        const initialHtml = needsInitialLayer ? `
+          <div class="cps-bento-initial">
+            <div class="cps-bento-initial-scrim"></div>
+            ${it.initialTitle ? `<div class="cps-bento-initial-title">${it.initialTitle}</div>` : ''}
+          </div>` : '';
+        const overlayHtml = hasText ? `
+          <div class="cps-bento-overlay">
+            ${it.title ? `<div class="cps-bento-title">${it.title}</div>` : ''}
+            ${it.subtitle ? `<div class="cps-bento-subtitle">${formatBody(it.subtitle)}</div>` : ''}
+          </div>` : '';
+        return `
+        <div class="cps-bento-tile reveal reveal-delay-${(i % 4) + 1}" data-has-text="${hasText}" style="grid-column:span ${spanCol};grid-row:span ${spanRow};" ${clickAttr}>
+          ${it.imagePath ? `<img src="${escAttr(it.imagePath)}" alt="${escAttr(it.alt||'')}" loading="lazy" onerror="this.style.display='none'"/>` : ''}
+          ${initialHtml}
+          ${overlayHtml}
+        </div>`;
+      }).join('');
+
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">
+          ${labelHTML}
+          ${sec.heading ? `<${headTag} class="${headClass} cps-heading reveal">${sec.heading}</${headTag}>` : ''}
+          ${sec.body ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.body)}</div>` : ''}
+        </div>
+        <div class="cps-bento-grid cps-bento-grid--gap-${bentoGap} cps-bento-grid--reveal-${bentoReveal}${bentoRounded ? ' cps-bento-grid--rounded' : ''}" style="${bentoStyle}">${bentoTiles}</div>`;
       break;
     }
 
@@ -8358,12 +9748,16 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
           </div>
         </div>`;
       }).join('');
-      wrapper.innerHTML = `<div class="container">
-        ${labelHTML}
-        ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
-        <div class="cps-bullets-list${sec.fullWidth ? ' cps-bullets-list--full' : ''}">${items}</div>
-      </div>`;
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">
+          ${labelHTML}
+          ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
+          ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
+        </div>
+        <div class="cps-block-content">
+          <div class="cps-bullets-list${sec.fullWidth ? ' cps-bullets-list--full' : ''}">${items}</div>
+        </div>`;
       break;
     }
 
@@ -8400,12 +9794,14 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
           ${svcBodyClose}
         </div>`;
       }).join('');
-      wrapper.innerHTML = `<div class="container">
-        ${labelHTML}
-        ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
-        <div class="services-grid" data-cols="${svcCols}" style="margin-top:40px;${svcCols===1&&!svcFullWidth?'max-width:640px;margin-left:auto;margin-right:auto;':''}">${items}</div>
-      </div>`;
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">
+          ${labelHTML}
+          ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
+          ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
+        </div>
+        <div class="services-grid" data-cols="${svcCols}" style="${svcCols===1&&!svcFullWidth?'max-width:640px;margin-left:auto;margin-right:auto;':''}">${items}</div>`;
       break;
     }
 
@@ -8430,13 +9826,16 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
           </div>
         </div>`;
       }).join('');
-      wrapper.classList.add('cps-section-steps');
-      wrapper.innerHTML = `<div class="container">
-        ${labelHTML}
-        ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
-        <div class="process-timeline" style="margin-top:${hasHeader ? '48px' : '0'};">${items}</div>
-      </div>`;
+      wrapper.classList.add('cps-section-steps', 'cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">
+          ${labelHTML}
+          ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
+          ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
+        </div>
+        <div class="cps-block-content">
+          <div class="process-timeline">${items}</div>
+        </div>`;
       break;
     }
 
@@ -8456,12 +9855,16 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
           <div class="faq-answer"><div class="faq-answer-inner${hasLink?' has-faq-link':''}">${formatBody(f.a||'')}</div>${linkHtml}</div>
         </div>`;
       }).join('');
-      wrapper.innerHTML = `<div class="container">
-        ${labelHTML}
-        ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
-        <div class="faq-grid${sec.fullWidth ? ' faq-grid-full' : ''}" style="margin-top:40px;">${items}</div>
-      </div>`;
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">
+          ${labelHTML}
+          ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
+          ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
+        </div>
+        <div class="cps-block-content">
+          <div class="faq-grid${sec.fullWidth ? ' faq-grid-full' : ''}">${items}</div>
+        </div>`;
       break;
     }
 
@@ -8482,13 +9885,15 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
         );
         if (_srcPage) testiSourceSlug = _srcPage.slug || 'home';
       }
-      wrapper.innerHTML = `<div class="container">
-        ${labelHTML}
-        ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
-        <div class="testimonials-track" style="margin-top:40px;">${items}</div>
-        ${showBtn ? `<div style="text-align:center;margin-top:40px;"><button class="btn-primary" onclick="showPage('${testiSourceSlug}')" style="margin:0 auto;">${btnLabel}</button></div>` : ''}
-      </div>`;
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">
+          ${labelHTML}
+          ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
+          ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
+        </div>
+        <div class="testimonials-track">${items}</div>
+        ${showBtn ? `<div style="text-align:center;"><button class="btn-primary" onclick="showPage('${testiSourceSlug}')" style="margin:0 auto;">${btnLabel}</button></div>` : ''}`;
       break;
     }
 
@@ -8499,12 +9904,14 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
       const rest = allPosts.filter(p => !p.featured);
       const ordered = [...featured, ...rest];
       const items = ordered.map((p, i) => buildBlogCardHtml(p, i, null, true)).join('');
-      wrapper.innerHTML = `<div class="container">
-        ${labelHTML}
-        ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
-        <div class="blog-grid" style="margin-top:40px;">${items}</div>
-      </div>`;
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">
+          ${labelHTML}
+          ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
+          ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
+        </div>
+        <div class="blog-grid">${items}</div>`;
       break;
     }
 
@@ -8524,15 +9931,16 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
         : `onclick="openSmartLink('${escAttr(secType)}','${escAttr(secUrl)}')" `;
       const primBtn   = primLabel ? `<button class="btn-primary" ${primClick}>${escAttr(primLabel)}</button>` : '';
       const secBtn    = secLabel  ? `<button class="btn-outline" ${secClick}>${escAttr(secLabel)}</button>` : '';
-      wrapper.classList.add('cps-cta-wrapper');
-      wrapper.innerHTML = `<div class="cps-cta-banner">
-        <div class="container">
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header', 'cps-cta-flat');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">
           ${labelHTML}
           ${sec.heading ? `<${headTag} class="${headClass} cps-heading reveal">${sec.heading}</${headTag}>` : ''}
+        </div>
+        <div class="cps-block-content">
           ${sec.body ? `<div class="cps-body reveal reveal-delay-1">${formatBody(sec.body)}</div>` : ''}
           ${(primBtn || secBtn) ? `<div class="cps-actions reveal reveal-delay-2">${primBtn}${secBtn}</div>` : ''}
-        </div>
-      </div>`;
+        </div>`;
       break;
     }
 
@@ -8740,12 +10148,16 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
           <div class="cps-doc-items${sec.fullWidth ? ' cps-doc-items--full' : ''}">${docItems}</div>
         </div>`;
       }).join('');
-      wrapper.innerHTML = `<div class="container">
-        ${labelHTML}
-        ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
-        <div class="cps-doc-checklist reveal reveal-delay-2" style="margin-top:40px;">${cats}</div>
-      </div>`;
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">
+          ${labelHTML}
+          ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
+          ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
+        </div>
+        <div class="cps-block-content">
+          <div class="cps-doc-checklist reveal reveal-delay-2">${cats}</div>
+        </div>`;
       break;
     }
 
@@ -8770,12 +10182,16 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
           </div>
         </div>`;
       }).join('');
-      wrapper.innerHTML = `<div class="container">
-        ${labelHTML}
-        ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
-        <div class="cps-timeline" style="margin-top:${hasHeader ? '48px' : '0'};">${items}</div>
-      </div>`;
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">
+          ${labelHTML}
+          ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
+          ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
+        </div>
+        <div class="cps-block-content">
+          <div class="cps-timeline">${items}</div>
+        </div>`;
       break;
     }
 
@@ -8801,18 +10217,22 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
       const col3Label = sec.col3Label || 'Notes';
       const mobileStack = sec.mobileStack !== false;
       const feeWrapClass = 'cps-fee-wrap' + (mobileStack ? ' cps-fee-wrap--stack' : '');
-      wrapper.innerHTML = `<div class="container">
-        ${labelHTML}
-        ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
-        <div class="reveal reveal-delay-2 ${feeWrapClass}">
-          <table class="cps-fee-table">
-            <thead><tr><th>${col1Label}</th><th>${col2Label}</th><th>${col3Label}</th></tr></thead>
-            <tbody>${rows}</tbody>
-          </table>
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">
+          ${labelHTML}
+          ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
+          ${sec.subtitle ? `<div class="section-subtitle reveal reveal-delay-1" style="${subtitleStyle}">${formatBody(sec.subtitle)}</div>` : ''}
         </div>
-        ${sec.disclaimer ? `<div style="font-size:12px;color:var(--text-muted);margin-top:16px;font-style:italic;">${formatBody(sec.disclaimer)}</div>` : ''}
-      </div>`;
+        <div class="cps-block-content">
+          <div class="reveal reveal-delay-2 ${feeWrapClass}">
+            <table class="cps-fee-table">
+              <thead><tr><th>${col1Label}</th><th>${col2Label}</th><th>${col3Label}</th></tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+          ${sec.disclaimer ? `<div style="font-size:12px;color:var(--text-muted);margin-top:16px;font-style:italic;">${formatBody(sec.disclaimer)}</div>` : ''}
+        </div>`;
       break;
     }
 
@@ -8822,16 +10242,18 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
       const linkHtml = hasLink ? `<div class="cps-jurisdiction-link" onclick="${
         sec.linkType === 'internal' ? `showPage('${escAttr(sec.linkUrl)}','${escAttr(sec.jur_anchorId||'')}')` : `openSmartLink('${escAttr(sec.linkType)}','${escAttr(sec.linkUrl)}')`
       }">${escAttr(sec.linkLabel)} →</div>` : '';
-      wrapper.innerHTML = `<div class="container">
-        ${labelHTML}
-        ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        <div class="cps-jurisdiction reveal reveal-delay-1" style="margin-top:${sec.heading ? '32px' : '0'};">
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">
+          ${labelHTML}
+          ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
+        </div>
+        <div class="cps-jurisdiction reveal reveal-delay-1">
           <div class="cps-jurisdiction-icon">${sec.icon || '⚖️'}</div>
           <div class="cps-jurisdiction-title">${sec.title || ''}</div>
           <div class="cps-jurisdiction-body${hasLink?' has-jur-link':''}">${formatBody(sec.body)}</div>
           ${linkHtml}
-        </div>
-      </div>`;
+        </div>`;
       break;
     }
 
@@ -8848,8 +10270,6 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
       const mobileStack = sec.mobileStack === true;
       const items       = sec.items || [];
       if (!items.length) break;
-
-      wrapper.classList.add('cps-section-table');
 
       function styleClass(s) {
         if (s === 'bold') return ' style-bold';
@@ -8871,11 +10291,14 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
 
       const tblWrapClass = 'cps-tbl-wrap' + (mobileStack ? ' cps-tbl-wrap--stack' : '');
 
+      wrapper.classList.add('cps-section-table', 'cps-split-blocks', 'cps-flat-header');
       wrapper.innerHTML =
-        '<div class="container">' +
+        '<div class="cps-block-header">' +
           labelHTML +
           (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
           (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
+        '</div>' +
+        '<div class="cps-block-content">' +
           '<div class="reveal reveal-delay-2 ' + tblWrapClass + '"><table class="cps-tbl">' + thead + '<tbody>' + tbodyRows + '</tbody></table></div>' +
         '</div>';
       break;
@@ -8895,7 +10318,7 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
       const peek         = showPeek ? 48 : 0; // px of next card showing
       const isMulti      = items.length > 1;
 
-      wrapper.classList.add('cps-section-rc');
+      wrapper.classList.add('cps-section-rc', 'cps-split-blocks', 'cps-flat-header');
 
       // Unique ID for this carousel instance
       const rcId = 'rc-' + Math.random().toString(36).slice(2,8);
@@ -8966,18 +10389,18 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
         : '';
 
       wrapper.innerHTML =
-        '<div class="container">'
+        '<div class="cps-block-header">'
           + labelHTML
           + (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '')
           + (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '')
-          + '<div class="cps-rc-outer" data-zoom-items="' + zoomItemsJson + '" style="--rc-gap:' + gap + 'px;--rc-peek:' + peek + 'px;">'
-            + arrowsHtml
-            + '<div class="cps-rc-track-wrap" id="' + rcId + '-wrap">'
-              + '<div class="cps-rc-track" id="' + rcId + '-track">' + trackInner + '</div>'
-            + '</div>'
+        + '</div>'
+        + '<div class="cps-rc-outer" data-zoom-items="' + zoomItemsJson + '" style="--rc-gap:' + gap + 'px;--rc-peek:' + peek + 'px;">'
+          + arrowsHtml
+          + '<div class="cps-rc-track-wrap" id="' + rcId + '-wrap">'
+            + '<div class="cps-rc-track" id="' + rcId + '-track">' + trackInner + '</div>'
           + '</div>'
-          + dotsHtml
-        + '</div>';
+        + '</div>'
+        + dotsHtml;
 
       // Init carousel — retry until the outer element has a real width
       function _rcInit() {
@@ -9211,11 +10634,13 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
           </div>
         </div>`;
       }).join('');
-      wrapper.innerHTML = `<div class="container">
-        ${labelHTML}
-        ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
-        <div class="cps-team-grid" data-cols="${sec.maxCols || 3}" style="${(sec.maxCols||3)===1&&!sec.colFullWidth?'max-width:420px;margin-left:auto;margin-right:auto;':''}">${cards}</div>
-      </div>`;
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">
+          ${labelHTML}
+          ${sec.heading ? `<${headTag} class="${headClass} reveal">${sec.heading}</${headTag}>` : ''}
+        </div>
+        <div class="cps-team-grid" data-cols="${sec.maxCols || 3}" style="${(sec.maxCols||3)===1&&!sec.colFullWidth?'max-width:420px;margin-left:auto;margin-right:auto;':''}">${cards}</div>`;
       break;
     }
 
@@ -9302,23 +10727,27 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
       const submitLabel = sec.submitLabel || 'Send Message';
       const endpoint = sec.endpoint || '';
       const successMsg = sec.successMsg || 'Thank you! We\u2019ll be in touch soon.';
-      wrapper.innerHTML = `<div class="container">
-        ${labelHTML}
-        ${sec.heading ? `<${headTag} class="${headClass} cps-heading reveal">${sec.heading}</${headTag}>` : ''}
-        <div class="cps-form-wrap reveal reveal-delay-1">
-          ${sec.intro ? `<div class="cps-form-intro">${formatBody(sec.intro)}</div>` : ''}
-          <form class="cps-form" id="${formId}">
-            ${fieldsHtml}
-            <div class="cps-form-submit">
-              <button type="submit" class="btn-primary">${submitLabel}</button>
-            </div>
-          </form>
-          <div class="cps-form-success" id="${formId}-success">
-            <div class="cps-form-success-icon">✅</div>
-            <div class="cps-form-success-msg"></div>
-          </div>
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML = `
+        <div class="cps-block-header">
+          ${labelHTML}
+          ${sec.heading ? `<${headTag} class="${headClass} cps-heading reveal">${sec.heading}</${headTag}>` : ''}
         </div>
-      </div>`;
+        <div class="cps-block-content">
+          <div class="cps-form-wrap reveal reveal-delay-1">
+            ${sec.intro ? `<div class="cps-form-intro">${formatBody(sec.intro)}</div>` : ''}
+            <form class="cps-form" id="${formId}">
+              ${fieldsHtml}
+              <div class="cps-form-submit">
+                <button type="submit" class="btn-primary">${submitLabel}</button>
+              </div>
+            </form>
+            <div class="cps-form-success" id="${formId}-success">
+              <div class="cps-form-success-icon">✅</div>
+              <div class="cps-form-success-msg"></div>
+            </div>
+          </div>
+        </div>`;
       wrapper.querySelector(`#${formId}`).addEventListener('submit', function(e) {
         submitCpsForm(e, formId, endpoint, successMsg);
       });
@@ -9366,7 +10795,9 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
     // ── RICH TEXT ─────────────────────────────────────────────────
     case 'richtext': {
       // bgClass, isDark, isInheritBg already resolved at top of renderCustomSection.
-      // Richtext inheriting bg gets tighter continuation padding via cps-rt-inherit.
+      // Richtext inheriting bg gets tighter continuation padding via cps-rt-inherit,
+      // but cps-rt-block gives it the same top padding as other sections regardless.
+      wrapper.classList.add('cps-rt-block');
       if (isInheritBg) wrapper.classList.add('cps-rt-inherit');
 
       const rtIsDark = isDark;
@@ -9434,6 +10865,7 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
       const mp4Url   = sec.mp4Url        || '';
       const embedHtml = '<div class="cps-video-frame">' + buildVideoEmbed(embedUrl, mp4Url) + '</div>';
 
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
       if (layout === 'two-col') {
         const posClass = vidPos === 'right' ? ' video-right' : '';
         const videoCol = '<div class="cps-video-col">' + embedHtml + '</div>';
@@ -9450,23 +10882,24 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
           (sec.body    ? '<div class="cps-body">' + formatBody(sec.body) + '</div>' : '') +
           ctaHtml +
         '</div>';
-        wrapper.innerHTML = '<div class="container">' +
-          labelHTML +
-          '<div class="cps-video-layout--two-col' + posClass + ' reveal">' +
-            (vidPos === 'right' ? textCol + videoCol : videoCol + textCol) +
-          '</div>' +
-        '</div>';
+        wrapper.innerHTML = '<div class="cps-block-header">' + labelHTML + '</div>' +
+          '<div class="cps-block-content">' +
+            '<div class="cps-video-layout--two-col' + posClass + ' reveal">' +
+              (vidPos === 'right' ? textCol + videoCol : videoCol + textCol) +
+            '</div>' +
+          '</div>';
       } else {
         const widthMap = { narrow: '560px', medium: '860px', wide: '1060px', full: '100%' };
         const containedWidth = widthMap[sec.containedWidth] || '860px';
         const layoutClass = layout === 'full' ? 'cps-video-layout--full' : 'cps-video-layout--contained';
         const containedStyle = layout === 'contained' ? 'max-width:' + containedWidth + ';' : '';
-        wrapper.innerHTML = '<div class="container">' +
-          labelHTML +
-          (sec.heading ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal" style="margin-bottom:24px;">' + sec.heading + '</' + headTag + '>' : '') +
-          (sec.body    ? '<div class="cps-body reveal reveal-delay-1" style="margin-bottom:24px;">' + formatBody(sec.body) + '</div>' : '') +
-          '<div class="' + layoutClass + ' reveal reveal-delay-1" style="' + containedStyle + '">' + embedHtml + '</div>' +
-        '</div>';
+        wrapper.innerHTML =
+          '<div class="cps-block-header">' +
+            labelHTML +
+            (sec.heading ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal" style="margin-bottom:24px;">' + sec.heading + '</' + headTag + '>' : '') +
+            (sec.body    ? '<div class="cps-body reveal reveal-delay-1">' + formatBody(sec.body) + '</div>' : '') +
+          '</div>' +
+          '<div class="' + layoutClass + ' reveal reveal-delay-1" style="' + containedStyle + '">' + embedHtml + '</div>';
       }
       break;
     }
@@ -9536,27 +10969,31 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
 
         return '<div class="cps-tier-card ' + styleClass + featClass + '" style="transition-delay:' + delay + ';">' +
           ribbonHtml +
-          (card.imagePath ? mediaHtml : '') +
-          '<div class="cps-tier-body">' +
-            (!card.imagePath && card.icon ? mediaHtml : '') +
-            (card.name ? '<div class="cps-tier-name">' + card.name + '</div>' : '') +
-            (card.tagline ? '<div class="cps-tier-tagline">' + formatBody(card.tagline) + '</div>' : '') +
-            priceHtml +
-            '<div class="cps-tier-divider"></div>' +
-            featuresHtml +
-            ctaHtml +
-            noteHtml +
+          '<div class="cps-tier-card-inner">' +
+            (card.imagePath ? mediaHtml : '') +
+            '<div class="cps-tier-body">' +
+              (!card.imagePath && card.icon ? mediaHtml : '') +
+              (card.name ? '<div class="cps-tier-name">' + card.name + '</div>' : '') +
+              (card.tagline ? '<div class="cps-tier-tagline">' + formatBody(card.tagline) + '</div>' : '') +
+              priceHtml +
+              '<div class="cps-tier-divider"></div>' +
+              featuresHtml +
+              ctaHtml +
+              noteHtml +
+            '</div>' +
           '</div>' +
         '</div>';
       }).join('');
 
       const cols = Math.min(Math.max(parseInt(sec.maxCols) || 4, 1), 4);
-      wrapper.innerHTML = '<div class="container">' +
-        labelHTML +
-        (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
-        (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
-        '<div class="cps-tier-grid" data-cols="' + cols + '"' + (cols===1&&!sec.colFullWidth?' style="max-width:420px;margin-left:auto;margin-right:auto;"':'') + '>' + cardHtml + '</div>' +
-      '</div>';
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML =
+        '<div class="cps-block-header">' +
+          labelHTML +
+          (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
+          (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
+        '</div>' +
+        '<div class="cps-tier-grid" data-cols="' + cols + '"' + (cols===1?(sec.colFullWidth?' style="max-width:none;width:100%;margin-left:0;margin-right:0;"':' style="max-width:420px;margin-left:auto;margin-right:auto;"'):'') + '>' + cardHtml + '</div>';
       wrapper.querySelectorAll('.cps-tier-cta-btn').forEach(btn => {
         const t = btn.dataset.ctaType, u = btn.dataset.ctaUrl, a = btn.dataset.ctaAnchor;
         btn.addEventListener('click', () => {
@@ -9602,14 +11039,16 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
         const frontHtml =
           '<div class="cps-flip-front' + styleClass + '">' +
             ribbonHtml +
-            frontImageHtml +
-            '<div class="cps-flip-body">' +
-              frontIconHtml +
-              (card.name    ? '<div class="cps-flip-name">'    + card.name    + '</div>' : '') +
-              (card.tagline ? '<div class="cps-flip-tagline">' + formatBody(card.tagline) + '</div>' : '') +
-              priceHtml +
+            '<div class="cps-flip-front-inner">' +
+              frontImageHtml +
+              '<div class="cps-flip-body">' +
+                frontIconHtml +
+                (card.name    ? '<div class="cps-flip-name">'    + card.name    + '</div>' : '') +
+                (card.tagline ? '<div class="cps-flip-tagline">' + formatBody(card.tagline) + '</div>' : '') +
+                priceHtml +
+              '</div>' +
+              '<div class="cps-flip-hint">↩ tap to flip</div>' +
             '</div>' +
-            '<div class="cps-flip-hint">↩ tap to flip</div>' +
           '</div>';
 
         // ── BACK FACE ──
@@ -9662,12 +11101,14 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
       }).join('');
 
       const flipCols = Math.min(Math.max(flipCards.length, 1), sec.maxCols || 3);
-      wrapper.innerHTML = '<div class="container">' +
-        labelHTML +
-        (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
-        (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
-        '<div class="cps-flip-grid" data-cols="' + flipCols + '"' + (flipCols===1&&!sec.colFullWidth?' style="max-width:420px;margin-left:auto;margin-right:auto;"':'') + '>' + flipCardHtml + '</div>' +
-      '</div>';
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML =
+        '<div class="cps-block-header">' +
+          labelHTML +
+          (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
+          (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
+        '</div>' +
+        '<div class="cps-flip-grid" data-cols="' + flipCols + '"' + (flipCols===1?(sec.colFullWidth?' style="max-width:none;width:100%;margin-left:0;margin-right:0;"':' style="max-width:420px;margin-left:auto;margin-right:auto;"'):'') + '>' + flipCardHtml + '</div>';
       wrapper.querySelectorAll('.cps-flip-cta-btn').forEach(btn => {
         const t = btn.dataset.ctaType, u = btn.dataset.ctaUrl, a = btn.dataset.ctaAnchor;
         btn.addEventListener('click', e => {
@@ -9697,12 +11138,13 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
           '<div class="cps-gallery-overlay"><div class="cps-gallery-expand"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:52%;height:52%;"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></div></div>' +
         '</div>';
       }).join('');
-      wrapper.innerHTML = '<div class="container">' +
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML = '<div class="cps-block-header">' +
         labelHTML +
         (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
         (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
-        '<div class="cps-gallery-grid reveal reveal-delay-1" data-cols="' + cols + '">' + cells + '</div>' +
-      '</div>';
+      '</div>' +
+      '<div class="cps-gallery-grid reveal reveal-delay-1" data-cols="' + cols + '">' + cells + '</div>';
       break;
     }
 
@@ -9728,12 +11170,16 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
           '<div class="cps-acc-body"><div class="cps-acc-inner">' + bodyInner + '</div></div>' +
         '</div>';
       }).join('');
-      wrapper.innerHTML = '<div class="container">' +
-        labelHTML +
-        (sec.heading ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
-        (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
-        '<div class="cps-accordion reveal reveal-delay-1" style="margin-top:40px;">' + items + '</div>' +
-      '</div>';
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML =
+        '<div class="cps-block-header">' +
+          labelHTML +
+          (sec.heading ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
+          (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
+        '</div>' +
+        '<div class="cps-block-content">' +
+          '<div class="cps-accordion reveal reveal-delay-1">' + items + '</div>' +
+        '</div>';
       break;
     }
 
@@ -9882,6 +11328,7 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
     // ── LOGO STRIP ───────────────────────────────────────────────
     case 'logo-strip': {
       const logoSize = sec.logoSize || 'medium';
+      const logoGap = sec.logoGap || 'normal';
       const captionPos = sec.captionPos || 'above';
       const logos = (sec.items || []).map(logo => {
         const imgTag = logo.imagePath ? '<img src="' + escAttr(logo.imagePath) + '" alt="' + escAttr(logo.alt || logo.caption || '') + '" loading="lazy"/>' : '';
@@ -9891,12 +11338,12 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
         }
         return '<div class="cps-logo-item">' + inner + '</div>';
       }).join('');
-      wrapper.classList.add('cps-section-logo-strip');
+      wrapper.classList.add('cps-section-logo-strip', isInheritBg ? 'cps-logo-strip--inherit' : 'cps-logo-strip--carded');
       if (!sec.subtitle) wrapper.classList.add('logo-strip-mode');
       const captionHtml = sec.subtitle
         ? '<div class="cps-logo-strip-caption reveal">' + formatBody(sec.subtitle) + '</div>'
         : '';
-      const stripHtml = '<div class="cps-logo-strip cps-logo-strip--' + logoSize + ' reveal reveal-delay-1">' + logos + '</div>';
+      const stripHtml = '<div class="cps-logo-strip cps-logo-strip--' + logoSize + ' cps-logo-strip--gap-' + logoGap + ' reveal reveal-delay-1">' + logos + '</div>';
       wrapper.innerHTML = '<div class="container">' +
         (captionPos === 'below' ? stripHtml + captionHtml : captionHtml + stripHtml) +
       '</div>';
@@ -10016,16 +11463,16 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
       const dirClass = 'dir-' + mqDir;
       const pauseClass = mqPause ? ' pause-hover' : '';
       const fadeClass = mqFade ? ' fade-edges' : '';
-      const hasHeader = sec.heading || sec.subtitle || sec.label;
-      wrapper.classList.add('cps-section-marquee');
-      wrapper.innerHTML = '<div class="container">' +
-        labelHTML +
-        (sec.heading ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
-        (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
-      '</div>' +
-      '<div class="cps-marquee-outer ' + dirClass + pauseClass + fadeClass + '" style="--marquee-dur:' + dur + ';--mq-logo-h:' + mqLogoH + ';--mq-logo-gap:' + mqLogoGap + ';--mq-fade-w:' + mqFadeW + ';margin-top:' + (hasHeader ? '32px' : '0') + ';">' +
-        '<div class="cps-marquee-track">' + trackInner + '</div>' +
-      '</div>';
+      wrapper.classList.add('cps-section-marquee', 'cps-split-blocks', 'cps-flat-header');
+      wrapper.innerHTML =
+        '<div class="cps-block-header">' +
+          labelHTML +
+          (sec.heading ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
+          (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
+        '</div>' +
+        '<div class="cps-marquee-outer ' + dirClass + pauseClass + fadeClass + '" style="--marquee-dur:' + dur + ';--mq-logo-h:' + mqLogoH + ';--mq-logo-gap:' + mqLogoGap + ';--mq-fade-w:' + mqFadeW + ';">' +
+          '<div class="cps-marquee-track">' + trackInner + '</div>' +
+        '</div>';
       break;
     }
 
@@ -10112,13 +11559,22 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
         innerHtml = '<div class="cps-loc-feature-list">' + rows + '</div>';
       }
 
-      wrapper.innerHTML =
-        '<div class="container">' +
+      wrapper.classList.add('cps-split-blocks', 'cps-flat-header');
+      const locHeaderHtml =
+        '<div class="cps-block-header">' +
           labelHTML +
           (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '') +
           (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '') +
-          innerHtml +
         '</div>';
+      // Cards display mode: each .cps-loc-card is already individually carded
+      // (own background/shadow), so it renders straight on the page
+      // background same as Services/Team. Feature-list rows have no card
+      // background of their own, so they need a .cps-block-content wrapper
+      // to keep a visible surface once the shared outer card is gone.
+      const locContentHtml = dispMode === 'cards'
+        ? innerHtml
+        : '<div class="cps-block-content">' + innerHtml + '</div>';
+      wrapper.innerHTML = locHeaderHtml + locContentHtml;
       break;
     }
 
@@ -10279,7 +11735,7 @@ function openLightbox(items, idx) {
   _lbRender();
   const lb = document.getElementById('cpsLightbox');
   lb.classList.add('open');
-  document.body.style.overflow = 'hidden';
+  lockBodyScroll();
 }
 
 function _lbRender() {
@@ -10306,7 +11762,7 @@ function lightboxNav(dir) {
 
 function closeLightbox() {
   document.getElementById('cpsLightbox').classList.remove('open');
-  document.body.style.overflow = '';
+  unlockBodyScroll();
 }
 
 function rcCardZoomClick(iconEl, idx) {
@@ -10351,7 +11807,7 @@ let _lbTouchStartY = 0;
 function closeServiceModal() {
   const m = document.getElementById('serviceModal');
   if (m) m.classList.remove('open');
-  document.body.style.overflow = '';
+  unlockBodyScroll();
 }
 
 function openCpsModalFromCard(el) {
@@ -10388,7 +11844,7 @@ function openCpsModal(title, icon, body, btnLabel, btnLinkType, btnLinkUrl, btnA
     cta.style.display = (btnLinkType === 'none' && !btnLabel) ? 'none' : '';
   }
   document.getElementById('serviceModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  lockBodyScroll();
 }
 
 function handleModalCta() {
@@ -10439,24 +11895,28 @@ document.addEventListener('DOMContentLoaded', () => {
   _run(loadFonts,         'loadFonts');
   _run(buildHeader,       'buildHeader');
   _run(buildNav,          'buildNav');
+  _run(syncHeaderHeightVar, 'syncHeaderHeightVar');
+  window.addEventListener('resize', syncHeaderHeightVar, { passive: true });
+  // Re-measure once web fonts actually finish loading/swapping in — the
+  // measurement above runs against the fallback font, and a wider/narrower
+  // custom font can shift the nav pill from one row to two (or back) after
+  // the fact, which nothing else would catch.
+  try {
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => _run(syncHeaderHeightVar, 'syncHeaderHeightVar (fonts.ready)'));
+    }
+  } catch(e) {}
   try { document.title = CFG.pageTitles.home || CFG.firmName; } catch(e) {}
   _run(buildPageHeaders,  'buildPageHeaders');
   _run(buildHero,         'buildHero');
   _run(initHeroSearch,    'initHeroSearch');
 
-  // Start header fully transparent — scroll handler fades it in on home page
-  // (unless headerAlwaysSolid is enabled, in which case it starts solid)
+  // Header 'solid' state kept for parity (tagline opacity hook only);
+  // .nav-pill's own CSS supplies the always-on glass background now.
   try {
     const header = document.getElementById('site-header');
     if (CFG.headerAlwaysSolid === true) {
-      const _chr = getComputedStyle(document.documentElement).getPropertyValue('--chrome').trim() || '#060f1d';
-      const _rgb = _chr.replace('#','').match(/.{2}/g).map(h=>parseInt(h,16)).join(',');
-      header.style.background = `rgba(${_rgb}, 0.97)`;
-      header.style.backdropFilter = 'blur(12px)';
       header.classList.add('solid');
-    } else {
-      header.style.background = 'rgba(9, 20, 38, 0)';
-      header.style.backdropFilter = '';
     }
   } catch(e) {}
 
@@ -10470,6 +11930,8 @@ document.addEventListener('DOMContentLoaded', () => {
   _run(initReveal,           'initReveal');
   _run(initProcessObserver,  'initProcessObserver');
   _run(initImageGridReveal,  'initImageGridReveal');
+  _run(initImageGridFillStack, 'initImageGridFillStack');
+  _run(initBentoReveal,      'initBentoReveal');
   _run(initAuth,             'initAuth');
 
   // Restore carousels + stat animations on bfcache back-navigation
