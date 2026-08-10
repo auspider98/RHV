@@ -123,10 +123,6 @@
   --aura-glass-light: rgba(255,253,249,0.95);
   --aura-glass-alt:   rgba(249,246,240,0.95);
   --aura-glass-dark:  rgba(15,35,64,0.42);
-  /* Inherit-mode shade offsets: lighter glass when the inherited bg is
-     dark, darker glass when it's light — layered over the base tint. */
-  --aura-inherit-lighten: linear-gradient(0deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05));
-  --aura-inherit-darken:  linear-gradient(0deg, rgba(0,0,0,0.10), rgba(0,0,0,0.10));
   /* Subtle top-sheen gradient inside every glass card */
   --aura-card-sheen: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0) 55%);
   /* Slide-down nav shade background */
@@ -144,18 +140,10 @@
   --aura-section-gap: 8px;
 }
 
-/* AURA: page background is the admin "chrome" color with a slight vertical
-   gradient (a touch lighter at the top, settling into pure chrome). Kept as
-   a live color-mix() of --chrome so admin color edits flow through with no
-   extra JS. Fixed attachment so the gradient doesn't visibly slide under
-   the translucent cards while scrolling. */
+/* AURA: page background is the admin "chrome" color, flat/solid (no
+   gradient) — live var so admin color edits flow through directly. */
 .site-bg {
-  background:
-    linear-gradient(180deg,
-      color-mix(in srgb, var(--chrome) 88%, white 12%) 0%,
-      color-mix(in srgb, var(--chrome) 96%, white 4%) 38%,
-      var(--chrome) 72%) fixed,
-    var(--chrome);
+  background: var(--chrome);
   min-height: 100vh;
 }
 /* AURA: near-full-bleed shell — cards run edge to edge minus a small inset
@@ -1259,6 +1247,22 @@ img { display: block; max-width: 100%; }
   transition: border-color 0.2s, background 0.2s;
 }
 .btn-outline:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); }
+/* Default white styling above assumes a dark background — correct for the
+   hero (always dark) but this class is also used as the CTA banner's
+   secondary button, which can sit on a light/alt section. Flip to dark ink
+   + dark-tinted glass there, same convention as .btn-outline-dark's own
+   light/dark split. */
+.cps-section-light .btn-outline,
+.cps-section-alt .btn-outline {
+  background: rgba(var(--navy-rgb),0.06);
+  color: var(--navy);
+  border-color: rgba(var(--navy-rgb),0.35);
+}
+.cps-section-light .btn-outline:hover,
+.cps-section-alt .btn-outline:hover {
+  border-color: rgba(var(--navy-rgb),0.6);
+  background: rgba(var(--navy-rgb),0.1);
+}
 
 /* Any button inside a flattened section becomes a pill automatically —
    part of the flat-design language (Tier/Flip/CTA/etc. all rely on this
@@ -1791,6 +1795,8 @@ h2.section-title {
   grid-template-columns: 1fr 1fr;
   gap: 0;
   border: 1px solid #e8e3d8;
+  border-radius: var(--radius-card);
+  overflow: hidden;
 }
 .cps-fc-grid[data-cols="1"] { grid-template-columns: 1fr; }
 .cps-fc-grid[data-cols="2"] { grid-template-columns: repeat(2, 1fr); }
@@ -2156,14 +2162,21 @@ h2.section-title {
   flex-direction: column;
   gap: 0;
 }
-/* No global ::before line — each step has its own fading segment */
+/* AURA: each step is now its own rounded card (was a divider-only row) —
+   background/radius/gap added; the old border-bottom divider is gone since
+   the card boundary itself now separates steps. Frosted-glass overlay tint
+   (not flat's opaque --color-card-* tokens) to match the rest of aura's
+   card language; light/alt-mode override below flips it to a dark-on-light
+   tint the same way the hover states already did. */
 .process-step {
   display: flex; gap: 40px;
   padding: 28px 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-card);
+  background: rgba(255,255,255,0.05);
+  margin-bottom: var(--aura-section-gap);
   position: relative;
 }
-.process-step:last-child { border-bottom: none; padding-bottom: 0; }
+.process-step:last-child { margin-bottom: 0; }
 .step-num-wrap {
   flex-shrink: 0;
   width: 56px; height: 56px;
@@ -2245,7 +2258,7 @@ h2.section-title {
 
 /* Process steps light/alt section theming */
 .cps-section-light .process-step,
-.cps-section-alt .process-step { border-bottom-color: rgba(0,0,0,0.06); }
+.cps-section-alt .process-step { background: rgba(0,0,0,0.035); }
 .cps-section-light .step-num-wrap,
 .cps-section-alt .step-num-wrap { background: var(--warm-white); border-color: rgba(var(--gold-rgb),0.45); }
 .cps-section-alt .step-num-wrap { background: var(--cream); }
@@ -2258,9 +2271,11 @@ h2.section-title {
 .cps-section-light .process-step.step-active .step-desc,
 .cps-section-alt .process-step.step-active .step-desc { color: var(--text-body); }
 
-/* Process step hover — additive, matches this component's dark-default convention */
+/* Process step hover — a stronger version of the card's own resting tint
+   (the card now has a background at rest, so hover is additive on top of
+   that rather than the only source of background it used to be). */
 .process-step { transition: background 0.25s; }
-.process-step:hover { background: rgba(255,255,255,0.05); }
+.process-step:hover { background: rgba(255,255,255,0.09); }
 .cps-section-light .process-step:hover,
 .cps-section-alt .process-step:hover { background: rgba(var(--navy-rgb),0.06); }
 
@@ -2975,7 +2990,7 @@ footer {
 /* Carded mode: each stat is its own card, like a Services card */
 .cps-stats-bar--carded .stats-inner { gap: var(--space-6); }
 .cps-stats-bar--carded .stat-cell {
-  border-radius: var(--radius-item);
+  border-radius: var(--radius-card);
   box-shadow: var(--shadow-card-soft);
   transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -2999,6 +3014,8 @@ footer {
   grid-template-columns: repeat(2, 1fr);
   gap: 0;
   border: 1px solid currentColor;
+  border-radius: var(--radius-card);
+  overflow: hidden;
 }
 .cps-bullet-item {
   display: flex;
@@ -3091,7 +3108,7 @@ footer {
 .cps-doc-category {
   margin-bottom: 32px;
   border: 1px solid currentColor;
-  border-radius: 2px;
+  border-radius: var(--radius-card);
   overflow: hidden;
 }
 .cps-doc-category-title {
@@ -3166,9 +3183,12 @@ footer {
   display: flex;
   gap: 32px;
   padding: 12px 16px 40px 16px;
+  border-radius: var(--radius-card);
+  background: rgba(255,255,255,0.05);
+  margin-bottom: var(--aura-section-gap);
   position: relative;
 }
-.cps-timeline-item:last-child { padding-bottom: 0; }
+.cps-timeline-item:last-child { padding-bottom: 12px; margin-bottom: 0; }
 .cps-timeline-left {
   display: flex;
   flex-direction: column;
@@ -3242,6 +3262,8 @@ footer {
 }
 
 /* Timeline dark/alt section theming */
+.cps-section-light .cps-timeline-item,
+.cps-section-alt .cps-timeline-item { background: rgba(0,0,0,0.035); }
 .cps-section-dark .cps-timeline-dot { background: rgba(255,255,255,0.08); border-color: rgba(var(--gold-rgb),0.5); color: var(--gold); }
 .cps-section-dark .cps-timeline-body h4 { color: #fff; }
 .cps-section-dark .cps-timeline-body p,
@@ -3260,7 +3282,7 @@ footer {
   border-collapse: collapse;
   font-size: 14px;
 }
-.cps-fee-wrap { overflow-x: auto; }
+.cps-fee-wrap { overflow-x: auto; overflow-y: hidden; border-radius: var(--radius-card); }
 .cps-fee-table thead tr {
   background: var(--navy);
   color: var(--gold);
@@ -3293,7 +3315,7 @@ footer {
 .cps-fee-note { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
 
 /* Table section */
-.cps-tbl-wrap { overflow-x: auto; }
+.cps-tbl-wrap { overflow-x: auto; overflow-y: hidden; border-radius: var(--radius-card); }
 .cps-tbl {
   width: 100%;
   border-collapse: collapse;
@@ -3337,7 +3359,7 @@ footer {
 
 /* Table section — optional mobile stacked-card layout (opt-in via "Stack as cards on mobile" toggle) */
 @media (max-width: 600px) {
-  .cps-tbl-wrap--stack { overflow-x: visible; }
+  .cps-tbl-wrap--stack { overflow-x: visible; overflow-y: visible; border-radius: 0; }
   .cps-tbl-wrap--stack .cps-tbl thead { display: none; }
   .cps-tbl-wrap--stack .cps-tbl tbody, .cps-tbl-wrap--stack .cps-tbl tr, .cps-tbl-wrap--stack .cps-tbl td { display: block; width: 100%; }
   .cps-tbl-wrap--stack .cps-tbl tr {
@@ -3397,7 +3419,7 @@ footer {
 }
 .cps-rc-card {
   flex-shrink: 0;
-  border-radius: 16px;
+  border-radius: var(--radius-card);
   overflow: hidden;
   margin-right: var(--rc-gap, 16px);
   position: relative;
@@ -3584,7 +3606,7 @@ footer {
 
 /* Mobile card layout — opt-in via "Stack as cards on mobile" toggle (defaults on for backward compatibility) */
 @media (max-width: 600px) {
-  .cps-fee-wrap--stack { overflow-x: visible; }
+  .cps-fee-wrap--stack { overflow-x: visible; overflow-y: visible; border-radius: 0; }
   .cps-fee-wrap--stack .cps-fee-table thead { display: none; }
   .cps-fee-wrap--stack .cps-fee-table tbody, .cps-fee-wrap--stack .cps-fee-table tr, .cps-fee-wrap--stack .cps-fee-table td { display: block; width: 100%; }
   .cps-fee-wrap--stack .cps-fee-table tr {
@@ -3637,10 +3659,20 @@ footer {
   border: 1px solid rgba(var(--gold-rgb),0.4);
   border-left: 3px solid var(--gold);
   background: var(--gold-pale);
-  border-radius: 2px;
+  border-radius: var(--radius-card);
   padding: clamp(24px, 3vw, 36px);
   text-align: center;
+  /* Matches where .cps-block-header/.cps-block-content's own TEXT starts
+     (container width minus their gutter inset on each side) — .cps-
+     jurisdiction is a visibly bordered box, so its border needs to line up
+     with the header's text, not the header's wider invisible outer box.
+     Centering a box that's exactly this width lands in the same place as
+     left-aligning it with the header — no room left to visibly shift. */
+  max-width: calc(var(--container) - (var(--gutter) * 2));
+  margin-left: auto;
+  margin-right: auto;
 }
+.cps-jurisdiction-body { text-align: left; }
 .cps-jurisdiction-icon { font-size: 28px; margin-bottom: 12px; }
 .cps-jurisdiction-title {
   font-family: var(--font-display);
@@ -3875,18 +3907,16 @@ section.cps-img-section { padding-bottom: 8px; }
   margin-left: auto;
   margin-right: auto;
 }
-/* Text Block goes fully flat — content card removed too, so the body copy
-   sits on the page background same as the header. Scoped to cps-text-block
-   only; FAQ/Locations/etc. keep their content card. */
-.cps-text-block.cps-flat-header .cps-block-content {
-  background: transparent;
-  box-shadow: none;
-  padding: 0;
-}
+/* Text Block's content lives on the card the same as every other type now
+   (aura override 2, further down, puts label/heading/content all inside
+   one card) — no special treatment needed here anymore. Flat's original
+   version of this rule zeroed .cps-block-content's padding because flat's
+   text-block body sat transparently on the raw page background; that
+   padding:0 was fighting the shared gutter padding aura applies uniformly
+   to header+content, pushing the body further left than the heading. */
 .cps-text-block.cps-flat-header .cps-block-content .cps-body {
-  color: var(--flat-header-subtitle) !important;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 0;
+  margin-right: 0;
 }
 .cps-text-block.cps-flat-header .cps-block-header .cps-heading {
   margin-bottom: 0;
@@ -4927,7 +4957,7 @@ section.cps-hero-section-wrapper {
 .cps-loc-card {
   background: var(--warm-white);
   border: 1px solid rgba(var(--navy-rgb), 0.1);
-  border-radius: 10px;
+  border-radius: var(--radius-card);
   overflow: hidden;
   box-shadow: 0 2px 12px rgba(var(--navy-rgb), 0.07);
   display: flex;
@@ -5768,21 +5798,26 @@ section.cps-hero-section-wrapper {
   color: var(--aura-body-dark);
 }
 
-/* Inherit mode — same tint family as the section it continues, but shifted
-   one step: lighter frost over a dark inherited bg, darker frost over a
-   light/alt one. Rendered as its own distinct card (the flat theme's
-   seamless-merge treatment is neutralized below). */
+/* Inherit mode — the section renders directly on the page background, not
+   as any shade of glass card. Its box still exists with the same padding
+   the other cards use (see .cps-inherit-bg/.section:has(+ .cps-inherit-bg)
+   below), so the gap to the section above it is preserved — functionally
+   an "invisible card" rather than an actual visible one. 3-class selectors
+   (vs. section 1's 2-class base rules) guarantee this wins regardless of
+   source order, since these sections still carry a cps-section-light/alt/
+   dark class from bgToClass() for JS/back-compat reasons. */
+.section.cps-inherit-bg.cps-section-light,
+.section.cps-inherit-bg.cps-section-alt,
 .section.cps-inherit-bg.cps-section-dark {
-  background: var(--aura-inherit-lighten), var(--aura-card-sheen), var(--aura-glass-dark) !important;
+  background: transparent !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
-.section.cps-inherit-bg.cps-section-light {
-  background: var(--aura-inherit-darken), var(--aura-card-sheen), var(--aura-glass-light) !important;
-}
-.section.cps-inherit-bg.cps-section-alt {
-  background: var(--aura-inherit-darken), var(--aura-card-sheen), var(--aura-glass-alt) !important;
-}
-/* Neutralize flat's seamless-merge of inherit sections (negative margin +
-   squared corners) — aura inherit cards stay visually distinct. */
+/* Preserve normal card spacing/corners around the (now invisible)
+   inherit section, so it still reads as its own beat in the page rhythm
+   — the gap above it doesn't collapse and the section before it doesn't
+   need square corners to "merge" with it (flat's original seamless-merge
+   behavior, neutralized here). */
 .section:has(+ .cps-inherit-bg) {
   margin-bottom: var(--aura-section-gap);
   border-bottom-left-radius: var(--radius-card);
@@ -5829,8 +5864,9 @@ section.cps-hero-section-wrapper {
 .cps-split-blocks.cps-flat-header .cps-block-header .section-label-line { display: block; }
 .cps-split-blocks.cps-flat-header .cps-block-header .section-subtitle { margin-left: 0; margin-right: 0; }
 /* Text Block content lives on the card again (flat had it transparent on
-   the page bg with its own centering) */
-.cps-text-block.cps-flat-header .cps-block-content .cps-body { margin-left: 0; margin-right: 0; }
+   the page bg with its own centering — the centering itself was removed
+   directly at its source rule, above in this file, rather than fought
+   with a same-specificity override here). */
 
 /* Header + content blocks sit inside the card — give them the container
    gutter since the wrapper's horizontal padding is 0 (content like
@@ -5851,6 +5887,26 @@ section.cps-hero-section-wrapper {
    from JS-computed luminance of (tint over chrome), never assumptions
    (lesson #8). Overrides flat's --flat-header-* and the section-dark
    hardcodes; equal-specificity !important rules later in source win. */
+/* Feature-cards badge — flat's original rule (still earlier in this file)
+   colors it for text sitting on the raw page background, since flat's
+   header always sat there. In aura, the header lives on the card itself
+   (see override 2), so this needs the card's own composite ink instead.
+   Extra .cps-section-* class in the chain gives this enough specificity to
+   beat that older 4-class rule regardless of source order. */
+.cps-split-blocks.cps-flat-header.cps-section-light .cps-block-header .cps-fc-badge-num,
+.cps-split-blocks.cps-flat-header.cps-section-alt   .cps-block-header .cps-fc-badge-num {
+  color: var(--navy) !important;
+}
+.cps-split-blocks.cps-flat-header.cps-section-dark  .cps-block-header .cps-fc-badge-num {
+  color: #fff !important;
+}
+.cps-split-blocks.cps-flat-header.cps-section-light .cps-block-header .cps-fc-badge-label,
+.cps-split-blocks.cps-flat-header.cps-section-alt   .cps-block-header .cps-fc-badge-label {
+  color: var(--text-muted) !important;
+}
+.cps-split-blocks.cps-flat-header.cps-section-dark  .cps-block-header .cps-fc-badge-label {
+  color: rgba(255,255,255,0.55) !important;
+}
 .cps-section-light .cps-heading,
 .cps-section-light h2.section-title,
 .cps-section-light h1.page-banner-title,
@@ -5889,6 +5945,24 @@ section.cps-hero-section-wrapper {
 .cps-split-blocks.cps-flat-header.cps-section-dark .cps-block-header .section-subtitle,
 .cps-text-block.cps-flat-header.cps-section-dark .cps-block-content .cps-body {
   color: var(--aura-body-dark) !important;
+}
+/* Inherit-mode text sits directly on the raw page background, not a card
+   composite — switch to the page-bg-computed ink (--flat-header-*, same
+   value used elsewhere for text with no card underneath it). Equal
+   specificity to the rules above (2 or 4 classes matching each), so source
+   order — placed after — is what makes these win. */
+.cps-inherit-bg .cps-heading,
+.cps-inherit-bg h2.section-title,
+.cps-inherit-bg h1.page-banner-title,
+.cps-split-blocks.cps-flat-header.cps-inherit-bg .cps-block-header h1.page-banner-title,
+.cps-split-blocks.cps-flat-header.cps-inherit-bg .cps-block-header h2.section-title {
+  color: var(--flat-header-heading) !important;
+}
+.cps-inherit-bg .cps-body,
+.cps-inherit-bg .section-subtitle,
+.cps-split-blocks.cps-flat-header.cps-inherit-bg .cps-block-header .section-subtitle,
+.cps-text-block.cps-flat-header.cps-inherit-bg .cps-block-content .cps-body {
+  color: var(--flat-header-subtitle) !important;
 }
 
 /* ── 4. BUTTONS: ROUNDED-CORNER RECTANGLES ────────────────────────── */
