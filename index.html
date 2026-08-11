@@ -1410,7 +1410,13 @@ img { display: block; max-width: 100%; }
 .about-team-section {
   background: transparent;
   box-shadow: none;
-  padding: 0;
+  /* Was padding:0 (shorthand), which — due to source order — also canceled
+     .section-after-banner's own padding-top above, leaving zero padding on
+     every side and no breathing room around .about-member (the section
+     itself stays invisible; this is purely spacing). Top matches the
+     after-banner convention; bottom matches a normal section's own
+     vertical padding (half of --section-pad). */
+  padding: clamp(32px, 4vw, 48px) 0 calc(var(--section-pad) / 2);
   margin-bottom: var(--space-8) !important;
 }
 #about-members {
@@ -4019,6 +4025,27 @@ section.cps-img-section { padding-bottom: 8px; }
 .cps-rt-body a  { color: var(--gold); text-decoration: underline; }
 .cps-rt-body.on-dark a { color: var(--gold-light); }
 .cps-rt-body.on-dark h1, .cps-rt-body.on-dark h2 { color: #fff !important; }
+/* Inherit mode — no card underneath, text sits directly on the page
+   background, so ink comes from the same dynamically-computed vars used
+   elsewhere for that scenario (--flat-header-*, recomputed in applyColors()
+   from the admin's actual chrome color) rather than a fixed light/dark
+   assumption. Mirrors on-dark's aggressive per-tag !important list since
+   rich-text content is often wrapped in inline color-carrying tags. */
+.cps-rt-body.on-inherit { color: var(--flat-header-subtitle) !important; }
+.cps-rt-body.on-inherit span,
+.cps-rt-body.on-inherit p,
+.cps-rt-body.on-inherit li,
+.cps-rt-body.on-inherit div,
+.cps-rt-body.on-inherit font,
+.cps-rt-body.on-inherit ol,
+.cps-rt-body.on-inherit ul,
+.cps-rt-body.on-inherit b,
+.cps-rt-body.on-inherit i,
+.cps-rt-body.on-inherit u,
+.cps-rt-body.on-inherit strong,
+.cps-rt-body.on-inherit em { color: var(--flat-header-subtitle) !important; }
+.cps-rt-body.on-inherit a { color: var(--gold); }
+.cps-rt-body.on-inherit h1, .cps-rt-body.on-inherit h2 { color: var(--flat-header-heading) !important; }
 /* Float image */
 .cps-rt-img-left  { float: left;  margin: 0 clamp(28px, 4vw, 60px) 20px 0; }
 .cps-rt-img-right { float: right; margin: 0 0 20px clamp(28px, 4vw, 60px); }
@@ -5797,6 +5824,13 @@ section.cps-hero-section-wrapper {
   background: var(--aura-card-sheen), var(--aura-glass-dark) !important;
   color: var(--aura-body-dark);
 }
+/* Thin cyclic outline — dark mode only, borrowing light mode's solid color
+   at reduced opacity for a subtle rim rather than a hard line. Only
+   top-level section cards, never the nested item-cards inside them.
+   Beats the base rule's border:none!important above via higher (2-class)
+   specificity (which only matches the bare 1-class .section part of that
+   rule for a dark-mode section). */
+.section.cps-section-dark { border: 1px solid color-mix(in srgb, var(--warm-white) 15%, transparent) !important; }
 
 /* Inherit mode — the section renders directly on the page background, not
    as any shade of glass card. Its box still exists with the same padding
@@ -5812,6 +5846,7 @@ section.cps-hero-section-wrapper {
   background: transparent !important;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
+  border: none !important;
 }
 /* Preserve normal card spacing/corners around the (now invisible)
    inherit section, so it still reads as its own beat in the page rhythm
@@ -10874,7 +10909,16 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
       wrapper.classList.add('cps-rt-block');
       if (isInheritBg) wrapper.classList.add('cps-rt-inherit');
 
-      const rtIsDark = isDark;
+      /* Inherit mode renders with no card at all (transparent, sits
+         directly on the page background) — isDark here reflects the mode
+         of the section it's INHERITING FROM, not what it's actually
+         sitting on, so the old on-dark/default toggle picked the wrong ink
+         whenever the page background's actual light/dark didn't match the
+         inherited section. on-inherit uses the same dynamically-computed
+         page-bg ink (--flat-header-*) used elsewhere for this exact
+         scenario, so it auto-adjusts correctly regardless of the admin's
+         chrome color. */
+      const rtClass = isInheritBg ? 'on-inherit' : (isDark ? 'on-dark' : '');
       const rtHtml = sec.richContent || '';
       const imgPath = sec.imagePath || '';
       const imgPos  = sec.imagePos  || 'none';
@@ -10895,7 +10939,7 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
       wrapper.innerHTML = `<div class="container">
         <div class="cps-rt-wrap${rtFull ? ' cps-rt-full' : ''} cps-rt-clearfix reveal">
           ${imgHtml}
-          <div class="cps-rt-body${rtIsDark ? ' on-dark' : ''}">${rtHtml}</div>
+          <div class="cps-rt-body${rtClass ? ' ' + rtClass : ''}">${rtHtml}</div>
         </div>
       </div>`;
       break;
