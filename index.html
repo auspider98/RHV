@@ -5914,6 +5914,25 @@ section.cps-hero-section-wrapper {
   padding-right: var(--gutter);
 }
 .cps-split-blocks .cps-block-header { margin-bottom: var(--space-6); }
+/* Rotating-cards: .cps-rc-outer is a direct sibling of .cps-block-header,
+   not nested inside .cps-block-content, so it never inherited the gutter
+   inset above — it ran flush to the section's own edge. Can't constrain
+   .cps-rc-outer directly (tried both padding and max-width): the
+   carousel's own JS measures outer.offsetWidth via a retry loop that
+   fires as soon as offsetWidth is merely nonzero, and any calc()/clamp()
+   dependency on the measured element itself risks that retry catching a
+   transient pre-layout value and caching a wrong card width permanently.
+   Instead .cps-rc-outer sits inside a new .cps-rc-gutter wrapper that
+   carries the inset — .cps-rc-outer itself is completely unconstrained
+   and simply fills its (now narrower) parent, so offsetWidth behaves
+   exactly as it always did pre-aura, just measuring a smaller number. */
+.cps-split-blocks .cps-rc-gutter {
+  max-width: var(--container);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
 
 /* ── 3. PER-MODE INK (computed in applyColors) ────────────────────── */
 /* Text sits on the glass composite, not on an opaque card — colors come
@@ -8021,7 +8040,24 @@ function showPage(name, anchor) {
       el.classList.remove('visible', 'cps-flip-pulse', 'flipped');
     });
   }
-  setTimeout(() => { initReveal(); initProcessObserver(); }, 100);
+  setTimeout(() => {
+    initReveal();
+    initProcessObserver();
+    // Carousels (rotating-cards) on this page may have been initialized
+    // while this page was still display:none — at that moment their
+    // container reports offsetWidth:0 (an ancestor being display:none
+    // zeroes it regardless of the element's own CSS), so their sizing
+    // math used that zero instead of anything real. Call each one's
+    // exposed _rcResize() directly now that this page is actually visible
+    // and has a real width to measure — more reliable than a global
+    // 'resize' dispatch, which only reaches carousels that already have a
+    // listener registered by this exact moment.
+    if (activePage) {
+      activePage.querySelectorAll('.cps-rc-outer').forEach(el => {
+        if (typeof el._rcResize === 'function') el._rcResize();
+      });
+    }
+  }, 100);
 }
 
 // Back / forward button support
@@ -10503,13 +10539,15 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
           + (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '')
           + (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '')
         + '</div>'
-        + '<div class="cps-rc-outer" data-zoom-items="' + zoomItemsJson + '" style="--rc-gap:' + gap + 'px;--rc-peek:' + peek + 'px;">'
-          + arrowsHtml
-          + '<div class="cps-rc-track-wrap" id="' + rcId + '-wrap">'
-            + '<div class="cps-rc-track" id="' + rcId + '-track">' + trackInner + '</div>'
+        + '<div class="cps-rc-gutter">'
+          + '<div class="cps-rc-outer" data-zoom-items="' + zoomItemsJson + '" style="--rc-gap:' + gap + 'px;--rc-peek:' + peek + 'px;">'
+            + arrowsHtml
+            + '<div class="cps-rc-track-wrap" id="' + rcId + '-wrap">'
+              + '<div class="cps-rc-track" id="' + rcId + '-track">' + trackInner + '</div>'
+            + '</div>'
           + '</div>'
-        + '</div>'
-        + dotsHtml;
+          + dotsHtml
+        + '</div>';
 
       // Init carousel — retry until the outer element has a real width
       function _rcInit() {
@@ -10557,7 +10595,17 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
 
         function getOffset(idx) {
           const cw = getCardW();
-          return isMulti ? (idx + cloneCount) * (cw + gap) : idx * (cw + gap);
+          // Must skip past exactly as many rendered cards as getCardW()
+          // assumed when sizing them (getEffectiveVisible()), not the
+          // static admin visibleCards setting — those two only happen to
+          // match at wide desktop widths. At intermediate widths (the
+          // 580-900px band where getEffectiveVisible() shrinks the count
+          // but cloneCount didn't), the mismatch made this overshoot the
+          // real cards entirely, landing in empty clone-track space with
+          // nothing visible. Capped at cloneCount since that's the actual
+          // number of clone elements physically present in the DOM.
+          const skip = Math.min(getEffectiveVisible(), cloneCount);
+          return isMulti ? (idx + skip) * (cw + gap) : idx * (cw + gap);
         }
 
         function goTo(idx, animate) {
@@ -10685,18 +10733,44 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
         setCardSizes();
         goTo(0, false);
         startAuto();
-        window.addEventListener('resize', () => { setCardSizes(); goTo(current, false); });
-      }
-      // Retry loop — keeps trying until outer has a real width
-      function _rcTry() {
-        const o = wrapper.querySelector('.cps-rc-outer');
-        if (o && o.offsetWidth > 0) {
-          _rcInit();
-        } else {
-          requestAnimationFrame(_rcTry);
+        const _rcResize = () => { setCardSizes(); goTo(current, false); };
+        window.addEventListener('resize', _rcResize);
+        // Exposed directly on the element so showPage() can call this on
+        // navigation without depending on a dispatched 'resize' event
+        // having a listener already registered (see _rcStart below — this
+        // used to wait for window 'load', which runs well after showPage()
+        // for the initial page has already finished, so a resize dispatch
+        // from there had nothing to catch it).
+        outer._rcResize = _rcResize;
+        // Ongoing safety net — catches any further width drift after init
+        // (late image decode, web font swap, etc.) that the window resize
+        // listener above wouldn't catch on its own since nothing resized.
+        if (typeof ResizeObserver !== 'undefined') {
+          let _rcObsLastW = outer.offsetWidth;
+          const _rcObs = new ResizeObserver(() => {
+            if (outer.offsetWidth === _rcObsLastW || outer.offsetWidth === 0) return;
+            _rcObsLastW = outer.offsetWidth;
+            setCardSizes();
+            goTo(current, false);
+          });
+          _rcObs.observe(outer);
         }
       }
-      requestAnimationFrame(_rcTry);
+      // .cps-rc-outer exists as a DOM node at this point (set via
+      // wrapper.innerHTML above), but `wrapper` itself is NOT YET attached
+      // to the document — renderCustomSection() returns it and the caller
+      // appends it afterward. offsetWidth is always 0 for a detached node
+      // regardless of any CSS, so calling _rcInit() synchronously right
+      // here would measure nothing meaningful for every carousel, not just
+      // ones on a hidden page. Defer by one frame — by the time any rAF
+      // callback runs, the full page-build loop (which appends everything
+      // synchronously) and the initial showPage() call have both already
+      // completed, so this also naturally gets a correct first measurement
+      // for whichever page is actually visible on load. For pages not yet
+      // visible, this first call may still measure 0, which is fine —
+      // outer._rcResize (set up above) is what showPage() calls directly
+      // once that page actually becomes visible.
+      requestAnimationFrame(_rcInit);
       break;
     }
 
