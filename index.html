@@ -1431,7 +1431,6 @@ img { display: block; max-width: 100%; }
   box-shadow: var(--shadow-card);
   padding: clamp(24px, 4vw, 36px);
 }
-#contact.section-after-banner { padding-top: 8px; }
 .section-alt { background: var(--color-card-alt); }
 .section-dark { background: var(--color-card-dark); }
 
@@ -2586,13 +2585,11 @@ h2.section-title {
 /* =============================================
    CONTACT
    ============================================= */
-#contact { background: var(--navy); }
 #contact .section-title { color: #fff; }
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1.3fr;
   gap: 80px;
-  margin-top: 56px;
   align-items: start;
 }
 .contact-info { color: rgba(255,255,255,0.7); }
@@ -2650,7 +2647,7 @@ h2.section-title {
 .contact-form {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 4px;
+  border-radius: var(--radius-card);
   padding: clamp(28px, 4vw, 44px);
 }
 .contact-form h3 {
@@ -2682,7 +2679,7 @@ h2.section-title {
   width: 100%;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 4px;
+  border-radius: var(--aura-btn-radius);
   padding: 12px 16px;
   color: #fff;
   font-family: var(--font-body);
@@ -5830,7 +5827,8 @@ section.cps-hero-section-wrapper {
    Beats the base rule's border:none!important above via higher (2-class)
    specificity (which only matches the bare 1-class .section part of that
    rule for a dark-mode section). */
-.section.cps-section-dark { border: 1px solid color-mix(in srgb, var(--warm-white) 15%, transparent) !important; }
+.section.cps-section-dark,
+.section.section-dark { border: 1px solid color-mix(in srgb, var(--warm-white) 15%, transparent) !important; }
 
 /* Inherit mode — the section renders directly on the page background, not
    as any shade of glass card. Its box still exists with the same padding
@@ -6004,6 +6002,7 @@ section.cps-hero-section-wrapper {
 .btn-primary,
 .btn-outline,
 .btn-outline-dark,
+.btn-submit,
 #hero .btn-outline,
 .about-member-btn .btn-primary,
 .cps-button-actions .btn-outline-dark,
@@ -6229,15 +6228,16 @@ section.cps-hero-section-wrapper {
      SERVICES PAGE
      ============================================================ -->
 <div id="page-contact" style="display:none;">
-  <div class="page-banner page-banner-dark">
-    <div class="container">
-      <div class="section-label" style="margin-bottom:12px;"><div class="section-label-line"></div><span class="section-label-text" id="contact-label">Get in Touch</span></div>
-      <h1 class="page-banner-title page-banner-title-light" id="contact-headline">Schedule Your Free Consultation</h1>
+  <section id="contact" class="section section-dark cps-section-dark cps-split-blocks cps-flat-header cps-first-section">
+    <div class="cps-block-header">
+      <div class="section-label reveal" style="margin-bottom:16px;">
+        <div class="section-label-line"></div>
+        <span class="section-label-text" id="contact-label">Get in Touch</span>
+      </div>
+      <h1 class="page-banner-title page-banner-title-light cps-heading reveal" id="contact-headline">Schedule Your Free Consultation</h1>
+      <p class="section-subtitle reveal" id="contact-subline"></p>
     </div>
-  </div>
-  <section id="contact" class="section section-dark section-after-banner">
-    <div class="container">
-      <p class="section-subtitle reveal" style="color:rgba(255,255,255,0.6);margin-bottom:48px;" id="contact-subline"></p>
+    <div class="cps-block-content">
       <div class="contact-grid reveal reveal-delay-1">
         <div id="contact-locations-wrap"></div>
         <div class="contact-form" id="contact-form-wrap"></div>
