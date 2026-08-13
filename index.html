@@ -3408,6 +3408,19 @@ footer {
 .cps-rc-outer {
   position: relative;
   margin-top: 40px;
+  /* Inset from the section's own edge, same amount as every other content
+     type's gutter. Pure CSS on the exact element the carousel's own JS
+     already measures (outer.offsetWidth) — no wrapper div, no extra JS
+     math. offsetWidth naturally reflects this narrower rendered width on
+     its own, so the carousel's sizing logic needs zero changes to respect
+     it. (Earlier attempts used a wrapper div + JS-side width/ceiling
+     calculations instead, which introduced several new regressions —
+     mobile-landscape breakage, whole-page horizontal scroll, wrong
+     card-width measurements — without ever fully fixing the original
+     ask. This is the direct, minimal fix.) */
+  max-width: calc(100% - (var(--gutter) * 2));
+  margin-left: auto;
+  margin-right: auto;
 }
 .cps-rc-track-wrap {
   overflow: hidden;
@@ -5914,25 +5927,12 @@ section.cps-hero-section-wrapper {
   padding-right: var(--gutter);
 }
 .cps-split-blocks .cps-block-header { margin-bottom: var(--space-6); }
-/* Rotating-cards: .cps-rc-outer is a direct sibling of .cps-block-header,
-   not nested inside .cps-block-content, so it never inherited the gutter
-   inset above — it ran flush to the section's own edge. Can't constrain
-   .cps-rc-outer directly (tried both padding and max-width): the
-   carousel's own JS measures outer.offsetWidth via a retry loop that
-   fires as soon as offsetWidth is merely nonzero, and any calc()/clamp()
-   dependency on the measured element itself risks that retry catching a
-   transient pre-layout value and caching a wrong card width permanently.
-   Instead .cps-rc-outer sits inside a new .cps-rc-gutter wrapper that
-   carries the inset — .cps-rc-outer itself is completely unconstrained
-   and simply fills its (now narrower) parent, so offsetWidth behaves
-   exactly as it always did pre-aura, just measuring a smaller number. */
-.cps-split-blocks .cps-rc-gutter {
-  max-width: var(--container);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--gutter);
-  padding-right: var(--gutter);
-}
+/* Rotating-cards gap is now applied directly on .cps-rc-outer's own base
+   CSS rule (see that rule for the full explanation) rather than via a
+   wrapper div here — simpler, and avoids the several regressions the
+   wrapper approach introduced (mobile-landscape breakage, page-level
+   horizontal scroll, wrong measurements from an extra JS-side ceiling
+   calculation). */
 
 /* ── 3. PER-MODE INK (computed in applyColors) ────────────────────── */
 /* Text sits on the glass composite, not on an opaque card — colors come
@@ -10539,15 +10539,13 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
           + (sec.heading  ? '<' + headTag + ' class="' + headClass + ' cps-heading reveal">' + sec.heading + '</' + headTag + '>' : '')
           + (sec.subtitle ? '<div class="section-subtitle reveal reveal-delay-1" style="' + subtitleStyle + '">' + formatBody(sec.subtitle) + '</div>' : '')
         + '</div>'
-        + '<div class="cps-rc-gutter">'
-          + '<div class="cps-rc-outer" data-zoom-items="' + zoomItemsJson + '" style="--rc-gap:' + gap + 'px;--rc-peek:' + peek + 'px;">'
-            + arrowsHtml
-            + '<div class="cps-rc-track-wrap" id="' + rcId + '-wrap">'
-              + '<div class="cps-rc-track" id="' + rcId + '-track">' + trackInner + '</div>'
-            + '</div>'
+        + '<div class="cps-rc-outer" data-zoom-items="' + zoomItemsJson + '" style="--rc-gap:' + gap + 'px;--rc-peek:' + peek + 'px;">'
+          + arrowsHtml
+          + '<div class="cps-rc-track-wrap" id="' + rcId + '-wrap">'
+            + '<div class="cps-rc-track" id="' + rcId + '-track">' + trackInner + '</div>'
           + '</div>'
-          + dotsHtml
-        + '</div>';
+        + '</div>'
+        + dotsHtml;
 
       // Init carousel — retry until the outer element has a real width
       function _rcInit() {
@@ -10734,7 +10732,23 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
         goTo(0, false);
         startAuto();
         const _rcResize = () => { setCardSizes(); goTo(current, false); };
-        window.addEventListener('resize', _rcResize);
+        // Debounced wrapper for the window resize listener specifically —
+        // mobile browsers fire many rapid, often transient resize events
+        // (the address bar collapsing/expanding during scroll being the
+        // classic case) rather than one settled event. Recalculating on
+        // every single one risked reading a momentarily-wrong width
+        // mid-transition and baking it in as an explicit pixel size —
+        // which then looked like the card's image had "zoomed in", since
+        // object-fit:cover on an oversized card box only shows a cropped
+        // fraction of it. Wait for resize events to actually stop before
+        // recalculating. outer._rcResize itself stays undebounced — it's
+        // called directly and deliberately by showPage() once per
+        // navigation, not a rapid-fire event needing debouncing.
+        let _rcResizeTimer = null;
+        window.addEventListener('resize', () => {
+          clearTimeout(_rcResizeTimer);
+          _rcResizeTimer = setTimeout(_rcResize, 200);
+        });
         // Exposed directly on the element so showPage() can call this on
         // navigation without depending on a dispatched 'resize' event
         // having a listener already registered (see _rcStart below — this
@@ -10745,13 +10759,18 @@ function renderCustomSection(sec, idx, isFirst, allSections, pageSlug) {
         // Ongoing safety net — catches any further width drift after init
         // (late image decode, web font swap, etc.) that the window resize
         // listener above wouldn't catch on its own since nothing resized.
+        // Debounced for the same reason as the resize listener above.
         if (typeof ResizeObserver !== 'undefined') {
           let _rcObsLastW = outer.offsetWidth;
+          let _rcObsTimer = null;
           const _rcObs = new ResizeObserver(() => {
-            if (outer.offsetWidth === _rcObsLastW || outer.offsetWidth === 0) return;
-            _rcObsLastW = outer.offsetWidth;
-            setCardSizes();
-            goTo(current, false);
+            clearTimeout(_rcObsTimer);
+            _rcObsTimer = setTimeout(() => {
+              if (outer.offsetWidth === _rcObsLastW || outer.offsetWidth === 0) return;
+              _rcObsLastW = outer.offsetWidth;
+              setCardSizes();
+              goTo(current, false);
+            }, 200);
           });
           _rcObs.observe(outer);
         }
